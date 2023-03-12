@@ -6,9 +6,8 @@ type Props = {}
 
 function Navbar({}: Props) {
 	const { data: session, status } = useSession()
-	console.log(status)
 	return (
-		<div className="fixed w-20 h-full bg-black">
+		<div className="fixed w-40 h-full bg-primary-900 border-secondary-400 border-r-2 flex flex-col items-center">
 			{status === "authenticated" ? (
 				<div className="flex flex-col w-full justify-center items-center py-2">
 					<Image
@@ -28,6 +27,14 @@ function Navbar({}: Props) {
 					</button>
 				)
 			)}
+			<div className="flex flex-col gap-2">
+				<button className="bg-primary text-white  p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary">
+					button
+				</button>
+				<button className="text-primary-500 p-1 uppercase hover:bg-secondary-100/20 font-medium rounded-lg duration-200">
+					link
+				</button>
+			</div>
 		</div>
 	)
 }
