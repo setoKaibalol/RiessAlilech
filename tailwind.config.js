@@ -10,8 +10,11 @@ module.exports = {
 	],
 	theme: {
 		extend: {
+			backgroundImage: {
+				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+			},
 			colors: {
-				primary: "#0070f3",
+				primary: "#eed6c2",
 				"primary-50": "#ACD2FF",
 				"primary-100": "#97C7FF",
 				"primary-200": "#6EB1FF",
@@ -23,7 +26,7 @@ module.exports = {
 				"primary-800": "#00224B",
 				"primary-900": "#000913",
 
-				secondary: "#ff6600",
+				secondary: "#e39a9c",
 				"secondary-50": "#FFD4B8",
 				"secondary-100": "#FFC8A3",
 				"secondary-200": "#FFAF7A",
