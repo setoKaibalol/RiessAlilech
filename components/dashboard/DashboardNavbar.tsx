@@ -15,7 +15,7 @@ function DashboardNavbar({}: Props) {
 	const { active, setActive } = useUserContext()
 
 	return (
-		<div className="w-full h-20 bg-secondary border-b-2 border-primary flex flex-row justify-between px-4">
+		<div className="w-full h-20 shrink-0 bg-secondary border-b-2 border-primary flex flex-row justify-between px-4">
 			<AiOutlineRollback
 				className="h-full p-3 w-14 cursor-pointer"
 				onClick={() => router.back()}></AiOutlineRollback>
@@ -37,11 +37,6 @@ function DashboardNavbar({}: Props) {
 						<p className="font-medium hidden sm:flex text-2xl">Auctions</p>
 					)}
 				</button>
-				{active === 1 && (
-					<div className="absolute border-x-2 from-primary-100 to-white bg-gradient-to-b sm:hidden w-full h-20 flex justify-center items-center">
-						<h2 className="text-center font-medium text-xl ">Auctions</h2>
-					</div>
-				)}
 			</div>
 			<div className="w-1/4 h-full pt-4 translate-y-[2px]">
 				<button
@@ -59,11 +54,6 @@ function DashboardNavbar({}: Props) {
 						<p className="font-medium hidden sm:flex text-2xl">Items</p>
 					)}
 				</button>
-				{active === 2 && (
-					<div className="absolute border-x-2 from-secondary-200 to-white bg-gradient-to-b sm:hidden w-full h-20 flex justify-center items-center">
-						<h2 className="text-center font-medium text-xl ">Items</h2>
-					</div>
-				)}
 			</div>
 			<div className="w-1/4 h-full pt-4 translate-y-[2px]">
 				<button
@@ -81,11 +71,6 @@ function DashboardNavbar({}: Props) {
 						<p className="font-medium hidden sm:flex text-2xl">Konto</p>
 					)}
 				</button>
-				{active === 3 && (
-					<div className="absolute border-x-2 from-purple-200 to-white bg-gradient-to-b sm:hidden w-full h-20 flex justify-center items-center">
-						<h2 className="text-center font-medium text-xl ">Konto</h2>
-					</div>
-				)}
 			</div>
 		</div>
 	)

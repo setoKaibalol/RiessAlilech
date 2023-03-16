@@ -11,14 +11,14 @@ function Dashboard({}: Props) {
 	const { active, setActive } = useUserContext()
 
 	return (
-		<div className="h-screen flex flex-col">
+		<div className="max-h-screen h-screen flex flex-col">
 			<DashboardNavbar />
 			{active === 1 ? (
 				<DashboardAuctions />
 			) : active === 2 ? (
 				<DashboardItems />
 			) : (
-				<DashboardKonto />
+				active === 3 && <DashboardKonto />
 			)}
 		</div>
 	)

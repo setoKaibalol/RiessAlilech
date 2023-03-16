@@ -29,11 +29,11 @@ function CreateAuctionComponent({}: Props) {
 	}
 
 	return (
-		<div className="w-full h-full flex justify-center">
+		<div className="w-full h-full flex justify-center p-2">
 			<form
-				className="w-full max-w-4xl h-full p-2 gap-2 flex-col flex justify-between"
+				className="w-full max-w-4xl h-full p-1 gap-2 flex-col flex justify-between"
 				onSubmit={handleCreateAuction}>
-				<div className="w-full gap-2 flex flex-col">
+				<div className="w-full gap-1 flex flex-col">
 					<div>
 						<label htmlFor="title">Titel</label>
 						<input
@@ -92,6 +92,7 @@ function CreateAuctionComponent({}: Props) {
 							id="item"
 							name="item"
 							className="w-full"
+							menuPlacement="auto"
 							options={options}
 							placeholder="Item"></Select>
 					</div>
