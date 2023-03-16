@@ -62,7 +62,7 @@ function Navbar({}: Props) {
 					placeholder="blur"
 					height={70}
 					width={70}
-					blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQ"
+					blurDataURL="/media/logo/elite_transparent.png"
 					src={"/media/logo/elite_transparent.png"}></Image>
 			</Link>
 			<div className="flex-row gap-2 hidden md:flex">
