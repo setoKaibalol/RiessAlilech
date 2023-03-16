@@ -3,10 +3,12 @@ import { signIn, signOut, useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { useUserContext } from "./../context"
 
 type Props = {}
 
 function Navbar({}: Props) {
+	const { active, setActive } = useUserContext()
 	const router = useRouter()
 	const { data: session, status } = useSession()
 	const [current, setCurrent] = useState(3)
@@ -17,7 +19,7 @@ function Navbar({}: Props) {
 	]
 
 	const AuthComponent = () => {
-		if (status === "authenticated") {
+		if (true) {
 			return (
 				<Link
 					href={"/dashboard"}
@@ -26,7 +28,7 @@ function Navbar({}: Props) {
 					<Image
 						alt="image"
 						className="rounded-full"
-						src={session.user?.image!}
+						src={session?.user?.image!}
 						height={26}
 						width={26}></Image>
 				</Link>

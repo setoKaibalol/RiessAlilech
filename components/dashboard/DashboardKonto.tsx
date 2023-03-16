@@ -3,12 +3,11 @@ import React from "react"
 type Props = {}
 
 export default function DashboardKonto({}: Props) {
+	// 3
 	return (
 		<div className="h-full">
-			<div className="h-1/4 from-purple-200 to-white bg-gradient-to-b  ">
-				{/* past auctions section */}
-				<section></section>
-			</div>
+			<section className=" h-1/2"></section>
+			<section className=" h-1/2">create Auction here</section>
 		</div>
 	)
 }

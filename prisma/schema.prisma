@@ -42,7 +42,7 @@ model User {
   name            String?
   email           String?   @unique
   emailVerified   DateTime?
-  image           String?
+  image           String?   @db.Text
   creatorVerified Boolean   @default(false)
   role            Role      @default(USER)
   accounts        Account[]
@@ -55,8 +55,8 @@ model User {
 model Auction {
   id              String   @id @default(cuid())
   title           String
-  description     String?
-  image           String?
+  description     String?  @db.Text
+  image           String?  @db.Text
   minTip          Float    @default(1)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
