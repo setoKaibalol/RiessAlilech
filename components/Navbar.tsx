@@ -59,11 +59,9 @@ function Navbar({}: Props) {
 			<Link href={"/"}>
 				<Image
 					alt="logo"
-					placeholder="blur"
 					height={70}
 					width={70}
-					blurDataURL="/media/logo/elite_transparent.png"
-					src={"/media/logo/elite_transparent.png"}></Image>
+					src={"/media/logo/Elite_transparent.png"}></Image>
 			</Link>
 			<div className="flex-row gap-2 hidden md:flex">
 				{navigation.map((item, index) => (
