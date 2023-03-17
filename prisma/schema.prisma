@@ -39,6 +39,7 @@ model Session {
 
 model User {
   id              String    @id @default(cuid())
+  uid             Int       @unique @default(autoincrement())
   name            String?
   email           String?   @unique
   emailVerified   DateTime?
@@ -89,16 +90,19 @@ model Tip {
 }
 
 model Item {
-  id        String    @id @default(cuid())
-  name      String
-  image     String?
-  link      String?
-  category  String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  creator   User      @relation(fields: [creatorId], references: [id])
-  creatorId String
-  Auction   Auction[]
+  id          String    @id @default(cuid())
+  name        String
+  description String?   @db.Text
+  image       String?
+  link        String?
+  category    String?
+  type        String?
+  zustellung  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  creator     User      @relation(fields: [creatorId], references: [id])
+  creatorId   String
+  Auction     Auction[]
 }
 
 model VerificationToken {

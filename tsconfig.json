@@ -18,6 +18,15 @@
 			"@/*": ["./*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_app.js"],
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"pages/_app.js",
+		"types/**/*.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"pages/api/creator/createItem.js"
+	],
 	"exclude": ["node_modules"]
 }

@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth, { Awaitable, NextAuthOptions } from "next-auth"
 import Auth0Provider from "next-auth/providers/auth0"
 import FacebookProvider from "next-auth/providers/facebook"
 import GithubProvider from "next-auth/providers/github"
@@ -6,8 +6,10 @@ import GoogleProvider from "next-auth/providers/google"
 import TwitterProvider from "next-auth/providers/twitter"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "../../../prisma/PrismaClient"
+import { Session } from "inspector"
+import { AuthOptions } from "@/types/next-auth"
 
-export default NextAuth({
+export const authOptions: AuthOptions = {
 	adapter: PrismaAdapter(prisma),
 	providers: [
 		Auth0Provider({
@@ -65,22 +67,23 @@ export default NextAuth({
 	// The routes shown here are the default URLs that will be used when a custom
 	// pages is not specified for that route.
 	// https://next-auth.js.org/configuration/pages
-	pages: {
-		// signIn: '/auth/signin',  // Displays signin buttons
-		// signOut: '/auth/signout', // Displays form with sign out button
-		// error: '/auth/error', // Error code passed in query string as ?error=
-		// verifyRequest: '/auth/verify-request', // Used for check email page
-		// newUser: null // If set, new users will be directed here on first sign in
-	},
-
-	// Callbacks are asynchronous functions you can use to control what happens
-	// when an action is performed.
-	// https://next-auth.js.org/configuration/callbacks
 	callbacks: {
-		// async signIn({ user, account, profile, email, credentials }) { return true },
-		// async redirect({ url, baseUrl }) { return baseUrl },
-		// async session({ session, token, user }) { return session },
-		// async jwt({ token, user, account, profile, isNewUser }) { return token }
+		async jwt({ token, user }) {
+			/* Step 1: update the token based on the user object */
+			if (user) {
+				token.role = user.role
+				token.id = user.id
+			}
+			return token
+		},
+		session({ session, token }) {
+			/* Step 2: update the session.user based on the token object */
+			if (token && session.user) {
+				session.user.role = token.role
+				session.user.id = token.id
+			}
+			return session
+		},
 	},
 
 	// Events are useful for logging
@@ -89,4 +92,6 @@ export default NextAuth({
 
 	// Enable debug messages in the console if you are having problems
 	debug: false,
-})
+}
+
+export default NextAuth(authOptions)

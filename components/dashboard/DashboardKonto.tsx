@@ -11,7 +11,7 @@ export default function DashboardKonto({}: Props) {
 			</div>
 
 			<section className=" h-1/2"></section>
-			<section className=" h-1/2">create Auction here</section>
+			<section className=" h-1/2"></section>
 		</div>
 	)
 }

@@ -19,7 +19,7 @@ function Navbar({}: Props) {
 	]
 
 	const AuthComponent = () => {
-		if (true) {
+		if (session && status === "authenticated") {
 			return (
 				<Link
 					href={"/dashboard"}

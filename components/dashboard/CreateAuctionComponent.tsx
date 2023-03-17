@@ -15,7 +15,7 @@ function CreateAuctionComponent({}: Props) {
 
 	const handleCreateAuction = (e: any) => {
 		e.preventDefault()
-		fetch("/api/creator/createAuction", {
+		fetch("/api/creator/auction/create", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

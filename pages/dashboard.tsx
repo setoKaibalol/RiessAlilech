@@ -11,7 +11,7 @@ function Dashboard({}: Props) {
 	const { active, setActive } = useUserContext()
 
 	return (
-		<div className="max-h-screen h-screen flex flex-col">
+		<div className="sm:h-screen max-h-screen flex flex-col">
 			<DashboardNavbar />
 			{active === 1 ? (
 				<DashboardAuctions />
