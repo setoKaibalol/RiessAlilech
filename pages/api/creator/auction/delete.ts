@@ -5,7 +5,9 @@ import { prisma } from "@/prisma/PrismaClient"
 import { authOptions } from "../../auth/[...nextauth]"
 
 type Handler = (
-	req: NextApiRequest,
+	req: NextApiRequest & {
+		session: Session // Define the type of the session object
+	},
 	res: NextApiResponse
 ) => void | Promise<void>
 
@@ -17,14 +19,15 @@ const handler: Handler = async (req, res) => {
 				res.status(401).json({ message: "Not authenticated" })
 				return
 			}
-			const { user } = req.body
-			console.log(req.body)
-			const items = await prisma.item.findMany({
+
+			const { auction } = req.body
+
+			const auctions = await prisma.auction.delete({
 				where: {
-					creatorId: user.id,
+					id: auction.id,
 				},
 			})
-			res.status(200).send(items)
+			res.status(200).send(auctions)
 		} else {
 			res.status(405).json({ message: "Method not allowed" })
 		}

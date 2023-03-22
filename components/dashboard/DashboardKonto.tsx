@@ -5,7 +5,7 @@ type Props = {}
 export default function DashboardKonto({}: Props) {
 	// 3
 	return (
-		<div className="h-full bg-purple-200">
+		<div className="h-full bg-neutral-800">
 			<div className="sm:hidden p-2 text-center text-2xl font-medium">
 				<p>Konto</p>
 			</div>

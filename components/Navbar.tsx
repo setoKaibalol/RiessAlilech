@@ -19,19 +19,81 @@ function Navbar({}: Props) {
 	]
 
 	const AuthComponent = () => {
-		if (session && status === "authenticated") {
+		if (
+			session &&
+			status === "authenticated" &&
+			session?.user?.role === "ADMIN"
+		) {
 			return (
-				<Link
-					href={"/dashboard"}
-					className="bg-primary flex flex-row gap-1 p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary bg-secondary/20">
-					<h2>DASHBOARD</h2>
-					<Image
-						alt="image"
-						className="rounded-full"
-						src={session?.user?.image!}
-						height={26}
-						width={26}></Image>
-				</Link>
+				<div className="w-auto flex flex-row gap-2">
+					<button
+						onClick={() => {
+							signOut()
+						}}>
+						sign out
+					</button>
+					<Link
+						href={"/admin/creators"}
+						className="bg-primary flex flex-row gap-1 p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary bg-secondary/20">
+						<h2>ADMIN DASHBOARD</h2>
+						<Image
+							alt="image"
+							className="rounded-full"
+							src={session?.user?.image!}
+							height={26}
+							width={26}></Image>
+					</Link>
+					<Link
+						href={"/dashboard"}
+						className="bg-primary flex flex-row gap-1 p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary bg-secondary/20">
+						<h2>DASHBOARD</h2>
+						<Image
+							alt="image"
+							className="rounded-full"
+							src={session?.user?.image!}
+							height={26}
+							width={26}></Image>
+					</Link>
+				</div>
+			)
+		} else if (
+			session &&
+			status === "authenticated" &&
+			session?.user?.role === "CREATOR"
+		) {
+			return (
+				<div className="w-auto flex flex-row gap-2">
+					<button
+						onClick={() => {
+							signOut()
+						}}>
+						sign out
+					</button>
+					<Link
+						href={"/dashboard"}
+						className="bg-primary flex flex-row gap-1 p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary bg-secondary/20">
+						<h2>DASHBOARD</h2>
+						<Image
+							alt="image"
+							className="rounded-full"
+							src={session?.user?.image!}
+							height={26}
+							width={26}></Image>
+					</Link>
+				</div>
+			)
+		} else if (
+			session &&
+			status === "authenticated" &&
+			session?.user?.role === "USER"
+		) {
+			return (
+				<Image
+					alt="image"
+					className="rounded-full"
+					src={session?.user?.image!}
+					height={26}
+					width={26}></Image>
 			)
 		} else if (status === "unauthenticated") {
 			return (
@@ -55,7 +117,7 @@ function Navbar({}: Props) {
 	}, [router.pathname])
 
 	return router.pathname != "/dashboard" ? (
-		<div className="fixed w-full px-4 h-20 justify-between border-secondary bg-primary border-b-2 flex flex-row items-center">
+		<div className="fixed w-full px-4 h-20 z-20 justify-between border-secondary bg-primary border-b-2 flex flex-row items-center">
 			<Link href={"/"}>
 				<Image
 					alt="logo"

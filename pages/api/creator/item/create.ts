@@ -13,20 +13,24 @@ type Handler = (
 
 const handler: Handler = async (req, res) => {
 	try {
-		const session = await getServerSession(req, res, {})
+		const session = await getServerSession(req, res, authOptions)
 		if (req.method === "POST") {
-			/* 			console.log(session)
-			if (!session || (session.user && session.user.role === "CREATOR")) {
+			if (!session || (session.user && session.user.role !== "CREATOR")) {
 				res.status(401).json({ message: "Not authenticated" })
 				return
 			}
- */ const { name, image, description, link, type, zustellung, user } = req.body
+			const { name, image, description, link, type, zustellung, user } =
+				req.body
 
 			const item = await prisma.item.create({
 				data: {
 					name,
 					description,
-					link,
+					ItemSensitiveData: {
+						create: {
+							link,
+						},
+					},
 					type,
 					zustellung,
 					image,

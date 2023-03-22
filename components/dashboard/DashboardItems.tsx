@@ -10,7 +10,14 @@ type Props = {}
 
 function DashboardItems({}: Props) {
 	const { data: session, status } = useSession()
-	const { refreshItems, setRefreshItems, items, setItems } = useUserContext()
+	const {
+		refreshItems,
+		setRefreshItems,
+		items,
+		setItems,
+		itemStatus,
+		setItemStatus,
+	} = useUserContext()
 
 	const [itemName, setItemName] = useState("")
 	const [itemImage, setItemImage] = useState()
@@ -19,12 +26,11 @@ function DashboardItems({}: Props) {
 	const [itemType, setItemType] = useState("")
 	const [itemZustellung, setItemZustellung] = useState("")
 
-	const [itemStatus, setItemStatus] = useState("loading")
-
 	const skeletonCards = [1, 2, 3, 4]
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
+		setItemStatus("loading")
 		fetch("/api/creator/item/create", {
 			method: "POST",
 			headers: {
@@ -60,7 +66,6 @@ function DashboardItems({}: Props) {
 				}
 			})
 			.then((data) => {
-				console.log(data.data)
 				setItemImage(data.data)
 			})
 			.catch((error) => {
@@ -69,27 +74,9 @@ function DashboardItems({}: Props) {
 	}
 
 	useEffect(() => {
-		setItemStatus("loading")
-		fetch("/api/creator/item/get", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				user: session?.user,
-			}),
-		})
-			.then((res) => res.json())
-			.then((data) => {
-				setItems(data)
-				setItemStatus("loaded")
-			})
-	}, [])
-
-	useEffect(() => {
-		setRefreshItems(false)
-		setItemStatus("loading")
-		if (refreshItems) {
+		console.log(items, !items || items.length === 0, session)
+		if (session && (!items || items.length === 0)) {
+			setItemStatus("loading")
 			fetch("/api/creator/item/get", {
 				method: "POST",
 				headers: {
@@ -105,9 +92,35 @@ function DashboardItems({}: Props) {
 					setItemStatus("loaded")
 				})
 		}
+	}, [])
+
+	useEffect(() => {
+		if (session && refreshItems) {
+			setItemStatus("loading")
+			fetch("/api/creator/item/get", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					user: session?.user,
+				}),
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					setItems(data)
+					setItemStatus("loaded")
+					setRefreshItems(false)
+				})
+				.catch((err) => {
+					setRefreshItems(false)
+					setItemStatus("error")
+					console.log(err)
+				})
+		}
 	}, [refreshItems])
 	return (
-		<div className="h-full flex items-center flex-col grow-0 divide-y-2 sm:divide-y-0 sm:divide-x-2 sm:flex-row bg-secondary-200">
+		<div className="h-full text-gray-200 flex items-center flex-col grow-0 divide-y-2 sm:divide-y-0 sm:divide-x-2 sm:flex-row bg-slate-700">
 			<div className="sm:hidden p-2 text-center text-2xl font-medium">
 				<p>Items</p>
 			</div>
@@ -120,6 +133,7 @@ function DashboardItems({}: Props) {
 								return <SkeletonCard key={index} />
 							})}
 						{itemStatus === "loaded" &&
+							items.length > 0 &&
 							items.map((item, index) => {
 								return <ItemCard key={index} status={itemStatus} item={item} />
 							})}
@@ -129,8 +143,8 @@ function DashboardItems({}: Props) {
 			<section className="sm:w-1/2 w-full h-full flex justify-center p-2">
 				<form
 					onSubmit={handleSubmit}
-					className="w-full max-w-4xl h-full p-1 gap-4 flex-col flex justify-between">
-					<div className="w-full sm:gap-2 gap-4 flex flex-col">
+					className="w-full max-w-4xl h-full p-1 gap-4 flex-col flex justify-evenly">
+					<div className="w-full sm:gap-1 gap-4 flex flex-col">
 						<div className="flex flex-col">
 							<label htmlFor="fileInput">Bild</label>
 							<input
@@ -151,7 +165,7 @@ function DashboardItems({}: Props) {
 								value={itemName}
 								onChange={(e) => setItemName(e.target.value)}
 								required
-								className="w-full p-2 border-2 border-primary rounded-sm"
+								className="w-full p-2 border-2 border-primary text-black rounded-sm"
 								placeholder="Name"
 							/>
 						</div>
@@ -163,7 +177,7 @@ function DashboardItems({}: Props) {
 								id="description"
 								value={itemDescription}
 								onChange={(e) => setItemDescription(e.target.value)}
-								className="w-full p-2 border-2 border-primary rounded-sm"
+								className="w-full p-2 border-2 border-primary text-black rounded-sm"
 								placeholder="Beschreibung"
 							/>
 						</div>
@@ -177,7 +191,7 @@ function DashboardItems({}: Props) {
 								id="link"
 								value={itemLink}
 								onChange={(e) => setItemLink(e.target.value)}
-								className="w-full p-2 border-2 border-primary rounded-sm"
+								className="w-full p-2 border-2 border-primary text-black rounded-sm"
 								placeholder="Link"
 							/>
 						</div>
@@ -201,7 +215,7 @@ function DashboardItems({}: Props) {
 											label: "Digitaler Gegenstand",
 										},
 									]}
-									className="w-full rounded-sm"
+									className="w-full rounded-sm text-black"
 								/>
 							</div>
 
@@ -218,7 +232,7 @@ function DashboardItems({}: Props) {
 										{ value: "Email", label: "Email" },
 										{ value: "Post", label: "Post" },
 									]}
-									className="w-full rounded-sm"
+									className="w-full rounded-sm text-black"
 								/>
 							</div>
 						</div>
@@ -226,7 +240,8 @@ function DashboardItems({}: Props) {
 
 					<button
 						type="submit"
-						className="bg-primary text-3xl p-2 px-10 font-medium rounded-lg duration-200 hover:bg-secondary">
+						disabled={itemStatus === "loading"}
+						className="bg-secondary text-3xl disabled:bg-gray-600 p-2 px-10 font-medium rounded-lg duration-200 hover:bg-pink-800">
 						{itemStatus === "loading" ? (
 							<ClipLoader></ClipLoader>
 						) : (

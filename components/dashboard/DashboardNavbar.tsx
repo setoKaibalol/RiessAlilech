@@ -15,22 +15,22 @@ function DashboardNavbar({}: Props) {
 	const { active, setActive } = useUserContext()
 
 	return (
-		<div className="w-full h-20 shrink-0 bg-secondary border-b-2 border-primary flex flex-row justify-between px-4">
-			<AiOutlineRollback
-				className="h-full p-3 w-14 cursor-pointer"
-				onClick={() => router.back()}></AiOutlineRollback>
-			<div className="w-1/4 h-full pt-4 translate-y-[2px]">
+		<div className="w-full h-20 shrink-0 text-secondary bg-primary border-b-2 border-primary flex flex-row justify-between px-4">
+			<div className="flex justify-center h-full items-center">
+				<AiOutlineRollback
+					className="h-14 hover:bg-gray-500/70 duration-100 rounded-full text-secondary px-3  w-14 cursor-pointer"
+					onClick={() => router.back()}></AiOutlineRollback>
+			</div>
+			<div className="w-1/4 h-full pt-4">
 				<button
 					onClick={() => {
 						setActive(1)
 					}}
 					className={`h-full w-full p-3 flex md:flex-row md:gap-2 items-center justify-center ${
-						active === 1
-							? "bg-primary-100 shadow-inner shadow-primary"
-							: "bg-primary-100 border-b-primary border-b-2"
+						active === 1 ? "bg-zinc-700 translate-y-[3px]" : "bg-zinc-700"
 					} border-t-2 border-x-2 rounded-t-md`}>
 					<RiAuctionFill
-						className={`h-full w-auto duration-200 ${
+						className={`h-full text-secondary w-auto duration-200 ${
 							active === 1 && "scale-90"
 						}`}></RiAuctionFill>
 					{active === 1 && (
@@ -38,13 +38,11 @@ function DashboardNavbar({}: Props) {
 					)}
 				</button>
 			</div>
-			<div className="w-1/4 h-full pt-4 translate-y-[2px]">
+			<div className="w-1/4 h-full pt-4">
 				<button
 					onClick={() => setActive(2)}
 					className={`h-full w-full p-3 flex md:flex-row md:gap-2 items-center justify-center ${
-						active === 2
-							? "bg-secondary-200 shadow-inner shadow-primary"
-							: "bg-secondary-200 border-b-primary border-b-2"
+						active === 2 ? "bg-slate-700 translate-y-[3px] " : "bg-slate-700"
 					} border-t-2 border-x-2 rounded-t-md`}>
 					<MdShoppingBasket
 						className={`h-full w-auto duration-200 ${
@@ -55,13 +53,11 @@ function DashboardNavbar({}: Props) {
 					)}
 				</button>
 			</div>
-			<div className="w-1/4 h-full pt-4 translate-y-[2px]">
+			<div className="w-1/4 h-full pt-4">
 				<button
 					onClick={() => setActive(3)}
 					className={`h-full w-full p-3 flex md:flex-row md:gap-2 items-center justify-center ${
-						active === 3
-							? "bg-purple-200 shadow-inner shadow-primary"
-							: "bg-purple-200 border-b-primary border-b-2"
+						active === 3 ? "bg-neutral-800 translate-y-[3px]" : "bg-neutral-800"
 					} border-t-2 border-x-2 rounded-t-md`}>
 					<TbCoins
 						className={`h-full w-auto duration-200 ${

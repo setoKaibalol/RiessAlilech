@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE `Item` ADD COLUMN `type` VARCHAR(191) NULL,
-    ADD COLUMN `zustellung` VARCHAR(191) NULL;

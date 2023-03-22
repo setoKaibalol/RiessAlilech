@@ -13,15 +13,16 @@ type Handler = (
 
 const handler: Handler = async (req, res) => {
 	try {
-		const session = await getServerSession(req, res, {})
+		const session = await getServerSession(req, res, authOptions)
 		if (req.method === "POST") {
-			/* 			console.log(session)
-			if (!session || (session.user && session.user.role === "CREATOR")) {
+			if (!session || (session.user && session.user.role !== "CREATOR")) {
 				res.status(401).json({ message: "Not authenticated" })
 				return
 			}
- */
+
 			const { item } = req.body
+
+			console.log(item)
 
 			const items = await prisma.item.delete({
 				where: {

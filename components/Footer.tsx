@@ -16,7 +16,7 @@ function Footer({}: Props) {
 
 	return router.pathname != "/dashboard" ? (
 		<div className="h-auto w-full bg-black relative overflow-hidden ">
-			<div className="w-full h-full flex md:flex-row flex-col items-center md:items-start md:justify-between bg-primary pb-10 border-t-secondary border-t-2">
+			<div className="w-full  h-full flex md:flex-row flex-col items-center md:items-center md:justify-between bg-primary pb-10 border-t-secondary border-t-2">
 				<div className="flex md:flex-row items-center md:w-[28%] h-full">
 					<div className="w-1/2 h-full flex justify-center items-center">
 						<Image
