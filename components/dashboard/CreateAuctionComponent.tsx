@@ -7,6 +7,11 @@ import Link from "next/link"
 
 type Props = {}
 
+interface SelectOption {
+	value: string | undefined
+	label: string | undefined
+}
+
 function CreateAuctionComponent({}: Props) {
 	const [title, setTitle] = React.useState<string>("")
 	const [description, setDescription] = React.useState<string>("")
@@ -35,12 +40,10 @@ function CreateAuctionComponent({}: Props) {
 	} = useUserContext()
 
 	const { data: session, status } = useSession()
-	const options =
-		items &&
-		items.length > 0 &&
-		items.map((item) => {
-			return { value: item?.id, label: item?.name }
-		})
+
+	const SelectOptions: SelectOption[] = items.map((item) => {
+		return { value: item?.id, label: item?.name }
+	})
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
@@ -169,7 +172,7 @@ function CreateAuctionComponent({}: Props) {
 								onChange={(e) => {
 									setSelectedItemId(e?.value)
 								}}
-								options={options}
+								options={SelectOptions}
 								placeholder="Item"></Select>
 						</div>
 					)}
