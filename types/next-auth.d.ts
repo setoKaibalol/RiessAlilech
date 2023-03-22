@@ -9,10 +9,14 @@ declare module "next-auth" {
 	 */
 	interface Session {
 		user: {
-			/** The user's postal address. */
 			image: string | null | undefined
 			role: string | null | undefined
 			id: string | null | undefined
 		}
+	}
+	interface User {
+		role: string | null | undefined
+		id: string | null | undefined
+		image: string | null | undefined
 	}
 }

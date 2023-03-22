@@ -20,7 +20,7 @@ export const authOptions = {
 	],
 	secret: process.env.SECRET,
 	callbacks: {
-		async session({ session, user }: { session: Session; user?: User | null }) {
+		async session({ session, user }: { session: Session; user: User }) {
 			if (session.user && user) {
 				session.user.id = user.id
 				session.user.role = user.role
