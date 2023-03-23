@@ -26,7 +26,9 @@ const handler: Handler = async (req, res) => {
 					data: {
 						role: "CREATOR",
 						Creator: {
-							create: {},
+							create: {
+								nickName: user.name,
+							},
 						},
 					},
 				})

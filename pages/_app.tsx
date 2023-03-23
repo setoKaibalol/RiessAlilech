@@ -7,6 +7,10 @@ import Footer from "@/components/Footer"
 import { UserContext } from "./../context"
 import NextNProgress from "nextjs-progressbar"
 import type { AppProps } from "next/app"
+import { Montserrat, Lato } from "next/font/google"
+
+const montserrat = Montserrat({ subsets: ["latin"] })
+const lato = Lato({ weight: "400", subsets: ["latin"] })
 
 export default function App({
 	Component,
@@ -14,6 +18,15 @@ export default function App({
 }: AppProps) {
 	return (
 		<>
+			<style jsx global>
+				{`
+					:root {
+						--montserrat-font: ${montserrat.style.fontFamily};
+						--lato-font: ${lato.style.fontFamily};
+					}
+				`}
+			</style>
+
 			<UserContext>
 				<SessionProvider session={session}>
 					<NextNProgress color="#e39a9c" />

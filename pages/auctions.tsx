@@ -56,7 +56,7 @@ function Auctions({}: Props) {
 		}
 	}, [])
 	return (
-		<div className="min-h-screen pt-20 flex justify-center  bg-primary ">
+		<div className="min-h-screen pt-20 flex justify-center  bg-primary-base ">
 			<div className="flex flex-wrap w-4/5 h-full py-10 gap-2">
 				{userAuctionsStatus === "loading" &&
 					[1, 2, 3, 4].map((i) => <SkeletonCard key={i} />)}

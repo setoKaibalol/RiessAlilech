@@ -15,46 +15,55 @@ function Footer({}: Props) {
 	]
 
 	return router.pathname != "/dashboard" ? (
-		<div className="h-auto w-full bg-black relative overflow-hidden ">
-			<div className="w-full  h-full flex md:flex-row flex-col items-center md:items-center md:justify-between bg-primary pb-10 border-t-secondary border-t-2">
-				<div className="flex md:flex-row items-center md:w-[28%] h-full">
-					<div className="w-1/2 h-full flex justify-center items-center">
+		<div className="h-auto w-full font-medium font-primary relative overflow-hidden ">
+			<div className="w-full py-10 h-full flex md:flex-row flex-col items-center md:items-center md:justify-between bg-secondary border-t-secondary-base border-t-2">
+				<div className="flex md:flex-row items-center md:w-[30%] h-full">
+					<div className="w-1/3 h-full flex justify-center items-center">
 						<Image
-							src="/media/logo/Elite_transparent.png"
+							src="/media/logo/t4u_logo.png"
 							alt="logo"
-							width={200}
-							height={200}></Image>
+							width={100}
+							height={100}></Image>
 					</div>
-					<div className="w-1/2 h-full p-10 flex justify-center items-center text-xl font-extralight">
-						Unser Slogan ballert
+					<div className="w-2/3 h-full p-10 flex justify-center items-center text-xl font-extralight">
+						Bid on Desire. Connect with Passion.
 					</div>
 				</div>
 				<div className="flex flex-row items-center w-[68%] h-full">
 					<div className="w-1/3 z-20 relative flex flex-col gap-y-1">
 						{FooterNav1.map((item, index) => (
-							<Link className="p-1 w-max" href={item.href} key={index}>
+							<Link
+								className="p-2 w-max hover:bg-secondary-base/10 rounded-lg duration-200"
+								href={item.href}
+								key={index}>
 								{item.name}
 							</Link>
 						))}
 					</div>
 					<div className="w-1/3 z-20 relative flex flex-col gap-y-1">
 						{FooterNav1.map((item, index) => (
-							<Link className="p-1 w-max" href={item.href} key={index}>
+							<Link
+								className="p-2 w-max hover:bg-secondary-base/10 rounded-lg duration-200"
+								href={item.href}
+								key={index}>
 								{item.name}
 							</Link>
 						))}
 					</div>
 					<div className="w-1/3 z-20 relative flex flex-col gap-y-1">
 						{FooterNav1.map((item, index) => (
-							<Link className="p-1 w-max" href={item.href} key={index}>
+							<Link
+								className="p-2 w-max hover:bg-secondary-base/10 rounded-lg duration-200"
+								href={item.href}
+								key={index}>
 								{item.name}
 							</Link>
 						))}
 					</div>
 				</div>
 			</div>
-			<div className="absolute z-10 w-[800px] top-4 h-[800px] rounded-full left-[70%] bg-secondary flex justify-center items-center">
-				<div className="h-[400px] w-[400px] border border-primary rounded-full"></div>
+			<div className="absolute z-10 hidden md:flex w-[800px] top-4 translate-x-[50%] h-[800px] border border-secondary-base rounded-full right-0 bg-accent-base/80 justify-center items-center">
+				<div className="h-[600px] w-[600px] border-2 border-secondary-base rounded-full"></div>
 			</div>
 		</div>
 	) : (

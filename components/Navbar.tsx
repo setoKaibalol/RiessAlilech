@@ -15,7 +15,7 @@ function Navbar({}: Props) {
 	const navigation = [
 		{ name: "Creators", href: "/creators", current: current === 0 },
 		{ name: "Auktionen", href: "/auctions", current: current === 1 },
-		{ name: "Hilfe", href: "/faq", current: current === 2 },
+		{ name: "Hilfe", href: "/hilfe", current: current === 2 },
 	]
 
 	const AuthComponent = () => {
@@ -25,7 +25,7 @@ function Navbar({}: Props) {
 			session?.user?.role === "ADMIN"
 		) {
 			return (
-				<div className="w-auto flex flex-row gap-2">
+				<div className="w-auto flex flex-row gap-2 font-primary text-secondary-base">
 					<button
 						onClick={() => {
 							signOut()
@@ -34,7 +34,7 @@ function Navbar({}: Props) {
 					</button>
 					<Link
 						href={"/admin/creators"}
-						className="bg-primary flex flex-row gap-1 p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary bg-secondary/20">
+						className="bg-primary flex flex-row gap-1 p-2 px-3 uppercase rounded-lg duration-200 hover:bg-secondary bg-secondary/20">
 						<h2>ADMIN DASHBOARD</h2>
 						<Image
 							alt="image"
@@ -45,7 +45,7 @@ function Navbar({}: Props) {
 					</Link>
 					<Link
 						href={"/dashboard"}
-						className="bg-primary flex flex-row gap-1 p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary bg-secondary/20">
+						className="flex flex-row gap-1 p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-accent bg-accent/20">
 						<h2>DASHBOARD</h2>
 						<Image
 							alt="image"
@@ -62,7 +62,7 @@ function Navbar({}: Props) {
 			session?.user?.role === "CREATOR"
 		) {
 			return (
-				<div className="w-auto flex flex-row gap-2">
+				<div className="w-auto flex flex-row gap-2 font-primary text-secondary-base">
 					<button
 						onClick={() => {
 							signOut()
@@ -71,7 +71,7 @@ function Navbar({}: Props) {
 					</button>
 					<Link
 						href={"/dashboard"}
-						className="bg-primary flex flex-row gap-1 p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary bg-secondary/20">
+						className="flex flex-row h-16 gap-1 p-2 px-4 text-xl justify-center uppercase font-medium items-center rounded-lg duration-200 bg-accent-base/70 hover:bg-accent-base">
 						<h2>DASHBOARD</h2>
 						<Image
 							alt="image"
@@ -97,7 +97,9 @@ function Navbar({}: Props) {
 			)
 		} else if (status === "unauthenticated") {
 			return (
-				<button className="text-black" onClick={() => signIn()}>
+				<button
+					className="text-secondary font-primary"
+					onClick={() => signIn()}>
 					sign in
 				</button>
 			)
@@ -117,13 +119,13 @@ function Navbar({}: Props) {
 	}, [router.pathname])
 
 	return router.pathname != "/dashboard" ? (
-		<div className="fixed w-full px-4 h-20 z-20 justify-between border-secondary bg-primary border-b-2 flex flex-row items-center">
-			<Link href={"/"}>
+		<div className="fixed w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base border-secondary-base bg-transparent  flex flex-row items-center">
+			<Link href={"/"} className="flex flex-row justify-center items-center">
 				<Image
 					alt="logo"
-					height={70}
-					width={70}
-					src={"/media/logo/Elite_transparent.png"}></Image>
+					height={80}
+					width={80}
+					src={"/media/logo/t4u_logo.png"}></Image>
 			</Link>
 			<div className="flex-row gap-2 hidden md:flex">
 				{navigation.map((item, index) => (

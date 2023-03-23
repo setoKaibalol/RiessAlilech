@@ -1,3 +1,4 @@
+const { fontFamily } = require("tailwindcss/defaultTheme")
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: [
@@ -12,31 +13,55 @@ module.exports = {
 		extend: {
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+				"gradient-center": "linear-gradient(var(--tw-gradient-stops))",
+				"gradient-vertical":
+					"linear-gradient(180deg, var(--tw-gradient-stops))",
 			},
-			colors: {
-				primary: "#eed6c2",
-				"primary-50": "#ACD2FF",
-				"primary-100": "#97C7FF",
-				"primary-200": "#6EB1FF",
-				"primary-300": "#469BFF",
-				"primary-400": "#1D85FF",
-				"primary-500": "#0070f3",
-				"primary-600": "#0056BB",
-				"primary-700": "#003C83",
-				"primary-800": "#00224B",
-				"primary-900": "#000913",
+			fontFamily: {
+				primary: ["var(--montserrat-font)", ...fontFamily.sans],
+				serif: ["var(--montserrat-font)", ...fontFamily.serif],
+				secondary: ["var(--lato-font)", ...fontFamily.sans],
+			},
 
-				secondary: "#e39a9c",
-				"secondary-50": "#FFD4B8",
-				"secondary-100": "#FFC8A3",
-				"secondary-200": "#FFAF7A",
-				"secondary-300": "#FF9752",
-				"secondary-400": "#FF7E29",
-				"secondary-500": "#FF6600",
-				"secondary-600": "#C75000",
-				"secondary-700": "#8F3900",
-				"secondary-800": "#572300",
-				"secondary-900": "#1F0C00",
+			colors: {
+				"primary-light": "#46637E",
+				"primary-base": "#FAF9F5",
+				"primary-dark": "#001E35",
+
+				"secondary-light": "#F4F4F4",
+				"secondary-base": "#414042",
+				"secondary-dark": "#C1C1C1",
+
+				"accent-light": "#FF83CB",
+				"accent-base": "#E0726C",
+				"accent-dark": "#DE3799",
+			},
+			animation: {
+				"fade-in": "fade-in 0.1s ease-in",
+				"fade-out": "fade-out 0.1s ease-out",
+				"move-down": "move-down 0.2s ease-in-out",
+				"move-up": "move-up 0.2s ease-in-out",
+			},
+			keyframes: {
+				"fade-in": {
+					"0%": { opacity: "0" },
+					"100%": { opacity: "1" },
+				},
+				"fade-out": {
+					"0%": { opacity: "1" },
+					"100%": { opacity: "0" },
+				},
+				"move-down": {
+					"0%": { transform: "translate(0px,20px)" },
+					"100%": { transform: "translate(0px,0px)" },
+				},
+				"move-up": {
+					"0%": { transform: "translate(0px,0px)" },
+					"100%": { transform: "translate(0px,20px)" },
+				},
+			},
+			spacing: {
+				72: "18rem",
 			},
 		},
 	},

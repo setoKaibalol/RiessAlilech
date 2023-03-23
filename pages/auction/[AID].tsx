@@ -6,6 +6,13 @@ import Image from "next/image"
 import { useSession } from "next-auth/react"
 import moment from "moment"
 import CountdownTimer from "@/components/CountdownTimer"
+import {
+	TbBrandOnlyfans,
+	TbBrandYoutube,
+	TbBrandInstagram,
+	TbBrandTwitter,
+	TbBrandTiktok,
+} from "react-icons/tb"
 
 type Props = {
 	auction: any
@@ -17,29 +24,51 @@ function Auction(props: Props) {
 	const date = new Date().getTime()
 	const { auction, hasStarted, startsIn } = props
 	const { data: session, status } = useSession()
+	console.log(auction)
 	return auction ? (
-		<div className="pt-20 gap-8 text-gray-200 sm:p-10 sm:pt-32 min-h-screen bg-gradient-radial from-rose-700 to-slate-700 flex flex-row">
-			<div className="h-[80vh] gap-8 flex flex-col w-1/3 ">
-				<div className="h-1/2 w-full rounded-xl p-4 bg-gradient-radial from-rose-900 to-slate-900">
-					<div className="w-full h-full flex flex-row gap-2 ">
-						<div className="h-full relative w-[50%]">
+		<div className="pt-20 gap-8 text-gray-200 sm:p-10 sm:pt-32 min-h-screen bg-gradient-radial from-accent-base via-white  to-white flex flex-row">
+			<div className="h-[600px] gap-8 flex flex-col w-1/3 ">
+				<div className="h-1/2 w-full rounded-xl p-4 bg-secondary-base">
+					<div className=" flex flex-col w-full h-full items-center justify-evenly">
+						<div className="h-40 relative w-40 shrink-0">
 							<Image
-								className="rounded-md border-slate-600 border-2"
+								className="rounded-full border-accent-base border-2"
 								sizes="100%"
+								style={{
+									objectPosition: "center",
+									objectFit: "cover",
+								}}
 								src={auction.Creator.profilePicture}
 								alt={auction.Creator.name}
 								fill></Image>
 						</div>
-						<div className="w-[50%] relative h-full flex flex-col text-black">
-							<p>{auction.Creator.name}</p>
-							<p>{auction.Creator.name}</p>
-							<p>{auction.Creator.name}</p>
-							<p>{auction.Creator.name}</p>
+						<div className="text-white relative flex flex-col">
+							{auction.Creator.name ? (
+								<p>{auction.Creator.name}</p>
+							) : auction.Creator.nickName ? (
+								<p>{auction.Creator.nickName}</p>
+							) : (
+								<p>ANON</p>
+							)}
+						</div>
+						<div className="text-white relative flex flex-row gap-2 justify-center w-full">
+							<div>
+								<TbBrandInstagram className="h-8 w-8 text-purple-600"></TbBrandInstagram>
+							</div>
+							<div>
+								<TbBrandOnlyfans className="h-8 w-8 text-blue-500"></TbBrandOnlyfans>
+							</div>
+							<div>
+								<TbBrandTiktok className="h-8 w-8 text-white"></TbBrandTiktok>
+							</div>
+							<div>
+								<TbBrandYoutube className="h-8 w-8 text-red-600"></TbBrandYoutube>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="h-1/2 w-full bg-white rounded-xl p-4 bg-gradient-to-br from-primary to-white">
-					<div className="flex flex-col gap-2 text-black items-center">
+				<div className="h-1/2 w-full bg-secondary-base text-white rounded-xl p-4">
+					<div className="flex flex-col gap-2 items-center">
 						<h2 className="text-xl font-medium p-2">Tips</h2>
 						<div className="w-full h-full border gap-4 flex flex-col">
 							<div className="flex flex-row justify-between">
@@ -60,7 +89,7 @@ function Auction(props: Props) {
 					</div>
 				</div>
 			</div>
-			<div className="h-[80vh] bg-white p-4 w-2/3 rounded-md bg-gradient-radial from-rose-900 to-slate-900">
+			<div className="h-[600px] p-4 w-2/3 rounded-md bg-white shadow-md border-accent-base border-2 shadow-secondary-base">
 				{hasStarted ? (
 					<div>Die Auktion hat angefangen!</div>
 				) : (
@@ -74,7 +103,7 @@ function Auction(props: Props) {
 		</div>
 	) : (
 		<div className="pt-20 min-h-screen bg-primary flex text-center w-full h-full justify-center items-center text-5xl">
-			Diese Auktion existiert nicht :(
+			Diese Auktion existiert nicht
 		</div>
 	)
 }
@@ -94,8 +123,6 @@ export async function getServerSideProps(context: { params: any }) {
 		},
 	})
 
-	const now = moment().toLocaleString()
-	const start = moment(auction?.startAt).toLocaleString()
 	let hasStarted = false
 	const startsIn = moment(auction?.startAt).diff(moment(), "seconds", true)
 

@@ -74,7 +74,7 @@ function DashboardAuctions({}: Props) {
 
 	// 1
 	return (
-		<div className="h-full flex flex-col justify-between divide-y-2 sm:divide-y-0 sm:flex-row bg-zinc-700 text-gray-200 sm:divide-x-2">
+		<div className="h-full flex flex-col justify-between divide-y-2 sm:divide-y-0 sm:flex-row bg-zinc-700 text-gray-200">
 			<div className="sm:hidden p-2 text-center text-2xl font-medium">
 				<p>Auctions</p>
 			</div>

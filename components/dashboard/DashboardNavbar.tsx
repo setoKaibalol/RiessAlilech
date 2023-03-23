@@ -15,10 +15,10 @@ function DashboardNavbar({}: Props) {
 	const { active, setActive } = useUserContext()
 
 	return (
-		<div className="w-full h-20 shrink-0 text-secondary bg-primary border-b-2 border-primary flex flex-row justify-between px-4">
+		<div className="w-full h-20 shrink-0 font-primary text-white bg-secondary-light border-b-2 border-accent-base flex flex-row justify-between px-4">
 			<div className="flex justify-center h-full items-center">
 				<AiOutlineRollback
-					className="h-14 hover:bg-gray-500/70 duration-100 rounded-full text-secondary px-3  w-14 cursor-pointer"
+					className="h-14 hover:bg-gray-500/70 duration-100 rounded-full text-accent-base px-3 w-14 cursor-pointer"
 					onClick={() => router.back()}></AiOutlineRollback>
 			</div>
 			<div className="w-1/4 h-full pt-4">
@@ -30,7 +30,7 @@ function DashboardNavbar({}: Props) {
 						active === 1 ? "bg-zinc-700 translate-y-[3px]" : "bg-zinc-700"
 					} border-t-2 border-x-2 rounded-t-md`}>
 					<RiAuctionFill
-						className={`h-full text-secondary w-auto duration-200 ${
+						className={`h-full text-accent-base  w-auto duration-200 ${
 							active === 1 && "scale-90"
 						}`}></RiAuctionFill>
 					{active === 1 && (

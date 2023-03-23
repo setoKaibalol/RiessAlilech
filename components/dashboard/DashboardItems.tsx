@@ -120,7 +120,7 @@ function DashboardItems({}: Props) {
 		}
 	}, [refreshItems])
 	return (
-		<div className="h-full text-gray-200 flex items-center flex-col grow-0 divide-y-2 sm:divide-y-0 sm:divide-x-2 sm:flex-row bg-slate-700">
+		<div className="h-full text-gray-200 flex items-center flex-col grow-0 divide-y-2 sm:divide-y-0  sm:flex-row bg-slate-700">
 			<div className="sm:hidden p-2 text-center text-2xl font-medium">
 				<p>Items</p>
 			</div>
@@ -241,7 +241,7 @@ function DashboardItems({}: Props) {
 					<button
 						type="submit"
 						disabled={itemStatus === "loading"}
-						className="bg-secondary text-3xl disabled:bg-gray-600 p-2 px-10 font-medium rounded-lg duration-200 hover:bg-pink-800">
+						className="bg-accent-base text-3xl disabled:bg-gray-600 p-2 px-10 font-medium rounded-lg duration-200 hover:bg-accent-base">
 						{itemStatus === "loading" ? (
 							<ClipLoader></ClipLoader>
 						) : (

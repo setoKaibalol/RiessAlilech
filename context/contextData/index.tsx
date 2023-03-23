@@ -52,6 +52,12 @@ type GlobalStates = {
 	setUserAuctionsStatus: Dispatch<SetStateAction<string>>
 	refreshUserAuctions: boolean
 	setRefreshUserAuctions: Dispatch<SetStateAction<boolean>>
+	userItems: any[]
+	setUserItems: Dispatch<SetStateAction<never[]>>
+	userItemsStatus: string
+	setUserItemsStatus: Dispatch<SetStateAction<string>>
+	refreshUserItems: boolean
+	setRefreshUserItems: Dispatch<SetStateAction<boolean>>
 }
 
 export const Context = createContext<GlobalStates>({} as GlobalStates)
@@ -61,11 +67,14 @@ export const UserContext = ({ children }: { children: ReactNode }) => {
 
 	const [items, setItems] = useState([])
 	const [refreshItems, setRefreshItems] = useState(false)
+	const [itemStatus, setItemStatus] = useState("loading")
+	const [userItems, setUserItems] = useState([])
+	const [userItemsStatus, setUserItemsStatus] = useState("loading")
+	const [refreshUserItems, setRefreshUserItems] = useState(false)
 	const [auctions, setAuctions] = useState([])
 	const [creatorAuctions, setCreatorAuctions] = useState([])
 	const [refreshCreatorAuctions, setRefreshCreatorAuctions] = useState(false)
 	const [refreshAuctions, setRefreshAuctions] = useState(false)
-	const [itemStatus, setItemStatus] = useState("loading")
 	const [auctionsStatus, setAuctionsStatus] = useState("loading")
 	const [creatorAuctionsStatus, setCreatorAuctionsStatus] = useState("loading")
 	const [creators, setCreators] = useState([])
@@ -128,6 +137,12 @@ export const UserContext = ({ children }: { children: ReactNode }) => {
 				setUserAuctionsStatus,
 				refreshUserAuctions,
 				setRefreshUserAuctions,
+				userItems,
+				setUserItems,
+				userItemsStatus,
+				setUserItemsStatus,
+				refreshUserItems,
+				setRefreshUserItems,
 			}}>
 			{children}
 		</Context.Provider>

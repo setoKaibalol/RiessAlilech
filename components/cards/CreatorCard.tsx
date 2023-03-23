@@ -7,11 +7,11 @@ import Link from "next/link"
 import Image from "next/image"
 
 type Props = {
-	status: string
 	creator: any
+	status: string
 }
 
-function CreatorCard({ status, creator }: Props) {
+function CreatorCard({ creator, status }: Props) {
 	const router = useRouter()
 	const {
 		creators,
@@ -21,7 +21,6 @@ function CreatorCard({ status, creator }: Props) {
 		refreshCreators,
 		setRefreshCreators,
 	} = useUserContext()
-
 	const [copySuccess, setCopySuccess] = React.useState("")
 
 	const websiteLink = process.env.NEXT_PUBLIC_WEBSITE_URL
@@ -32,7 +31,7 @@ function CreatorCard({ status, creator }: Props) {
 			setCopySuccess("")
 		}, 2000)
 	}
-
+	console.log(creator)
 	switch (router.pathname) {
 		case "/dashboard":
 			switch (status) {
@@ -42,60 +41,21 @@ function CreatorCard({ status, creator }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="w-full p-1 h-60 border relative hover:bg-secondary  duration-200 bg-secondary/80 text-black shadow-md rounded-sm shadow-gray-600">
-							<div className="flex  divide-x-2 flex-col sm:flex-row h-full w-full justify-between">
-								<div className="flex flex-row h-auto pr-2">
-									<Link
-										href={
-											process.env.NEXT_PUBLIC_WEBSITE_URL + "/" + creator.id
-										}
-										className="relative gap flex sm:w-60 w-1/3 z-20 hover:scale-110 duration-200">
-										<Image
-											className=" rounded-xl"
-											style={{
-												objectPosition: "left",
-												objectFit: "contain",
-											}}
-											alt={creator.name}
-											src={creator.profilePicture}
-											fill></Image>
-									</Link>
-									<div className="w-[200px] h-auto flex gap-2 max-w-[200px] flex-col text-base justify-center items-start">
-										<div className="flex flex-row gap-2 font-medium w-full justify-between">
-											<p>Titel:</p>
-											<p></p>
-										</div>
-										<div className="flex flex-row justify-between w-full items-center gap-2">
-											<p>Link zum Teilen:</p>
-
-											<button
-												onClick={() => {
-													navigator.clipboard.writeText(
-														websiteLink + "/" + creator.id
-													)
-													handleCopySuccess(creator.id)
-												}}
-												className="bg-gray-200/20 truncate hover:bg-gray-200/60 duration-200 p-1 rounded-xl w-full font-medium">
-												{copySuccess === creator.id
-													? "Kopiert!"
-													: websiteLink + "/" + creator.id}
-											</button>
-										</div>
-										<div className="flex flex-row gap-2 font-medium w-full justify-between">
-											<p>Mindest Tip:</p>
-											<p></p>
-										</div>
-										<div className="flex flex-row gap-2 font-medium w-full justify-between">
-											<p>Typ:</p>
-											<p></p>
-										</div>
-									</div>
-								</div>
-								<div className="flex pl-2 flex-row sm:flex-col gap-1 h-20 w-full justify-center sm:h-full items-center text-base">
-									<p>Beschreibung:</p>
-									<p></p>
-								</div>
-							</div>
+						<div className="p-4 bg-white rounded-lg shadow-md w-80">
+							<h3 className="text-lg font-semibold font-primary text-[#B76E79] mb-2">
+								{creator.name}
+							</h3>
+							<img
+								src="https://via.placeholder.com/150"
+								alt="Creator Avatar"
+								className="rounded-full mb-4"
+							/>
+							<p className="text-sm text-gray-700 mb-4 font-secondary">
+								Short bio about the creator...
+							</p>
+							<button className="py-2 px-4 bg-secondary/90 duration-100 font-primary hover:bg-secondary text-white rounded-lg w-full">
+								View Creator
+							</button>
 						</div>
 					)
 				default:
@@ -109,65 +69,64 @@ function CreatorCard({ status, creator }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="w-full p-1 h-60 border relative hover:bg-secondary  duration-200 bg-secondary/80 text-black shadow-md rounded-sm shadow-gray-600">
-							<div className="flex  divide-x-2 flex-col sm:flex-row h-full w-full justify-between">
-								<div className="flex flex-row h-auto pr-2">
-									<Link
-										href={
-											process.env.NEXT_PUBLIC_WEBSITE_URL + "/" + creator.id
-										}
-										className="relative gap flex sm:w-60 w-1/3 z-20 hover:scale-110 duration-200">
-										<Image
-											className=" rounded-xl"
-											style={{
-												objectPosition: "left",
-												objectFit: "contain",
-											}}
-											alt={creator?.name}
-											src={creator.profilePicture}
-											fill></Image>
-									</Link>
-									<div className="w-[200px] h-auto flex gap-2 max-w-[200px] flex-col text-base justify-center items-start">
-										<div className="flex flex-row gap-2 font-medium w-full justify-between">
-											<p>Titel:</p>
-											<p></p>
-										</div>
-										<div className="flex flex-row justify-between w-full items-center gap-2">
-											<p>Link zum Teilen:</p>
-
-											<button
-												onClick={() => {
-													navigator.clipboard.writeText(
-														websiteLink + "/" + creator.id
-													)
-													handleCopySuccess(creator.id)
-												}}
-												className="bg-gray-200/20 truncate hover:bg-gray-200/60 duration-200 p-1 rounded-xl w-full font-medium">
-												{copySuccess === creator.id
-													? "Kopiert!"
-													: websiteLink + "/" + creator.id}
-											</button>
-										</div>
-										<div className="flex flex-row gap-2 font-medium w-full justify-between">
-											<p>Mindest Tip:</p>
-											<p></p>
-										</div>
-										<div className="flex flex-row gap-2 font-medium w-full justify-between">
-											<p>Typ:</p>
-											<p></p>
-										</div>
-									</div>
-								</div>
-								<div className="flex pl-2 flex-row sm:flex-col gap-1 h-20 w-full justify-center sm:h-full items-center text-base">
-									<p>Beschreibung:</p>
-									<p></p>
-								</div>
+						<div className="p-4 bg-white rounded-lg shadow-md w-80">
+							<h3 className="text-lg font-semibold font-primary text-[#B76E79] mb-2">
+								{creator.name}
+							</h3>
+							<img
+								src="https://via.placeholder.com/150"
+								alt="Creator Avatar"
+								className="rounded-full mb-4"
+							/>
+							<p className="text-sm text-gray-700 mb-4 font-secondary">
+								Short bio about the creator...
+							</p>
+							<button className="py-2 px-4 bg-secondary/90 duration-100 font-primary hover:bg-secondary text-white rounded-lg w-full">
+								View Creator
+							</button>
+						</div>
+					)
+				default:
+					return <SkeletonCard />
+			}
+		case "/auctions":
+			switch (creatorsStatus) {
+				case "loading":
+					return <SkeletonCard />
+				case "error":
+					return <p>error</p>
+				case "loaded":
+					return (
+						<div className="p-4 bg-white rounded-lg shadow-md max-w-sm w-full">
+							<h3 className="text-lg font-semibold font-primary text-[#B76E79] mb-2">
+								{creator.nickName}
+							</h3>
+							<div className="w-full relative h-40">
+								<Image
+									src={creator.profilePicture}
+									alt="Creator Avatar"
+									fill
+									style={{ objectFit: "contain", objectPosition: "center" }}
+									sizes="100%"
+									className="rounded-full mb-4"
+								/>
+							</div>
+							<p className="text-sm text-gray-700 mb-4 font-secondary">
+								Short bio about the creator...
+							</p>
+							<div className="w-full flex justify-center text-center">
+								<Link
+									href={`/creator/${creator.id}`}
+									className="py-2 px-4 w-full bg-accent/90 duration-100 font-primary hover:bg-accent text-white rounded-lg">
+									View Creator
+								</Link>
 							</div>
 						</div>
 					)
 				default:
 					return <SkeletonCard />
 			}
+
 		default:
 			return <SkeletonCard />
 	}

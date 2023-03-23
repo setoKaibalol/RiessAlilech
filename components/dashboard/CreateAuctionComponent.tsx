@@ -91,7 +91,7 @@ function CreateAuctionComponent({}: Props) {
 	}, [session])
 
 	return items && items.length > 0 ? (
-		<div className="w-full h-full flex justify-center p-2">
+		<div className="w-full h-full flex justify-center p-2 font-primary">
 			<form
 				className="w-full max-w-4xl h-full p-1 gap-2 flex-col flex justify-evenly"
 				onSubmit={handleSubmit}>
@@ -165,6 +165,7 @@ function CreateAuctionComponent({}: Props) {
 						<div className="flex flex-col justify-start">
 							<label htmlFor="item">Item</label>
 							<Select
+								required
 								id="item"
 								name="item"
 								className="w-full text-black"
@@ -181,7 +182,7 @@ function CreateAuctionComponent({}: Props) {
 					type="submit"
 					onClick={() => {}}
 					disabled={creatorAuctionsStatus === "loading"}
-					className="bg-secondary text-3xl p-2 disabled:bg-gray-600 px-10 font-medium rounded-lg duration-200 hover:bg-rose-700">
+					className="bg-accent-base text-white text-3xl p-2 disabled:bg-gray-600 px-10 font-medium rounded-lg duration-200 hover:bg-rose-700">
 					{creatorAuctionsStatus === "loading" ? (
 						<ClipLoader></ClipLoader>
 					) : (
@@ -191,7 +192,7 @@ function CreateAuctionComponent({}: Props) {
 			</form>
 		</div>
 	) : (
-		<div className="w-full h-full flex justify-center p-2">
+		<div className="w-full h-full flex justify-center p-2 font-primary">
 			<div className="w-full max-w-4xl h-full p-1 gap-2 flex-col flex justify-evenly items-center">
 				<div className="max-w-sm text-center text-lg">
 					<p>

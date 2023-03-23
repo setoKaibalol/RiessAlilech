@@ -13,6 +13,7 @@ const handler: Handler = async (req, res) => {
 				.findMany({
 					include: {
 						item: true,
+						Creator: true,
 						bids: true,
 					},
 					orderBy: {
