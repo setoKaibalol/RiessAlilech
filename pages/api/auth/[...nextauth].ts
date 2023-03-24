@@ -1,9 +1,6 @@
 import NextAuth, { Session, User } from "next-auth"
 import Auth0Provider from "next-auth/providers/auth0"
-import FacebookProvider from "next-auth/providers/facebook"
-import GithubProvider from "next-auth/providers/github"
-import GoogleProvider from "next-auth/providers/google"
-import TwitterProvider from "next-auth/providers/twitter"
+import EmailProvider from "next-auth/providers/email"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "@/prisma/PrismaClient"
 
@@ -16,6 +13,10 @@ export const authOptions = {
 			issuer: process.env.AUTH0_DOMAIN,
 			// @ts-ignore
 			domain: process.env.AUTH0_DOMAIN,
+		}),
+		EmailProvider({
+			server: process.env.EMAIL_SERVER,
+			from: process.env.EMAIL_FROM,
 		}),
 	],
 	secret: process.env.SECRET,

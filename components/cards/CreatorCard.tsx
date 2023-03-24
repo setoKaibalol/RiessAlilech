@@ -31,7 +31,7 @@ function CreatorCard({ creator, status }: Props) {
 			setCopySuccess("")
 		}, 2000)
 	}
-	console.log(creator)
+
 	switch (router.pathname) {
 		case "/dashboard":
 			switch (status) {
@@ -97,7 +97,9 @@ function CreatorCard({ creator, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="p-4 bg-white rounded-lg shadow-md max-w-sm w-full">
+						<Link
+							href={`/creator/${creator.id}`}
+							className="p-4 border hover:shadow-md hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 shadow-sm max-w-sm w-full hover:translate">
 							<h3 className="text-lg font-semibold font-primary text-[#B76E79] mb-2">
 								{creator.nickName}
 							</h3>
@@ -108,20 +110,10 @@ function CreatorCard({ creator, status }: Props) {
 									fill
 									style={{ objectFit: "contain", objectPosition: "center" }}
 									sizes="100%"
-									className="rounded-full mb-4"
+									className=" mb-4"
 								/>
 							</div>
-							<p className="text-sm text-gray-700 mb-4 font-secondary">
-								Short bio about the creator...
-							</p>
-							<div className="w-full flex justify-center text-center">
-								<Link
-									href={`/creator/${creator.id}`}
-									className="py-2 px-4 w-full bg-accent/90 duration-100 font-primary hover:bg-accent text-white rounded-lg">
-									View Creator
-								</Link>
-							</div>
-						</div>
+						</Link>
 					)
 				default:
 					return <SkeletonCard />

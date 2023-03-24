@@ -24,23 +24,16 @@ module.exports = {
 			},
 
 			colors: {
-				"primary-light": "#46637E",
 				"primary-base": "#FAF9F5",
-				"primary-dark": "#001E35",
-
-				"secondary-light": "#F4F4F4",
 				"secondary-base": "#414042",
-				"secondary-dark": "#C1C1C1",
-
-				"accent-light": "#FF83CB",
 				"accent-base": "#E0726C",
-				"accent-dark": "#DE3799",
 			},
 			animation: {
 				"fade-in": "fade-in 0.1s ease-in",
 				"fade-out": "fade-out 0.1s ease-out",
 				"move-down": "move-down 0.2s ease-in-out",
 				"move-up": "move-up 0.2s ease-in-out",
+				"ping-new": "load 1s cubic-bezier(0, 0, 0.2, 1) infinite",
 			},
 			keyframes: {
 				"fade-in": {

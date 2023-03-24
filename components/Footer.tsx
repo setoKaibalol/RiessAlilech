@@ -26,7 +26,9 @@ function Footer({}: Props) {
 							height={100}></Image>
 					</div>
 					<div className="w-2/3 h-full p-10 flex justify-center items-center text-xl font-extralight">
-						Bid on Desire. Connect with Passion.
+						Bid on Desire.
+						<br />
+						Connect with Passion.
 					</div>
 				</div>
 				<div className="flex flex-row items-center w-[68%] h-full">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { signIn, signOut, useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
@@ -17,6 +17,27 @@ function Navbar({}: Props) {
 		{ name: "Auktionen", href: "/auctions", current: current === 1 },
 		{ name: "Hilfe", href: "/hilfe", current: current === 2 },
 	]
+
+	const NavbarRef = useRef(null)
+
+	useEffect(() => {
+		addEventListener("scroll", () => {
+			const navbar = document.getElementById("navbar-ref")
+			if (navbar) {
+				if (window.scrollY > 0) {
+					navbar.classList.add("bg-primary-base")
+					navbar.classList.add("border-secondary-base")
+					navbar.classList.remove("bg-transparent")
+					navbar.classList.remove("border-transparent")
+				} else {
+					navbar.classList.remove("bg-primary-base")
+					navbar.classList.remove("border-secondary-base")
+					navbar.classList.add("bg-transparent")
+					navbar.classList.add("border-transparent")
+				}
+			}
+		})
+	}, [])
 
 	const AuthComponent = () => {
 		if (
@@ -119,17 +140,22 @@ function Navbar({}: Props) {
 	}, [router.pathname])
 
 	return router.pathname != "/dashboard" ? (
-		<div className="fixed w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base border-secondary-base bg-transparent  flex flex-row items-center">
+		<div
+			id="navbar-ref"
+			className="fixed border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex flex-row items-center">
 			<Link href={"/"} className="flex flex-row justify-center items-center">
 				<Image
 					alt="logo"
 					height={80}
-					width={80}
-					src={"/media/logo/t4u_logo.png"}></Image>
+					width={240}
+					src={"/media/logo/logo_text_nobg.png"}></Image>
 			</Link>
-			<div className="flex-row gap-2 hidden md:flex">
+			<div className="flex-row gap-2 hidden md:flex font-primary font-medium">
 				{navigation.map((item, index) => (
-					<Link key={index} href={`${item.href}`}>
+					<Link
+						className="p-2 rounded-md hover:bg-secondary-base/20 text-2xl"
+						key={index}
+						href={`${item.href}`}>
 						{item.name}
 					</Link>
 				))}

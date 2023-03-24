@@ -24,7 +24,6 @@ const handler: Handler = async (req, res) => {
 					console.error(err)
 				})
 
-			console.log(auctions)
 			res.status(200).send(auctions)
 		} else {
 			res.status(405).json({ message: "Method not allowed" })

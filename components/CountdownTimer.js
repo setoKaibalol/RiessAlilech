@@ -2,18 +2,19 @@ import React from "react"
 import DateTimeDisplay from "../helpers/DateTimeDisplay"
 import { useCountdown } from "../helpers/useCountdown"
 
-const ExpiredNotice = () => {
-	return (
-		<div className="expired-notice">
-			<span>Expired!!!</span>
-			<p>Please select a future date and time.</p>
-		</div>
-	)
-}
-
-const ShowCounter = ({ days, hours, minutes, seconds }) => {
+const ShowCounter = ({ days, hours, minutes, seconds, hasStarted }) => {
 	return (
 		<div className="show-counter">
+			{hasStarted ? (
+				<p className="font-primary font-medium text-base text-center">
+					Zuende in:
+				</p>
+			) : (
+				<p className="font-primary font-medium text-base text-center">
+					Beginnt in:
+				</p>
+			)}
+
 			<div className="countdown-link">
 				<DateTimeDisplay value={days} type={"Days"} isDanger={days <= 3} />
 				<p>:</p>
@@ -27,14 +28,15 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
 	)
 }
 
-const CountdownTimer = ({ targetDate }) => {
+const CountdownTimer = ({ targetDate, hasStarted }) => {
 	const [days, hours, minutes, seconds] = useCountdown(targetDate)
 
 	if (days + hours + minutes + seconds <= 0) {
-		return <ExpiredNotice />
+		return <></>
 	} else {
 		return (
 			<ShowCounter
+				hasStarted={hasStarted}
 				days={days}
 				hours={hours}
 				minutes={minutes}

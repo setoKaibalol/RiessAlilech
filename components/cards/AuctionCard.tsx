@@ -19,9 +19,9 @@ function AuctionCard({ auction, status }: Props) {
 	const [copySuccess, setCopySuccess] = React.useState("")
 	const [hasStarted, setHasStarted] = useState(false)
 	const startsIn = moment(auction.startAt).diff(moment(), "seconds", true)
+	const endsIn = moment(auction.endAt).diff(moment(), "seconds", true)
 	const date = new Date().getTime()
 
-	const { title, image, description, endDate, startingPrice, id } = auction
 	const router = useRouter()
 	const {
 		creatorAuctionsStatus,
@@ -49,9 +49,10 @@ function AuctionCard({ auction, status }: Props) {
 	const websiteLink = process.env.NEXT_PUBLIC_WEBSITE_URL
 
 	useEffect(() => {
-		const startsIn = moment(auction?.startAt).diff(moment(), "seconds", true)
 		if (moment().isAfter(auction?.startAt)) {
 			setHasStarted(true)
+		} else {
+			setHasStarted(false)
 		}
 	}, [])
 
@@ -121,9 +122,9 @@ function AuctionCard({ auction, status }: Props) {
 											fill></Image>
 									</Link>
 									<div className="w-[200px] h-auto flex gap-2 max-w-[200px] flex-col text-base justify-center items-start">
-										<div className="flex flex-row gap-2 font-medium w-full justify-between">
+										<div className="flex  flex-row gap-2 font-medium w-full justify-between">
 											<p>Titel:</p>
-											<p>{auction.title}</p>
+											<p className="first-letter:uppercase">{auction.title}</p>
 										</div>
 										<div className="flex flex-row justify-between w-full items-center gap-2">
 											<p>Link zum Teilen:</p>
@@ -169,23 +170,24 @@ function AuctionCard({ auction, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="p-4 min-w-[304px] bg-white rounded-lg shadow-md max-w-md">
+						<div className="p-4 w-80 bg-white rounded-lg shadow-md max-w-md">
 							<Link
 								href={`/auction/${auction.id}`}
-								className="w-full flex justify-center">
-								<h2 className="text-xl font-semibold text-[#B76E79] hover:bg-secondary-base/20 p-1 duration-200 rounded-lg mb-2">
+								className="w-full flex flex-row justify-between items-center px-2 p-1 mb-2 group hover:bg-secondary-base/10 duration-200 rounded-lg">
+								<h2 className="text-xl font-semibold text-[#B76E79] first-letter:uppercase">
 									{auction.title}
 								</h2>
-							</Link>
-							<p className="text-sm text-secondary-base mb-4">
 								{hasStarted ? (
-									"Started"
+									<div className="relative ">
+										<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
+										<p className="w-4 h-4 bg-green-500 rounded-full"></p>
+									</div>
 								) : (
-									<CountdownTimer
-										targetDate={date + startsIn * 1000}></CountdownTimer>
-								)}{" "}
-							</p>
-
+									<div className="relative ">
+										<p className="w-4 h-4 bg-red-500 rounded-full"></p>
+									</div>
+								)}
+							</Link>
 							<div className="mb-4 w-full flex flex-col items-center">
 								<CreatorCard
 									creator={auction.Creator}
@@ -195,19 +197,27 @@ function AuctionCard({ auction, status }: Props) {
 
 							<div className="mb-4 flex items-center flex-col">
 								<h3 className="text-md font-semibold text-gray-700 mb-2">
-									Items:
+									Item:
 								</h3>
 								<div className="w-full flex flex-wrap gap-1">
 									<ItemCard item={auction.item} status={userItemsStatus} />
 								</div>
 							</div>
-
-							<h3 className="text-lg font-semibold text-gray-700 mb-4">
-								Current Bid: $[Amount]
-							</h3>
-							<button className="py-2 px-4 bg-[#B76E79] text-white rounded-lg w-full">
-								Place a Bid
-							</button>
+							<div className="text-sm text-secondary-base mb-4">
+								{hasStarted ? (
+									<div className="flex flex-col items-center min-h-[100px] min-w-full">
+										<CountdownTimer
+											hasStarted={hasStarted}
+											targetDate={date + endsIn * 1000}></CountdownTimer>
+									</div>
+								) : (
+									<div className="flex flex-col items-center min-h-[100px] min-w-full">
+										<CountdownTimer
+											hasStarted={hasStarted}
+											targetDate={date + startsIn * 1000}></CountdownTimer>
+									</div>
+								)}{" "}
+							</div>
 						</div>
 					)
 

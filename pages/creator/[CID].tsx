@@ -15,17 +15,14 @@ import {
 } from "react-icons/tb"
 
 type Props = {
-	auction: any
-	startsIn: number
-	hasStarted: boolean
+	creator: any
 }
 
 function Auction(props: Props) {
 	const date = new Date().getTime()
-	const { auction, hasStarted, startsIn } = props
+	const { creator } = props
 	const { data: session, status } = useSession()
-	console.log(auction)
-	return auction ? (
+	return creator ? (
 		<div className="pt-20 gap-8 text-gray-200 sm:p-10 sm:pt-32 min-h-screen bg-gradient-radial from-accent-base via-white  to-white flex flex-row">
 			<div className="h-[600px] gap-8 flex flex-col w-1/3 ">
 				<div className="h-1/2 w-full rounded-xl p-4 bg-secondary-base">
@@ -38,15 +35,15 @@ function Auction(props: Props) {
 									objectPosition: "center",
 									objectFit: "cover",
 								}}
-								src={auction.Creator.profilePicture}
-								alt={auction.Creator.name}
+								src={creator.profilePicture}
+								alt={creator.name}
 								fill></Image>
 						</div>
 						<div className="text-white relative flex flex-col">
-							{auction.Creator.name ? (
-								<p>{auction.Creator.name}</p>
-							) : auction.Creator.nickName ? (
-								<p>{auction.Creator.nickName}</p>
+							{creator.name ? (
+								<p>{creator.name}</p>
+							) : creator.nickName ? (
+								<p>{creator.nickName}</p>
 							) : (
 								<p>ANON</p>
 							)}
@@ -89,22 +86,10 @@ function Auction(props: Props) {
 					</div>
 				</div>
 			</div>
-			<div className="h-[600px] p-4 w-2/3 rounded-md bg-white shadow-md border-accent-base border-2 shadow-secondary-base">
-				{hasStarted ? (
-					<div>Die Auktion hat angefangen!</div>
-				) : (
-					<div className="flex flex-col h-full w-full justify-center p-10 items-center gap-4">
-						<p className="text-xl font-medium">Zeit bis die Auktion beginnt:</p>
-						<CountdownTimer
-							hasStarted={hasStarted}
-							targetDate={date + startsIn * 1000}></CountdownTimer>
-					</div>
-				)}
-			</div>
 		</div>
 	) : (
 		<div className="pt-20 min-h-screen bg-primary flex text-center w-full h-full justify-center items-center text-5xl">
-			Diese Auktion existiert nicht
+			Dieser Creator existiert nicht
 		</div>
 	)
 }
@@ -113,28 +98,17 @@ export default Auction
 
 export async function getServerSideProps(context: { params: any }) {
 	const { params } = context
-	const auction = await prisma.auction.findUnique({
+	const auction = await prisma.creator.findUnique({
 		where: {
-			id: params.AID,
+			id: params.CID,
 		},
 		include: {
-			Creator: true,
-			item: true,
-			bids: true,
+			Auction: true,
 		},
 	})
 
-	let hasStarted = false
-	const startsIn = moment(auction?.startAt).diff(moment(), "seconds", true)
-
-	if (moment().isAfter(auction?.startAt)) {
-		hasStarted = true
-	}
-
 	return {
 		props: {
-			startsIn,
-			hasStarted,
 			auction: JSON.parse(JSON.stringify(auction)),
 		},
 	}
