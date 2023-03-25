@@ -1,6 +1,6 @@
 import React from "react"
-import { SkeletonCard } from "./ItemCardSkeleton"
 import { useRouter } from "next/router"
+import { SkeletonCard } from "./skeletons/CreatorSkeleton"
 import { ClipLoader } from "react-spinners"
 import { useUserContext } from "@/context"
 import Link from "next/link"
@@ -99,8 +99,8 @@ function CreatorCard({ creator, status }: Props) {
 					return (
 						<Link
 							href={`/creator/${creator.id}`}
-							className="p-4 border hover:shadow-md hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 shadow-sm max-w-sm w-full hover:translate">
-							<h3 className="text-lg font-semibold font-primary text-[#B76E79] mb-2">
+							className="p-4 border hover:shadow-md h-60 hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 shadow-sm max-w-sm w-full hover:translate">
+							<h3 className="text-lg font-semibold font-primary text-secondary-base mb-2">
 								{creator.nickName}
 							</h3>
 							<div className="w-full relative h-40">

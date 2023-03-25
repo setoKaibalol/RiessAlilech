@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useUserContext } from "@/context"
-import { SkeletonCard } from "@/components/cards/ItemCardSkeleton"
+import { SkeletonCard } from "@/components/cards/skeletons/CreatorSkeleton"
 import CreatorCard from "@/components/cards/CreatorCard"
 
 type Props = {}

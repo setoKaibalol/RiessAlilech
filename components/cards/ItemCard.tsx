@@ -95,14 +95,23 @@ function ItemCard({ item, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="w-40 h-40 relative">
-							<Image
-								fill
-								sizes="100%"
-								src={item.image}
-								alt="Creator Avatar"
-								className="w-full h-full object-cover rounded-lg border-secondary border-2 shadow-md"
-							/>
+						<div className="rounded-lg p-4 border-secondary border-2 shadow-md w-full">
+							<h2 className="text-lg font-semibold font-primary text-secondary-base mb-2">
+								{item.name}
+							</h2>
+							<div className="w-full h-60 relative">
+								<Image
+									fill
+									sizes="100%"
+									src={item.image}
+									style={{
+										borderRadius: "10px",
+										objectFit: "contain",
+										objectPosition: "center",
+									}}
+									alt="Creator Avatar"
+								/>
+							</div>
 						</div>
 					)
 				default:

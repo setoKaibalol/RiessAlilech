@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useUserContext } from "./../context"
+import { ClipLoader } from "react-spinners"
 
 type Props = {}
 
@@ -11,6 +12,9 @@ function Navbar({}: Props) {
 	const { active, setActive } = useUserContext()
 	const router = useRouter()
 	const { data: session, status } = useSession()
+	const [authButtonStatus, setAuthButtonStatus] = useState<"loading" | "idle">(
+		"idle"
+	)
 	const [current, setCurrent] = useState(3)
 	const navigation = [
 		{ name: "Creators", href: "/creators", current: current === 0 },
@@ -108,13 +112,39 @@ function Navbar({}: Props) {
 			status === "authenticated" &&
 			session?.user?.role === "USER"
 		) {
-			return (
+			return session.user.image ? (
 				<Image
 					alt="image"
 					className="rounded-full"
 					src={session?.user?.image!}
-					height={26}
-					width={26}></Image>
+					height={40}
+					width={40}></Image>
+			) : (
+				<div className="realtive group">
+					<Image
+						alt="image"
+						className="rounded-full cursor-pointer"
+						src={
+							"https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+						}
+						height={40}
+						width={40}></Image>
+					<div className="absolute  hidden gap-6 p-4 font-primary text-lg font-medium group-hover:flex group-hover:flex-col w-auto h-auto bg-primary-base right-2 rounded-md shadow-md shadow-secondary-base ">
+						<p>{session.user.email}</p>
+						<button
+							onClick={() => {
+								setAuthButtonStatus("loading")
+								signOut()
+							}}
+							className="bg-accent-base text-primary-base font-primary p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary-base">
+							{authButtonStatus === "loading" ? (
+								<ClipLoader></ClipLoader>
+							) : (
+								"abmelden"
+							)}
+						</button>
+					</div>
+				</div>
 			)
 		} else if (status === "unauthenticated") {
 			return (
@@ -125,7 +155,11 @@ function Navbar({}: Props) {
 				</button>
 			)
 		} else {
-			return <div>loading...</div>
+			return (
+				<div>
+					<ClipLoader></ClipLoader>
+				</div>
+			)
 		}
 	}
 
@@ -150,7 +184,7 @@ function Navbar({}: Props) {
 					width={240}
 					src={"/media/logo/logo_text_nobg.png"}></Image>
 			</Link>
-			<div className="flex-row gap-2 hidden md:flex font-primary font-medium">
+			<div className="flex-row gap-2 hidden md:flex text-secondary-base font-primary font-medium">
 				{navigation.map((item, index) => (
 					<Link
 						className="p-2 rounded-md hover:bg-secondary-base/20 text-2xl"

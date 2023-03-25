@@ -173,8 +173,8 @@ function AuctionCard({ auction, status }: Props) {
 						<div className="p-4 w-80 bg-white rounded-lg shadow-md max-w-md">
 							<Link
 								href={`/auction/${auction.id}`}
-								className="w-full flex flex-row justify-between items-center px-2 p-1 mb-2 group hover:bg-secondary-base/10 duration-200 rounded-lg">
-								<h2 className="text-xl font-semibold text-[#B76E79] first-letter:uppercase">
+								className="w-full flex flex-row pb-6 justify-between items-center px-2 p-1 mb-2 group hover:bg-secondary-base/10 duration-200 rounded-lg">
+								<h2 className="text-xl font-semibold  text-[#B76E79] first-letter:uppercase">
 									{auction.title}
 								</h2>
 								{hasStarted ? (
@@ -196,9 +196,6 @@ function AuctionCard({ auction, status }: Props) {
 							</div>
 
 							<div className="mb-4 flex items-center flex-col">
-								<h3 className="text-md font-semibold text-gray-700 mb-2">
-									Item:
-								</h3>
 								<div className="w-full flex flex-wrap gap-1">
 									<ItemCard item={auction.item} status={userItemsStatus} />
 								</div>

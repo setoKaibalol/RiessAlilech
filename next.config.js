@@ -6,6 +6,7 @@ const nextConfig = {
 			"lh3.googleusercontent.com",
 			"static.vecteezy.com",
 			"via.placeholder.com",
+			"upload.wikimedia.org",
 		],
 	},
 }
