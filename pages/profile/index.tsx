@@ -11,7 +11,11 @@ function Profile({}: Props) {
 	const { userCreatorData, setUserCreatorData } = useUserContext()
 
 	useEffect(() => {
-		if (session && session.user.role === "CREATOR" && !userCreatorData) {
+		if (
+			session &&
+			session.user.role === "CREATOR" &&
+			Object.keys(userCreatorData).length === 0
+		) {
 			fetch("/api/creator/get", {
 				method: "POST",
 				headers: {
@@ -24,11 +28,9 @@ function Profile({}: Props) {
 				.then((res) => res.json())
 				.then((data) => {
 					setUserCreatorData(data)
-					console.log(data)
 				})
 		}
 	}, [session])
-
 	switch (status) {
 		case "loading":
 			return (
@@ -40,7 +42,7 @@ function Profile({}: Props) {
 			return (
 				<div className="flex justify-center items-center h-screen text-black">
 					<button
-						className="border-2 rounded-md bg-accent-base hover:bg-secondary-base text-primary-base border-secondary-base "
+						className="border-2 p-3 rounded-md bg-accent-base hover:bg-secondary-base text-primary-base border-secondary-base "
 						onClick={() => signIn()}>
 						Anmelden
 					</button>
