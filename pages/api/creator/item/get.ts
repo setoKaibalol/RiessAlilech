@@ -17,14 +17,17 @@ const handler: Handler = async (req, res) => {
 				res.status(401).json({ message: "Not authenticated" })
 				return
 			}
-			const { user } = req.body
-			console.log(req.body)
-			const items = await prisma.item.findMany({
-				where: {
-					creatorId: user.id,
-				},
-			})
-			res.status(200).send(items)
+			if (session.user.id) {
+				const { user } = req.body
+				const items = await prisma.item.findMany({
+					where: {
+						creatorId: session.user.id,
+					},
+				})
+				res.status(200).send(items)
+			} else {
+				res.status(401).json({ message: "Not authenticated" })
+			}
 		} else {
 			res.status(405).json({ message: "Method not allowed" })
 		}
