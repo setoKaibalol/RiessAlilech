@@ -17,17 +17,23 @@ const handler: Handler = async (req, res) => {
 	}
 	try {
 		if (req.method === "POST") {
-			const creators = await prisma.user
-				.findMany({
+			const { userId, name, email, role } = req.body
+			const user = await prisma.user
+				.update({
 					where: {
-						role: "CREATOR",
+						id: userId,
+					},
+					data: {
+						name: name,
+						email: email,
+						role: role,
 					},
 				})
 				.catch((err) => {
 					console.error(err)
 				})
 
-			res.status(200).send(creators)
+			res.status(200).send(user)
 		} else {
 			res.status(405).json({ message: "Method not allowed" })
 		}

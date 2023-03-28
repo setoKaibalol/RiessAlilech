@@ -35,40 +35,21 @@ export const AuthComponent = () => {
 		}
 	}, [session])
 
-	if (
-		session &&
-		status === "authenticated" &&
-		session?.user?.role === "ADMIN"
-	) {
+	if (session && session.user.role === "ADMIN") {
 		return (
-			<div className="w-auto flex flex-row gap-2 font-primary text-secondary-base">
-				<button
-					onClick={() => {
-						signOut()
-					}}>
-					sign out
-				</button>
+			<div className=" flex flex-row gap-2 font-primary text-secondary-base">
 				<Link
-					href={"/admin/creators"}
-					className="bg-primary flex flex-row gap-1 p-2 px-3 uppercase rounded-lg duration-200 hover:bg-secondary bg-secondary/20">
+					href={"/admin"}
+					className="flex bg-accent-base text-primary-base flex-row gap-1 p-2 px-3 uppercase rounded-lg duration-200 ">
 					<h2>ADMIN DASHBOARD</h2>
-					<Image
-						alt="image"
-						className="rounded-full"
-						src={session?.user?.image!}
-						height={26}
-						width={26}></Image>
-				</Link>
-				<Link
-					href={"/dashboard"}
-					className="flex flex-row gap-1 p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-accent bg-accent/20">
-					<h2>DASHBOARD</h2>
-					<Image
-						alt="image"
-						className="rounded-full"
-						src={session?.user?.image!}
-						height={26}
-						width={26}></Image>
+					<div className="h-full w-14 justify-center items-center">
+						<Image
+							alt="image"
+							className="rounded-full"
+							src={session?.user?.image!}
+							height={50}
+							width={50}></Image>
+					</div>
 				</Link>
 			</div>
 		)

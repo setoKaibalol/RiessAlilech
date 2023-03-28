@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react"
 
 type Props = {}
 
-function Creators({}: Props) {
+function Users({}: Props) {
 	const { data: session } = useSession()
 
 	const {
@@ -128,4 +128,4 @@ function Creators({}: Props) {
 	)
 }
 
-export default Creators
+export default Users

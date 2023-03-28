@@ -91,6 +91,7 @@ function Navbar({}: Props) {
 				<div className="flex-row gap-2 hidden md:flex text-secondary-base font-primary font-medium">
 					{navigation.map((item, index) => (
 						<Link
+							onClick={() => setShowMobileMenu(false)}
 							className="p-2 rounded-md hover:bg-secondary-base/20 text-2xl"
 							key={index}
 							href={`${item.href}`}>
@@ -123,11 +124,12 @@ function Navbar({}: Props) {
 						}`}></HiOutlineMenuAlt3>
 				</button>
 				{showMobileMenu && (
-					<div className="z-10 w-[60%] h-screen flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
-						{session && session.user.role === "CREATOR" ? (
-							<div className="flex flex-col gap-2 p-4 text-primary-base w-full">
+					<div className="z-10 w-[60%] pb-14 h-screen flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
+						<div className="flex flex-col gap-14 p-4 text-primary-base w-full h-full">
+							<div className="flex flex-col">
 								{mobileMenuNavigation.map((item, index) => (
 									<Link
+										onClick={() => setShowMobileMenu(false)}
 										className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
 										key={index}
 										href={`${item.href}`}>
@@ -136,18 +138,24 @@ function Navbar({}: Props) {
 								))}
 								<AuthComponent></AuthComponent>
 							</div>
-						) : (
-							""
-						)}
+
+							<div className=" flex flex-col h-full justify-end gap-4">
+								{status === "authenticated" && (
+									<button className="bg-primary-base w-full hover:bg-blue-700 text-secondary-base font-bold py-2 px-4 rounded">
+										Abmelden
+									</button>
+								)}
+							</div>
+						</div>
 					</div>
 				)}
 			</div>
 		</div>
-	) : router.pathname != "/dashboard" ? (
-		<>
+	) : router.pathname != "/dashboard" && !router.pathname.includes("admin") ? (
+		<div className="h-20 w-full bg-transparent z-20 fixed flex flex-row">
 			<div
 				id="navbar-ref"
-				className="fixed border-b-2 sm:flex hidden border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
+				className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
 				<Link href={"/"} className="flex flex-row justify-center items-center">
 					<Image
 						alt="logo"
@@ -190,12 +198,33 @@ function Navbar({}: Props) {
 						}`}></HiOutlineMenuAlt3>
 				</button>
 				{showMobileMenu && (
-					<div className="z-10 w-[60%] h-screen border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
-						wtf is going on
+					<div className="z-10 w-[60%] pb-14 h-screen flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
+						<div className="flex flex-col gap-14 p-4 text-primary-base w-full h-full">
+							<div className="flex flex-col">
+								{mobileMenuNavigation.map((item, index) => (
+									<Link
+										onClick={() => setShowMobileMenu(false)}
+										className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
+										key={index}
+										href={`${item.href}`}>
+										{item.name}
+									</Link>
+								))}
+								<AuthComponent></AuthComponent>
+							</div>
+
+							<div className=" flex flex-col h-full justify-end gap-4">
+								{status === "authenticated" && (
+									<button className="bg-primary-base w-full hover:bg-blue-700 text-secondary-base font-bold py-2 px-4 rounded">
+										Abmelden
+									</button>
+								)}
+							</div>
+						</div>
 					</div>
 				)}
 			</div>
-		</>
+		</div>
 	) : (
 		<div></div>
 	)

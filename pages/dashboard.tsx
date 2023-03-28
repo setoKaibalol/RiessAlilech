@@ -22,9 +22,7 @@ function Dashboard({}: Props) {
 			)
 
 		default:
-			return session &&
-				(session?.user?.role === "CREATOR" ||
-					session?.user?.role === "ADMIN") ? (
+			return session && session?.user?.role === "CREATOR" ? (
 				<div className="sm:h-screen max-h-screen sm:overflow-hidden flex flex-col">
 					<DashboardNavbar />
 					{active === 1 ? (
@@ -36,7 +34,7 @@ function Dashboard({}: Props) {
 					)}
 				</div>
 			) : (
-				<div className="flex flex-col items-center justify-center h-screen">
+				<div className="flex flex-col p-8 items-center justify-center h-screen">
 					<h1 className="text-2xl font-bold">
 						Du hast keinen Zugriff auf diese Seite
 					</h1>

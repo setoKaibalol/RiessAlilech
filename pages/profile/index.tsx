@@ -66,7 +66,7 @@ function Profile({}: Props) {
 								fill></Image>
 						</div>
 					</div>
-					<div>{}</div>
+					<div>{session.user.role}</div>
 				</div>
 			) : (
 				<div className="flex flex-col justify-start pt-20 items-center bg-primary-base text-secondary-base font-primary h-screen">
@@ -103,7 +103,7 @@ function Profile({}: Props) {
 							</div>
 						)}
 					</div>
-					<div>{}</div>
+					<div>{session.user.role}</div>
 				</div>
 			)
 		default:

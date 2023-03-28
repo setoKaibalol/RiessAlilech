@@ -215,7 +215,7 @@ function CreateAuctionComponent({}: Props) {
 				</div>
 				<div>
 					<button
-						className="text-primary-500 text-2xl uppercase w-max p-2 hover:bg-secondary-100/20 font-medium rounded-lg duration-200"
+						className="text-primary-500 text-2xl uppercase w-max p-2 bg-accent-base font-medium rounded-lg duration-200"
 						onClick={() => setActive(2)}>
 						Erstelle dein erstes Item!
 					</button>

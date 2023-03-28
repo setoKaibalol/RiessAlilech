@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next"
 import { Session } from "next-auth"
 import { prisma } from "@/prisma/PrismaClient"
-import { authOptions } from "../../auth/[...nextauth]"
+import { authOptions } from "../../../auth/[...nextauth]"
 import type { NextApiRequest, NextApiResponse } from "next"
 
 type Handler = (
@@ -15,21 +15,17 @@ const handler: Handler = async (req, res) => {
 		res.status(401).json({ message: "Not authenticated" })
 		return
 	}
-	const { user } = req.body
 	try {
 		if (req.method === "POST") {
 			const creators = await prisma.user
-				.update({
+				.findMany({
 					where: {
-						id: user.id,
-					},
-					data: {
 						role: "CREATOR",
-						Creator: {
-							create: {
-								nickName: user.name,
-							},
-						},
+					},
+					include: {
+						Creator: true,
+						Item: true,
+						Tip: true,
 					},
 				})
 				.catch((err) => {
