@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useSession } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import { ClipLoader } from "react-spinners"
 import Image from "next/image"
 import { useUserContext } from "@/context"
@@ -39,7 +39,11 @@ function Profile({}: Props) {
 		case "unauthenticated":
 			return (
 				<div className="flex justify-center items-center h-screen text-black">
-					Login
+					<button
+						className="border-2 rounded-md bg-accent-base hover:bg-secondary-base text-primary-base border-secondary-base "
+						onClick={() => signIn()}>
+						Anmelden
+					</button>
 				</div>
 			)
 		case "authenticated":
