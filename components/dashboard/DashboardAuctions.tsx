@@ -74,14 +74,14 @@ function DashboardAuctions({}: Props) {
 
 	// 1
 	return (
-		<div className="h-full flex flex-col justify-between divide-y-2 sm:divide-y-0 sm:flex-row bg-zinc-700 text-gray-200">
+		<div className="h-full pb-20 flex flex-col justify-between divide-y-2 divide-accent-base sm:divide-y-0 sm:flex-row bg-zinc-700 text-gray-200">
 			<div className="sm:hidden p-2 text-center text-2xl font-medium">
 				<p>Auctions</p>
 			</div>
 			<section className="sm:w-1/2 h-full flex gap-1 flex-col w-full text-xl font-medium p-2 sm:p-2">
-				<p>Alle Auctions</p>
-				<div className="overflow-y-scroll overflow-x-hidden h-[75vh] sm:p-2">
-					<div className=" flex flex-col gap-4">
+				<p className="py-2">Meine Auctions</p>
+				<div className="overflow-x-scroll overflow-y-hidden h-[610px] w-full sm:p-2">
+					<div className=" flex flex-row gap-4">
 						{creatorAuctionsStatus === "loading" &&
 							skeletonCards.map((item, index) => {
 								return <SkeletonCard key={index}></SkeletonCard>
@@ -106,7 +106,9 @@ function DashboardAuctions({}: Props) {
 					</div>
 				</div>
 			</section>
-			<section className="sm:w-1/2 w-full">
+			<section className="sm:w-1/2 h-full flex gap-1 flex-col w-full  p-2 sm:p-2">
+				<p className="py-2 text-xl font-medium">Auction erstellen</p>
+
 				<CreateAuctionComponent />
 			</section>
 		</div>

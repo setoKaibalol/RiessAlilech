@@ -2,10 +2,12 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import { getServerSession } from "next-auth/next"
 import { Session } from "next-auth"
 import { prisma } from "@/prisma/PrismaClient"
-import { authOptions } from "../../auth/[...nextauth]"
+import { authOptions } from "../auth/[...nextauth]"
 
 type Handler = (
-	req: NextApiRequest,
+	req: NextApiRequest & {
+		session: Session // Define the type of the session object
+	},
 	res: NextApiResponse
 ) => void | Promise<void>
 
@@ -14,27 +16,27 @@ const handler: Handler = async (req, res) => {
 		const session = await getServerSession(req, res, authOptions)
 		if (req.method === "POST") {
 			if (!session || (session.user && session.user.role !== "CREATOR")) {
-				res.status(401).json({
-					message:
-						"du bist kein Creator! Wende dich an das Team um deine Rolle zu bekommen.",
-				})
+				res.status(401).json({ message: "Not authenticated" })
 				return
 			}
-			const { user } = req.body
 
-			const auctions = await prisma.auction.findMany({
-				where: {
-					Creator: {
-						creatorId: user.id,
+			if (!session.user.id) {
+				res.status(401).json({ message: "Not authenticated" })
+				return
+			}
+
+			const creator = await prisma.creator
+				.findUniqueOrThrow({
+					where: {
+						creatorId: session.user.id,
 					},
-				},
-				include: {
-					item: true,
-					bids: true,
-					Creator: true,
-				},
-			})
-			res.status(200).send(auctions)
+				})
+				.catch((err) => {
+					console.error(err)
+					throw new Error("Creator not found")
+				})
+
+			res.status(200).send(creator)
 		} else {
 			res.status(405).json({ message: "Method not allowed" })
 		}

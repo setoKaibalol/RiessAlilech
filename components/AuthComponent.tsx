@@ -7,13 +7,33 @@ import { useUserContext } from "./../context"
 import { ClipLoader } from "react-spinners"
 
 export const AuthComponent = () => {
-	const { active, setActive } = useUserContext()
+	const { active, setActive, userCreatorData, setUserCreatorData } =
+		useUserContext()
 	const router = useRouter()
 	const { data: session, status } = useSession()
 
 	const [authButtonStatus, setAuthButtonStatus] = useState<"loading" | "idle">(
 		"idle"
 	)
+
+	useEffect(() => {
+		if (session && session.user.role === "CREATOR" && !userCreatorData) {
+			fetch("/api/creator/get", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					creatorId: session.user.id,
+				}),
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					setUserCreatorData(data)
+					console.log(data)
+				})
+		}
+	}, [session])
 
 	if (
 		session &&
@@ -55,33 +75,27 @@ export const AuthComponent = () => {
 	} else if (
 		session &&
 		status === "authenticated" &&
-		session?.user?.role === "CREATOR"
+		session.user.role === "CREATOR"
 	) {
 		return (
-			<div className="w-auto flex flex-row gap-2 font-primary text-secondary-base">
-				<button
-					onClick={() => {
-						signOut()
-					}}>
-					sign out
-				</button>
+			<div className="w-auto flex flex-row gap-2 font-primary text-primary-base">
 				<Link
 					href={"/dashboard"}
-					className="flex flex-row h-16 gap-1 p-2 px-4 text-xl justify-center uppercase font-medium items-center rounded-lg duration-200 bg-accent-base/70 hover:bg-accent-base">
-					<h2>DASHBOARD</h2>
+					className="flex flex-row h-16 gap-1 p-2 px-4 text-lg justify-center uppercase font-medium items-center rounded-lg duration-200 bg-accent-base/70 hover:bg-accent-base">
+					<h2>CREATOR DASHBOARD</h2>
 					<Image
 						alt="image"
 						className="rounded-full"
-						src={session?.user?.image!}
-						height={26}
-						width={26}></Image>
+						src={userCreatorData.profilePicture}
+						height={40}
+						width={40}></Image>
 				</Link>
 			</div>
 		)
 	} else if (
 		session &&
 		status === "authenticated" &&
-		session?.user?.role === "USER"
+		session.user.role === "USER"
 	) {
 		return session.user.image ? (
 			<Image

@@ -36,6 +36,12 @@ function Navbar({}: Props) {
 	const NavbarRef = useRef(null)
 	const MobileMenuButton = useRef(null)
 
+	const mobileMenuNavigation = [
+		{ name: "Creators", href: "/creators", current: current === 0 },
+		{ name: "Auktionen", href: "/auctions", current: current === 1 },
+		{ name: "Hilfe", href: "/hilfe", current: current === 2 },
+	]
+
 	useEffect(() => {
 		addEventListener("scroll", () => {
 			const navbar = document.getElementById("navbar-ref")
@@ -117,7 +123,23 @@ function Navbar({}: Props) {
 						}`}></HiOutlineMenuAlt3>
 				</button>
 				{showMobileMenu && (
-					<div className="z-10 w-[60%] h-screen border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0"></div>
+					<div className="z-10 w-[60%] h-screen flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
+						{session && session.user.role === "CREATOR" ? (
+							<div className="flex flex-col gap-2 p-4 text-primary-base w-full">
+								{mobileMenuNavigation.map((item, index) => (
+									<Link
+										className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
+										key={index}
+										href={`${item.href}`}>
+										{item.name}
+									</Link>
+								))}
+								<AuthComponent></AuthComponent>
+							</div>
+						) : (
+							""
+						)}
+					</div>
 				)}
 			</div>
 		</div>
@@ -168,7 +190,9 @@ function Navbar({}: Props) {
 						}`}></HiOutlineMenuAlt3>
 				</button>
 				{showMobileMenu && (
-					<div className="z-10 w-[60%] h-screen border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0"></div>
+					<div className="z-10 w-[60%] h-screen border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
+						wtf is going on
+					</div>
 				)}
 			</div>
 		</>

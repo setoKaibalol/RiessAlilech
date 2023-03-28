@@ -120,13 +120,13 @@ function DashboardItems({}: Props) {
 		}
 	}, [refreshItems])
 	return (
-		<div className="h-full text-gray-200 flex items-center flex-col grow-0 divide-y-2 sm:divide-y-0  sm:flex-row bg-slate-700">
+		<div className="h-full pb-20 flex flex-col justify-between divide-y-2 divide-accent-base sm:divide-y-0 sm:flex-row bg-zinc-700 text-gray-200">
 			<div className="sm:hidden p-2 text-center text-2xl font-medium">
 				<p>Items</p>
 			</div>
 			<section className="sm:w-1/2 h-full flex gap-1 flex-col w-full text-xl font-medium p-2 sm:p-2">
-				<p>Meine Items</p>
-				<div className="overflow-y-scroll overflow-x-hidden h-[75vh] sm:p-2">
+				<p className="py-2">Meine Items</p>
+				<div className="overflow-x-scroll overflow-y-hidden h-[610px] w-full sm:p-2">
 					<div className=" flex flex-col gap-4">
 						{itemStatus === "loading" &&
 							skeletonCards.map((item, index) => {
@@ -140,115 +140,118 @@ function DashboardItems({}: Props) {
 					</div>
 				</div>
 			</section>
-			<section className="sm:w-1/2 w-full h-full flex justify-center p-2">
-				<form
-					onSubmit={handleSubmit}
-					className="w-full max-w-4xl h-full p-1 gap-4 flex-col flex justify-evenly">
-					<div className="w-full sm:gap-1 gap-4 flex flex-col">
-						<div className="flex flex-col">
-							<label htmlFor="fileInput">Bild</label>
-							<input
-								id="fileInput"
-								accept="image/*"
-								required
-								onChange={(e: any | null) =>
-									handleFileSelect(e.target.files[0])
-								}
-								type={"file"}></input>
-						</div>
-						<div>
-							<label htmlFor="name">Name</label>
-							<input
-								type="text"
-								name="name"
-								id="name"
-								value={itemName}
-								onChange={(e) => setItemName(e.target.value)}
-								required
-								className="w-full p-2 border-2 border-primary text-black rounded-sm"
-								placeholder="Name"
-							/>
-						</div>
-						<div>
-							<label htmlFor="description">Beschreibung</label>
-							<input
-								type="text"
-								name="description"
-								id="description"
-								value={itemDescription}
-								onChange={(e) => setItemDescription(e.target.value)}
-								className="w-full p-2 border-2 border-primary text-black rounded-sm"
-								placeholder="Beschreibung"
-							/>
-						</div>
-						<div>
-							<label htmlFor="link">
-								[optional] Link zum Item (z.B. zu einem Google Drive Ordner)
-							</label>
-							<input
-								type="text"
-								name="link"
-								id="link"
-								value={itemLink}
-								onChange={(e) => setItemLink(e.target.value)}
-								className="w-full p-2 border-2 border-primary text-black rounded-sm"
-								placeholder="Link"
-							/>
-						</div>
-						<div className="flex flex-row gap-2">
-							<div className="w-1/2">
-								<label htmlFor="typ">Typ</label>
-								<Select
-									name="typ"
-									menuPlacement="auto"
-									id="typ"
-									onChange={(e: any) => {
-										setItemType(e.value)
-									}}
-									options={[
-										{
-											value: "Physischer Gegenstand",
-											label: "Physischer Gegenstand",
-										},
-										{
-											value: "Digitaler Gegenstand",
-											label: "Digitaler Gegenstand",
-										},
-									]}
-									className="w-full rounded-sm text-black"
+			<section className="sm:w-1/2 h-full flex gap-1 flex-col w-full  p-2 sm:p-2">
+				<p className="py-2 text-xl font-medium">Item erstellen</p>
+				<div className="w-full h-full flex justify-center p-2 font-primary">
+					<form
+						onSubmit={handleSubmit}
+						className="w-full max-w-4xl h-full p-1 gap-4 flex-col flex justify-evenly">
+						<div className="w-full sm:gap-1 gap-1 flex flex-col">
+							<div className="flex flex-col">
+								<label htmlFor="fileInput">Bild</label>
+								<input
+									id="fileInput"
+									accept="image/*"
+									required
+									onChange={(e: any | null) =>
+										handleFileSelect(e.target.files[0])
+									}
+									type={"file"}></input>
+							</div>
+							<div>
+								<label htmlFor="name">Name</label>
+								<input
+									type="text"
+									name="name"
+									id="name"
+									value={itemName}
+									onChange={(e) => setItemName(e.target.value)}
+									required
+									className="w-full p-2 border-2 border-primary text-black rounded-sm"
+									placeholder="Name"
 								/>
 							</div>
-
-							<div className="w-1/2">
-								<label htmlFor="zustellung">Zustellung</label>
-								<Select
-									name="zustellung"
-									id="zustellung"
-									menuPlacement="auto"
-									onChange={(e: any) => {
-										setItemZustellung(e.value)
-									}}
-									options={[
-										{ value: "Email", label: "Email" },
-										{ value: "Post", label: "Post" },
-									]}
-									className="w-full rounded-sm text-black"
+							<div>
+								<label htmlFor="description">Beschreibung</label>
+								<input
+									type="text"
+									name="description"
+									id="description"
+									value={itemDescription}
+									onChange={(e) => setItemDescription(e.target.value)}
+									className="w-full p-2 border-2 border-primary text-black rounded-sm"
+									placeholder="Beschreibung"
 								/>
 							</div>
-						</div>
-					</div>
+							<div>
+								<label htmlFor="link">
+									[optional] Link zum Item (z.B. zu einem Google Drive Ordner)
+								</label>
+								<input
+									type="text"
+									name="link"
+									id="link"
+									value={itemLink}
+									onChange={(e) => setItemLink(e.target.value)}
+									className="w-full p-2 border-2 border-primary text-black rounded-sm"
+									placeholder="Link"
+								/>
+							</div>
+							<div className="flex flex-row gap-2">
+								<div className="w-1/2">
+									<label htmlFor="typ">Typ</label>
+									<Select
+										name="typ"
+										menuPlacement="auto"
+										id="typ"
+										onChange={(e: any) => {
+											setItemType(e.value)
+										}}
+										options={[
+											{
+												value: "Physischer Gegenstand",
+												label: "Physischer Gegenstand",
+											},
+											{
+												value: "Digitaler Gegenstand",
+												label: "Digitaler Gegenstand",
+											},
+										]}
+										className="w-full rounded-sm text-black"
+									/>
+								</div>
 
-					<button
-						type="submit"
-						disabled={itemStatus === "loading"}
-						className="bg-accent-base text-3xl disabled:bg-gray-600 p-2 px-10 font-medium rounded-lg duration-200 hover:bg-accent-base">
-						{itemStatus === "loading" ? (
-							<ClipLoader></ClipLoader>
-						) : (
-							"Item erstellen"
-						)}
-					</button>
-				</form>
+								<div className="w-1/2">
+									<label htmlFor="zustellung">Zustellung</label>
+									<Select
+										name="zustellung"
+										id="zustellung"
+										menuPlacement="auto"
+										onChange={(e: any) => {
+											setItemZustellung(e.value)
+										}}
+										options={[
+											{ value: "Email", label: "Email" },
+											{ value: "Post", label: "Post" },
+										]}
+										className="w-full rounded-sm text-black"
+									/>
+								</div>
+							</div>
+						</div>
+
+						<button
+							type="submit"
+							disabled={itemStatus === "loading"}
+							className="bg-accent-base text-3xl disabled:bg-gray-600 p-2 px-10 font-medium rounded-lg duration-200 hover:bg-accent-base">
+							{itemStatus === "loading" ? (
+								<ClipLoader></ClipLoader>
+							) : (
+								"Item erstellen"
+							)}
+						</button>
+					</form>
+				</div>
 			</section>
 		</div>
 	)

@@ -20,8 +20,8 @@ function AuctionCard({ auction, status }: Props) {
 	const [hasStarted, setHasStarted] = useState(false)
 	const startsIn = moment(auction.startAt).diff(moment(), "seconds", true)
 	const endsIn = moment(auction.endAt).diff(moment(), "seconds", true)
-	const date = new Date().getTime()
 
+	const date = new Date().getTime()
 	const router = useRouter()
 	const {
 		creatorAuctionsStatus,
@@ -94,68 +94,84 @@ function AuctionCard({ auction, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="w-full min-w-76 p-1 h-60 border relative hover:bg-secondary font-primary duration-200 bg-secondary/80 text-black shadow-md rounded-sm shadow-gray-600">
-							<button
-								onClick={() => deleteAuction(auction)}
-								className="absolute bottom-2 w-40 h-10 justify-center items-center right-2 text-lg text-white bg-red-500 p-1 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-red-700">
-								{creatorAuctionsStatus === "loading" && (
-									<ClipLoader className="h-10 w-10"></ClipLoader>
+						<div className="p-4 w-80 max-h-[600px] bg-white rounded-lg shadow-md max-w-md">
+							<Link
+								href={`/auction/${auction.id}`}
+								className="w-full flex flex-row relative justify-between items-center px-2 p-1 mb-2 group hover:bg-secondary-base/10 duration-200 rounded-lg">
+								<h2 className="text-xl font-semibold text-[#B76E79] first-letter:uppercase">
+									{auction.title}
+								</h2>
+								{hasStarted ? (
+									<div className="relative ">
+										<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
+										<p className="w-4 h-4 bg-green-500 rounded-full"></p>
+									</div>
+								) : (
+									<div className="relative ">
+										<p className="w-4 h-4 bg-red-500 rounded-full"></p>
+									</div>
 								)}
-								{creatorAuctionsStatus === "loaded" && "Löschen"}
-							</button>
+							</Link>
 
-							<div className="flex  divide-x-2 flex-col sm:flex-row h-full w-full justify-between">
-								<div className="flex flex-row h-auto pr-2">
-									<Link
-										href={
-											process.env.NEXT_PUBLIC_WEBSITE_URL + "/" + auction.id
-										}
-										className="relative gap flex sm:w-60 w-1/3 z-20 hover:scale-110 duration-200">
-										<Image
-											className=" rounded-xl"
-											style={{
-												objectPosition: "left",
-												objectFit: "contain",
-											}}
-											alt={auction.title}
-											src={auction.item.image}
-											fill></Image>
-									</Link>
-									<div className="w-[200px] h-auto flex gap-2 max-w-[200px] flex-col text-base justify-center items-start">
-										<div className="flex  flex-row gap-2 font-medium w-full justify-between">
-											<p>Titel:</p>
-											<p className="first-letter:uppercase">{auction.title}</p>
-										</div>
-										<div className="flex flex-row justify-between w-full items-center gap-2">
-											<p>Link zum Teilen:</p>
-
-											<button
-												onClick={() => {
-													navigator.clipboard.writeText(
-														websiteLink + "/" + auction.id
-													)
-													handleCopySuccess(auction.id)
-												}}
-												className="bg-gray-200/20 truncate hover:bg-gray-200/60 duration-200 p-1 rounded-xl w-full font-medium">
-												{copySuccess === auction.id
-													? "Kopiert!"
-													: websiteLink + "/" + auction.id}
-											</button>
-										</div>
-										<div className="flex flex-row gap-2 font-medium w-full justify-between">
-											<p>Mindest Tip:</p>
-											<p>{auction.minTip}</p>
-										</div>
-										<div className="flex flex-row gap-2 font-medium w-full justify-between">
-											<p>Typ:</p>
-											<p>{auction.live}</p>
-										</div>
+							<div className="mb-4 flex items-center flex-col">
+								<div className="w-full flex justify-center items-center p-5">
+									<ItemCard item={auction.item} status={userItemsStatus} />
+								</div>
+							</div>
+							<div className="flex divide-y-2 text-secondary-base items-center p-4 flex-col">
+								<div className="w-full flex flex-row gap-2 justify-between">
+									<p>Dauer:</p>
+									<div>
+										<span className="text-accent-base font-bold">
+											{moment(auction.startAt).diff(
+												moment(auction.endAt),
+												"hours"
+											) * -1}
+										</span>{" "}
+										Stunden
 									</div>
 								</div>
-								<div className="flex pl-2 flex-row sm:flex-col gap-1 h-20 w-full justify-center sm:h-full items-center text-base">
-									<p>Beschreibung:</p>
-									<p>{auction.description}</p>
+								<div className="w-full flex flex-row gap-2 justify-between">
+									<p>Mindest-Tip:</p>
+									<div>
+										<span className="text-accent-base font-bold">
+											{auction.minTip}
+										</span>{" "}
+										€
+									</div>
 								</div>
+								<div className="w-full flex flex-row gap-2 justify-between">
+									<p>Tips:</p>
+									<div>
+										<span className="text-accent-base font-bold">
+											{auction.totalTips}
+										</span>{" "}
+									</div>
+								</div>
+								<div className="w-full flex flex-row gap-2 justify-between">
+									<p>Tips in €:</p>
+									<div>
+										<span className="text-accent-base font-bold">
+											{auction.totalTipsAmount.toFixed(2)}
+										</span>{" "}
+										€
+									</div>
+								</div>
+							</div>
+							<div className="text-sm text-secondary-base mb-4">
+								{hasStarted ? (
+									<div className="flex flex-col items-center min-h-[100px] w-[280px]">
+										<CountdownTimer
+											hasStarted={hasStarted}
+											targetDate={date + endsIn * -1000}></CountdownTimer>
+									</div>
+								) : (
+									<div className="flex flex-col items-center min-h-[100px] w-[280px]">
+										<CountdownTimer
+											hasStarted={hasStarted}
+											targetDate={date + startsIn * 1000}></CountdownTimer>
+									</div>
+								)}
 							</div>
 						</div>
 					)

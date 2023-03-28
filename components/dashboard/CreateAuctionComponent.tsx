@@ -4,12 +4,13 @@ import { useSession } from "next-auth/react"
 import { useUserContext } from "@/context"
 import ClipLoader from "react-spinners/ClipLoader"
 import Link from "next/link"
+import Image from "next/image"
 
 type Props = {}
 
 interface SelectOption {
-	value: string | undefined
-	label: string | undefined
+	label: any
+	value: string
 }
 
 function CreateAuctionComponent({}: Props) {
@@ -42,7 +43,19 @@ function CreateAuctionComponent({}: Props) {
 	const { data: session, status } = useSession()
 
 	const SelectOptions: SelectOption[] = items.map((item) => {
-		return { value: item?.id, label: item?.name }
+		return {
+			label: (
+				<div className="h-20 w-full flex flex-row gap-4 justify-start px-2 items-center">
+					<Image
+						height={40}
+						width={40}
+						alt={item.name}
+						src={item.image}></Image>
+					<p className="">{item.name}</p>
+				</div>
+			),
+			value: item.id,
+		}
 	})
 
 	const handleSubmit = (e: any) => {
@@ -134,8 +147,9 @@ function CreateAuctionComponent({}: Props) {
 								className="w-full p-2 border-2 border-primary rounded-sm text-black"
 							/>
 						</div>
-						<div className="w-1/3">
+						<div className="w-1/3 relative">
 							<label htmlFor="duration">Dauer</label>
+							<span className="absolute">h</span>
 							<input
 								type="number"
 								step={1}
@@ -144,11 +158,10 @@ function CreateAuctionComponent({}: Props) {
 								value={duration}
 								onChange={(e) => setDuration(parseInt(e.target.value))}
 								placeholder="Stunden"
-								className="w-full p-2 border-2 border-primary rounded-sm text-black"
-							/>
+								className="w-full p-2 border-2 border-primary rounded-sm text-black"></input>
 						</div>
 						<div className="w-1/3">
-							<label htmlFor="starttime">Startzeitpunkt</label>
+							<label htmlFor="starttime">Beginn</label>
 							<input
 								type="datetime-local"
 								name="starttime"
@@ -168,7 +181,7 @@ function CreateAuctionComponent({}: Props) {
 								required
 								id="item"
 								name="item"
-								className="w-full text-black"
+								className="w-full h-24 text-black"
 								menuPlacement="auto"
 								onChange={(e) => {
 									setSelectedItemId(e?.value)

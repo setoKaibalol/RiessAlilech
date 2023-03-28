@@ -1,6 +1,7 @@
 import React from "react"
 import DateTimeDisplay from "../helpers/DateTimeDisplay"
 import { useCountdown } from "../helpers/useCountdown"
+import { ClipLoader } from "react-spinners"
 
 const ShowCounter = ({ days, hours, minutes, seconds, hasStarted }) => {
 	return (
@@ -30,9 +31,16 @@ const ShowCounter = ({ days, hours, minutes, seconds, hasStarted }) => {
 
 const CountdownTimer = ({ targetDate, hasStarted }) => {
 	const [days, hours, minutes, seconds] = useCountdown(targetDate)
-
 	if (days + hours + minutes + seconds <= 0) {
-		return <></>
+		return hasStarted ? (
+			<div className="pt-8 w-full flex justify-center items-center">
+				<ClipLoader color={"#E0726C"} loading={true} size={40} />
+			</div>
+		) : (
+			<div className="pt-8 w-full flex justify-center items-center">
+				<ClipLoader color={"#E0726C"} loading={true} size={40} />
+			</div>
+		)
 	} else {
 		return (
 			<ShowCounter
