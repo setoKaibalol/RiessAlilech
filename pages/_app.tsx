@@ -8,6 +8,7 @@ import { UserContext } from "./../context"
 import NextNProgress from "nextjs-progressbar"
 import type { AppProps } from "next/app"
 import { Montserrat, Lato } from "next/font/google"
+import NavbarMobile from "@/components/NavbarMobile"
 
 const montserrat = Montserrat({ subsets: ["latin"] })
 const lato = Lato({ weight: "400", subsets: ["latin"] })
@@ -33,6 +34,7 @@ export default function App({
 					<Navbar />
 					<Component {...pageProps} />
 					<Footer />
+					<NavbarMobile />
 				</SessionProvider>
 			</UserContext>
 		</>

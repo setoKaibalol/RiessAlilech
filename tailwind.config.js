@@ -34,6 +34,11 @@ module.exports = {
 				"move-down": "move-down 0.2s ease-in-out",
 				"move-up": "move-up 0.2s ease-in-out",
 				"ping-new": "load 1s cubic-bezier(0, 0, 0.2, 1) infinite",
+				"open-mobile-menu": "open-mobile-menu 0.3s ease-in-out forwards",
+				"close-mobile-menu": "close-mobile-menu 0.3s ease-in-out forwards",
+				"scroll-icon-fade-in": "scroll-icon-fade-in 0.2s ease-in-out forwards",
+				"scroll-icon-fade-out":
+					"scroll-icon-fade-out 0.2s ease-in-out forwards",
 			},
 			keyframes: {
 				"fade-in": {
@@ -51,6 +56,23 @@ module.exports = {
 				"move-up": {
 					"0%": { transform: "translate(0px,0px)" },
 					"100%": { transform: "translate(0px,20px)" },
+				},
+				"open-mobile-menu": {
+					"0%": { transform: "scalex(0)", opacity: 0 },
+					"100%": { transform: "scalex(1)", opacity: 100 },
+				},
+				"close-mobile-menu": {
+					"0%": { transform: "scalex(1)", opacity: 100 },
+					"100%": { transform: "scalex(0)", opacity: 0 },
+				},
+				"scroll-icon-fade-in": {
+					"0%": { opacity: 0 },
+					"100%": { opacity: 100 },
+				},
+				"scroll-icon-fade-out": {
+					"0%": { opacity: 100 },
+					"50%": { opacity: 50 },
+					"100%": { opacity: 0 },
 				},
 			},
 			spacing: {

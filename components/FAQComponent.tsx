@@ -25,8 +25,6 @@ export default function FAQ({ items }: Props) {
 	return (
 		<div className="p-4 flex flex-col gap-2">
 			{items.map((item, index) => {
-				console.log(index, activeIndex, prevIndex)
-
 				return (
 					<div key={index}>
 						<div

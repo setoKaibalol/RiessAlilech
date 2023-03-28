@@ -15,7 +15,7 @@ function Footer({}: Props) {
 	]
 
 	return router.pathname != "/dashboard" ? (
-		<div className="h-auto w-full font-medium font-primary relative overflow-hidden ">
+		<div className="h-auto w-full font-primary hidden sm:flex relative overflow-hidden ">
 			<div className="w-full py-10 h-full flex md:flex-row flex-col items-center md:items-center md:justify-between bg-secondary border-t-secondary-base border-t-2">
 				<div className="flex md:flex-row items-center md:w-[30%] h-full">
 					<div className="w-1/3 h-full flex justify-center items-center">
@@ -26,9 +26,7 @@ function Footer({}: Props) {
 							height={100}></Image>
 					</div>
 					<div className="w-2/3 h-full p-10 flex justify-center items-center text-xl font-extralight">
-						Bid on Desire.
-						<br />
-						Connect with Passion.
+						Bid on Desire. Connect with Passion.
 					</div>
 				</div>
 				<div className="flex flex-row items-center w-[68%] h-full">

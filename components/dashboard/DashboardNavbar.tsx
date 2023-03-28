@@ -28,7 +28,7 @@ function DashboardNavbar({}: Props) {
 					}}
 					className={`h-full w-full p-3 flex md:flex-row md:gap-2 items-center justify-center ${
 						active === 1 ? "bg-zinc-700 translate-y-[3px]" : "bg-zinc-700"
-					} border-t-2 border-x-2 rounded-t-md`}>
+					} border-t-2 border-x-2 border-accent-base rounded-t-md`}>
 					<RiAuctionFill
 						className={`h-full text-accent-base  w-auto duration-200 ${
 							active === 1 && "scale-90"
@@ -43,7 +43,7 @@ function DashboardNavbar({}: Props) {
 					onClick={() => setActive(2)}
 					className={`h-full w-full p-3 flex md:flex-row md:gap-2 items-center justify-center ${
 						active === 2 ? "bg-slate-700 translate-y-[3px] " : "bg-slate-700"
-					} border-t-2 border-x-2 rounded-t-md`}>
+					} border-t-2 border-x-2 border-accent-base rounded-t-md`}>
 					<MdShoppingBasket
 						className={`h-full w-auto duration-200 ${
 							active === 2 && "scale-90"
@@ -58,7 +58,7 @@ function DashboardNavbar({}: Props) {
 					onClick={() => setActive(3)}
 					className={`h-full w-full p-3 flex md:flex-row md:gap-2 items-center justify-center ${
 						active === 3 ? "bg-neutral-800 translate-y-[3px]" : "bg-neutral-800"
-					} border-t-2 border-x-2 rounded-t-md`}>
+					} border-t-2 border-x-2 border-accent-base rounded-t-md`}>
 					<TbCoins
 						className={`h-full w-auto duration-200 ${
 							active === 3 && "scale-90"
