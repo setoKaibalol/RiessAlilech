@@ -36,7 +36,7 @@ function NavbarMobile({}: Props) {
 			current: false,
 			Icon: () => {
 				return (
-					<MdOutlineExplore className="w-10 h-10 animate-spin text-accent-base"></MdOutlineExplore>
+					<MdOutlineExplore className="w-10 h-10 rounded-full border-2 border-accent-base shadow-md shadow-accent-base text-accent-base"></MdOutlineExplore>
 				)
 			},
 		},

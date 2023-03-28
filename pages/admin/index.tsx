@@ -1,13 +1,16 @@
 import React, { ReactNode, useEffect } from "react"
 import Link from "next/link"
-import UsersLayout from "./users2"
+import UsersLayout from "@/components/admin/Users"
 import { useUserContext } from "@/context"
+import { useSession } from "next-auth/react"
+import AuctionsLayout from "@/components/admin/Auctions"
 
 interface AdminLayoutProps {
 	children: ReactNode
 }
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({}) => {
+	const { data: session, status } = useSession()
 	const {
 		adminCreators,
 		setAdminCreators,
@@ -21,6 +24,12 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({}) => {
 		setAdminUsersStatus,
 		refreshAdminUsers,
 		setRefreshAdminUsers,
+		auctions,
+		setAuctions,
+		auctionsStatus,
+		setAuctionsStatus,
+		refreshAuctions,
+		setRefreshAuctions,
 	} = useUserContext()
 
 	useEffect(() => {
@@ -38,7 +47,46 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({}) => {
 			})
 	}, [])
 
-	return (
+	useEffect(() => {
+		if (refreshAuctions && (!auctions || auctions.length === 0)) {
+			fetch("/api/admin/auctions/get", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({}),
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					setAuctions(data)
+					setAuctionsStatus("loaded")
+					setRefreshAuctions(false)
+				})
+				.catch((err) => {
+					setAuctionsStatus("error")
+					setRefreshAuctions(false)
+				})
+		}
+	}, [refreshAuctions])
+
+	useEffect(() => {
+		if (!auctions || auctions.length === 0) {
+			fetch("/api/admin/auctions/get", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({}),
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					setAuctions(data)
+					setAuctionsStatus("loaded")
+				})
+		}
+	}, [])
+
+	return session?.user.role === "ADMIN" ? (
 		<div className="flex flex-col h-screen">
 			<nav className="bg-gray-800 py-4">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,7 +117,14 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({}) => {
 			</nav>
 			<div>
 				<UsersLayout users={adminUsers} />
+				<AuctionsLayout auctions={auctions}></AuctionsLayout>
 			</div>
+		</div>
+	) : (
+		<div className="flex flex-col p-8 items-center justify-center h-screen">
+			<h1 className="text-2xl font-bold">
+				Du hast keinen Zugriff auf diese Seite
+			</h1>
 		</div>
 	)
 }
