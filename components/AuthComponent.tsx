@@ -17,6 +17,28 @@ export const AuthComponent = () => {
 	)
 
 	useEffect(() => {
+		if (
+			session &&
+			session.user.role === "CREATOR" &&
+			Object.keys(userCreatorData).length === 0
+		) {
+			fetch("/api/creator/get", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					creatorId: session.user.id,
+				}),
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					setUserCreatorData(data)
+				})
+		}
+	}, [session])
+
+	useEffect(() => {
 		if (session && session.user.role === "CREATOR" && !userCreatorData) {
 			fetch("/api/creator/get", {
 				method: "POST",
@@ -63,9 +85,9 @@ export const AuthComponent = () => {
 				<Link
 					href={"/dashboard"}
 					className="flex flex-row h-16 gap-1 p-2 px-4 text-lg justify-center uppercase font-medium items-center rounded-lg duration-200 bg-accent-base/70 hover:bg-accent-base">
-					<h2>CREATOR DASHBOARD</h2>
+					<h2>DASHBOARD</h2>
 					<Image
-						alt="image"
+						alt="profile picture"
 						className="rounded-full"
 						src={userCreatorData.profilePicture}
 						height={40}
