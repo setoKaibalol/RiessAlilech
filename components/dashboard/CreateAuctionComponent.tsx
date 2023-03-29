@@ -45,7 +45,7 @@ function CreateAuctionComponent({}: Props) {
 	const SelectOptions: SelectOption[] = items.map((item) => {
 		return {
 			label: (
-				<div className="h-20 w-full flex flex-row gap-4 justify-start px-2 items-center">
+				<div className=" w-full flex flex-row gap-4 justify-start px-2 items-center">
 					<Image
 						height={40}
 						width={40}
@@ -181,7 +181,7 @@ function CreateAuctionComponent({}: Props) {
 								required
 								id="item"
 								name="item"
-								className="w-full h-24 text-black"
+								className="w-full min-h-20 text-black"
 								menuPlacement="auto"
 								onChange={(e) => {
 									setSelectedItemId(e?.value)

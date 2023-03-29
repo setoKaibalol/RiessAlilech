@@ -37,6 +37,8 @@ function ItemCard({ item, status }: Props) {
 		})
 	}
 
+	console.log(item, status)
+
 	switch (router.pathname) {
 		case "/dashboard":
 			switch (status) {
@@ -46,44 +48,14 @@ function ItemCard({ item, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						item.image && (
-							<div className="w-40 h-40 relative">
-								<Image
-									fill
-									sizes="100%"
-									src={item.image}
-									alt="Creator Avatar"
-									className="w-full h-full object-cover rounded-lg border-secondary border-2 shadow-md"
-								/>
-							</div>
-						)
-					)
-				default:
-					return <SkeletonCard />
-			}
-		case "/creators":
-			switch (status) {
-				case "loading":
-					return <SkeletonCard />
-				case "error":
-					return <p>error</p>
-				case "loaded":
-					return (
-						<div className="p-4 bg-white rounded-lg shadow-md w-80">
-							<h3 className="text-lg font-semibold font-primary text-[#B76E79] mb-2">
-								name
-							</h3>
-							<img
-								src="https://via.placeholder.com/150"
+						<div className="w-40 h-40 relative">
+							<Image
+								fill
+								sizes="100%"
+								src={item.image}
 								alt="Creator Avatar"
-								className="rounded-full mb-4"
+								className="w-full h-full object-cover rounded-lg border-secondary border-2 shadow-md"
 							/>
-							<p className="text-sm text-gray-700 mb-4 font-secondary">
-								Short bio about the creator...
-							</p>
-							<button className="py-2 px-4 bg-secondary/90 duration-100 font-primary hover:bg-secondary text-white rounded-lg w-full">
-								View Creator
-							</button>
 						</div>
 					)
 				default:
@@ -121,7 +93,35 @@ function ItemCard({ item, status }: Props) {
 			}
 
 		default:
-			return <SkeletonCard />
+			switch (status) {
+				case "loading":
+					return <SkeletonCard />
+				case "error":
+					return <p>error</p>
+				case "loaded":
+					return (
+						<div className="rounded-lg p-4 border-secondary border-2 shadow-md w-full">
+							<h2 className="text-lg font-semibold font-primary text-secondary-base mb-2">
+								{item.name}
+							</h2>
+							<div className="w-full h-60 relative">
+								<Image
+									fill
+									sizes="100%"
+									src={item.image}
+									style={{
+										borderRadius: "10px",
+										objectFit: "contain",
+										objectPosition: "center",
+									}}
+									alt="Creator Avatar"
+								/>
+							</div>
+						</div>
+					)
+				default:
+					return <SkeletonCard />
+			}
 	}
 }
 

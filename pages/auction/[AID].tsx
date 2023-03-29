@@ -13,6 +13,7 @@ import {
 	TbBrandTwitter,
 	TbBrandTiktok,
 } from "react-icons/tb"
+import ItemCard from "@/components/cards/ItemCard"
 
 type Props = {
 	auction: any
@@ -26,8 +27,8 @@ function Auction(props: Props) {
 	const { data: session, status } = useSession()
 	console.log(auction)
 	return auction ? (
-		<div className="pt-20 gap-8 text-gray-200 sm:p-10 sm:pt-32 min-h-screen bg-gradient-radial from-accent-base via-white  to-white flex flex-row">
-			<div className="h-[600px] gap-8 flex flex-col w-1/3 ">
+		<div className="pt-20 p-4 gap-4 pb-20 md:pb-4 text-gray-200 sm:p-10 sm:pt-32 min-h-screen bg-gradient-radial from-accent-base via-accent-base to-white flex flex-col md:flex-row">
+			<div className="md:h-[600px] h-auto md:gap-8 flex p-4  flex-row md:flex-col w-full md:w-1/3">
 				<div className="h-1/2 w-full rounded-xl p-4 bg-secondary-base">
 					<div className=" flex flex-col w-full h-full items-center justify-evenly">
 						<div className="h-40 relative w-40 shrink-0">
@@ -67,7 +68,7 @@ function Auction(props: Props) {
 						</div>
 					</div>
 				</div>
-				<div className="h-1/2 w-full bg-secondary-base text-white rounded-xl p-4">
+				<div className="h-1/2 md:flex hidden md:w-full w-1/2 bg-secondary-base text-white rounded-xl p-4">
 					<div className="flex flex-col gap-2 items-center">
 						<h2 className="text-xl font-medium p-2">Tips</h2>
 						<div className="w-full h-full border gap-4 flex flex-col">
@@ -89,9 +90,14 @@ function Auction(props: Props) {
 					</div>
 				</div>
 			</div>
-			<div className="h-[600px] p-4 w-2/3 rounded-md bg-white shadow-md border-accent-base border-2 shadow-secondary-base">
+			<div className="h-[600px] text-secondary-base p-4 md:w-2/3 w-full rounded-md bg-primary-base shadow-md border-secondary-base border-2 shadow-secondary-base">
 				{hasStarted ? (
-					<div>Die Auktion hat angefangen!</div>
+					<div>
+						<div>
+							<ItemCard item={auction.item} status={"loaded"}></ItemCard>
+						</div>
+						<div></div>
+					</div>
 				) : (
 					<div className="flex flex-col h-full w-full justify-center p-10 items-center gap-4">
 						<p className="text-xl font-medium">Zeit bis die Auktion beginnt:</p>
