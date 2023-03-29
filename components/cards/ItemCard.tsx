@@ -37,8 +37,6 @@ function ItemCard({ item, status }: Props) {
 		})
 	}
 
-	console.log(item, status)
-
 	switch (router.pathname) {
 		case "/dashboard":
 			switch (status) {
@@ -48,14 +46,19 @@ function ItemCard({ item, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="w-40 h-40 relative">
-							<Image
-								fill
-								sizes="100%"
-								src={item.image}
-								alt="Creator Avatar"
-								className="w-full h-full object-cover rounded-lg border-secondary border-2 shadow-md"
-							/>
+						<div className="rounded-lg border-secondary divide-y border-2 shadow-md items-center justify-center flex flex-col p-1">
+							<h2 className="text-lg p-1 bg-gray-400/20 rounded-lg font-semibold font-primary  text-accent-base z-10 mb-2">
+								{item.name}
+							</h2>
+							<div className="w-36 h-36 relative flex justify-center">
+								<Image
+									fill
+									sizes="100%"
+									src={item.image}
+									alt="Creator Avatar"
+									className="w-full h-full object-cover "
+								/>
+							</div>
 						</div>
 					)
 				default:
@@ -69,21 +72,18 @@ function ItemCard({ item, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="rounded-lg p-4 border-secondary border-2 shadow-md w-full">
+						<div className="">
 							<h2 className="text-lg font-semibold font-primary text-secondary-base mb-2">
 								{item.name}
 							</h2>
-							<div className="w-full h-60 relative">
+
+							<div className="w-60 h-60 relative flex justify-center">
 								<Image
 									fill
 									sizes="100%"
 									src={item.image}
-									style={{
-										borderRadius: "10px",
-										objectFit: "contain",
-										objectPosition: "center",
-									}}
 									alt="Creator Avatar"
+									className="w-full h-full object-cover rounded-lg border-secondary border-2 shadow-md"
 								/>
 							</div>
 						</div>

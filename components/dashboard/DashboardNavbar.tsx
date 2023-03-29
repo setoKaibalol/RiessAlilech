@@ -15,7 +15,7 @@ function DashboardNavbar({}: Props) {
 	const { active, setActive } = useUserContext()
 
 	return (
-		<div className="w-full h-20 shrink-0 font-primary text-white bg-secondary-light border-b-2 border-accent-base flex flex-row justify-between px-4">
+		<div className="w-full h-20 shrink-0 font-primary text-white bg-primary-base border-b-2 border-accent-base flex flex-row justify-between px-4">
 			<div className="flex justify-center h-full items-center">
 				<AiOutlineRollback
 					className="h-14 hover:bg-gray-500/70 duration-100 rounded-full text-accent-base px-3 w-14 cursor-pointer"

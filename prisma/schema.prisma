@@ -54,7 +54,7 @@ model User {
 
 model Creator {
   id             String    @id @default(cuid())
-  nickName       String?
+  nickName       String?   @default("anon")
   realName       String?
   description    String?   @db.Text
   profilePicture String?   @default("https://static.vecteezy.com/system/resources/previews/002/596/484/non_2x/default-avatar-photo-placeholder-profile-image-female-vector.jpg")

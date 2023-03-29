@@ -84,7 +84,7 @@ function NavbarMobile({}: Props) {
 			current: false,
 			Icon: () => {
 				return (
-					<RiDashboardFill className="w-10 h-10 text-accent-base"></RiDashboardFill>
+					<RiDashboardFill className="w-10 h-10 rounded-sm border-2 border-accent-base shadow-md shadow-accent-base text-accent-base"></RiDashboardFill>
 				)
 			},
 		},

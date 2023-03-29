@@ -31,6 +31,8 @@ const ShowCounter = ({ days, hours, minutes, seconds, hasStarted }) => {
 
 const CountdownTimer = ({ targetDate, hasStarted }) => {
 	const [days, hours, minutes, seconds] = useCountdown(targetDate)
+	console.log(days + hours + minutes + seconds <= 0, hasStarted)
+
 	if (days + hours + minutes + seconds <= 0) {
 		return hasStarted ? (
 			<div className="pt-8 w-full flex justify-center items-center">

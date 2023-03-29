@@ -100,7 +100,6 @@ function Auction(props: Props) {
 					</div>
 				) : (
 					<div className="flex flex-col h-full w-full justify-center p-10 items-center gap-4">
-						<p className="text-xl font-medium">Zeit bis die Auktion beginnt:</p>
 						<CountdownTimer
 							hasStarted={hasStarted}
 							targetDate={date + startsIn * 1000}></CountdownTimer>

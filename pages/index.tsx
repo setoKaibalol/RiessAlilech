@@ -12,7 +12,7 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main className="min-h-screen font-primary">
-				<div className="h-screen w-full flex flex-col justify-center items-center gap-10 bg-gradient-to-r sm:bg-gradient-center  from-primary-base  via-accent-base to-primary-base sm:via-primary-base sm:to-accent-base">
+				<div className="h-screen w-full flex flex-col justify-center items-center gap-10 bg-gradient-center  from-primary-base  via-accent-base to-accent-base">
 					<div className="flex flex-col max-w-sm">
 						<h2 className=" font-primary font-medium">Unsere Angebote</h2>
 						<p className="font-secondary">

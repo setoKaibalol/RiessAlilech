@@ -9,6 +9,7 @@ import ItemCard from "./ItemCard"
 import CreatorCard from "./CreatorCard"
 import moment from "moment"
 import CountdownTimer from "../CountdownTimer"
+import { HiExternalLink } from "react-icons/hi"
 
 type Props = {
 	auction: any
@@ -163,7 +164,7 @@ function AuctionCard({ auction, status }: Props) {
 									<div className="flex flex-col items-center min-h-[100px] w-[280px]">
 										<CountdownTimer
 											hasStarted={hasStarted}
-											targetDate={date + endsIn * -1000}></CountdownTimer>
+											targetDate={date + endsIn * 1000}></CountdownTimer>
 									</div>
 								) : (
 									<div className="flex flex-col items-center min-h-[100px] w-[280px]">
@@ -186,12 +187,15 @@ function AuctionCard({ auction, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="p-4 w-80 bg-white rounded-lg shadow-md max-w-md">
+						<div className="p-4 w-80 max-h-[700px] bg-white rounded-lg shadow-md max-w-md">
 							<Link
+								rel="noopener noreferrer"
+								target="_blank"
 								href={`/auction/${auction.id}`}
-								className="w-full flex flex-row pb-6 justify-between items-center px-2 p-1 mb-2 group hover:bg-secondary-base/10 duration-200 rounded-lg">
-								<h2 className="text-xl font-semibold  text-[#B76E79] first-letter:uppercase">
+								className="w-full flex flex-row relative justify-between items-center px-2 p-1 mb-2 group hover:bg-secondary-base/10 duration-200 rounded-lg">
+								<h2 className="text-xl flex flex-row items-center gap-1 font-semibold text-[#B76E79] first-letter:uppercase">
 									{auction.title}
+									<HiExternalLink className="h-6 w-6"></HiExternalLink>
 								</h2>
 								{hasStarted ? (
 									<div className="relative ">
@@ -204,32 +208,66 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								)}
 							</Link>
-							<div className="mb-4 w-full flex flex-col items-center">
-								<CreatorCard
-									creator={auction.Creator}
-									status={creatorsStatus}
-								/>
-							</div>
 
 							<div className="mb-4 flex items-center flex-col">
-								<div className="w-full flex flex-wrap gap-1">
+								<div className="w-full flex justify-center items-center p-5">
 									<ItemCard item={auction.item} status={userItemsStatus} />
 								</div>
 							</div>
-							<div className="text-sm text-secondary-base mb-4">
+							<div className="flex divide-y-2 text-secondary-base items-center p-2 flex-col">
+								<div className="w-full flex flex-row gap-2 justify-between">
+									<p>Dauer:</p>
+									<div>
+										<span className="text-accent-base font-bold">
+											{moment(auction.startAt).diff(
+												moment(auction.endAt),
+												"hours"
+											) * -1}
+										</span>{" "}
+										Stunden
+									</div>
+								</div>
+								<div className="w-full flex flex-row gap-2 justify-between">
+									<p>Mindest-Tip:</p>
+									<div>
+										<span className="text-accent-base font-bold">
+											{auction.minTip}
+										</span>{" "}
+										€
+									</div>
+								</div>
+								<div className="w-full flex flex-row gap-2 justify-between">
+									<p>Tips:</p>
+									<div>
+										<span className="text-accent-base font-bold">
+											{auction.totalTips}
+										</span>{" "}
+									</div>
+								</div>
+								<div className="w-full flex flex-row gap-2 justify-between">
+									<p>Tips in €:</p>
+									<div>
+										<span className="text-accent-base font-bold">
+											{auction.totalTipsAmount.toFixed(2)}
+										</span>{" "}
+										€
+									</div>
+								</div>
+							</div>
+							<div className="text-sm text-secondary-base">
 								{hasStarted ? (
-									<div className="flex flex-col items-center min-h-[100px] min-w-full">
+									<div className="flex flex-col items-center min-h-[100px] w-[280px]">
 										<CountdownTimer
 											hasStarted={hasStarted}
-											targetDate={date + endsIn * 1000}></CountdownTimer>
+											targetDate={date + endsIn * -1000}></CountdownTimer>
 									</div>
 								) : (
-									<div className="flex flex-col items-center min-h-[100px] min-w-full">
+									<div className="flex flex-col items-center min-h-[100px] w-[280px]">
 										<CountdownTimer
 											hasStarted={hasStarted}
 											targetDate={date + startsIn * 1000}></CountdownTimer>
 									</div>
-								)}{" "}
+								)}
 							</div>
 						</div>
 					)

@@ -50,10 +50,14 @@ function Profile({}: Props) {
 			)
 		case "authenticated":
 			return session.user.role === "CREATOR" ? (
-				<div className="flex flex-col justify-start pt-20 items-center bg-primary-base text-secondary-base font-primary h-screen">
-					<div className="h-1/4 w-screen flex flex-col justify-center items-center">
-						<div className="relative w-48 h-48 shrink-0">
+				<div className="flex flex-col justify-start pt-10 items-center bg-primary-base text-secondary-base font-primary h-screen">
+					<div className="h-[30%] w-screen flex flex-col justify-start items-center">
+						<div className="relative w-44 h-44 shrink-0">
 							<Image
+								placeholder="blur"
+								blurDataURL={
+									"https://static.vecteezy.com/system/resources/previews/002/596/484/non_2x/default-avatar-photo-placeholder-profile-image-female-vector.jpg"
+								}
 								alt="profile picture"
 								src={userCreatorData.profilePicture}
 								className="border-2 "
@@ -65,8 +69,45 @@ function Profile({}: Props) {
 								}}
 								fill></Image>
 						</div>
+						<h2 className="font-bold text-xl first-letter:uppercase text-secondary-base">
+							{userCreatorData.nickName}
+						</h2>
 					</div>
-					<div>{session.user.role}</div>
+					<div className="flex flex-col w-full p-4 gap-2 text-lg">
+						<div className="flex flex-row gap-8 bg-secondary-base/10 p-2 rounded-md">
+							Account typ:{" "}
+							<span className="text-accent-base font-bold">
+								{session.user.role}
+							</span>
+						</div>
+						<div className="flex flex-row gap-8 bg-secondary-base/10 p-2 rounded-md">
+							Name:{" "}
+							<span className="text-accent-base font-bold">
+								{userCreatorData?.name}
+							</span>
+						</div>
+						<div className="flex flex-row gap-8 min-h-[80px] h-auto bg-secondary-base/10 p-2 rounded-md">
+							Über mich:{" "}
+							<span className="text-accent-base font-bold">
+								{userCreatorData?.description}
+							</span>
+						</div>
+						<div className="flex flex-row gap-8 bg-secondary-base/10 p-2 rounded-md">
+							Alter:{" "}
+							<span className="text-accent-base font-bold">
+								{userCreatorData?.age}
+							</span>
+						</div>
+						<div className="flex flex-row gap-8 bg-secondary-base/10 p-2 rounded-md">
+							Herkunft:{" "}
+							<span className="text-accent-base font-bold">
+								{userCreatorData?.origin}
+							</span>
+						</div>
+						<div className="flex flex-row gap-8 bg-secondary-base/10 p-2 rounded-md">
+							Größe: <span className="text-accent-base font-bold"></span>
+						</div>
+					</div>
 				</div>
 			) : (
 				<div className="flex flex-col justify-start pt-20 items-center bg-primary-base text-secondary-base font-primary h-screen">

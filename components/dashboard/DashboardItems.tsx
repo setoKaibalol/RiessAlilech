@@ -127,7 +127,7 @@ function DashboardItems({}: Props) {
 			<section className="sm:w-1/2 h-full flex gap-1 flex-col w-full text-xl font-medium p-2 sm:p-2">
 				<p className="py-2">Meine Items</p>
 				<div className="overflow-x-scroll overflow-y-hidden h-[610px] w-full sm:p-2">
-					<div className=" flex flex-col gap-4">
+					<div className=" flex flex-wrap justify-center gap-4">
 						{itemStatus === "loading" &&
 							skeletonCards.map((item, index) => {
 								return <SkeletonCard key={index} />
