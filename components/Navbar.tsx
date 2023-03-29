@@ -11,12 +11,12 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi"
 type Props = {}
 
 function Navbar({}: Props) {
-	const { active, setActive } = useUserContext()
+	const { active, setActive, showMobileMenu, setShowMobileMenu } =
+		useUserContext()
 	const router = useRouter()
 	const { data: session, status } = useSession()
 
 	const [current, setCurrent] = useState(3)
-	const [showMobileMenu, setShowMobileMenu] = useState(false)
 
 	const navigation = [
 		{ name: "Creators", href: "/creators", current: current === 0 },
@@ -77,11 +77,16 @@ function Navbar({}: Props) {
 	}, [router.pathname])
 
 	return router.pathname === "/" ? (
-		<div className="h-20 w-full bg-transparent z-20 fixed flex flex-row">
+		<div className="h-20 w-full bg-transparent z-30 fixed flex flex-row">
 			<div
 				id="navbar-ref"
 				className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
-				<Link href={"/"} className="flex flex-row justify-center items-center">
+				<Link
+					onClick={() => {
+						setShowMobileMenu(false)
+					}}
+					href={"/"}
+					className="flex flex-row justify-center items-center">
 					<Image
 						alt="logo"
 						height={80}
@@ -104,7 +109,12 @@ function Navbar({}: Props) {
 			<div
 				id="navbar-ref-mobile"
 				className="fixed flex sm:hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
-				<Link href={"/"} className="flex flex-row justify-center items-center">
+				<Link
+					onClick={() => {
+						setShowMobileMenu(false)
+					}}
+					href={"/"}
+					className="flex flex-row justify-center items-center">
 					<Image
 						alt="logo"
 						height={60}
@@ -113,7 +123,7 @@ function Navbar({}: Props) {
 				</Link>
 
 				<button
-					className="z-20"
+					className="z-40 relative0"
 					ref={MobileMenuButton}
 					onClick={(e) => {
 						handleMobileMenu(e)
@@ -124,7 +134,7 @@ function Navbar({}: Props) {
 						}`}></HiOutlineMenuAlt3>
 				</button>
 				{showMobileMenu && (
-					<div className="z-10 w-[60%] pb-14 h-screen flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
+					<div className="z-30 w-[60%] h-screen flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
 						<div className="flex flex-col gap-14 p-4 text-primary-base w-full h-full">
 							<div className="flex flex-col">
 								{mobileMenuNavigation.map((item, index) => (
@@ -152,7 +162,7 @@ function Navbar({}: Props) {
 			</div>
 		</div>
 	) : router.pathname != "/dashboard" && !router.pathname.includes("admin") ? (
-		<div className="h-20 w-full bg-transparent z-20 fixed flex flex-row">
+		<div className="h-20 w-full bg-transparent z-30 fixed flex flex-row">
 			<div
 				id="navbar-ref"
 				className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
@@ -178,7 +188,12 @@ function Navbar({}: Props) {
 			<div
 				id="navbar-ref-mobile"
 				className="fixed flex sm:hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
-				<Link href={"/"} className="flex flex-row justify-center items-center">
+				<Link
+					onClick={() => {
+						setShowMobileMenu(false)
+					}}
+					href={"/"}
+					className="flex flex-row justify-center items-center">
 					<Image
 						alt="logo"
 						height={60}
@@ -187,7 +202,7 @@ function Navbar({}: Props) {
 				</Link>
 
 				<button
-					className="z-20"
+					className="z-40"
 					ref={MobileMenuButton}
 					onClick={(e) => {
 						handleMobileMenu(e)
@@ -198,8 +213,8 @@ function Navbar({}: Props) {
 						}`}></HiOutlineMenuAlt3>
 				</button>
 				{showMobileMenu && (
-					<div className="z-30 w-[60%] pb-14 h-screen flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
-						<div className="flex flex-col gap-14 p-4 text-primary-base w-full h-full">
+					<div className="z-30 w-[60%] h-screen flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
+						<div className="flex flex-col justify-between gap-14 p-4 text-primary-base w-full h-full">
 							<div className="flex flex-col">
 								{mobileMenuNavigation.map((item, index) => (
 									<Link
@@ -213,7 +228,7 @@ function Navbar({}: Props) {
 								<AuthComponent></AuthComponent>
 							</div>
 
-							<div className=" flex flex-col h-full justify-end gap-4">
+							<div className=" flex flex-col gap-4">
 								{status === "authenticated" && (
 									<button
 										onClick={() => signOut()}

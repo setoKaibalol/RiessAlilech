@@ -6,6 +6,7 @@ import { IoWoman } from "react-icons/io5"
 import { ImWoman } from "react-icons/im"
 import { RiAuctionFill, RiDashboardFill } from "react-icons/ri"
 import { useSession } from "next-auth/react"
+import { useUserContext } from "@/context"
 
 import Link from "next/link"
 
@@ -13,6 +14,9 @@ type Props = {}
 
 function NavbarMobile({}: Props) {
 	const { data: session, status } = useSession()
+	const { active, setActive, showMobileMenu, setShowMobileMenu } =
+		useUserContext()
+
 	const navigation = [
 		{
 			name: "Home",
@@ -105,7 +109,12 @@ function NavbarMobile({}: Props) {
 	return session && session.user.role === "CREATOR" ? (
 		<div className="w-full h-14 border-t-2 z-20 border-accent-base fixed sm:hidden flex flex-row justify-evenly items-center -bottom-0 bg-secondary-base text-primary-base">
 			{navigationCrator.map((item, index) => (
-				<Link key={index} href={item.href}>
+				<Link
+					onClick={() => {
+						setShowMobileMenu(false)
+					}}
+					key={index}
+					href={item.href}>
 					{item.Icon && <item.Icon></item.Icon>}
 				</Link>
 			))}
@@ -113,7 +122,12 @@ function NavbarMobile({}: Props) {
 	) : (
 		<div className="w-full h-14 border-t-2 z-20 border-accent-base fixed sm:hidden flex flex-row justify-evenly items-center -bottom-0 bg-secondary-base text-primary-base">
 			{navigation.map((item, index) => (
-				<Link key={index} href={item.href}>
+				<Link
+					onClick={() => {
+						setShowMobileMenu(false)
+					}}
+					key={index}
+					href={item.href}>
 					{item.Icon && <item.Icon></item.Icon>}
 				</Link>
 			))}

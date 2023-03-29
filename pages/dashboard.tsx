@@ -16,8 +16,8 @@ function Dashboard({}: Props) {
 	switch (status) {
 		case "loading":
 			return (
-				<div className="sm:h-screen max-h-screen w-full bg-primary sm:overflow-hidden flex flex-col items-center justify-center">
-					<ClipLoader size={80} color="rgb(190 18 60)"></ClipLoader>
+				<div className="h-screen max-h-screen w-full bg-primary overflow-hidden flex flex-col items-center justify-center">
+					<ClipLoader size={80} color="#E0726C"></ClipLoader>
 				</div>
 			)
 
