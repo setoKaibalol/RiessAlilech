@@ -37,8 +37,6 @@ function ItemCard({ item, status }: Props) {
 		})
 	}
 
-	console.log(item)
-
 	switch (router.pathname) {
 		case "/dashboard":
 			switch (status) {
@@ -47,7 +45,19 @@ function ItemCard({ item, status }: Props) {
 				case "error":
 					return <p>error</p>
 				case "loaded":
-					return <div className="w-40 h-40 relative"></div>
+					return (
+						item.image && (
+							<div className="w-40 h-40 relative">
+								<Image
+									fill
+									sizes="100%"
+									src={item.image}
+									alt="Creator Avatar"
+									className="w-full h-full object-cover rounded-lg border-secondary border-2 shadow-md"
+								/>
+							</div>
+						)
+					)
 				default:
 					return <SkeletonCard />
 			}

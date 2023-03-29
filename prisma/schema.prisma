@@ -101,19 +101,20 @@ model Auction {
 }
 
 model Tip {
-  id            String   @id @default(cuid())
-  amount        Float
-  name          String?
-  email         String
-  nickname      String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  userId        String?
-  auctionId     String?
-  message       String?
-  paymentMethod String?
-  auction       Auction? @relation(fields: [auctionId], references: [id], onDelete: SetNull)
-  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  id             String   @id @default(cuid())
+  amount         Float
+  name           String?
+  email          String
+  nicknameSender String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  userId         String?
+  auctionId      String?
+  message        String?
+  paymentMethod  String?
+  icon           String?  @default("https://pbs.twimg.com/media/DgSzZy6XkAAQVdV.png")
+  auction        Auction? @relation(fields: [auctionId], references: [id], onDelete: SetNull)
+  user           User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([auctionId], map: "Tip_auctionId_fkey")
   @@index([userId], map: "Tip_userId_fkey")

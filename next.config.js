@@ -7,6 +7,7 @@ const nextConfig = {
 			"static.vecteezy.com",
 			"via.placeholder.com",
 			"upload.wikimedia.org",
+			"pbs.twimg.com",
 		],
 	},
 }
