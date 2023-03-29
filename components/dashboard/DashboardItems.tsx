@@ -74,7 +74,6 @@ function DashboardItems({}: Props) {
 	}
 
 	useEffect(() => {
-		console.log(items, !items || items.length === 0, session)
 		if (session && (!items || items.length === 0)) {
 			setItemStatus("loading")
 			fetch("/api/creator/item/get", {
@@ -83,7 +82,7 @@ function DashboardItems({}: Props) {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					user: session?.user,
+					user: session.user,
 				}),
 			})
 				.then((res) => res.json())
@@ -92,7 +91,7 @@ function DashboardItems({}: Props) {
 					setItemStatus("loaded")
 				})
 		}
-	}, [])
+	}, [session])
 
 	useEffect(() => {
 		if (session && refreshItems) {
@@ -103,7 +102,7 @@ function DashboardItems({}: Props) {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					user: session?.user,
+					user: session.user,
 				}),
 			})
 				.then((res) => res.json())
@@ -119,6 +118,7 @@ function DashboardItems({}: Props) {
 				})
 		}
 	}, [refreshItems])
+
 	return (
 		<div className="h-full pb-20 flex flex-col justify-between divide-y-2 divide-accent-base sm:divide-y-0 sm:flex-row bg-zinc-700 text-gray-200">
 			<div className="sm:hidden p-2 text-center text-2xl font-medium">

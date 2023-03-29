@@ -198,7 +198,7 @@ function Navbar({}: Props) {
 						}`}></HiOutlineMenuAlt3>
 				</button>
 				{showMobileMenu && (
-					<div className="z-10 w-[60%] pb-14 h-screen flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
+					<div className="z-30 w-[60%] pb-14 h-screen flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
 						<div className="flex flex-col gap-14 p-4 text-primary-base w-full h-full">
 							<div className="flex flex-col">
 								{mobileMenuNavigation.map((item, index) => (
@@ -215,7 +215,9 @@ function Navbar({}: Props) {
 
 							<div className=" flex flex-col h-full justify-end gap-4">
 								{status === "authenticated" && (
-									<button className="bg-primary-base w-full hover:bg-blue-700 text-secondary-base font-bold py-2 px-4 rounded">
+									<button
+										onClick={() => signOut()}
+										className="bg-primary-base w-full  text-secondary-base font-bold py-2 px-4 rounded">
 										Abmelden
 									</button>
 								)}

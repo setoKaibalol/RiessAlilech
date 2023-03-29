@@ -10,14 +10,16 @@ interface User {
 
 interface UsersLayoutProps {
 	users: User[]
+	props: any
 }
 
-const UsersLayout: React.FC<UsersLayoutProps> = ({ users }) => {
+const UsersLayout: React.FC<UsersLayoutProps> = ({ users, props }) => {
 	const [editingUserId, setEditingUserId] = useState<number | null>(null)
 	const [name, setName] = useState("")
 	const [email, setEmail] = useState("")
 	const [role, setRole] = useState<"USER" | "CREATOR">("USER")
 	const [saveUserStatus, setSaveUserStatus] = useState("loaded")
+	const { setRefreshAdminUsers, setAdminUsersStatus } = props
 
 	const startEditingUser = (userId: number) => {
 		const user = users.find((u) => u.id === userId)
@@ -39,6 +41,7 @@ const UsersLayout: React.FC<UsersLayoutProps> = ({ users }) => {
 	const saveUser = async () => {
 		if (editingUserId) {
 			setSaveUserStatus("loading")
+			setAdminUsersStatus("loading")
 			const res = await fetch(`/api/admin/users/update`, {
 				method: "POST",
 				headers: {
@@ -52,11 +55,14 @@ const UsersLayout: React.FC<UsersLayoutProps> = ({ users }) => {
 					if (res.ok) {
 						stopEditingUser()
 						setSaveUserStatus("loaded")
+						setAdminUsersStatus("loaded")
+						setRefreshAdminUsers(true)
 					}
 					res.json()
 				})
 				.catch((err) => {
 					setSaveUserStatus("error")
+					setAdminUsersStatus("error")
 					console.log(err)
 				})
 		}

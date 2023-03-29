@@ -20,13 +20,16 @@ interface Auction {
 
 interface AuctionsLayoutProps {
 	auctions: Auction[]
+	props: any
 }
 
-const AuctionsLayout: React.FC<AuctionsLayoutProps> = ({ auctions }) => {
+const AuctionsLayout: React.FC<AuctionsLayoutProps> = ({ auctions, props }) => {
 	const [editingAuctionId, setEditingAuctionId] = useState<number | null>(null)
 	const [title, setTitle] = useState("")
 	const [description, setDescription] = useState("")
 	const [saveAuctionStatus, setSaveAuctionStatus] = useState("loaded")
+
+	const { setRefreshAuctions, setAuctionsStatus } = props
 
 	const startEditingAuction = (auctionId: number) => {
 		const auction = auctions.find((a) => a.id === auctionId)
@@ -46,6 +49,7 @@ const AuctionsLayout: React.FC<AuctionsLayoutProps> = ({ auctions }) => {
 	const saveAuction = async () => {
 		if (editingAuctionId) {
 			setSaveAuctionStatus("loading")
+			setAuctionsStatus("loading")
 			const res = await fetch(`/api/admin/auctions/update`, {
 				method: "POST",
 				headers: {
@@ -62,11 +66,14 @@ const AuctionsLayout: React.FC<AuctionsLayoutProps> = ({ auctions }) => {
 					if (res.ok) {
 						stopEditingAuction()
 						setSaveAuctionStatus("loaded")
+						setAuctionsStatus("loaded")
+						setRefreshAuctions(true)
 					}
 					res.json()
 				})
 				.catch((err) => {
 					setSaveAuctionStatus("error")
+					setAuctionsStatus("error")
 					console.log(err)
 				})
 		}

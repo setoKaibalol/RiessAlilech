@@ -33,6 +33,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({}) => {
 	} = useUserContext()
 
 	useEffect(() => {
+		setAdminUsersStatus("loading")
 		fetch("/api/admin/users/get", {
 			method: "POST",
 			headers: {
@@ -42,10 +43,35 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({}) => {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data)
+				setAdminUsersStatus("loaded")
 				setAdminUsers(data)
 			})
 	}, [])
+
+	useEffect(() => {
+		if (refreshAdminUsers && (!adminUsers || adminUsers.length === 0)) {
+			setAdminUsersStatus("loading")
+			fetch("/api/admin/users/get", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({}),
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					console.log(data)
+					setAdminUsersStatus("loaded")
+					setRefreshAdminUsers(false)
+					setAdminUsers(data)
+				})
+				.catch((err) => {
+					setAdminUsersStatus("error")
+					setRefreshAdminUsers(false)
+					console.log(err)
+				})
+		}
+	}, [refreshAdminUsers])
 
 	useEffect(() => {
 		if (refreshAuctions && (!auctions || auctions.length === 0)) {
@@ -116,8 +142,14 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({}) => {
 				</div>
 			</nav>
 			<div>
-				<UsersLayout users={adminUsers} />
-				<AuctionsLayout auctions={auctions}></AuctionsLayout>
+				<UsersLayout
+					users={adminUsers}
+					props={{ setRefreshAdminUsers, setAdminUsersStatus }}
+				/>
+				<AuctionsLayout
+					auctions={auctions}
+					props={{ setRefreshAuctions, setAuctionsStatus }}
+				/>
 			</div>
 		</div>
 	) : (

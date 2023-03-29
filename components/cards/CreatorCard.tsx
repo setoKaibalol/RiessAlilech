@@ -45,11 +45,11 @@ function CreatorCard({ creator, status }: Props) {
 							<h3 className="text-lg font-semibold font-primary text-[#B76E79] mb-2">
 								{creator.name}
 							</h3>
-							<img
-								src="https://via.placeholder.com/150"
-								alt="Creator Avatar"
-								className="rounded-full mb-4"
-							/>
+							<Image
+								width={40}
+								height={40}
+								alt="profile picture"
+								src={creator.profilePicture}></Image>
 							<p className="text-sm text-gray-700 mb-4 font-secondary">
 								Short bio about the creator...
 							</p>

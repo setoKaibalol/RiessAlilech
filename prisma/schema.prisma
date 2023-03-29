@@ -65,7 +65,7 @@ model Creator {
   facebook       String?
   twitter        String?
   tiktok         String?
-  youtube        String?
+  fourBased      String?
   website        String?
   onlyfans       String?
   createdAt      DateTime  @default(now())
@@ -122,7 +122,7 @@ model Tip {
 model Item {
   id                String              @id @default(cuid())
   name              String
-  image             String?
+  image             String              @default("https://pbs.twimg.com/media/DgSzZy6XkAAQVdV.png")
   category          String?
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
