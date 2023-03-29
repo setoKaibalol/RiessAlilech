@@ -12,28 +12,36 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main className="min-h-screen font-primary">
-				<div className="h-screen w-full flex flex-col justify-center items-center gap-10 bg-gradient-center  from-primary-base  via-accent-base to-accent-base">
-					<div className="flex flex-col max-w-sm">
-						<h2 className=" font-primary font-medium">Unsere Angebote</h2>
-						<p className="font-secondary">
-							Enim pariatur esse elit do consequat eu nostrud nisi non. Do esse
-							anim sunt elit anim sint elit sit. Ex nostrud ut tempor
-							exercitation consequat aliquip. Et pariatur ad commodo ea dolor
-							ullamco quis nostrud sit labore et.
-						</p>
+				<div className="h-screen w-full flex flex-col justify-start items-center gap-10 bg-gradient-center  from-primary-base  via-accent-base to-accent-base">
+					<div className="flex flex-col max-w-sm items-center h-64 pt-14">
+						<h2 className="font-primary  p-5 text-secondary-base text-2xl font-bold">
+							TipForYou
+						</h2>
+						<h1 className="text-4xl font-bold text-center">
+							<span className="text-accent-base">Tip</span> on Desire.
+						</h1>
+						<h1 className="text-4xl font-bold text-center">
+							<span className="text-accent-base">Connect</span> with Passion.
+						</h1>
 					</div>
-					<FAQ
-						items={[
-							{ question: "do birds fly?", answer: "no, brids swim" },
-							{
-								question: "do chickens lay eggs?",
-								answer: "yes chickens lay eggs",
-							},
-							{
-								question: "do crocodiles eat a vegetarian diet?",
-								answer: "yes crocodiles only eat plants",
-							},
-						]}></FAQ>
+					<div className="h-80 grow-0">
+						<FAQ
+							items={[
+								{
+									question: "Was ist TipForYou",
+									answer:
+										"TipForYou ist eine Platform wo der User mit Content Erstellern connecten kann.",
+								},
+								{
+									question: "do chickens lay eggs?",
+									answer: "yes chickens lay eggs",
+								},
+								{
+									question: "do crocodiles eat a vegetarian diet?",
+									answer: "yes crocodiles only eat plants",
+								},
+							]}></FAQ>
+					</div>
 				</div>
 			</main>
 		</>

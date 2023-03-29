@@ -151,7 +151,9 @@ function Navbar({}: Props) {
 
 							<div className=" flex flex-col h-full justify-end gap-4">
 								{status === "authenticated" && (
-									<button className="bg-primary-base w-full hover:bg-blue-700 text-secondary-base font-bold py-2 px-4 rounded">
+									<button
+										onClick={() => signOut()}
+										className="bg-accent-base p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-accent-base/80">
 										Abmelden
 									</button>
 								)}

@@ -80,12 +80,12 @@ const AuctionsLayout: React.FC<AuctionsLayoutProps> = ({ auctions, props }) => {
 	}
 
 	return (
-		<div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+		<div className="max-w-7xl mx-auto h-full py-6 sm:px-6 lg:px-8">
 			<div className="flex justify-between mb-4 p-6">
 				<h1 className="text-2xl font-bold">Auctions</h1>
 			</div>
-			<div className="bg-white overflow-y-hidden overflow-x-scroll shadow-xl sm:rounded-lg">
-				<table className="min-w-full divide-y divide-gray-200">
+			<div className="bg-white h-full overflow-y-scroll overflow-x-scroll shadow-xl sm:rounded-lg">
+				<table className="min-w-full h-full divide-y divide-gray-200">
 					<thead className="bg-gray-50">
 						<tr>
 							<th

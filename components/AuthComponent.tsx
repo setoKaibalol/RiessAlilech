@@ -114,7 +114,9 @@ export const AuthComponent = () => {
 		)
 	} else if (status === "unauthenticated") {
 		return (
-			<button className="text-secondary font-primary" onClick={() => signIn()}>
+			<button
+				onClick={() => signIn()}
+				className="bg-accent-base p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary-base">
 				sign in
 			</button>
 		)

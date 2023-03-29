@@ -113,7 +113,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({}) => {
 	}, [])
 
 	return session?.user.role === "ADMIN" ? (
-		<div className="flex flex-col h-screen">
+		<div className="flex flex-col min-h-screen h-auto overflow-scroll">
 			<nav className="bg-gray-800 py-4">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex items-center justify-between h-16">
@@ -141,7 +141,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({}) => {
 					</div>
 				</div>
 			</nav>
-			<div>
+			<div className=" h-full min-h-screen">
 				<UsersLayout
 					users={adminUsers}
 					props={{ setRefreshAdminUsers, setAdminUsersStatus }}
