@@ -20,12 +20,12 @@ const handler: Handler = async (req, res) => {
 				.findMany({
 					include: {
 						item: true,
+						bids: true,
 						Creator: {
 							include: {
-								creator: true,
+								user: true,
 							},
 						},
-						bids: true,
 					},
 					orderBy: {
 						live: "desc",

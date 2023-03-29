@@ -25,8 +25,9 @@ const handler: Handler = async (req, res) => {
 						},
 					},
 					include: {
-						Item: true,
 						Tip: true,
+						Creator: true,
+						Bid: true,
 					},
 				})
 				.catch((err) => {

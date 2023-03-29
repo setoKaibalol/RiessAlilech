@@ -13,6 +13,7 @@ const handler: Handler = async (req, res) => {
 				.findMany({
 					include: {
 						Auction: true,
+						Item: true,
 					},
 				})
 				.catch((err) => {

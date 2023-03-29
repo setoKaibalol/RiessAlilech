@@ -18,7 +18,6 @@ const handler: Handler = async (req, res) => {
 				return
 			}
 			if (session.user.id) {
-				const { user } = req.body
 				const items = await prisma.item.findMany({
 					where: {
 						creatorId: session.user.id,

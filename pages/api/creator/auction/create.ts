@@ -26,7 +26,7 @@ const handler: Handler = async (req, res) => {
 			return
 		}
 
-		const { title, description, minTip, startAt, duration, creator, itemId } =
+		const { title, description, minTip, startAt, duration, user, itemId } =
 			req.body
 
 		const auction = await prisma.auction
@@ -39,7 +39,7 @@ const handler: Handler = async (req, res) => {
 					endAt: calcEndTime(startAt, duration),
 					Creator: {
 						connect: {
-							creatorId: creator.id,
+							userId: user.id,
 						},
 					},
 					item: {

@@ -21,20 +21,21 @@ const handler: Handler = async (req, res) => {
 				return
 			}
 			const { user } = req.body
-
-			const auctions = await prisma.auction.findMany({
-				where: {
-					Creator: {
-						creatorId: user.id,
+			if (session.user.id) {
+				const auctions = await prisma.auction.findMany({
+					where: {
+						Creator: {
+							userId: session.user.id,
+						},
 					},
-				},
-				include: {
-					item: true,
-					bids: true,
-					Creator: true,
-				},
-			})
-			res.status(200).send(auctions)
+					include: {
+						item: true,
+						bids: true,
+						Creator: true,
+					},
+				})
+				res.status(200).send(auctions)
+			}
 		} else {
 			res.status(405).json({ message: "Method not allowed" })
 		}

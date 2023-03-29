@@ -104,25 +104,25 @@ function Creator(props: Props) {
 				{creator.realName && (
 					<div className="flex flex-row px-6 py-4 items-center gap-3 text-xl font-medium">
 						<BsPersonHeart className="h-8 w-8" />
-						Sarah
+						{creator.realName}
 					</div>
 				)}
 				{creator.age && (
 					<div className="flex flex-row px-6 py-4 items-center gap-3 text-xl font-medium">
 						<MdNumbers className="h-8 w-8" />
-						19 Jahre
+						{creator.age}
 					</div>
 				)}
 				{creator.origin && (
 					<div className="flex flex-row px-6 py-4 items-center gap-3 text-xl font-medium">
 						<MdTravelExplore className="h-8 w-8" />
-						Frankreich
+						{creator.origin}
 					</div>
 				)}
 				{creator.country && (
 					<div className="flex flex-row px-6 py-4 items-center gap-3 text-xl font-medium">
 						<MdPersonPinCircle className="h-8 w-8" />
-						Paris
+						{creator.country}
 					</div>
 				)}
 			</div>
@@ -135,6 +135,7 @@ function Creator(props: Props) {
 					</div>
 				)}
 			</div>
+			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg my-3 bg-white"></div>
 		</div>
 	) : (
 		<div className="pt-20 min-h-screen bg-primary flex text-center w-full h-full justify-center items-center text-5xl">
@@ -153,7 +154,8 @@ export async function getServerSideProps(context: { params: any }) {
 		},
 		include: {
 			Auction: true,
-			creator: true,
+			user: true,
+			tipsReceived: true,
 		},
 	})
 

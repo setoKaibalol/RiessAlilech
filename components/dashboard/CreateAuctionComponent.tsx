@@ -72,7 +72,7 @@ function CreateAuctionComponent({}: Props) {
 				minTip: minTip,
 				startAt: startAt,
 				duration: duration,
-				creator: session?.user,
+				user: session?.user,
 				itemId: selectedItemId,
 			}),
 		}).then((res) => {

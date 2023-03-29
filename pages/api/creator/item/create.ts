@@ -34,9 +34,9 @@ const handler: Handler = async (req, res) => {
 					type,
 					zustellung,
 					image,
-					creator: {
+					Creator: {
 						connect: {
-							id: user.id,
+							userId: user,
 						},
 					},
 				},

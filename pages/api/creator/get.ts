@@ -28,7 +28,7 @@ const handler: Handler = async (req, res) => {
 			const creator = await prisma.creator
 				.findUniqueOrThrow({
 					where: {
-						creatorId: session.user.id,
+						userId: session.user.id,
 					},
 				})
 				.catch((err) => {

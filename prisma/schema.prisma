@@ -75,7 +75,7 @@ model Creator {
   Item           Item[]
   Auction        Auction[]
   user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Tip            Tip[]
+  tipsReceived   Tip[]
 
   @@index([userId], map: "Creator_creatorId_fkey")
 }
@@ -111,16 +111,16 @@ model Bid {
   nicknameSender String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  userId         String?
-  auctionId      String?
   message        String?
   paymentMethod  String?
   icon           String?  @default("https://pbs.twimg.com/media/DgSzZy6XkAAQVdV.png")
   auction        Auction? @relation(fields: [auctionId], references: [id], onDelete: SetNull)
-  user           User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  auctionId      String?
+  bidder         User?    @relation(fields: [bidderId], references: [id], onDelete: SetNull)
+  bidderId       String?
 
   @@index([auctionId], map: "Tip_auctionId_fkey")
-  @@index([userId], map: "Tip_userId_fkey")
+  @@index([bidderId], map: "Tip_userId_fkey")
 }
 
 model Tip {
@@ -135,8 +135,8 @@ model Tip {
   paymentMethod  String?
   creator        Creator? @relation(fields: [creatorId], references: [id])
   creatorId      String?
-  user           User?    @relation(fields: [userId], references: [id])
-  userId         String?
+  tipper         User?    @relation(fields: [tipperId], references: [id])
+  tipperId       String?
 }
 
 model Item {
@@ -146,13 +146,13 @@ model Item {
   category          String?
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
-  creatorId         String
   description       String?             @db.Text
   type              String?
   zustellung        String?
   Auction           Auction[]
   ItemSensitiveData ItemSensitiveData[]
   Creator           Creator             @relation(fields: [creatorId], references: [id])
+  creatorId         String
 
   @@index([creatorId], map: "Item_creatorId_fkey")
 }

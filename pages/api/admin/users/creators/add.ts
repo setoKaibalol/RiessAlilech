@@ -28,6 +28,7 @@ const handler: Handler = async (req, res) => {
 						Creator: {
 							create: {
 								nickName: user.name,
+								profilePicture: user.picture,
 							},
 						},
 					},
