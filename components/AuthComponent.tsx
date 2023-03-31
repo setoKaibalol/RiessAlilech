@@ -15,6 +15,7 @@ export const AuthComponent = () => {
 	const [authButtonStatus, setAuthButtonStatus] = useState<"loading" | "idle">(
 		"idle"
 	)
+	const [refreshData, setRefreshData] = useState(false)
 
 	useEffect(() => {
 		if (
@@ -33,13 +34,13 @@ export const AuthComponent = () => {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					setUserCreatorData(data)
+					setUserCreatorData(data.Creator[0])
 				})
 		}
 	}, [session])
 
 	useEffect(() => {
-		if (session && session.user.role === "CREATOR" && !userCreatorData) {
+		if (session && session.user.role === "CREATOR" && refreshData) {
 			fetch("/api/creator/get", {
 				method: "POST",
 				headers: {
@@ -52,10 +53,10 @@ export const AuthComponent = () => {
 				.then((res) => res.json())
 				.then((data) => {
 					setUserCreatorData(data)
-					console.log(data)
+					setRefreshData(false)
 				})
 		}
-	}, [session])
+	}, [session, refreshData])
 
 	if (session && session.user.role === "ADMIN") {
 		return (
@@ -64,14 +65,16 @@ export const AuthComponent = () => {
 					href={"/admin"}
 					className="flex bg-accent-base text-primary-base flex-row gap-1 p-2 px-3 uppercase rounded-lg duration-200 ">
 					<h2>ADMIN DASHBOARD</h2>
-					<div className="h-full w-14 justify-center items-center">
-						<Image
-							alt="image"
-							className="rounded-full"
-							src={session?.user?.image!}
-							height={50}
-							width={50}></Image>
-					</div>
+					{session.user.image && (
+						<div className="h-full w-14 justify-center items-center">
+							<Image
+								alt="image"
+								className="rounded-full"
+								src={session.user.image}
+								height={50}
+								width={50}></Image>
+						</div>
+					)}
 				</Link>
 			</div>
 		)
@@ -84,14 +87,19 @@ export const AuthComponent = () => {
 			<div className="w-auto flex flex-row gap-2 font-primary text-primary-base">
 				<Link
 					href={"/dashboard"}
-					className="flex flex-row h-16 gap-1 p-2 px-4 text-lg justify-center uppercase font-medium items-center rounded-lg duration-200 bg-accent-base/70 hover:bg-accent-base">
+					className="flex flex-row h-16 gap-1 p-2 px-2 text-xl justify-center uppercase font-medium items-center rounded-lg duration-200 bg-accent-base/70 hover:bg-accent-base">
 					<h2>DASHBOARD</h2>
-					<Image
-						alt="profile picture"
-						className="rounded-full"
-						src={userCreatorData.profilePicture}
-						height={40}
-						width={40}></Image>
+					{userCreatorData.profilePicture && (
+						<div className="relative w-10 h-10">
+							<Image
+								alt="profile picture"
+								className="rounded-full border-secondary-base border"
+								placeholder="blur"
+								blurDataURL={userCreatorData.profilePicture}
+								src={userCreatorData.profilePicture}
+								fill></Image>
+						</div>
+					)}
 				</Link>
 			</div>
 		)
