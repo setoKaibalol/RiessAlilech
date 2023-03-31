@@ -147,9 +147,11 @@ const UsersLayout: React.FC<UsersLayoutProps> = ({ users, props }) => {
 										{user.id}
 									</span>
 								</td>
-								<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-									{user.name}
-								</td>
+								{user?.name && (
+									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+										{user.name}
+									</td>
+								)}
 								<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
 									{user.email}
 								</td>

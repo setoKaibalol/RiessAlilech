@@ -6,7 +6,7 @@ interface Auction {
 	title: string
 	description: string
 	Creator: {
-		creator: {
+		user: {
 			id: number
 			name: string
 			email: string
@@ -131,7 +131,7 @@ const AuctionsLayout: React.FC<AuctionsLayoutProps> = ({ auctions, props }) => {
 									{auction.description}
 								</td>
 								<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-									{auction.Creator.creator.name}
+									{auction.Creator.user.name}
 								</td>
 								<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
 									<button

@@ -24,6 +24,7 @@ import {
 	TbNumber4,
 	TbBrandTwitch,
 } from "react-icons/tb"
+import TipModal from "@/components/TipModal"
 
 type Props = {
 	creator: any
@@ -33,10 +34,15 @@ function Creator(props: Props) {
 	const date = new Date().getTime()
 	const { creator } = props
 	const { data: session, status } = useSession()
+	const [tipModalOpen, setTipModalOpen] = React.useState(false)
 
 	return creator ? (
 		<div className="pt-20 flex flex-col pb-20 items-center gap-2 bg-primary-base">
 			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg bg-primary-base">
+				<TipModal
+					isOpen={tipModalOpen}
+					onClose={() => setTipModalOpen(false)}
+					creatorName={creator.nickName}></TipModal>
 				<div className="relative w-full h-96">
 					<Image
 						unoptimized
@@ -55,10 +61,13 @@ function Creator(props: Props) {
 					</div>
 				</div>
 				<div className="px-6 pt-4 pb-2">
-					<button className="bg-accent-base text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
+					<button
+						onClick={() => setTipModalOpen(!tipModalOpen)}
+						className="bg-accent-base z-20 text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
 						<BiDonateHeart className="h-8 w-8 inline-block mr-1" />
 						Tip
 					</button>
+
 					<button
 						disabled
 						className="bg-green-500 text-2xl disabled:bg-gray-600 cursor-not-allowed hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">

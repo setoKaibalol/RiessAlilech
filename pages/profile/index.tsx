@@ -109,6 +109,7 @@ function Profile({}: Props) {
 	const handleImageSubmit = async (file: any) => {
 		const formData = new FormData()
 		formData.append("file", file)
+
 		setUserDataStatus("loading")
 		fetch("/api/creator/uploadImage", {
 			method: "POST",
@@ -122,7 +123,6 @@ function Profile({}: Props) {
 				}
 			})
 			.then((data) => {
-				console.log(data.data)
 				setUserDataStatus("loaded")
 				setRefreshData(true)
 			})
@@ -232,7 +232,7 @@ function Profile({}: Props) {
 							</h2>
 						)}
 					</div>
-					<div className="flex flex-col w-full gap-2 text-lg">
+					<div className="flex flex-col w-full pb-10 gap-2 text-lg">
 						{userDataStatus === "loading" ? (
 							<div className="animate-pulse gap-4 bg-gray-300 w-full h-10 rounded-md items-center p-2 mb-4"></div>
 						) : (
@@ -252,7 +252,7 @@ function Profile({}: Props) {
 									type={"text"}
 									value={realName}
 									onChange={(e) => setRealName(e.target.value)}
-									className="bg-transparent w-auto text-accent-base font-bold"></input>
+									className="bg-transparent w-full text-accent-base font-bold"></input>
 							</div>
 						)}
 						{userDataStatus === "loading" ? (
@@ -264,7 +264,7 @@ function Profile({}: Props) {
 									type={"text"}
 									value={nickname}
 									onChange={(e) => setNickname(e.target.value)}
-									className="bg-transparent w-52 text-accent-base font-bold"></input>
+									className="bg-transparent w-full text-accent-base font-bold"></input>
 							</div>
 						)}
 						{userDataStatus === "loading" ? (
@@ -275,7 +275,7 @@ function Profile({}: Props) {
 								<textarea
 									value={description}
 									onChange={(e) => setDescription(e.target.value)}
-									className="bg-transparent w-52 text-accent-base font-bold"></textarea>
+									className="bg-transparent w-full text-accent-base font-bold"></textarea>
 							</div>
 						)}
 						{userDataStatus === "loading" ? (
@@ -290,7 +290,7 @@ function Profile({}: Props) {
 									type={"number"}
 									value={age}
 									onChange={(e) => setAge(parseInt(e.target.value))}
-									className="bg-transparent w-52 text-accent-base font-bold"></input>
+									className="bg-transparent w-full text-accent-base font-bold"></input>
 							</div>
 						)}
 						{userDataStatus === "loading" ? (
@@ -305,7 +305,7 @@ function Profile({}: Props) {
 									type={"text"}
 									value={origin}
 									onChange={(e) => setOrigin(e.target.value)}
-									className="bg-transparent w-52 text-accent-base font-bold"></input>
+									className="bg-transparent w-full text-accent-base font-bold"></input>
 							</div>
 						)}
 						{userDataStatus === "loading" ? (
@@ -320,7 +320,7 @@ function Profile({}: Props) {
 									type={"text"}
 									value={instagram}
 									onChange={(e) => setInstagram(e.target.value)}
-									className="bg-transparent w-52 text-accent-base font-bold"></input>
+									className="bg-transparent w-full text-accent-base font-bold"></input>
 							</div>
 						)}
 						{userDataStatus === "loading" ? (
@@ -335,7 +335,7 @@ function Profile({}: Props) {
 									type={"text"}
 									value={tiktok}
 									onChange={(e) => setTiktok(e.target.value)}
-									className="bg-transparent w-52 text-accent-base font-bold"></input>
+									className="bg-transparent w-full text-accent-base font-bold"></input>
 							</div>
 						)}
 						{userDataStatus === "loading" ? (
@@ -350,7 +350,7 @@ function Profile({}: Props) {
 									type={"text"}
 									value={fourBased}
 									onChange={(e) => setFourBased(e.target.value)}
-									className="bg-transparent w-52 text-accent-base font-bold"></input>
+									className="bg-transparent w-full text-accent-base font-bold"></input>
 							</div>
 						)}
 						{userDataStatus === "loading" ? (
@@ -365,7 +365,7 @@ function Profile({}: Props) {
 									type={"text"}
 									value={twitch}
 									onChange={(e) => setTwitch(e.target.value)}
-									className="bg-transparent w-52 text-accent-base font-bold"></input>
+									className="bg-transparent w-full text-accent-base font-bold"></input>
 							</div>
 						)}
 						{userDataStatus === "loading" ? (
@@ -380,14 +380,14 @@ function Profile({}: Props) {
 									type={"text"}
 									value={website}
 									onChange={(e) => setWebsite(e.target.value)}
-									className="bg-transparent w-52 text-accent-base font-bold"></input>
+									className="bg-transparent w-full text-accent-base font-bold"></input>
 							</div>
 						)}
 					</div>
 					<button
 						type="submit"
-						className="bg-accent-base p-2 text-primary-base font-primary w-full  px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary-base">
-						Anwenden
+						className="bg-accent-base fixed z-20 bottom-16 p-2 text-primary-base font-primary w-80  px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary-base">
+						speichern
 					</button>
 				</form>
 			) : (
