@@ -21,7 +21,7 @@ const Multer = multer({
  */
 const authenticateGoogle = () => {
 	const auth = new google.auth.GoogleAuth({
-		keyFile: `secret.json`,
+		credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS),
 		scopes: "https://www.googleapis.com/auth/drive",
 	})
 	return auth
