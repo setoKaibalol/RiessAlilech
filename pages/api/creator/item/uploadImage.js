@@ -4,30 +4,21 @@ import nextConnect from "next-connect"
 import multer from "multer"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../../auth/[...nextauth]"
+const { Readable } = require("stream")
 
 const Multer = multer({
-	storage: multer.diskStorage({
-		destination: function (req, file, callback) {
-			callback(null, `./uploads/items`)
-		},
-		filename: function (req, file, callback) {
-			callback(
-				null,
-				file.fieldname + "_" + Date.now() + "_" + file.originalname
-			)
-		},
-	}),
+	storage: multer.memoryStorage(), // change this into memoryStorage from diskStorage
 	limits: {
 		fileSize: 5 * 1024 * 1024,
 	},
 })
 
-const deleteFile = (filePath) => {
+/* const deleteFile = (filePath) => {
 	fs.unlink(filePath, () => {
 		console.log("file deleted")
 	})
 }
-
+ */
 const authenticateGoogle = () => {
 	const auth = new google.auth.GoogleAuth({
 		keyFile: `secret.json`,
@@ -37,14 +28,15 @@ const authenticateGoogle = () => {
 }
 
 const uploadToGoogleDrive = async (file, auth) => {
-	console.log(file)
+	const stream = Readable.from(file.buffer)
+
 	const fileMetadata = {
 		name: file.originalname,
 		parents: ["1BW-Ahm8qR8mg05ZhVA-F5oywWW6kKWZT"], // folder id
 	}
 	const media = {
 		mimeType: file.mimetype,
-		body: fs.createReadStream(file.path),
+		body: stream,
 	}
 
 	const driveService = google.drive({ version: "v3", auth })
@@ -88,7 +80,8 @@ apiRoute.post(async (req, res) => {
 			return
 		}
 
-		console.log(req.creatorId)
+		const stream = Readable.from(req.file.buffer)
+
 		const auth = authenticateGoogle()
 		const response = await uploadToGoogleDrive(req.file, auth)
 		/* 		deleteFile(req.file.path)
