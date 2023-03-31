@@ -26,37 +26,16 @@ function DashboardItems({}: Props) {
 	const [itemType, setItemType] = useState("")
 	const [itemZustellung, setItemZustellung] = useState("")
 	const [imageUploadStatus, setImageUploadStatus] = useState("loaded")
+	const [itemImageFile, setItemImageFile] = useState<any>(null)
 
 	const skeletonCards = [1, 2, 3, 4]
 
-	const handleSubmit = (e: any) => {
-		e.preventDefault()
-		setItemStatus("loading")
-		fetch("/api/creator/item/create", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				user: session?.user,
-				name: itemName,
-				image: itemImage,
-				description: itemDescription,
-				link: itemLink,
-				type: itemType,
-				zustellung: itemZustellung,
-			}),
-		}).then((res) => {
-			setRefreshItems(true)
-		})
-	}
-
-	function handleFileSelect(file: any) {
+	async function handleFileSelect(file: any) {
 		setImageUploadStatus("loading")
 		const formData = new FormData()
 		formData.append("file", file)
 
-		fetch("/api/creator/item/uploadImage", {
+		const uploadedImage = fetch("/api/creator/item/uploadImage", {
 			method: "POST",
 			body: formData,
 		})
@@ -74,6 +53,35 @@ function DashboardItems({}: Props) {
 			.catch((error) => {
 				console.error(error)
 				setImageUploadStatus("error")
+			})
+		return uploadedImage
+	}
+
+	const handleSubmit = async (e: any) => {
+		e.preventDefault()
+		setItemStatus("loading")
+
+		await handleFileSelect(itemImageFile)
+			.then((res) => {
+				console.log(itemImage)
+				fetch("/api/creator/item/create", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						user: session?.user,
+						name: itemName,
+						image: itemImage,
+						description: itemDescription,
+						link: itemLink,
+					}),
+				}).then(() => {
+					setRefreshItems(true)
+				})
+			})
+			.catch((err) => {
+				console.log(err)
 			})
 	}
 
@@ -130,19 +138,30 @@ function DashboardItems({}: Props) {
 			</div>
 			<section className="sm:w-1/2 h-full flex gap-1 flex-col w-full text-xl font-medium p-2 sm:p-2">
 				<p className="py-2">Meine Items</p>
-				<div className="overflow-x-scroll overflow-y-hidden h-[610px] w-full sm:p-2">
-					<div className=" flex flex-wrap justify-center gap-4">
-						{itemStatus === "loading" &&
-							skeletonCards.map((item, index) => {
-								return <SkeletonCard key={index} />
-							})}
-						{itemStatus === "loaded" &&
-							items.length > 0 &&
-							items.map((item, index) => {
-								return <ItemCard key={index} status={itemStatus} item={item} />
-							})}
+				{items.length === 0 && itemStatus === "loaded" && (
+					<div className="flex flex-col justify-center items-center h-full">
+						<p className="text-xl font-medium">
+							Du hast noch keine Items erstellt
+						</p>
+						<p className="text-sm">Erstelle jetzt dein erstes Item</p>
 					</div>
-				</div>
+				)}
+				{items.length > 0 && (
+					<div className="overflow-x-hidden overflow-y-scroll h-[610px] w-full sm:p-2">
+						<div className=" flex flex-wrap justify-center gap-4">
+							{itemStatus === "loading" &&
+								skeletonCards.map((item, index) => {
+									return <SkeletonCard key={index} />
+								})}
+							{itemStatus === "loaded" &&
+								items.map((item, index) => {
+									return (
+										<ItemCard key={index} status={itemStatus} item={item} />
+									)
+								})}
+						</div>
+					</div>
+				)}
 			</section>
 			<section className="sm:w-1/2 h-full flex gap-1 flex-col w-full  p-2 sm:p-2">
 				<p className="py-2 text-xl font-medium">Item erstellen</p>
@@ -158,7 +177,7 @@ function DashboardItems({}: Props) {
 									accept="image/*"
 									required
 									onChange={(e: any | null) =>
-										handleFileSelect(e.target.files[0])
+										setItemImageFile(e.target.files[0])
 									}
 									type={"file"}></input>
 							</div>
@@ -200,47 +219,6 @@ function DashboardItems({}: Props) {
 									className="w-full p-2 border-2 border-primary text-black rounded-sm"
 									placeholder="Link"
 								/>
-							</div>
-							<div className="flex flex-row gap-2">
-								<div className="w-1/2">
-									<label htmlFor="typ">Typ</label>
-									<Select
-										name="typ"
-										menuPlacement="auto"
-										id="typ"
-										onChange={(e: any) => {
-											setItemType(e.value)
-										}}
-										options={[
-											{
-												value: "Physischer Gegenstand",
-												label: "Physischer Gegenstand",
-											},
-											{
-												value: "Digitaler Gegenstand",
-												label: "Digitaler Gegenstand",
-											},
-										]}
-										className="w-full rounded-sm text-black"
-									/>
-								</div>
-
-								<div className="w-1/2">
-									<label htmlFor="zustellung">Zustellung</label>
-									<Select
-										name="zustellung"
-										id="zustellung"
-										menuPlacement="auto"
-										onChange={(e: any) => {
-											setItemZustellung(e.value)
-										}}
-										options={[
-											{ value: "Email", label: "Email" },
-											{ value: "Post", label: "Post" },
-										]}
-										className="w-full rounded-sm text-black"
-									/>
-								</div>
 							</div>
 						</div>
 
