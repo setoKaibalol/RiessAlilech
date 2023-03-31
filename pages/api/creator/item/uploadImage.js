@@ -7,7 +7,7 @@ import { authOptions } from "../../auth/[...nextauth]"
 const { Readable } = require("stream")
 
 const Multer = multer({
-	storage: multer.memoryStorage(), // change this into memoryStorage from diskStorage
+	storage: multer.memoryStorage(),
 	limits: {
 		fileSize: 5 * 1024 * 1024,
 	},
@@ -48,19 +48,21 @@ const uploadToGoogleDrive = async (file, auth) => {
 			fields: "id",
 		})
 		.catch((err) => {
-			console.error(err)
+			console.error("googleDriveUploadError", err)
 		})
 	return response
 }
 
 const apiRoute = nextConnect({
 	onError(error, req, res) {
-		console.log("error", error)
+		console.log("nextConnectError 501", error)
 		res
 			.status(501)
 			.json({ error: `Sorry something Happened! ${error.message}` })
 	},
 	onNoMatch(req, res) {
+		console.log("nextConnectError 405", error)
+
 		res.status(405).json({ error: `Method '${req.method}' Not Allowed` })
 	},
 })
@@ -81,6 +83,7 @@ apiRoute.post(async (req, res) => {
 		}
 
 		const stream = Readable.from(req.file.buffer)
+		console.log("stream", stream)
 
 		const auth = authenticateGoogle()
 		const response = await uploadToGoogleDrive(req.file, auth)
@@ -91,6 +94,7 @@ apiRoute.post(async (req, res) => {
 		res.status(200).json({ fileUrl })
 	} catch (err) {
 		console.log(err)
+		res.status(500).json({ error: err })
 	}
 })
 
