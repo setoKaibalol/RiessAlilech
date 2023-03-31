@@ -20,22 +20,22 @@ function DashboardItems({}: Props) {
 	} = useUserContext()
 
 	const [itemName, setItemName] = useState("")
-	const [itemImage, setItemImage] = useState()
 	const [itemDescription, setItemDescription] = useState("")
 	const [itemLink, setItemLink] = useState("")
 	const [itemType, setItemType] = useState("")
 	const [itemZustellung, setItemZustellung] = useState("")
-	const [imageUploadStatus, setImageUploadStatus] = useState("loaded")
 	const [itemImageFile, setItemImageFile] = useState<any>(null)
 
 	const skeletonCards = [1, 2, 3, 4]
 
-	async function handleFileSelect(file: any) {
-		setImageUploadStatus("loading")
-		const formData = new FormData()
-		formData.append("file", file)
+	const handleSubmit = async (e: any) => {
+		e.preventDefault()
+		setItemStatus("loading")
 
-		const uploadedImage = fetch("/api/creator/item/uploadImage", {
+		const formData = new FormData()
+		formData.append("file", itemImageFile)
+
+		fetch("/api/creator/item/uploadImage", {
 			method: "POST",
 			body: formData,
 		})
@@ -47,23 +47,7 @@ function DashboardItems({}: Props) {
 				}
 			})
 			.then((data) => {
-				setItemImage(data.fileUrl)
-				setImageUploadStatus("loaded")
-			})
-			.catch((error) => {
-				console.error(error)
-				setImageUploadStatus("error")
-			})
-		return uploadedImage
-	}
-
-	const handleSubmit = async (e: any) => {
-		e.preventDefault()
-		setItemStatus("loading")
-
-		await handleFileSelect(itemImageFile)
-			.then((res) => {
-				console.log(itemImage)
+				console.log("123456", data)
 				fetch("/api/creator/item/create", {
 					method: "POST",
 					headers: {
@@ -72,16 +56,20 @@ function DashboardItems({}: Props) {
 					body: JSON.stringify({
 						user: session?.user,
 						name: itemName,
-						image: itemImage,
+						image: data.fileUrl,
 						description: itemDescription,
 						link: itemLink,
 					}),
-				}).then(() => {
-					setRefreshItems(true)
 				})
+					.then(() => {
+						setRefreshItems(true)
+					})
+					.catch((err) => {
+						console.log(err)
+					})
 			})
-			.catch((err) => {
-				console.log(err)
+			.catch((error) => {
+				console.error(error)
 			})
 	}
 
@@ -224,11 +212,9 @@ function DashboardItems({}: Props) {
 
 						<button
 							type="submit"
-							disabled={
-								itemStatus === "loading" || imageUploadStatus === "loading"
-							}
+							disabled={itemStatus === "loading"}
 							className="bg-accent-base text-3xl disabled:bg-gray-600 p-2 px-10 font-medium rounded-lg duration-200 hover:bg-accent-base">
-							{itemStatus === "loading" || imageUploadStatus === "loading" ? (
+							{itemStatus === "loading" ? (
 								<ClipLoader></ClipLoader>
 							) : (
 								"Item erstellen"

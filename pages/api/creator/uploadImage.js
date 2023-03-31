@@ -1,53 +1,37 @@
 import { google } from "googleapis"
-import { NextApiRequest, NextApiResponse, PageConfig } from "next"
 import fs from "fs"
 import nextConnect from "next-connect"
 import multer from "multer"
 import { getServerSession } from "next-auth/next"
-import { Session } from "next-auth"
+import { authOptions } from "../../auth/[...nextauth]"
 import { prisma } from "@/prisma/PrismaClient"
-import { authOptions } from "../auth/[...nextauth]"
+const { Readable } = require("stream")
 
 const Multer = multer({
-	storage: multer.diskStorage({
-		destination: function (req, file, callback) {
-			callback(null, `./public/uploads/creators`)
-		},
-		filename: function (req, file, callback) {
-			callback(
-				null,
-				file.fieldname + "_" + Date.now() + "_" + file.originalname
-			)
-		},
-	}),
+	storage: multer.memoryStorage(),
 	limits: {
 		fileSize: 5 * 1024 * 1024,
 	},
 })
 
-const deleteFile = (filePath) => {
-	fs.unlink(filePath, () => {
-		console.log("file deleted")
-	})
-}
-
 const authenticateGoogle = () => {
 	const auth = new google.auth.GoogleAuth({
-		keyFile: `secret.json`,
+		credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS),
 		scopes: "https://www.googleapis.com/auth/drive",
 	})
 	return auth
 }
 
 const uploadToGoogleDrive = async (file, auth) => {
-	console.log(file)
+	const stream = Readable.from(file.buffer)
+
 	const fileMetadata = {
 		name: file.originalname,
 		parents: ["1327psikU4uFO4Buehti9kNIgRongrl2k"], // folder id
 	}
 	const media = {
 		mimeType: file.mimetype,
-		body: fs.createReadStream(file.path),
+		body: stream,
 	}
 
 	const driveService = google.drive({ version: "v3", auth })
@@ -59,18 +43,21 @@ const uploadToGoogleDrive = async (file, auth) => {
 			fields: "id",
 		})
 		.catch((err) => {
-			console.error(err)
+			console.error("googleDriveUploadError", err)
 		})
 	return response
 }
 
 const apiRoute = nextConnect({
 	onError(error, req, res) {
+		console.log("nextConnectError 501", error)
 		res
 			.status(501)
 			.json({ error: `Sorry something Happened! ${error.message}` })
 	},
 	onNoMatch(req, res) {
+		console.log("nextConnectError 405", error)
+
 		res.status(405).json({ error: `Method '${req.method}' Not Allowed` })
 	},
 })
@@ -85,14 +72,13 @@ apiRoute.post(async (req, res) => {
 			return
 		}
 
-		if (!req?.file) {
+		if (!req.file) {
 			res.status(400).send("No file uploaded.")
 			return
 		}
-		console.log(req.creatorId)
+
 		const auth = authenticateGoogle()
 		const response = await uploadToGoogleDrive(req.file, auth)
-		deleteFile(req.file.path)
 		const fileUrl = `https://drive.google.com/uc?export=view&id=${response.data.id}`
 
 		const creator = await prisma.creator.update({
@@ -104,9 +90,10 @@ apiRoute.post(async (req, res) => {
 			},
 		})
 
-		res.status(200).json({ response, creator })
+		res.status(200).json({ fileUrl, creator })
 	} catch (err) {
 		console.log(err)
+		res.status(500).json({ error: err })
 	}
 })
 
