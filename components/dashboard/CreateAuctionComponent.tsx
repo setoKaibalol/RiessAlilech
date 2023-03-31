@@ -47,6 +47,9 @@ function CreateAuctionComponent({}: Props) {
 			label: (
 				<div className=" w-full flex flex-row gap-4 justify-start px-2 items-center">
 					<Image
+						unoptimized
+						placeholder="blur"
+						blurDataURL={item.image}
 						height={40}
 						width={40}
 						alt={item.name}

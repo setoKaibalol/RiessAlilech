@@ -35,15 +35,20 @@ function Creator(props: Props) {
 	const { data: session, status } = useSession()
 
 	return creator ? (
-		<div className="pt-14 flex flex-col pb-20 items-center gap-2 bg-white">
+		<div className="pt-20 flex flex-col pb-20 items-center gap-2 bg-primary-base">
 			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg bg-primary-base">
-				<Image
-					className="w-full h-64 object-cover"
-					height={256}
-					width={300}
-					src={creator.profilePicture}
-					alt="Creator"
-				/>
+				<div className="relative w-full h-96">
+					<Image
+						unoptimized
+						placeholder="blur"
+						blurDataURL={creator.profilePicture}
+						fill
+						src={creator.profilePicture}
+						className="border-y-2"
+						style={{ objectFit: "cover", objectPosition: "center" }}
+						alt="Creator"
+					/>
+				</div>
 				<div className="px-6 py-4">
 					<div className=" font-extrabold text-2xl mb-2 first-letter:uppercase">
 						{creator.nickName}

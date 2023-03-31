@@ -25,6 +25,7 @@ function DashboardItems({}: Props) {
 	const [itemLink, setItemLink] = useState("")
 	const [itemType, setItemType] = useState("")
 	const [itemZustellung, setItemZustellung] = useState("")
+	const [imageUploadStatus, setImageUploadStatus] = useState("loaded")
 
 	const skeletonCards = [1, 2, 3, 4]
 
@@ -51,6 +52,7 @@ function DashboardItems({}: Props) {
 	}
 
 	function handleFileSelect(file: any) {
+		setImageUploadStatus("loading")
 		const formData = new FormData()
 		formData.append("file", file)
 
@@ -66,10 +68,12 @@ function DashboardItems({}: Props) {
 				}
 			})
 			.then((data) => {
-				setItemImage(data.data)
+				setItemImage(data.fileUrl)
+				setImageUploadStatus("loaded")
 			})
 			.catch((error) => {
 				console.error(error)
+				setImageUploadStatus("error")
 			})
 	}
 
@@ -242,9 +246,11 @@ function DashboardItems({}: Props) {
 
 						<button
 							type="submit"
-							disabled={itemStatus === "loading"}
+							disabled={
+								itemStatus === "loading" || imageUploadStatus === "loading"
+							}
 							className="bg-accent-base text-3xl disabled:bg-gray-600 p-2 px-10 font-medium rounded-lg duration-200 hover:bg-accent-base">
-							{itemStatus === "loading" ? (
+							{itemStatus === "loading" || imageUploadStatus === "loading" ? (
 								<ClipLoader></ClipLoader>
 							) : (
 								"Item erstellen"

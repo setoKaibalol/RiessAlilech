@@ -52,6 +52,9 @@ function ItemCard({ item, status }: Props) {
 							</h2>
 							<div className="w-36 h-36 relative flex justify-center">
 								<Image
+									unoptimized
+									placeholder="blur"
+									blurDataURL={item.image}
 									fill
 									sizes="100%"
 									src={item.image}
@@ -79,6 +82,9 @@ function ItemCard({ item, status }: Props) {
 
 							<div className="w-60 h-60 relative flex justify-center">
 								<Image
+									unoptimized
+									placeholder="blur"
+									blurDataURL={item.image}
 									fill
 									sizes="100%"
 									src={item.image}
@@ -106,6 +112,9 @@ function ItemCard({ item, status }: Props) {
 							</h2>
 							<div className="w-full h-60 relative">
 								<Image
+									unoptimized
+									placeholder="blur"
+									blurDataURL={item.image}
 									fill
 									sizes="100%"
 									src={item.image}

@@ -3,6 +3,7 @@ import { useUserContext } from "@/context"
 import { prisma } from "@/prisma/PrismaClient"
 import CreatorCard from "@/components/cards/CreatorCard"
 import Image from "next/image"
+import Link from "next/link"
 import { useSession } from "next-auth/react"
 import moment from "moment"
 import CountdownTimer from "@/components/CountdownTimer"
@@ -12,6 +13,8 @@ import {
 	TbBrandInstagram,
 	TbBrandTwitter,
 	TbBrandTiktok,
+	TbNumber4,
+	TbBrandTwitch,
 } from "react-icons/tb"
 import ItemCard from "@/components/cards/ItemCard"
 
@@ -33,6 +36,10 @@ function Auction(props: Props) {
 					<div className=" flex flex-col w-full h-full items-center justify-evenly">
 						<div className="h-40 relative w-40 shrink-0">
 							<Image
+								unoptimized
+								placeholder="blur"
+								blurDataURL={auction.Creator.profilePicture}
+								priority
 								className="rounded-full border-accent-base border-2"
 								sizes="100%"
 								style={{
@@ -43,7 +50,7 @@ function Auction(props: Props) {
 								alt={auction.Creator.name}
 								fill></Image>
 						</div>
-						<div className="text-white relative flex flex-col">
+						<div className="text-primary-base font-bold text-xl p-2  relative flex flex-col">
 							{auction.Creator.name ? (
 								<p>{auction.Creator.name}</p>
 							) : auction.Creator.nickName ? (
@@ -53,17 +60,39 @@ function Auction(props: Props) {
 							)}
 						</div>
 						<div className="text-white relative flex flex-row gap-2 justify-center w-full">
-							<div>
-								<TbBrandInstagram className="h-8 w-8 text-purple-600"></TbBrandInstagram>
-							</div>
-							<div>
-								<TbBrandOnlyfans className="h-8 w-8 text-blue-500"></TbBrandOnlyfans>
-							</div>
-							<div>
-								<TbBrandTiktok className="h-8 w-8 text-white"></TbBrandTiktok>
-							</div>
-							<div>
-								<TbBrandYoutube className="h-8 w-8 text-red-600"></TbBrandYoutube>
+							<div className="flex flex-row">
+								{auction.Creator.instagram ? (
+									<Link
+										href={auction.Creator.instagram}
+										target="_blank"
+										className=" text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
+										<TbBrandInstagram className=" text-purple-500 h-8 w-8 inline-block mr-1" />
+									</Link>
+								) : null}
+								{auction.Creator.tiktok ? (
+									<Link
+										href={auction.Creator.tiktok}
+										target="_blank"
+										className=" text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
+										<TbBrandYoutube className=" text-red-600 h-8 w-8 inline-block mr-1" />
+									</Link>
+								) : null}
+								{auction.Creator.fourBased ? (
+									<Link
+										href={auction.Creator.fourBased}
+										target="_blank"
+										className=" text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
+										<TbNumber4 className=" text-orange-600 font-bold h-8 w-8 inline-block mr-1" />
+									</Link>
+								) : null}
+								{auction.Creator.twitter ? (
+									<Link
+										href={auction.Creator.twitter}
+										target="_blank"
+										className="bg-accent-base text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
+										<TbBrandTwitch className=" text-purple-600 h-8 w-8 inline-block mr-1" />
+									</Link>
+								) : null}
 							</div>
 						</div>
 					</div>
@@ -99,7 +128,13 @@ function Auction(props: Props) {
 						<div></div>
 					</div>
 				) : (
-					<div className="flex flex-col h-full w-full justify-center p-10 items-center gap-4">
+					<div className="flex flex-col h-full w-full justify-between p-10 items-center gap-4">
+						<div className="realtive h-60 w-60">
+							<p className="text-2xl font-medium text-secondary-base p-2">
+								Item:
+							</p>
+							<ItemCard item={auction.item} status={"loaded"}></ItemCard>
+						</div>
 						<CountdownTimer
 							hasStarted={hasStarted}
 							targetDate={date + startsIn * 1000}></CountdownTimer>

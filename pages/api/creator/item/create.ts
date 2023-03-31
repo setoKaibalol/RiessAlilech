@@ -19,6 +19,12 @@ const handler: Handler = async (req, res) => {
 				res.status(401).json({ message: "Not authenticated" })
 				return
 			}
+
+			if (!session.user.id) {
+				res.status(401).json({ message: "Not authenticated" })
+				return
+			}
+
 			const { name, image, description, link, type, zustellung, user } =
 				req.body
 
@@ -36,7 +42,7 @@ const handler: Handler = async (req, res) => {
 					image,
 					Creator: {
 						connect: {
-							userId: user,
+							userId: session.user.id,
 						},
 					},
 				},
