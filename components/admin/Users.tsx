@@ -6,6 +6,7 @@ interface User {
 	name: string
 	email: string
 	role: "USER" | "CREATOR"
+	creator: []
 }
 
 interface UsersLayoutProps {
@@ -29,6 +30,7 @@ const UsersLayout: React.FC<UsersLayoutProps> = ({ users, props }) => {
 			setEmail(user.email)
 			setRole(user.role)
 		}
+		console.log(user)
 	}
 
 	const stopEditingUser = () => {
@@ -40,8 +42,40 @@ const UsersLayout: React.FC<UsersLayoutProps> = ({ users, props }) => {
 
 	const saveUser = async () => {
 		if (editingUserId) {
+			const user = users.find((u) => u.id === editingUserId)
 			setSaveUserStatus("loading")
 			setAdminUsersStatus("loading")
+			if (
+				role === "CREATOR" &&
+				user &&
+				(!user.creator || user.creator.length === 0)
+			) {
+				console.log("creator1, true")
+				const res = await fetch(`/api/admin/users/creators/add`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+
+					body: JSON.stringify({ user }),
+				})
+					.then((res) => {
+						console.log(res)
+						if (res.ok) {
+							stopEditingUser()
+							setSaveUserStatus("loaded")
+							setAdminUsersStatus("loaded")
+							setRefreshAdminUsers(true)
+						}
+						res.json()
+					})
+					.catch((err) => {
+						setSaveUserStatus("error")
+						setAdminUsersStatus("error")
+						console.log(err)
+					})
+			}
+
 			const res = await fetch(`/api/admin/users/update`, {
 				method: "POST",
 				headers: {

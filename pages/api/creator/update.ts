@@ -25,33 +25,57 @@ const handler: Handler = async (req, res) => {
 				return
 			}
 
-			const creator = await prisma.user
-				.findUniqueOrThrow({
+			const {
+				creatorId,
+				realName,
+				nickname,
+				description,
+				country,
+				origin,
+				age,
+				instagram,
+				facebook,
+				twitter,
+				youtube,
+				twitch,
+				tiktok,
+				fourBased,
+			} = req.body
+
+			const creator = await prisma.creator
+				.update({
 					where: {
-						id: session.user.id,
+						id: creatorId,
 					},
-					include: {
-						Creator: {
-							include: {
-								Item: true,
-								Auction: true,
-								tipsReceived: true,
-							},
-						},
+					data: {
+						realName,
+						nickName: nickname,
+						description,
+						country,
+						origin,
+						age,
+						instagram,
+						facebook,
+						twitter,
+						tiktok,
+						fourBased,
 					},
 				})
 				.catch((err) => {
 					console.error(err)
-					throw new Error("Creator not found")
+					res.status(500).json({ message: "Internal server error", err: err })
+					return
 				})
 
 			res.status(200).send(creator)
 		} else {
 			res.status(405).json({ message: "Method not allowed" })
+			return
 		}
 	} catch (error) {
 		console.error(error)
 		res.status(500).json({ message: "Internal server error" })
+		return
 	}
 }
 

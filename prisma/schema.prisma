@@ -62,6 +62,7 @@ model Creator {
   country        String?
   origin         String?
   age            Int?
+  heightCm       Int?
   instagram      String?
   facebook       String?
   twitter        String?
@@ -69,6 +70,7 @@ model Creator {
   fourBased      String?
   website        String?
   onlyfans       String?
+  twitch         String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   userId         String    @unique

@@ -27,6 +27,6 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"pages/api/creator/createItem.js"
-	],
+, "pages/api/creator/uploadImage.js", "pages/api/creator/uploadImage.js", "pages/api/creator/uploadImage.js", "pages/api/creator/uploadImage.js"	],
 	"exclude": ["node_modules"]
 }

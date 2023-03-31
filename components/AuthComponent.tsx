@@ -138,8 +138,8 @@ export const AuthComponent = () => {
 		return (
 			<button
 				onClick={() => signIn()}
-				className="bg-accent-base p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary-base">
-				sign in
+				className="bg-accent-base p-2 text-primary-base px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary-base">
+				Anmelden
 			</button>
 		)
 	} else {

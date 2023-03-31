@@ -8,6 +8,7 @@ const nextConfig = {
 			"via.placeholder.com",
 			"upload.wikimedia.org",
 			"pbs.twimg.com",
+			"drive.google.com",
 		],
 	},
 }

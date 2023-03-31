@@ -35,7 +35,7 @@ function Creator(props: Props) {
 	const { data: session, status } = useSession()
 
 	return creator ? (
-		<div className="pt-14 flex flex-col items-center gap-2 bg-white">
+		<div className="pt-14 flex flex-col pb-20 items-center gap-2 bg-white">
 			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg bg-primary-base">
 				<Image
 					className="w-full h-64 object-cover"
@@ -45,7 +45,7 @@ function Creator(props: Props) {
 					alt="Creator"
 				/>
 				<div className="px-6 py-4">
-					<div className="font-bold text-xl mb-2 first-letter:uppercase">
+					<div className=" font-extrabold text-2xl mb-2 first-letter:uppercase">
 						{creator.nickName}
 					</div>
 				</div>
@@ -77,16 +77,16 @@ function Creator(props: Props) {
 							<Link
 								href={creator.tiktok}
 								target="_blank"
-								className="bg-accent-base text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-								<TbBrandYoutube className="h-8 w-8 inline-block mr-1" />
+								className=" text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
+								<TbBrandYoutube className=" text-red-600 h-8 w-8 inline-block mr-1" />
 							</Link>
 						) : null}
 						{creator.fourBased ? (
 							<Link
 								href={creator.fourBased}
 								target="_blank"
-								className="bg-accent-base text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-								<TbNumber4 className="  h-8 w-8 inline-block mr-1" />
+								className=" text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
+								<TbNumber4 className=" text-orange-600 font-bold h-8 w-8 inline-block mr-1" />
 							</Link>
 						) : null}
 						{creator.twitter ? (
@@ -154,7 +154,6 @@ export async function getServerSideProps(context: { params: any }) {
 		},
 		include: {
 			Auction: true,
-			user: true,
 			tipsReceived: true,
 		},
 	})

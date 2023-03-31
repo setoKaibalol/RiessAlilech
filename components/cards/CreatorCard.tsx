@@ -71,19 +71,29 @@ function CreatorCard({ creator, status }: Props) {
 					return (
 						<Link
 							href={`/creator/${creator.id}`}
-							className="p-4 border hover:shadow-md w-80 h-60 hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 shadow-sm max-w-sm hover:translate">
-							<h3 className="text-lg font-semibold font-primary text-secondary-base mb-2">
+							className="p-4 border font-primary border-secondary-base hover:shadow-md w-80 h-auto bg-primary-base  hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 shadow-sm max-w-sm hover:translate">
+							<h3 className="text-lg  font-primary text-secondary-base mb-2 first-letter:uppercase font-bold ">
 								{creator.nickName}
 							</h3>
-							<div className="w-full relative h-40">
+							<div className="w-60 relative h-60">
 								<Image
 									src={creator.profilePicture}
 									alt="Creator Avatar"
 									fill
-									style={{ objectFit: "contain", objectPosition: "center" }}
+									style={{ objectFit: "cover", objectPosition: "center" }}
 									sizes="100%"
-									className=" mb-4"
+									className=" mb-4 rounded-full border-secondary-base border-2"
 								/>
+							</div>
+							<div>
+								<div className="py-4 px-6">
+									<h2 className="text-secondary-base text-xl font-bold">
+										{creator.realName}, {creator.age}
+									</h2>
+									<p className="text-secondary-base mt-2">
+										{creator.description}
+									</p>
+								</div>
 							</div>
 						</Link>
 					)

@@ -49,7 +49,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({}) => {
 	}, [])
 
 	useEffect(() => {
-		if (refreshAdminUsers && (!adminUsers || adminUsers.length === 0)) {
+		if (refreshAdminUsers) {
 			setAdminUsersStatus("loading")
 			fetch("/api/admin/users/get", {
 				method: "POST",

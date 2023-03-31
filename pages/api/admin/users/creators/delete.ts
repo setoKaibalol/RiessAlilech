@@ -18,19 +18,10 @@ const handler: Handler = async (req, res) => {
 	const { user } = req.body
 	try {
 		if (req.method === "POST") {
-			const creators = await prisma.user
-				.update({
+			const creator = await prisma.creator
+				.delete({
 					where: {
-						id: user.id,
-					},
-					data: {
-						role: "CREATOR",
-						Creator: {
-							create: {
-								nickName: user.name,
-								profilePicture: user.picture,
-							},
-						},
+						userId: user.id,
 					},
 				})
 				.catch((err) => {
@@ -38,7 +29,7 @@ const handler: Handler = async (req, res) => {
 					res.status(500).json({ message: "Internal server error", err: err })
 				})
 
-			res.status(200).send(creators)
+			res.status(200).send(creator)
 		} else {
 			res.status(405).json({ message: "Method not allowed" })
 		}
