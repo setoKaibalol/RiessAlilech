@@ -92,6 +92,7 @@ export const AuthComponent = () => {
 					{userCreatorData.profilePicture && (
 						<div className="relative w-10 h-10">
 							<Image
+								unoptimized
 								alt="profile picture"
 								className="rounded-full border-secondary-base border"
 								placeholder="blur"

@@ -61,6 +61,7 @@ function NavbarMobile({}: Props) {
 			},
 		},
 	]
+
 	const navigationCrator = [
 		{
 			name: "Home",

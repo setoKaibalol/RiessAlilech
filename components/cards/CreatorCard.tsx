@@ -45,11 +45,14 @@ function CreatorCard({ creator, status }: Props) {
 							<h3 className="text-lg font-semibold font-primary text-[#B76E79] mb-2">
 								{creator.name}
 							</h3>
-							<Image
-								width={40}
-								height={40}
-								alt="profile picture"
-								src={creator.profilePicture}></Image>
+							{creator.profilePicture && (
+								<Image
+									unoptimized
+									width={40}
+									height={40}
+									alt="profile picture"
+									src={creator.profilePicture}></Image>
+							)}
 							<p className="text-sm text-gray-700 mb-4 font-secondary">
 								Short bio about the creator...
 							</p>
@@ -117,16 +120,19 @@ function CreatorCard({ creator, status }: Props) {
 							<h3 className="text-lg font-semibold font-primary text-secondary-base mb-2">
 								{creator.nickName}
 							</h3>
-							<div className="w-full relative h-40">
-								<Image
-									src={creator.profilePicture}
-									alt="Creator Avatar"
-									fill
-									style={{ objectFit: "contain", objectPosition: "center" }}
-									sizes="100%"
-									className=" mb-4"
-								/>
-							</div>
+							{creator.profilePicture && (
+								<div className="w-full relative h-40">
+									<Image
+										unoptimized
+										src={creator.profilePicture}
+										alt="Creator Avatar"
+										fill
+										style={{ objectFit: "contain", objectPosition: "center" }}
+										sizes="100%"
+										className=" mb-4"
+									/>
+								</div>
+							)}
 						</Link>
 					)
 				default:

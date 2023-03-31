@@ -193,6 +193,7 @@ function Profile({}: Props) {
 									htmlFor="profilePictureFileInput"
 									className="relative w-44 h-44 shrink-0 flex justify-center items-center">
 									<Image
+										unoptimized
 										placeholder="blur"
 										blurDataURL={profilePicture}
 										alt="profile picture"
@@ -395,6 +396,7 @@ function Profile({}: Props) {
 						{session.user.image ? (
 							<div className="relative w-48 h-48 shrink-0">
 								<Image
+									unoptimized
 									alt="profile picture"
 									src={session.user.image}
 									className="border-2 "
@@ -409,6 +411,7 @@ function Profile({}: Props) {
 						) : (
 							<div className="relative w-48 h-48 shrink-0">
 								<Image
+									unoptimized
 									alt="profile picture"
 									src={
 										"https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
@@ -424,7 +427,12 @@ function Profile({}: Props) {
 							</div>
 						)}
 					</div>
-					<div>{session.user.role}</div>
+					<div className="flex flex-row w-auto justify-center items-center gap-4 mb-4 bg-secondary-base/10 p-2 rounded-md">
+						<p className=" font-medium">Account typ: </p>
+						<span className="text-accent-base font-bold">
+							{session.user.role}
+						</span>
+					</div>
 				</div>
 			)
 		default:
