@@ -91,7 +91,8 @@ apiRoute.post(async (req, res) => {
 		console.log(req.creatorId)
 		const auth = authenticateGoogle()
 		const response = await uploadToGoogleDrive(req.file, auth)
-		deleteFile(req.file.path)
+		/* 		deleteFile(req.file.path)
+		 */
 		const fileUrl = `https://drive.google.com/uc?export=view&id=${response.data.id}`
 
 		res.status(200).json({ fileUrl })
