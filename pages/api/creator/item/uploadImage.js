@@ -8,7 +8,7 @@ import { authOptions } from "../../auth/[...nextauth]"
 const Multer = multer({
 	storage: multer.diskStorage({
 		destination: function (req, file, callback) {
-			callback(null, `./public/uploads/items`)
+			callback(null, `./uploads/items`)
 		},
 		filename: function (req, file, callback) {
 			callback(
@@ -63,6 +63,7 @@ const uploadToGoogleDrive = async (file, auth) => {
 
 const apiRoute = nextConnect({
 	onError(error, req, res) {
+		console.log("error", error)
 		res
 			.status(501)
 			.json({ error: `Sorry something Happened! ${error.message}` })
@@ -82,10 +83,11 @@ apiRoute.post(async (req, res) => {
 			return
 		}
 
-		if (!req?.file) {
+		if (!req.file) {
 			res.status(400).send("No file uploaded.")
 			return
 		}
+
 		console.log(req.creatorId)
 		const auth = authenticateGoogle()
 		const response = await uploadToGoogleDrive(req.file, auth)
