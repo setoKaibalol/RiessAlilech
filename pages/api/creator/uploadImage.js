@@ -3,7 +3,7 @@ import fs from "fs"
 import nextConnect from "next-connect"
 import multer from "multer"
 import { getServerSession } from "next-auth/next"
-import { authOptions } from "../../auth/[...nextauth]"
+import { authOptions } from "../auth/[...nextauth]"
 import { prisma } from "@/prisma/PrismaClient"
 const { Readable } = require("stream")
 
