@@ -75,16 +75,19 @@ function CreatorCard({ creator, status }: Props) {
 							<h3 className="text-lg  font-primary text-secondary-base mb-2 first-letter:uppercase font-bold ">
 								{creator.nickName}
 							</h3>
-							<div className="w-60 relative h-60">
-								<Image
-									src={creator.profilePicture}
-									alt="Creator Avatar"
-									fill
-									style={{ objectFit: "cover", objectPosition: "center" }}
-									sizes="100%"
-									className=" mb-4 rounded-full border-secondary-base border-2"
-								/>
-							</div>
+							{creator.profilePicture && (
+								<div className="w-60 relative h-60">
+									<Image
+										unoptimized
+										src={creator.profilePicture}
+										alt="Creator Avatar"
+										fill
+										style={{ objectFit: "cover", objectPosition: "center" }}
+										sizes="100%"
+										className=" mb-4 rounded-full border-secondary-base border-2"
+									/>
+								</div>
+							)}
 							<div>
 								<div className="py-4 px-6">
 									<h2 className="text-secondary-base text-xl font-bold">
