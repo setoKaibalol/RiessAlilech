@@ -136,7 +136,7 @@ function Navbar({}: Props) {
 				{showMobileMenu && (
 					<div className="z-30 w-[60%] h-screen flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
 						<div className="flex flex-col gap-14 p-4 text-primary-base w-full h-full">
-							<div className="flex flex-col">
+							<div className="flex flex-col justify-center">
 								{mobileMenuNavigation.map((item, index) => (
 									<Link
 										onClick={() => setShowMobileMenu(false)}
