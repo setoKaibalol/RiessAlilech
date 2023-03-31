@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useUserContext } from "./../context"
 import { ClipLoader } from "react-spinners"
+import { AiFillTool } from "react-icons/ai"
 
 export const AuthComponent = () => {
 	const { active, setActive, userCreatorData, setUserCreatorData } =
@@ -65,16 +66,7 @@ export const AuthComponent = () => {
 					href={"/admin"}
 					className="flex bg-accent-base text-primary-base flex-row gap-1 p-2 px-3 uppercase rounded-lg duration-200 ">
 					<h2>ADMIN DASHBOARD</h2>
-					{session.user.image && (
-						<div className="h-full w-14 justify-center items-center">
-							<Image
-								alt="image"
-								className="rounded-full"
-								src={session.user.image}
-								height={50}
-								width={50}></Image>
-						</div>
-					)}
+					<AiFillTool className="w-8 h-8"></AiFillTool>
 				</Link>
 			</div>
 		)
@@ -89,18 +81,7 @@ export const AuthComponent = () => {
 					href={"/dashboard"}
 					className="flex flex-row h-16 gap-1 p-2 px-2 text-xl justify-center uppercase font-medium items-center rounded-lg duration-200 bg-accent-base/70 hover:bg-accent-base">
 					<h2>DASHBOARD</h2>
-					{userCreatorData.profilePicture && (
-						<div className="relative w-10 h-10">
-							<Image
-								unoptimized
-								alt="profile picture"
-								className="rounded-full border-secondary-base border"
-								placeholder="blur"
-								blurDataURL={userCreatorData.profilePicture}
-								src={userCreatorData.profilePicture}
-								fill></Image>
-						</div>
-					)}
+					<AiFillTool className="w-8 h-8"></AiFillTool>
 				</Link>
 			</div>
 		)
