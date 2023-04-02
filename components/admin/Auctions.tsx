@@ -14,7 +14,7 @@ interface Auction {
 		}
 		id: number
 		name: string
-		nickname: string
+		nickName: string
 	}
 }
 
@@ -79,6 +79,31 @@ const AuctionsLayout: React.FC<AuctionsLayoutProps> = ({ auctions, props }) => {
 		}
 	}
 
+	const deleteAuction = async (auctionId: number) => {
+		setAuctionsStatus("loading")
+		const res = await fetch(`/api/admin/auctions/delete`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				auctionId,
+			}),
+		})
+			.then((res) => {
+				console.log(res)
+				if (res.ok) {
+					setAuctionsStatus("loaded")
+					setRefreshAuctions(true)
+				}
+				res.json()
+			})
+			.catch((err) => {
+				setAuctionsStatus("error")
+				console.log(err)
+			})
+	}
+
 	return (
 		<div className="max-w-7xl mx-auto h-full py-6 sm:px-6 lg:px-8">
 			<div className="flex justify-between mb-4 p-6">
@@ -131,7 +156,7 @@ const AuctionsLayout: React.FC<AuctionsLayoutProps> = ({ auctions, props }) => {
 									{auction.description}
 								</td>
 								<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-									{auction.Creator.user.name}
+									{auction.Creator.nickName}
 								</td>
 								<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
 									<button
@@ -141,7 +166,15 @@ const AuctionsLayout: React.FC<AuctionsLayoutProps> = ({ auctions, props }) => {
 									</button>
 								</td>
 								<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-									<button className="text-red-600 hover:text-red-900">
+									<button
+										onClick={() => {
+											if (
+												confirm("Willst du diese Auktion wirklich löschen?")
+											) {
+												deleteAuction(auction.id)
+											}
+										}}
+										className="text-red-600 hover:text-red-900">
 										Delete
 									</button>
 								</td>

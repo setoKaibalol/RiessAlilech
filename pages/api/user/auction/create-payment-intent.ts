@@ -2,28 +2,27 @@ import { NextApiRequest, NextApiResponse } from "next"
 
 const stripe = require("stripe")(process.env.STRIPE_SKEY_TEST)
 
-const calculateOrderAmount = (tip: any) => {
-	return tip.amount * 100
+const calculateOrderAmount = (bid: any) => {
+	return bid.amount * 100
 }
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const { tip, creator, sender } = req.body
-	console.log(sender, creator, tip)
+	const { bid, auction, sender } = req.body
 	const paymentIntent = await stripe.paymentIntents.create({
-		amount: calculateOrderAmount(tip),
+		amount: calculateOrderAmount(bid),
 		currency: "eur",
 		automatic_payment_methods: {
 			enabled: true,
 		},
 		metadata: {
-			type: "creator-tip",
-			for: creator.id,
-			senderEmail: sender?.email,
-			senderName: sender?.name,
-			senderId: sender?.id,
+			type: "auction-bid",
+			auctionId: auction.id,
+			senderEmail: sender.email,
+			senderName: sender.name,
+			senderId: sender.id,
 		},
 	})
 

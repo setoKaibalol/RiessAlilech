@@ -23,6 +23,7 @@
 		"formidable": "^2.1.1",
 		"fs": "^0.0.1-security",
 		"googleapis": "^105.0.0",
+		"micro": "^10.0.1",
 		"moment": "^2.29.4",
 		"multer": "^1.4.5-lts.1",
 		"next": "^13.2.4",
@@ -37,6 +38,7 @@
 		"react-select": "^5.7.0",
 		"react-spinners": "^0.13.8",
 		"react-tabs": "^6.0.0",
+		"react-toastify": "^9.1.2",
 		"stripe": "^11.17.0",
 		"typescript": "4.9.5",
 		"uuid": "^9.0.0"

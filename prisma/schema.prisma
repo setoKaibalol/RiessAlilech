@@ -90,14 +90,15 @@ model Auction {
   minTip          Float    @default(1)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  startAt         DateTime @default(now())
-  endAt           DateTime
-  live            Boolean  @default(false)
+  durationHours   Int      @default(24)
+  live            Boolean  @default(true)
   totalTipsAmount Float    @default(0)
   totalTips       Int      @default(0)
   Creator         Creator  @relation(fields: [creatorId], references: [id])
   creatorId       String
-  item            Item?    @relation(fields: [itemId], references: [id], onDelete: SetNull)
+  trostpreis      Item?    @relation("trostpreisItem", fields: [trostpreisId], references: [id], onDelete: SetNull)
+  trostpreisId    String?  @default("item deleted")
+  item            Item?    @relation("mainItem", fields: [itemId], references: [id], onDelete: SetNull)
   itemId          String?  @default("item deleted")
   bids            Bid[]
 
@@ -151,7 +152,8 @@ model Item {
   description       String?             @db.Text
   type              String?
   zustellung        String?
-  Auction           Auction[]
+  Auction           Auction[]           @relation("mainItem")
+  AuctionTrostpreis Auction[]           @relation("trostpreisItem")
   ItemSensitiveData ItemSensitiveData[]
   Creator           Creator             @relation(fields: [creatorId], references: [id])
   creatorId         String

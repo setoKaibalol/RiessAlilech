@@ -6,8 +6,10 @@ import {
 	useElements,
 } from "@stripe/react-stripe-js"
 import { ClipLoader } from "react-spinners"
+import { useRouter } from "next/router"
 
-export default function CheckoutForm({ creatorName }) {
+export default function CheckoutForm({ creator, return_url }) {
+	const router = useRouter()
 	const stripe = useStripe()
 	const elements = useElements()
 
@@ -45,7 +47,6 @@ export default function CheckoutForm({ creatorName }) {
 			}
 		})
 	}, [stripe])
-
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 
@@ -61,7 +62,7 @@ export default function CheckoutForm({ creatorName }) {
 			elements,
 			confirmParams: {
 				// Make sure to change this to your payment completion page
-				return_url: "http://localhost:3000",
+				return_url: return_url,
 			},
 		})
 
@@ -84,22 +85,8 @@ export default function CheckoutForm({ creatorName }) {
 			className="flex flex-col gap-4 font-primary"
 			id="payment-form"
 			onSubmit={handleSubmit}>
-			<LinkAuthenticationElement
-				id="link-authentication-element"
-				onChange={(e) => setEmail(e.target.value)}
-			/>
-			{/* 			<div>
-				<label htmlFor="message">Nachricht</label>
-				<input
-					required
-					className="p-2 w-full rounded-md border focus:outline-accent-base focus:outline-2 border-gray-300"
-					id="message"
-					name="message"
-					type="text"
-				/>
-			</div>
- */}{" "}
 			<PaymentElement
+				className=""
 				id="payment-element"
 				options={{
 					paymentMethodOrder: ["apple_pay", "google_pay", "card", "klarna"],
@@ -114,7 +101,7 @@ export default function CheckoutForm({ creatorName }) {
 					{isLoading ? (
 						<ClipLoader className="w-6 h-6"></ClipLoader>
 					) : (
-						`TIP ${creatorName}`
+						`TIP ${creator.nickName}`
 					)}
 				</span>
 			</button>

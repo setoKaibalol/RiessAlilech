@@ -7,9 +7,10 @@ import { ClipLoader } from "react-spinners"
 import { useRouter } from "next/router"
 import ItemCard from "./ItemCard"
 import CreatorCard from "./CreatorCard"
-import moment from "moment"
-import CountdownTimer from "../CountdownTimer"
+import moment, { duration } from "moment"
+import Countdown from "@/components/Countdown"
 import { HiExternalLink } from "react-icons/hi"
+import { BiTimeFive } from "react-icons/bi"
 
 type Props = {
 	auction: any
@@ -18,9 +19,11 @@ type Props = {
 
 function AuctionCard({ auction, status }: Props) {
 	const [copySuccess, setCopySuccess] = React.useState("")
-	const [hasStarted, setHasStarted] = useState(false)
-	const startsIn = moment(auction.startAt).diff(moment(), "seconds", true)
-	const endsIn = moment(auction.endAt).diff(moment(), "seconds", true)
+	const [hasStarted, setHasStarted] = useState(true)
+	const endsIn = moment().diff(
+		moment(auction.createdAt).add(auction.durationHours, "hours"),
+		"milliseconds"
+	)
 
 	const date = new Date().getTime()
 	const router = useRouter()
@@ -50,7 +53,7 @@ function AuctionCard({ auction, status }: Props) {
 	const websiteLink = process.env.NEXT_PUBLIC_WEBSITE_URL
 
 	useEffect(() => {
-		if (moment().isAfter(auction?.startAt)) {
+		if (auction.live) {
 			setHasStarted(true)
 		} else {
 			setHasStarted(false)
@@ -102,16 +105,21 @@ function AuctionCard({ auction, status }: Props) {
 								<h2 className="text-xl font-semibold text-[#B76E79] first-letter:uppercase">
 									{auction.title}
 								</h2>
-								{hasStarted ? (
-									<div className="relative ">
-										<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
-										<p className="w-4 h-4 bg-green-500 rounded-full"></p>
-									</div>
-								) : (
-									<div className="relative ">
-										<p className="w-4 h-4 bg-red-500 rounded-full"></p>
-									</div>
-								)}
+								<div className="flex flex-row border-2 px-3 rounded-lg h-full w-[25%] justify-center items-center gap-2 text-xl">
+									<h2 className="h-full text-secondary-base">
+										{auction.live} live
+									</h2>
+									{hasStarted ? (
+										<div className="relative h-4 w-4">
+											<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
+											<p className="w-4 h-4 bg-green-500 rounded-full"></p>
+										</div>
+									) : (
+										<div className="relative h-4 w-4">
+											<p className="w-4 h-4 bg-red-500 rounded-full"></p>
+										</div>
+									)}
+								</div>
 							</Link>
 
 							<div className="mb-4 flex items-center flex-col">
@@ -159,20 +167,13 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 							</div>
-							<div className="text-sm text-secondary-base mb-4">
-								{hasStarted ? (
-									<div className="flex flex-col items-center min-h-[100px] w-[280px]">
-										<CountdownTimer
-											hasStarted={hasStarted}
-											targetDate={date + endsIn * 1000}></CountdownTimer>
-									</div>
-								) : (
-									<div className="flex flex-col items-center min-h-[100px] w-[280px]">
-										<CountdownTimer
-											hasStarted={hasStarted}
-											targetDate={date + startsIn * 1000}></CountdownTimer>
-									</div>
-								)}
+							<div className="flex flex-row justify-center gap-10 items-center min-h-[100px] w-[280px]">
+								<div className="flex h-full justify-center items-center">
+									<BiTimeFive className=" text-secondary-base mr-2 text-3xl" />
+									<Countdown
+										startTime={new Date(auction.createdAt).getTime()}
+										durationInHours={auction.durationHours}></Countdown>
+								</div>
 							</div>
 						</div>
 					)
@@ -193,20 +194,23 @@ function AuctionCard({ auction, status }: Props) {
 								target="_blank"
 								href={`/auction/${auction.id}`}
 								className="w-full flex flex-row relative justify-between items-center px-2 p-1 mb-2 group hover:bg-secondary-base/10 duration-200 rounded-lg">
-								<h2 className="text-xl flex flex-row items-center gap-1 font-semibold text-[#B76E79] first-letter:uppercase">
+								<h2 className="text-xl w-[75%] flex flex-wrap items-center gap-1 font-semibold text-[#B76E79] first-letter:uppercase">
 									{auction.title}
 									<HiExternalLink className="h-6 w-6"></HiExternalLink>
 								</h2>
-								{hasStarted ? (
-									<div className="relative ">
-										<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
-										<p className="w-4 h-4 bg-green-500 rounded-full"></p>
-									</div>
-								) : (
-									<div className="relative ">
-										<p className="w-4 h-4 bg-red-500 rounded-full"></p>
-									</div>
-								)}
+								<div className="flex flex-row border-2 px-3 rounded-lg h-full w-[25%] justify-center items-center gap-2 text-xl">
+									<h2 className="h-full">{auction.live} live</h2>
+									{hasStarted ? (
+										<div className="relative h-4 w-4">
+											<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
+											<p className="w-4 h-4 bg-green-500 rounded-full"></p>
+										</div>
+									) : (
+										<div className="relative h-4 w-4">
+											<p className="w-4 h-4 bg-red-500 rounded-full"></p>
+										</div>
+									)}
+								</div>
 							</Link>
 
 							<div className="mb-4 flex items-center flex-col">
@@ -254,20 +258,13 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 							</div>
-							<div className="text-sm text-secondary-base">
-								{hasStarted ? (
-									<div className="flex flex-col items-center min-h-[100px] w-[280px]">
-										<CountdownTimer
-											hasStarted={hasStarted}
-											targetDate={date + endsIn * -1000}></CountdownTimer>
-									</div>
-								) : (
-									<div className="flex flex-col items-center min-h-[100px] w-[280px]">
-										<CountdownTimer
-											hasStarted={hasStarted}
-											targetDate={date + startsIn * 1000}></CountdownTimer>
-									</div>
-								)}
+							<div className="flex flex-row justify-center gap-4 items-center min-h-[100px] w-[280px]">
+								<div className="flex h-full justify-center items-center">
+									<BiTimeFive className=" text-secondary-base mr-2 text-3xl" />
+									<Countdown
+										startTime={new Date(auction.createdAt).getTime()}
+										durationInHours={auction.durationHours}></Countdown>
+								</div>
 							</div>
 						</div>
 					)

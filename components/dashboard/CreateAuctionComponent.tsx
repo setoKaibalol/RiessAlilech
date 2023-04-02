@@ -22,7 +22,8 @@ function CreateAuctionComponent({}: Props) {
 	const [image, setImage] = React.useState<string>("")
 	const [duration, setDuration] = React.useState<number>(0)
 	const [selectedItemId, setSelectedItemId] = React.useState<any>(null)
-
+	const [selectedTrostpreisId, setSelectedTrostpreisId] =
+		React.useState<any>(null)
 	const {
 		creatorAuctions,
 		setCreatorAuctions,
@@ -73,10 +74,10 @@ function CreateAuctionComponent({}: Props) {
 				title: title,
 				description: description,
 				minTip: minTip,
-				startAt: startAt,
 				duration: duration,
 				user: session?.user,
 				itemId: selectedItemId,
+				trostpreisId: selectedTrostpreisId,
 			}),
 		}).then((res) => {
 			if (res.status === 200) {
@@ -138,7 +139,7 @@ function CreateAuctionComponent({}: Props) {
 						/>
 					</div>
 					<div className="flex flex-row gap-4 justify-start">
-						<div className="w-1/3">
+						<div className="w-1/2">
 							<label htmlFor="startPrice">Mindestgebot</label>
 							<input
 								type="number"
@@ -150,9 +151,8 @@ function CreateAuctionComponent({}: Props) {
 								className="w-full p-2 border-2 border-primary rounded-sm text-black"
 							/>
 						</div>
-						<div className="w-1/3 relative">
-							<label htmlFor="duration">Dauer</label>
-							<span className="absolute">h</span>
+						<div className="w-1/2 relative">
+							<label htmlFor="duration">Dauer in Stunden</label>
 							<input
 								type="number"
 								step={1}
@@ -163,20 +163,23 @@ function CreateAuctionComponent({}: Props) {
 								placeholder="Stunden"
 								className="w-full p-2 border-2 border-primary rounded-sm text-black"></input>
 						</div>
-						<div className="w-1/3">
-							<label htmlFor="starttime">Beginn</label>
-							<input
-								type="datetime-local"
-								name="starttime"
-								id="starttime"
-								aria-orientation="vertical"
-								onChange={(e) => {
-									setStartAt(new Date(e.target.value))
-								}}
-								className="w-full p-2 border-2 border-primary rounded-sm text-black"
-							/>
-						</div>
 					</div>
+					{items && items.length > 0 && (
+						<div className="flex flex-col justify-start">
+							<label htmlFor="trostpreis">Trostpreis</label>
+							<Select
+								required
+								id="trostpreis"
+								name="trostpreis"
+								className="w-full min-h-20 text-black"
+								menuPlacement="auto"
+								onChange={(e) => {
+									setSelectedTrostpreisId(e?.value)
+								}}
+								options={SelectOptions}
+								placeholder="Trostpreis"></Select>
+						</div>
+					)}
 					{items && items.length > 0 && (
 						<div className="flex flex-col justify-start">
 							<label htmlFor="item">Item</label>

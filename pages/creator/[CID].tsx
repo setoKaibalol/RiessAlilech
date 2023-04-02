@@ -1,7 +1,6 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useUserContext } from "@/context"
 import { prisma } from "@/prisma/PrismaClient"
-import CreatorCard from "@/components/cards/CreatorCard"
 import Image from "next/image"
 import { useSession } from "next-auth/react"
 import moment from "moment"
@@ -13,7 +12,6 @@ import {
 	MdTravelExplore,
 } from "react-icons/md"
 import Link from "next/link"
-import CountdownTimer from "@/components/CountdownTimer"
 import { BsPersonHeart } from "react-icons/bs"
 import {
 	TbBrandOnlyfans,
@@ -25,24 +23,69 @@ import {
 	TbBrandTwitch,
 } from "react-icons/tb"
 import TipModal from "@/components/TipModal"
+import { useRouter } from "next/router"
+import { toast } from "react-toastify"
 
 type Props = {
 	creator: any
 }
 
 function Creator(props: Props) {
-	const date = new Date().getTime()
+	const router = useRouter()
 	const { creator } = props
 	const { data: session, status } = useSession()
 	const [tipModalOpen, setTipModalOpen] = React.useState(false)
+	const [amount, setAmount] = useState(0)
+
+	useEffect(() => {
+		if (
+			router.query.redirect_status === "succeeded" &&
+			router.query.payment_intent
+		) {
+			toast("Vielen Dank für deinen Tip 😘", {
+				hideProgressBar: true,
+				autoClose: 3000,
+				style: {
+					background: "#FAF9F5",
+					border: "20px",
+					height: "80px",
+					fontFamily: "Montserrat",
+					fontWeight: "bold",
+					fontSize: "1.3rem",
+					borderColor: "#414042",
+				},
+				type: "success",
+			})
+		}
+		if (
+			router.query.redirect_status === "error" &&
+			router.query.payment_intent
+		) {
+			toast("Leider ging da etwas schief 😥", {
+				hideProgressBar: true,
+				autoClose: 2000,
+				type: "success",
+			})
+		}
+	}, [])
 
 	return creator ? (
 		<div className="pt-20 flex flex-col pb-20 items-center gap-2 bg-primary-base">
 			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg bg-primary-base">
 				<TipModal
 					isOpen={tipModalOpen}
+					amount={amount}
+					sender={
+						!session?.user
+							? { email: "undefined", name: "Anonymous" }
+							: session.user
+					}
+					return_url={
+						process.env.NEXT_PUBLIC_WEBSITE_URL + "/creator/" + creator.id
+					}
+					type="creator"
 					onClose={() => setTipModalOpen(false)}
-					creatorName={creator.nickName}></TipModal>
+					receiver={creator}></TipModal>
 				<div className="relative w-full h-96">
 					<Image
 						unoptimized
@@ -60,20 +103,20 @@ function Creator(props: Props) {
 						{creator.nickName}
 					</div>
 				</div>
-				<div className="px-6 pt-4 pb-2">
+				<div className=" p-4 flex flex-row">
 					<button
+						disabled={!amount}
 						onClick={() => setTipModalOpen(!tipModalOpen)}
-						className="bg-accent-base z-20 text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-						<BiDonateHeart className="h-8 w-8 inline-block mr-1" />
+						className="bg-accent-base disabled:bg-gray-500 gap-x-2 flex flex-row z-20 text-2xl text-primary-base font-bold py-2 px-4 rounded-l-full duration-200">
+						<BiDonateHeart className="h-8 w-8 inline-block" />
 						Tip
 					</button>
-
-					<button
-						disabled
-						className="bg-green-500 text-2xl disabled:bg-gray-600 cursor-not-allowed hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-						<MdEmail className="h-8 w-8 inline-block mr-1" />
-						Message
-					</button>
+					<input
+						type={"number"}
+						placeholder="€"
+						className="w-20 bg-accent-base placeholder:text-primary-base text-2xl text-primary-base py-2 px-4 rounded-r-full duration-200"
+						value={amount}
+						onChange={(e) => setAmount(parseInt(e.target.value))}></input>
 				</div>
 			</div>
 			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg bg-primary-base ">

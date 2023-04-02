@@ -9,6 +9,8 @@ import NextNProgress from "nextjs-progressbar"
 import type { AppProps } from "next/app"
 import { Montserrat, Lato } from "next/font/google"
 import NavbarMobile from "@/components/NavbarMobile"
+import "react-toastify/dist/ReactToastify.css"
+import { ToastContainer } from "react-toastify"
 
 const montserrat = Montserrat({ subsets: ["latin"] })
 const lato = Lato({ weight: "400", subsets: ["latin"] })
@@ -31,6 +33,7 @@ export default function App({
 			<UserContext>
 				<SessionProvider session={session}>
 					<NextNProgress color="#e39a9c" />
+					<ToastContainer />
 					<Navbar />
 					<Component {...pageProps} />
 					<Footer />

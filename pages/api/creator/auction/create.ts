@@ -26,7 +26,14 @@ const handler: Handler = async (req, res) => {
 			return
 		}
 
-		const { title, description, minTip, startAt, duration, user, itemId } =
+		if (!session.user.id) {
+			res.status(401).json({
+				message: "nicht authentifiziert",
+			})
+			return
+		}
+
+		const { title, description, minTip, duration, user, itemId, trostpreisId } =
 			req.body
 
 		const auction = await prisma.auction
@@ -35,16 +42,20 @@ const handler: Handler = async (req, res) => {
 					title,
 					description,
 					minTip,
-					startAt,
-					endAt: calcEndTime(startAt, duration),
+					durationHours: duration,
 					Creator: {
 						connect: {
-							userId: user.id,
+							userId: session.user.id,
 						},
 					},
 					item: {
 						connect: {
 							id: itemId,
+						},
+					},
+					trostpreis: {
+						connect: {
+							id: trostpreisId,
 						},
 					},
 				},
@@ -56,8 +67,10 @@ const handler: Handler = async (req, res) => {
 			})
 
 		res.status(200).send(auction)
+		return
 	} else {
 		res.status(405).json({ message: "Method not allowed" })
+		return
 	}
 }
 

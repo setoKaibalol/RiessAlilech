@@ -8,7 +8,11 @@ import { ClipLoader } from "react-spinners"
 type TipModalProps = {
 	isOpen: boolean
 	onClose: () => void
-	creatorName: string
+	receiver: any
+	amount: number
+	sender: any
+	return_url: string
+	type: string
 }
 
 if (!process.env.NEXT_PUBLIC_STRIPE_PKEY_TEST) {
@@ -17,38 +21,47 @@ if (!process.env.NEXT_PUBLIC_STRIPE_PKEY_TEST) {
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PKEY_TEST)
 
-const TipModal = ({ isOpen, onClose, creatorName }: TipModalProps) => {
-	const [amount, setAmount] = useState("")
-
-	const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setAmount(event.target.value)
-	}
-
-	const handlePayPalClick = () => {
-		window.open(`https://www.paypal.com/paypalme/${"hi"}/${amount}`)
-	}
-
-	const handleStripeClick = () => {}
-
+const TipModal = ({
+	isOpen,
+	onClose,
+	receiver,
+	amount,
+	sender,
+	return_url,
+	type,
+}: TipModalProps) => {
 	const [clientSecret, setClientSecret] = React.useState("")
 
 	React.useEffect(() => {
 		// Create PaymentIntent as soon as the page loads
-		if (isOpen) {
+		if (isOpen && type === "creator") {
 			fetch("/api/user/creators/create-payment-intent", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+				body: JSON.stringify({
+					tip: { amount: amount, currency: "eur" },
+					creator: receiver,
+					sender,
+				}),
+			})
+				.then((res) => res.json())
+				.then((data) => setClientSecret(data.clientSecret))
+		}
+
+		if (isOpen && type === "auction") {
+			fetch("/api/user/auction/create-payment-intent", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					bid: { amount: amount, currency: "eur" },
+					auction: receiver,
+					sender: sender,
+				}),
 			})
 				.then((res) => res.json())
 				.then((data) => setClientSecret(data.clientSecret))
 		}
 	}, [isOpen])
-
-	useEffect(() => {
-		console.log(isOpen)
-		console.log(clientSecret)
-	}, [isOpen, clientSecret])
 
 	return (
 		<>
@@ -57,7 +70,9 @@ const TipModal = ({ isOpen, onClose, creatorName }: TipModalProps) => {
 					<div className="relative z-40 shadow-lg shadow-black/50 w-full max-w-md mx-auto my-6">
 						<div className="bg-white rounded-lg shadow-lg">
 							<div className="flex justify-between px-4 py-3 bg-gray-200 rounded-t-lg">
-								<h3 className="text-lg font-semibold">{`Tip ${creatorName}`}</h3>
+								<h3 className="text-lg font-semibold">{`${
+									type === "creator" ? "Tip" : "Bid"
+								}${type === "creator" ? receiver.nickName : ""}`}</h3>
 								<button onClick={onClose} className="focus:outline-none">
 									<BiX className="h-6 w-6 text-gray-600 hover:text-gray-800" />
 								</button>
@@ -69,13 +84,13 @@ const TipModal = ({ isOpen, onClose, creatorName }: TipModalProps) => {
 											clientSecret,
 										}}
 										stripe={stripePromise}>
-										<CheckoutForm creatorName={creatorName} />
+										<CheckoutForm creator={receiver} return_url={return_url} />
 									</Elements>
 								) : (
 									<div className="flex flex-col justify-center items-center">
 										<ClipLoader className="h-40 w-40"></ClipLoader>
 									</div>
-								)}{" "}
+								)}
 							</div>
 						</div>
 					</div>
