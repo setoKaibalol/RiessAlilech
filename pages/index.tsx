@@ -41,7 +41,7 @@ export default function Home() {
 								{
 									question: "Was ist eine Auction?",
 									answer:
-										"In einer Auction versteigert ein Creator einen persöhnlichen Gegenstand.",
+										"In einer Auction versteigert ein Creator einen persönlichen Gegenstand.",
 								},
 							]}></FAQ>
 					</div>

@@ -76,11 +76,7 @@ function ItemCard({ item, status }: Props) {
 				case "loaded":
 					return (
 						<div className="">
-							<h2 className="text-lg font-semibold font-primary text-secondary-base mb-2">
-								{item.name}
-							</h2>
-
-							<div className="w-60 h-60 relative flex justify-center">
+							<div className="w-72 h-60 relative flex justify-center">
 								<Image
 									unoptimized
 									placeholder="blur"

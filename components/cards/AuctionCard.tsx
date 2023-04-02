@@ -11,6 +11,7 @@ import moment, { duration } from "moment"
 import Countdown from "@/components/Countdown"
 import { HiExternalLink } from "react-icons/hi"
 import { BiTimeFive } from "react-icons/bi"
+import { endAuction } from "@/helpers/endAuction"
 
 type Props = {
 	auction: any
@@ -19,13 +20,6 @@ type Props = {
 
 function AuctionCard({ auction, status }: Props) {
 	const [copySuccess, setCopySuccess] = React.useState("")
-	const [hasStarted, setHasStarted] = useState(true)
-	const endsIn = moment().diff(
-		moment(auction.createdAt).add(auction.durationHours, "hours"),
-		"milliseconds"
-	)
-
-	const date = new Date().getTime()
 	const router = useRouter()
 	const {
 		creatorAuctionsStatus,
@@ -52,11 +46,18 @@ function AuctionCard({ auction, status }: Props) {
 
 	const websiteLink = process.env.NEXT_PUBLIC_WEBSITE_URL
 
+	const endsAt = moment(auction.createdAt).add(auction.durationHours, "hours")
+	const now = moment()
+	const hasEnded = moment(now).isAfter(endsAt)
+	const [isLive, setIsLive] = useState(!hasEnded)
+
 	useEffect(() => {
-		if (auction.live) {
-			setHasStarted(true)
-		} else {
-			setHasStarted(false)
+		if (hasEnded && auction.live) {
+			endAuction({ auction })
+			setIsLive(false)
+		}
+		if (!hasEnded) {
+			setIsLive(true)
 		}
 	}, [])
 
@@ -67,20 +68,7 @@ function AuctionCard({ auction, status }: Props) {
 		}
 	}, [status])
 
-	const deleteAuction = (auction: any) => {
-		setCreatorAuctionsStatus("loading")
-		fetch("/api/creator/auction/delete", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				auction,
-			}),
-		}).then((res) => {
-			setRefreshCreatorAuctions(true)
-		})
-	}
+	useEffect(() => {}, [])
 
 	const handleCopySuccess = (id: string) => {
 		setCopySuccess(id)
@@ -109,7 +97,7 @@ function AuctionCard({ auction, status }: Props) {
 									<h2 className="h-full text-secondary-base">
 										{auction.live} live
 									</h2>
-									{hasStarted ? (
+									{isLive ? (
 										<div className="relative h-4 w-4">
 											<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
 											<p className="w-4 h-4 bg-green-500 rounded-full"></p>
@@ -132,11 +120,8 @@ function AuctionCard({ auction, status }: Props) {
 									<p>Dauer:</p>
 									<div>
 										<span className="text-accent-base font-bold">
-											{moment(auction.startAt).diff(
-												moment(auction.endAt),
-												"hours"
-											) * -1}
-										</span>{" "}
+											{auction.durationHours}
+										</span>
 										Stunden
 									</div>
 								</div>
@@ -200,7 +185,7 @@ function AuctionCard({ auction, status }: Props) {
 								</h2>
 								<div className="flex flex-row border-2 px-3 rounded-lg h-full w-[25%] justify-center items-center gap-2 text-xl">
 									<h2 className="h-full">{auction.live} live</h2>
-									{hasStarted ? (
+									{isLive ? (
 										<div className="relative h-4 w-4">
 											<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
 											<p className="w-4 h-4 bg-green-500 rounded-full"></p>
@@ -213,26 +198,44 @@ function AuctionCard({ auction, status }: Props) {
 								</div>
 							</Link>
 
-							<div className="mb-4 flex items-center flex-col">
-								<div className="w-full flex justify-center items-center p-5">
+							<div className=" flex items-center flex-col">
+								<div className="w-full flex justify-center items-center mb-1">
 									<ItemCard item={auction.item} status={userItemsStatus} />
 								</div>
 							</div>
+							<Link
+								href={`/creator/${auction.Creator.id}`}
+								className="flex items-center flex-col shadow-md shadow-secondary-base/30 mb-4 border p-1 rounded-md border-secondary-base/20 justify-evenly text-xl ">
+								<div className="flex flex-row justify-start p-2 gap-10 items-center w-full">
+									<div className="w-16 h-full">
+										<div className="relative w-16 h-16">
+											<Image
+												src={auction.Creator.profilePicture}
+												fill
+												sizes="100%"
+												className="rounded-full border border-secondary-base"
+												alt={auction.Creator.nickName}></Image>
+										</div>
+									</div>
+
+									<span className="text-secondary-base text-2xl font-medium">
+										{auction.Creator.nickName}
+									</span>
+								</div>
+							</Link>
+
 							<div className="flex divide-y-2 text-secondary-base items-center p-2 flex-col">
 								<div className="w-full flex flex-row gap-2 justify-between">
 									<p>Dauer:</p>
 									<div>
 										<span className="text-accent-base font-bold">
-											{moment(auction.startAt).diff(
-												moment(auction.endAt),
-												"hours"
-											) * -1}
+											{auction.durationHours}{" "}
 										</span>{" "}
 										Stunden
 									</div>
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Mindest-Tip:</p>
+									<p>Mindestgebot:</p>
 									<div>
 										<span className="text-accent-base font-bold">
 											{auction.minTip}
@@ -241,7 +244,7 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Tips:</p>
+									<p>Gebote:</p>
 									<div>
 										<span className="text-accent-base font-bold">
 											{auction.totalTips}
@@ -249,7 +252,7 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Tips in €:</p>
+									<p>Höchstgebot:</p>
 									<div>
 										<span className="text-accent-base font-bold">
 											{auction.totalTipsAmount.toFixed(2)}

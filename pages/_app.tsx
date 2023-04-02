@@ -1,7 +1,7 @@
 import "@/styles/globals.css"
 import "@/styles/countdown.css"
 import Navbar from "@/components/Navbar"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { SessionProvider } from "next-auth/react"
 import Footer from "@/components/Footer"
 import { UserContext } from "./../context"
@@ -19,6 +19,10 @@ export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
 }: AppProps) {
+	useEffect(() => {
+		console.log("App.tsx")
+	}, [])
+
 	return (
 		<>
 			<style jsx global>
