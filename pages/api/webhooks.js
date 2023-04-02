@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { buffer } from "micro"
 import Stripe from "stripe"
-import { prisma } from "../../prisma/prismaClient"
+import { prisma } from "../../prisma/PrismaClient"
 
 const stripe = require("stripe")(process.env.STRIPE_SKEY_TEST)
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
@@ -89,7 +89,6 @@ const handler = async (req, res) => {
 										id: metadata.senderId,
 									},
 								},
-								email: metadata.senderEmail,
 							},
 						})
 					}
