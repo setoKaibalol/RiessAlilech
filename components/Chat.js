@@ -7,7 +7,12 @@ const Chat = () => {
 	const socketRef = useRef()
 
 	useEffect(() => {
-		socketRef.current = io()
+		const socketUrl =
+			process.env.NODE_ENV === "production"
+				? "https://riess-alilech-54n3.vercel.app"
+				: "http://localhost:3001"
+
+		socketRef.current = io(socketUrl)
 
 		socketRef.current.on("message", (message) => {
 			setMessages((prevMessages) => [...prevMessages, message])
