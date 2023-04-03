@@ -40,7 +40,7 @@ const handler = async (req, res) => {
 					) {
 						const bid = await prisma.bid.create({
 							data: {
-								amount: paymentIntent.amount,
+								amount: paymentIntent.amount / 100,
 								auction: {
 									connect: {
 										id: metadata.auctionId,
@@ -62,7 +62,7 @@ const handler = async (req, res) => {
 					) {
 						const bid = await prisma.bid.create({
 							data: {
-								amount: paymentIntent.amount,
+								amount: paymentIntent.amount / 100,
 								auction: {
 									connect: {
 										id: metadata.auctionId,
@@ -73,29 +73,44 @@ const handler = async (req, res) => {
 							},
 						})
 					}
+					const bidders = await prisma.bid.findMany({
+						where: {
+							auctionId: metadata.auctionId,
+						},
+						orderBy: {
+							amount: "desc",
+						},
+						take: 15,
+					})
+
+					req.io.emit("updateScoreboard", {
+						auctionId: metadata.auctionId,
+						bidders,
+					})
 				}
 				if (metadata.type === "creator-tip") {
 					if (metadata.senderId) {
-						const bid = await prisma.tip.create({
+						const tip = await prisma.tip.create({
 							data: {
-								amount: paymentIntent.amount,
+								amount: paymentIntent.amount / 100,
 								creator: {
 									connect: {
 										id: metadata.for,
 									},
 								},
-								bidder: {
+								tipper: {
 									connect: {
 										id: metadata.senderId,
 									},
 								},
+								email: metadata.senderEmail,
 							},
 						})
 					}
 					if (!metadata.senderId && metadata.senderEmail) {
-						const bid = await prisma.tip.create({
+						const tip = await prisma.tip.create({
 							data: {
-								amount: paymentIntent.amount,
+								amount: paymentIntent.amount / 100,
 								creator: {
 									connect: {
 										id: metadata.for,

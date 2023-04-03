@@ -108,7 +108,7 @@ function NavbarMobile({}: Props) {
 	]
 
 	return session && session.user.role === "CREATOR" ? (
-		<div className="w-full h-14 border-t-2 z-20 border-accent-base fixed sm:hidden flex flex-row justify-evenly items-center -bottom-0 bg-secondary-base text-primary-base">
+		<div className="w-full h-14 border-t-2 z-30 border-accent-base fixed sm:hidden flex flex-row justify-evenly items-center -bottom-0 bg-secondary-base text-primary-base">
 			{navigationCrator.map((item, index) => (
 				<Link
 					onClick={() => {

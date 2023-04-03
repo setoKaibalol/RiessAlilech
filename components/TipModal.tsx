@@ -84,7 +84,11 @@ const TipModal = ({
 											clientSecret,
 										}}
 										stripe={stripePromise}>
-										<CheckoutForm creator={receiver} return_url={return_url} />
+										<CheckoutForm
+											type={type}
+											receiver={receiver}
+											return_url={return_url}
+										/>
 									</Elements>
 								) : (
 									<div className="flex flex-col justify-center items-center">

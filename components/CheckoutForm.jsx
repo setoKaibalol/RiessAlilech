@@ -8,7 +8,7 @@ import {
 import { ClipLoader } from "react-spinners"
 import { useRouter } from "next/router"
 
-export default function CheckoutForm({ creator, return_url }) {
+export default function CheckoutForm({ receiver, return_url, type }) {
 	const router = useRouter()
 	const stripe = useStripe()
 	const elements = useElements()
@@ -100,8 +100,10 @@ export default function CheckoutForm({ creator, return_url }) {
 				<span id="button-text">
 					{isLoading ? (
 						<ClipLoader className="w-6 h-6"></ClipLoader>
+					) : type === "creator-tip" ? (
+						`TIP ${receiver.nickName}`
 					) : (
-						`TIP ${creator.nickName}`
+						`Bieten`
 					)}
 				</span>
 			</button>

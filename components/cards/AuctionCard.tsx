@@ -212,6 +212,9 @@ function AuctionCard({ auction, status }: Props) {
 											<Image
 												src={auction.Creator.profilePicture}
 												fill
+												unoptimized
+												placeholder="blur"
+												blurDataURL={auction.Creator.profilePicture}
 												sizes="100%"
 												className="rounded-full border border-secondary-base"
 												alt={auction.Creator.nickName}></Image>
