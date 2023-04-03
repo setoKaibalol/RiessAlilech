@@ -1,3 +1,5 @@
+const dotenv = require("dotenv")
+dotenv.config()
 const { createServer } = require("http")
 const { parse } = require("url")
 const next = require("next")
@@ -15,14 +17,13 @@ app.prepare().then(() => {
 		handle(req, res, parsedUrl)
 	})
 
+	const PORT = process.env.PORT || 3000
+
 	const ioServer = io(server)
-	const pubClient = createClient({
-		host: process.env.REDIS_HOST,
-		port: process.env.REDIS_PORT,
-		username: process.env.REDIS_USERNAME,
-		password: process.env.REDIS_PASSWORD,
-	})
-	const subClient = pubClient.duplicate()
+	const redisUrl = `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
+
+	const pubClient = createClient(redisUrl)
+	const subClient = createClient(redisUrl)
 
 	pubClient.on("connect", () => {
 		console.log("Redis pubClient connected")
@@ -54,6 +55,6 @@ app.prepare().then(() => {
 
 	server.listen(PORT, (err) => {
 		if (err) throw err
-		console.log(`> Ready on http://localhost:3000`)
+		console.log(`> Ready on http://localhost:${PORT}`)
 	})
 })

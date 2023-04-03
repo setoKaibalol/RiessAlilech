@@ -5,7 +5,7 @@
 	"scripts": {
 		"dev": "node server.js",
 		"build": "next build",
-		"start": "NODE_ENV=production node server.js",
+		"start": "next start",
 		"lint": "next lint",
 		"vercel-build": "prisma generate && prisma migrate deploy && next build"
 	},
@@ -19,6 +19,7 @@
 		"@stripe/stripe-js": "^1.52.0",
 		"@types/react": "18.0.28",
 		"@types/react-dom": "18.0.11",
+		"dotenv": "^16.0.3",
 		"eslint": "8.36.0",
 		"eslint-config-next": "13.2.4",
 		"formidable": "^2.1.1",
@@ -53,6 +54,7 @@
 		"@types/multer": "^1.4.7",
 		"@types/node": "^18.15.11",
 		"autoprefixer": "^10.4.14",
+		"npm-run-all": "^4.1.5",
 		"postcss": "^8.4.21",
 		"prisma": "^4.11.0",
 		"tailwindcss": "^3.2.7"
