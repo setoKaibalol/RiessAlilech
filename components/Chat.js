@@ -10,7 +10,7 @@ const Chat = () => {
 		const socketUrl =
 			process.env.NODE_ENV === "production"
 				? "https://riess-alilech-54n3.vercel.app"
-				: "http://localhost:3001"
+				: "http://localhost:3000"
 
 		socketRef.current = io(socketUrl)
 
@@ -48,7 +48,7 @@ const Chat = () => {
 				type="text"
 				value={inputMessage}
 				onChange={(e) => setInputMessage(e.target.value)}
-				onKeyPress={handleKeyPress}
+				onKeyDown={handleKeyPress}
 			/>
 			<button onClick={sendMessage}>Send</button>
 		</div>

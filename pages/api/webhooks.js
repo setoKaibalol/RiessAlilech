@@ -80,7 +80,6 @@ const handler = async (req, res) => {
 						orderBy: {
 							amount: "desc",
 						},
-						take: 15,
 					})
 
 					req.io.emit("updateScoreboard", {

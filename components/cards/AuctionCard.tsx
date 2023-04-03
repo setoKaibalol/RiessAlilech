@@ -77,6 +77,22 @@ function AuctionCard({ auction, status }: Props) {
 		}, 2000)
 	}
 
+	const findHighestBid = (bids: any[]) => {
+		if (bids.length === 0) {
+			return 0
+		}
+		const highest = Math.max(...bids.map((o) => o.amount), 0)
+		return highest
+	}
+
+	const calcTotalBids = (bids: any[]) => {
+		if (bids.length === 0) {
+			return 0
+		}
+		const total = bids.reduce((a, b) => a + b.amount, 0)
+		return total
+	}
+
 	switch (router.pathname) {
 		case "/dashboard":
 			switch (status) {
@@ -86,7 +102,7 @@ function AuctionCard({ auction, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="p-4 w-80 max-h-[600px] bg-white rounded-lg shadow-md max-w-md">
+						<div className="p-4 w-96 max-h-[600px] bg-white rounded-lg shadow-md max-w-md">
 							<Link
 								href={`/auction/${auction.id}`}
 								className="w-full flex flex-row relative justify-between items-center px-2 p-1 mb-2 group hover:bg-secondary-base/10 duration-200 rounded-lg">
@@ -109,9 +125,15 @@ function AuctionCard({ auction, status }: Props) {
 									)}
 								</div>
 							</Link>
-
-							<div className="mb-4 flex items-center flex-col">
-								<div className="w-full flex justify-center items-center p-5">
+							<div className="gap-2 text-secondary-base flex justify-evenly items-center flex-row">
+								<div>Hauptpreis</div>
+								<div>Trostpreis</div>
+							</div>
+							<div className="mb-4 gap-2 flex items-center flex-row">
+								<div className="w-full flex justify-center items-center">
+									<ItemCard item={auction.item} status={userItemsStatus} />
+								</div>
+								<div className="w-full flex justify-center items-center">
 									<ItemCard item={auction.item} status={userItemsStatus} />
 								</div>
 							</div>
@@ -121,12 +143,12 @@ function AuctionCard({ auction, status }: Props) {
 									<div>
 										<span className="text-accent-base font-bold">
 											{auction.durationHours}
-										</span>
+										</span>{" "}
 										Stunden
 									</div>
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Mindest-Tip:</p>
+									<p>Mindestgebot:</p>
 									<div>
 										<span className="text-accent-base font-bold">
 											{auction.minTip}
@@ -135,18 +157,18 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Tips:</p>
+									<p>Gebote:</p>
 									<div>
 										<span className="text-accent-base font-bold">
-											{auction.totalTips}
+											{auction.bids.length}
 										</span>{" "}
 									</div>
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Tips in €:</p>
+									<p>Einnahmen in €:</p>
 									<div>
 										<span className="text-accent-base font-bold">
-											{auction.totalTipsAmount.toFixed(2)}
+											{calcTotalBids(auction.bids)}
 										</span>{" "}
 										€
 									</div>
@@ -250,7 +272,7 @@ function AuctionCard({ auction, status }: Props) {
 									<p>Gebote:</p>
 									<div>
 										<span className="text-accent-base font-bold">
-											{auction.totalTips}
+											{auction.bids.length}
 										</span>{" "}
 									</div>
 								</div>
@@ -258,7 +280,7 @@ function AuctionCard({ auction, status }: Props) {
 									<p>Höchstgebot:</p>
 									<div>
 										<span className="text-accent-base font-bold">
-											{auction.totalTipsAmount.toFixed(2)}
+											{findHighestBid(auction.bids)}
 										</span>{" "}
 										€
 									</div>

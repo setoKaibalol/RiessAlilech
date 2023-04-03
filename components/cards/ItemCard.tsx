@@ -47,9 +47,6 @@ function ItemCard({ item, status }: Props) {
 				case "loaded":
 					return (
 						<div className="rounded-lg border-secondary divide-y border-2 shadow-md items-center justify-center flex flex-col p-1">
-							<h2 className="text-lg p-1 bg-gray-400/20 rounded-lg font-semibold font-primary  text-accent-base z-10 mb-2">
-								{item.name}
-							</h2>
 							<div className="w-36 h-36 relative flex justify-center">
 								<Image
 									unoptimized
@@ -62,6 +59,9 @@ function ItemCard({ item, status }: Props) {
 									className="w-full h-full object-cover "
 								/>
 							</div>
+							<h2 className="text-lg p-1 first-letter:uppercase font-semibold font-primary  text-accent-base z-10">
+								{item.name}
+							</h2>
 						</div>
 					)
 				default:
@@ -103,9 +103,6 @@ function ItemCard({ item, status }: Props) {
 				case "loaded":
 					return (
 						<div className="rounded-lg p-4 border-secondary border-2 shadow-md w-full">
-							<h2 className="text-lg font-semibold font-primary text-secondary-base mb-2">
-								{item.name}
-							</h2>
 							<div className="w-full h-60 relative">
 								<Image
 									unoptimized
@@ -121,6 +118,9 @@ function ItemCard({ item, status }: Props) {
 									}}
 									alt="Creator Avatar"
 								/>
+								<h2 className="text-lg p-1 first-letter:uppercase font-semibold font-primary  text-accent-base z-10">
+									{item.name}
+								</h2>
 							</div>
 						</div>
 					)
