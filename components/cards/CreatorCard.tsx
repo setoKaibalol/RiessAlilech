@@ -76,9 +76,9 @@ function CreatorCard({ creator, status }: Props) {
 					return (
 						<Link
 							href={`/creator/${creator.id}`}
-							className=" p-2 gap-1 flex flex-col justify-center items-center font-primary hover:shadow-md w-80 h-auto bg-primary-base hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 max-w-sm hover:translate">
+							className=" p-2 gap-1 flex flex-col justify-center items-center font-primary hover:shadow-md w-[46%] h-auto bg-primary-base hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 max-w-sm hover:translate">
 							{creator.profilePicture && (
-								<div className="w-full relative h-64">
+								<div className="w-full relative h-36">
 									<Image
 										unoptimized
 										src={creator.profilePicture}
@@ -91,13 +91,13 @@ function CreatorCard({ creator, status }: Props) {
 								</div>
 							)}
 							<div className="bg-primary-base w-full rounded-b-md border-secondary-base border-2">
-								<div className="py-4 px-6">
-									<div className="text-secondary-base mt-2 gap-2 text-2xl font-bold flex flex-row">
-										<GrUserFemale className="text-2xl"></GrUserFemale>
+								<div className="py-2 px-3">
+									<div className="text-secondary-base mt-1 gap-2 text-lg font-bold items-center flex flex-row">
+										<GrUserFemale className="text-lg shrink-0"></GrUserFemale>
 										{creator.realName}, {creator.age}
 									</div>
-									<div className="text-secondary-base mt-2 gap-2 flex flex-row">
-										- {creator.description}
+									<div className="text-secondary-base mt-1 gap-2 flex flex-row">
+										{creator.description}
 									</div>
 								</div>
 							</div>
