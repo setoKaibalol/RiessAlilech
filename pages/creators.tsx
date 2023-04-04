@@ -62,8 +62,8 @@ function Creators({}: Props) {
 		}
 	}, [])
 	return (
-		<div className="min-h-screen pt-20 flex justify-center  bg-primary-base ">
-			<div className="flex flex-wrap w-full justify-center gap-4 h-full pb-20">
+		<div className="min-h-screen md:pt-20 pt-10 flex justify-center  bg-primary-base ">
+			<div className="flex md:flex-col flex-wrap w-full justify-center gap-4 h-full pb-20">
 				<h3 className="font-bold text-2xl">Creators:</h3>
 				{creatorsStatus === "loading" &&
 					[1, 2, 3, 4].map((i) => <SkeletonCard key={i} />)}

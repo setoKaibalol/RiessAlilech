@@ -22,6 +22,11 @@ module.exports = {
 				serif: ["var(--montserrat-font)", ...fontFamily.serif],
 				secondary: ["var(--lato-font)", ...fontFamily.sans],
 			},
+			textShadow: {
+				"primary-base": "0px 4px 4px rgba(0, 0, 0, 0.25)",
+				"secondary-base": "0px 4px 4px rgba(0, 0, 0, 0.25)",
+				"accent-base": "0px 4px 4px rgba(0, 0, 0, 0.25)",
+			},
 
 			colors: {
 				"primary-base": "#FAF9F5",

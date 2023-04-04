@@ -153,7 +153,7 @@ function Navbar({}: Props) {
 								{status === "authenticated" && (
 									<button
 										onClick={() => signOut()}
-										className="bg-accent-base p-2 px-3 uppercase font-medium rounded-lg duration-200 hover:bg-accent-base/80">
+										className="bg-primary-base w-full  text-secondary-base font-bold py-2 px-4 rounded">
 										Abmelden
 									</button>
 								)}
@@ -215,7 +215,7 @@ function Navbar({}: Props) {
 						}`}></HiOutlineMenuAlt3>
 				</button>
 				{showMobileMenu && (
-					<div className="z-30 w-[60%] h-screen flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
+					<div className="z-20 w-[60%] h-screen pb-14 flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
 						<div className="flex flex-col justify-between gap-14 p-4 text-primary-base w-full h-full">
 							<div className="flex flex-col">
 								{mobileMenuNavigation.map((item, index) => (

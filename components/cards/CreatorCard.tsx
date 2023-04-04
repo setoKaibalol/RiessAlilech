@@ -5,6 +5,8 @@ import { ClipLoader } from "react-spinners"
 import { useUserContext } from "@/context"
 import Link from "next/link"
 import Image from "next/image"
+import { MdDescription } from "react-icons/md"
+import { GrUserFemale } from "react-icons/gr"
 
 type Props = {
 	creator: any
@@ -74,12 +76,9 @@ function CreatorCard({ creator, status }: Props) {
 					return (
 						<Link
 							href={`/creator/${creator.id}`}
-							className="p-4 border font-primary border-secondary-base hover:shadow-md w-80 h-auto bg-primary-base  hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 shadow-sm max-w-sm hover:translate">
-							<h3 className="text-lg  font-primary text-secondary-base mb-2 first-letter:uppercase font-bold ">
-								{creator.nickName}
-							</h3>
+							className=" p-2 gap-1 flex flex-col justify-center items-center font-primary hover:shadow-md w-80 h-auto bg-primary-base hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 max-w-sm hover:translate">
 							{creator.profilePicture && (
-								<div className="w-60 relative h-60">
+								<div className="w-full relative h-64">
 									<Image
 										unoptimized
 										src={creator.profilePicture}
@@ -87,18 +86,19 @@ function CreatorCard({ creator, status }: Props) {
 										fill
 										style={{ objectFit: "cover", objectPosition: "center" }}
 										sizes="100%"
-										className=" mb-4 rounded-full border-secondary-base border-2"
+										className=" mb-4 rounded-t-md border-secondary-base border-2"
 									/>
 								</div>
 							)}
-							<div>
+							<div className="bg-primary-base w-full rounded-b-md border-secondary-base border-2">
 								<div className="py-4 px-6">
-									<h2 className="text-secondary-base text-xl font-bold">
+									<div className="text-secondary-base mt-2 gap-2 text-2xl font-bold flex flex-row">
+										<GrUserFemale className="text-2xl"></GrUserFemale>
 										{creator.realName}, {creator.age}
-									</h2>
-									<p className="text-secondary-base mt-2">
-										{creator.description}
-									</p>
+									</div>
+									<div className="text-secondary-base mt-2 gap-2 flex flex-row">
+										- {creator.description}
+									</div>
 								</div>
 							</div>
 						</Link>

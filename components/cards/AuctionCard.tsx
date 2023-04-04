@@ -10,8 +10,10 @@ import CreatorCard from "./CreatorCard"
 import moment, { duration } from "moment"
 import Countdown from "@/components/Countdown"
 import { HiExternalLink } from "react-icons/hi"
-import { BiTimeFive } from "react-icons/bi"
+import { BiMoney, BiTimeFive } from "react-icons/bi"
 import { endAuction } from "@/helpers/endAuction"
+import { AiOutlineClockCircle, AiOutlinePlayCircle } from "react-icons/ai"
+import { RiAuctionLine } from "react-icons/ri"
 
 type Props = {
 	auction: any
@@ -139,7 +141,11 @@ function AuctionCard({ auction, status }: Props) {
 							</div>
 							<div className="flex divide-y-2 text-secondary-base items-center p-4 flex-col">
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Dauer:</p>
+									<div className="flex flex-row items-center gap-2">
+										<AiOutlineClockCircle className="text-accent-base"></AiOutlineClockCircle>
+
+										<p>Dauer:</p>
+									</div>
 									<div>
 										<span className="text-accent-base font-bold">
 											{auction.durationHours}
@@ -148,7 +154,11 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Mindestgebot:</p>
+									<div className="flex flex-row items-center gap-2">
+										<AiOutlinePlayCircle className="text-accent-base"></AiOutlinePlayCircle>
+
+										<p>Mindestgebot:</p>
+									</div>
 									<div>
 										<span className="text-accent-base font-bold">
 											{auction.minTip}
@@ -157,7 +167,10 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Gebote:</p>
+									<div className="flex flex-row items-center gap-2">
+										<RiAuctionLine className="text-accent-base"></RiAuctionLine>
+										<p>Gebote:</p>
+									</div>
 									<div>
 										<span className="text-accent-base font-bold">
 											{auction.bids.length}
@@ -165,7 +178,11 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Einnahmen in €:</p>
+									<div className="flex flex-row items-center gap-2">
+										<BiMoney className="text-accent-base"></BiMoney>
+										<p>Einnahmen in €:</p>
+									</div>
+
 									<div>
 										<span className="text-accent-base font-bold">
 											{calcTotalBids(auction.bids)}
@@ -195,42 +212,45 @@ function AuctionCard({ auction, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="p-4 w-80 max-h-[700px] bg-white rounded-lg shadow-md max-w-md">
+						<div className="p-4 w-full max-h-[700px] bg-primary-base border rounded-lg shadow-md max-w-md">
 							<Link
 								rel="noopener noreferrer"
 								target="_blank"
 								href={`/auction/${auction.id}`}
-								className="w-full flex flex-row relative justify-between items-center px-2 p-1 mb-2 group hover:bg-secondary-base/10 duration-200 rounded-lg">
-								<h2 className="text-xl w-[75%] flex flex-wrap items-center gap-1 font-semibold text-[#B76E79] first-letter:uppercase">
-									{auction.title}
-									<HiExternalLink className="h-6 w-6"></HiExternalLink>
-								</h2>
-								<div className="flex flex-row border-2 px-3 rounded-lg h-full w-[25%] justify-center items-center gap-2 text-xl">
-									<h2 className="h-full">{auction.live} live</h2>
-									{isLive ? (
-										<div className="relative h-4 w-4">
-											<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
-											<p className="w-4 h-4 bg-green-500 rounded-full"></p>
-										</div>
-									) : (
-										<div className="relative h-4 w-4">
-											<p className="w-4 h-4 bg-red-500 rounded-full"></p>
-										</div>
-									)}
+								className="w-full flex flex-col group">
+								<div className="flex flex-row relative justify-between items-center p-1 mb-2 group group-hover:bg-secondary-base/10 duration-200 rounded-lg">
+									<h2 className="text-2xl relative w-[72%] flex items-center gap-1 font-semibold text-[#B76E79] first-letter:uppercase">
+										<span className="block truncate">{auction.title}</span>
+										<HiExternalLink className="h-7 w-7 shrink-0"></HiExternalLink>
+									</h2>
+									<div className="flex flex-row border-2  rounded-lg h-full w-[25%] justify-center items-center gap-2 text-xl">
+										<h2 className="h-full">{auction.live} live</h2>
+										{isLive ? (
+											<div className="relative h-4 w-4">
+												<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
+												<p className="w-4 h-4 bg-green-500 rounded-full"></p>
+											</div>
+										) : (
+											<div className="relative h-4 w-4">
+												<p className="w-4 h-4 bg-red-500 rounded-full"></p>
+											</div>
+										)}
+									</div>
+								</div>
+
+								<div className=" flex items-center flex-col">
+									<div className="w-full flex justify-center items-center mb-1">
+										<ItemCard item={auction.item} status={userItemsStatus} />
+									</div>
 								</div>
 							</Link>
 
-							<div className=" flex items-center flex-col">
-								<div className="w-full flex justify-center items-center mb-1">
-									<ItemCard item={auction.item} status={userItemsStatus} />
-								</div>
-							</div>
 							<Link
 								href={`/creator/${auction.Creator.id}`}
-								className="flex items-center flex-col shadow-md shadow-secondary-base/30 mb-4 border p-1 rounded-md border-secondary-base/20 justify-evenly text-xl ">
-								<div className="flex flex-row justify-start p-2 gap-10 items-center w-full">
+								className="flex items-center mt-2 bg-secondary-base flex-col shadow-md shadow-secondary-base/30 mb-4 border-2 p-2 hover:scale-105 duration-200 rounded-md border-accent-base justify-evenly text-xl ">
+								<div className="flex flex-row justify-start gap-2 items-center w-full">
 									<div className="w-16 h-full">
-										<div className="relative w-16 h-16">
+										<div className="relative w-[50px] h-[50px]">
 											<Image
 												src={auction.Creator.profilePicture}
 												fill
@@ -238,29 +258,37 @@ function AuctionCard({ auction, status }: Props) {
 												placeholder="blur"
 												blurDataURL={auction.Creator.profilePicture}
 												sizes="100%"
-												className="rounded-full border border-secondary-base"
+												className="rounded-full border-2 border-accent-base"
 												alt={auction.Creator.nickName}></Image>
 										</div>
 									</div>
 
-									<span className="text-secondary-base text-2xl font-medium">
+									<span className="text-primary-base text-2xl font-medium">
 										{auction.Creator.nickName}
 									</span>
 								</div>
 							</Link>
 
-							<div className="flex divide-y-2 text-secondary-base items-center p-2 flex-col">
+							<div className="flex divide-y-2 text-secondary-base items-center p-4 flex-col">
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Dauer:</p>
+									<div className="flex flex-row items-center gap-2">
+										<AiOutlineClockCircle className="text-accent-base"></AiOutlineClockCircle>
+
+										<p>Dauer:</p>
+									</div>
 									<div>
 										<span className="text-accent-base font-bold">
-											{auction.durationHours}{" "}
+											{auction.durationHours}
 										</span>{" "}
 										Stunden
 									</div>
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Mindestgebot:</p>
+									<div className="flex flex-row items-center gap-2">
+										<AiOutlinePlayCircle className="text-accent-base"></AiOutlinePlayCircle>
+
+										<p>Mindestgebot:</p>
+									</div>
 									<div>
 										<span className="text-accent-base font-bold">
 											{auction.minTip}
@@ -269,7 +297,10 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Gebote:</p>
+									<div className="flex flex-row items-center gap-2">
+										<RiAuctionLine className="text-accent-base"></RiAuctionLine>
+										<p>Gebote:</p>
+									</div>
 									<div>
 										<span className="text-accent-base font-bold">
 											{auction.bids.length}
@@ -277,7 +308,10 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
-									<p>Höchstgebot:</p>
+									<div className="flex flex-row items-center gap-2">
+										<BiMoney className="text-accent-base"></BiMoney>
+										<p>Höchstgebot:</p>
+									</div>
 									<div>
 										<span className="text-accent-base font-bold">
 											{findHighestBid(auction.bids)}
