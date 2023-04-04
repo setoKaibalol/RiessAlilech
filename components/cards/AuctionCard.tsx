@@ -269,10 +269,10 @@ function AuctionCard({ auction, status }: Props) {
 								</div>
 							</Link>
 
-							<div className="flex divide-y-2 text-secondary-base items-center p-4 flex-col">
+							<div className="flex divide-y-2 text-secondary-base text-lg items-center p-2 flex-col">
 								<div className="w-full flex flex-row gap-2 justify-between">
 									<div className="flex flex-row items-center gap-2">
-										<AiOutlineClockCircle className="text-accent-base"></AiOutlineClockCircle>
+										<AiOutlineClockCircle className="text-accent-base text-2xl"></AiOutlineClockCircle>
 
 										<p>Dauer:</p>
 									</div>
@@ -285,7 +285,7 @@ function AuctionCard({ auction, status }: Props) {
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
 									<div className="flex flex-row items-center gap-2">
-										<AiOutlinePlayCircle className="text-accent-base"></AiOutlinePlayCircle>
+										<AiOutlinePlayCircle className="text-accent-base text-2xl"></AiOutlinePlayCircle>
 
 										<p>Mindestgebot:</p>
 									</div>
@@ -298,7 +298,7 @@ function AuctionCard({ auction, status }: Props) {
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
 									<div className="flex flex-row items-center gap-2">
-										<RiAuctionLine className="text-accent-base"></RiAuctionLine>
+										<RiAuctionLine className="text-accent-base text-2xl"></RiAuctionLine>
 										<p>Gebote:</p>
 									</div>
 									<div>
@@ -309,7 +309,7 @@ function AuctionCard({ auction, status }: Props) {
 								</div>
 								<div className="w-full flex flex-row gap-2 justify-between">
 									<div className="flex flex-row items-center gap-2">
-										<BiMoney className="text-accent-base"></BiMoney>
+										<BiMoney className="text-accent-base text-2xl"></BiMoney>
 										<p>Höchstgebot:</p>
 									</div>
 									<div>
