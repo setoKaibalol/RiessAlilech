@@ -1,53 +1,36 @@
-// components/AnimatedBackground.js or components/AnimatedBackground.tsx
-import React, { useEffect, useState } from "react"
+import React from "react"
 
-const AnimatedBackground = () => {
-	const [heartEmojis, setHeartEmojis] = useState([])
+const FloatingHeart = () => {
+	const getRandomDirection = () => {
+		const x = Math.random() * 500 - 250
+		const y = Math.random() * 500 - 250
+		return { x, y }
+	}
+	const getRandomEmote = () => {
+		const emotes = ["💘", "💝", "💓", "🧡", "💕", "👑"]
+		return emotes[Math.floor(Math.random() * emotes.length)]
+	}
 
-	useEffect(() => {
-		const newHearts = Array.from({ length: 20 }, (_, i) => (
-			<span
-				key={i}
-				className="absolute text-2xl opacity-0"
-				style={{
-					left: `${Math.random() * 100}vw`,
-					top: "100%",
-					transform: "translateY(100%)",
-					transition: `transform ${
-						Math.random() * 3 + 2
-					}s ease-in-out, opacity ${Math.random() * 3 + 2}s ease-in-out`,
-				}}>
-				❤️
-			</span>
-		))
-		setHeartEmojis(newHearts)
-	}, [])
-
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			const updatedHearts = heartEmojis.map((heart) => (
-				<span
-					key={heart.key}
-					className="absolute text-2xl"
-					style={{
-						...heart.props.style,
-						top: "-50%",
-						transform: "translateY(-100%)",
-						opacity: 1,
-					}}>
-					❤️
-				</span>
-			))
-			setHeartEmojis(updatedHearts)
-		}, 500)
-		return () => clearTimeout(timer)
-	}, [heartEmojis])
+	const heartCount = 4
+	const hearts = Array.from({ length: heartCount }, () => ({
+		direction: getRandomDirection(),
+		delay: Math.random() * 0.2,
+	}))
 
 	return (
-		<div className="gradient-bg w-full h-full fixed top-0 left-0 z-0 overflow-hidden">
-			{heartEmojis}
+		<div className="absolute -z-10 inset-0 bg-gradient-center from-primary-base to-accent-base via-accent-base">
+			{hearts.map((heart, index) => (
+				<div
+					key={index}
+					className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-float`}
+					style={{
+						animationName: `float-${index}`,
+					}}>
+					<span className="">❤️</span>
+				</div>
+			))}
 		</div>
 	)
 }
 
-export default AnimatedBackground
+export default FloatingHeart

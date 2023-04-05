@@ -75,7 +75,7 @@ function NavbarMobile({}: Props) {
 			href: "/",
 			current: false,
 			Icon: () => {
-				return <BiHomeAlt2 className="w-7 h-7"></BiHomeAlt2>
+				return <BiHomeAlt2 className="w-8 h-8"></BiHomeAlt2>
 			},
 		},
 		{
@@ -117,7 +117,7 @@ function NavbarMobile({}: Props) {
 	]
 
 	return session && session.user.role === "CREATOR" ? (
-		<div className="w-full h-14 border-t z-30  fixed sm:hidden flex flex-row justify-evenly items-center -bottom-0 bg-primary-base text-secondary-base">
+		<div className="w-full grow-0 max-h-14 h-14 border-t z-30  fixed sm:hidden flex flex-row justify-evenly items-center -bottom-0 bg-primary-base text-secondary-base">
 			{navigationCrator.map((item, index) => (
 				<Link
 					onClick={() => {
@@ -130,7 +130,7 @@ function NavbarMobile({}: Props) {
 			))}
 		</div>
 	) : (
-		<div className="w-full h-14 border-t-2 z-20 border-accent-base fixed sm:hidden flex flex-row justify-evenly items-center -bottom-0 bg-secondary-base text-primary-base">
+		<div className="w-full h-14 grow-0 max-h-14 border-t z-30  fixed sm:hidden flex flex-row justify-evenly items-center -bottom-0 bg-primary-base text-secondary-base">
 			{navigation.map((item, index) => (
 				<Link
 					onClick={() => {

@@ -163,7 +163,9 @@ function Navbar({}: Props) {
 				)}
 			</div>
 		</div>
-	) : router.pathname != "/dashboard" && !router.pathname.includes("admin") ? (
+	) : router.pathname != "/dashboard" &&
+	  router.pathname != "/explore" &&
+	  !router.pathname.includes("admin") ? (
 		<div className="h-20 w-full bg-transparent z-30 fixed flex flex-row">
 			<div
 				id="navbar-ref"

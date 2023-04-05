@@ -2,29 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-	.section-min-height {
-		min-height: calc(100vh - 68px);
+.animate-float {
+	animation: 4s ease-in-out infinite;
+}
+
+/* Generate keyframes for each heart */
+.animate-float {
+	animation: 4s ease-in-out infinite;
+}
+
+.animation-delay-0 {
+	animation-delay: 0s;
+}
+
+.animation-delay-500 {
+	animation-delay: 0.5s;
+}
+
+.animation-delay-1000 {
+	animation-delay: 1s;
+}
+
+@keyframes float-0 {
+	0%,
+	9%,
+	100% {
+		opacity: 0;
 	}
-	.toggle-btn {
-		@apply [&>div::before]:translate-y-0 [&>div::before]:rotate-45 [&>div::after]:translate-y-0 [&>div::after]:-rotate-45 [&>div]:bg-transparent;
+	10% {
+		opacity: 0.7;
+		transform: translateY(0%) translateX(0%);
+	}
+	90% {
+		opacity: 0;
+		transform: translateY(1000%) translateX(1000%) scale(4);
 	}
 }
 
-@responsive {
-	.text-shadow {
-		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* Keyframe float-1 */
+@keyframes float-1 {
+	0%,
+	9%,
+	100% {
+		opacity: 0;
 	}
-
-	.text-shadow-md {
-		text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+	15% {
+		opacity: 0.7;
+		transform: translateY(0%) translateX(0%);
 	}
-
-	.text-shadow-lg {
-		text-shadow: 0 15px 30px rgba(0, 0, 0, 0.11), 0 5px 15px rgba(0, 0, 0, 0.08);
+	90% {
+		opacity: 0;
+		transform: translateY(1000%) translateX(-1000%) scale(4);
 	}
+}
 
-	.text-shadow-none {
-		text-shadow: none;
+/* Keyframe float-2 */
+@keyframes float-2 {
+	0%,
+	9%,
+	100% {
+		opacity: 0;
+	}
+	20% {
+		opacity: 0.7;
+		transform: translateY(0%) translateX(0%);
+	}
+	90% {
+		opacity: 0;
+		transform: translateY(-1000%) translateX(1000%) scale(4);
+	}
+}
+
+/* Keyframe float-3 */
+@keyframes float-3 {
+	0%,
+	9%,
+	100% {
+		opacity: 0;
+	}
+	25% {
+		opacity: 0.7;
+		transform: translateY(0%) translateX(0%);
+	}
+	90% {
+		opacity: 0;
+		transform: translateY(-2000%) translateX(-600%) scale(4);
 	}
 }

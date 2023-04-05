@@ -16,15 +16,25 @@ function Explore({}: Props) {
 	const [chosenCat, setChosenCat] = useState(1)
 	const [search, setSearch] = useState("")
 
+	useEffect(() => {
+		if (router.query.category) {
+			if (router.query.category === "auctions") {
+				setChosenCat(1)
+			} else if (router.query.category === "creators") {
+				setChosenCat(2)
+			}
+		}
+	}, [router.query.search])
+
 	return (
-		<div className="pt-20 gap-4 min-h-screen bg-primary-base flex flex-col">
-			<div className="w-full flex flex-row px-4 gap-x-4 justify-between items-center">
+		<div className=" pt-5 gap-4 min-h-screen bg-primary-base flex flex-col">
+			<div className="w-full flex flex-row px-2 gap-x-2 justify-between items-center">
 				<FiChevronLeft
 					onClick={() => {
 						router.back()
 					}}
 					className={"text-5xl"}></FiChevronLeft>
-				<BiSearch className="text-2xl absolute left-20 z-40 text-gray-400"></BiSearch>
+				<BiSearch className="text-2xl absolute left-16 z-40 text-gray-400"></BiSearch>
 
 				<input
 					value={search}
