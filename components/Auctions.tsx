@@ -4,9 +4,11 @@ import { useSession } from "next-auth/react"
 import AuctionCard from "@/components/cards/AuctionCard"
 import { SkeletonCard } from "@/components/cards/ItemCardSkeleton"
 
-type Props = {}
+type Props = {
+	search: string
+}
 
-function Auctions({}: Props) {
+function Auctions({ search }: Props) {
 	const { data: session, status } = useSession()
 	const {
 		userAuctions,
@@ -57,20 +59,47 @@ function Auctions({}: Props) {
 	}, [])
 
 	return (
-		<div className="min-h-screen md:pt-20 pt-2 flex flex-col items-center bg-primary-base ">
-			<h3 className="font-bold text-3xl py-4">Auctions:</h3>
-
+		<div className="min-h-screen md:pt-20 flex flex-col items-center bg-primary-base ">
 			<div className="flex flex-wrap px-3 md:flex-col w-full justify-center gap-4 h-full pb-20">
 				{userAuctionsStatus === "loading" &&
 					[1, 2, 3, 4].map((i) => <SkeletonCard key={i} />)}
 				{userAuctionsStatus === "loaded" &&
-					userAuctions.map((auction, index) => (
-						<AuctionCard
-							status={userAuctionsStatus}
-							key={index}
-							auction={auction}
-						/>
-					))}
+					userAuctions
+						.filter((auction, index) => {
+							if (search === "") {
+								return auction
+							}
+							if (auction.title.toLowerCase().includes(search.toLowerCase())) {
+								return auction
+							}
+							if (
+								auction.item.name.toLowerCase().includes(search.toLowerCase())
+							) {
+								return auction
+							}
+							if (
+								auction.Creator.nickName
+									.toLowerCase()
+									.includes(search.toLowerCase())
+							) {
+								return auction
+							}
+							if (
+								auction.Creator.realName
+									.toLowerCase()
+									.includes(search.toLowerCase())
+							) {
+								return auction
+							}
+							return
+						})
+						.map((auction, index) => (
+							<AuctionCard
+								status={userAuctionsStatus}
+								key={index}
+								auction={auction}
+							/>
+						))}
 			</div>
 		</div>
 	)

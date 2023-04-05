@@ -165,7 +165,7 @@ function Auction(props: Props) {
 											placeholder="blur"
 											blurDataURL={auction.Creator.profilePicture}
 											priority
-											className="rounded-full border-accent-base border-2"
+											className="rounded-full"
 											sizes="100%"
 											style={{
 												objectPosition: "center",
@@ -261,23 +261,23 @@ function Auction(props: Props) {
 				<div className="h-auto text-secondary-base p-1 md:w-2/3 w-full rounded-md bg-primary-base shadow-xl border-secondary-base border shadow-secondary-base/50">
 					<div>
 						<div className="bg-white rounded-lg shadow-lg overflow-hidden">
-							<div className="flex flex-col md:flex-row md:p-2 md:items-center gap-2">
-								<div className="md:w-1/2">
-									<div className="relative h-64 ">
+							<div className="flex flex-col md:flex-row md:p-2 md:items-center">
+								<div className="md:w-1/2 px-4 border-x border-t">
+									<div className="relative h-64 rounded-t-md">
 										<Image
 											unoptimized
 											src={auction.item.image}
 											alt="Auction Item"
 											fill
 											sizes="100%"
-											className="rounded-md border border-secondary-base"
+											className=""
 											style={{ objectFit: "cover" }}
 										/>
 									</div>
 								</div>
 								<Link
 									href={`/creator/${auction.Creator.id}`}
-									className="flex items-center flex-col md:hidden shadow-md max-h-20 w-full md:max-w-xs shadow-secondary-base/30 border p-1 rounded-md border-secondary-base/20 justify-evenly text-xl ">
+									className="flex items-center flex-col md:hidden shadow-mb max-h-20 md:max-w-xs shadow-secondary-base/30 border-b border-x p-1 rounded-b-md border-secondary-base/20 justify-evenly text-xl ">
 									<div className="flex flex-row justify-start p-2  gap-10 items-center w-full">
 										<div className="w-16 h-full">
 											<div className="relative w-16 h-16">

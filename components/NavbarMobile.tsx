@@ -7,6 +7,11 @@ import { ImWoman } from "react-icons/im"
 import { RiAuctionFill, RiDashboardFill } from "react-icons/ri"
 import { useSession } from "next-auth/react"
 import { useUserContext } from "@/context"
+import { GoSearch } from "react-icons/go"
+import { BiHomeAlt2 } from "react-icons/bi"
+import { MdOutlineNotifications } from "react-icons/md"
+import { IoMdNotificationsOutline } from "react-icons/io"
+import { AiOutlineUser } from "react-icons/ai"
 
 import Link from "next/link"
 
@@ -23,15 +28,15 @@ function NavbarMobile({}: Props) {
 			href: "/",
 			current: false,
 			Icon: () => {
-				return <MdHome className="w-8 h-8"></MdHome>
+				return <BiHomeAlt2 className="w-8 h-8"></BiHomeAlt2>
 			},
 		},
 		{
-			name: "Creators",
-			href: "/creators",
+			name: "Entdecken",
+			href: "/explore",
 			current: false,
 			Icon: () => {
-				return <ImWoman className="w-8 h-8"></ImWoman>
+				return <GoSearch className="w-7 h-7"></GoSearch>
 			},
 		},
 		{
@@ -45,11 +50,13 @@ function NavbarMobile({}: Props) {
 			},
 		},
 		{
-			name: "Auktionen",
-			href: "/auctions",
+			name: "Benachrichtigungen",
+			href: "/notifications",
 			current: false,
 			Icon: () => {
-				return <RiAuctionFill className="w-8 h-8"></RiAuctionFill>
+				return (
+					<MdOutlineNotifications className="w-8 h-8"></MdOutlineNotifications>
+				)
 			},
 		},
 		{
@@ -57,7 +64,7 @@ function NavbarMobile({}: Props) {
 			href: "/profile",
 			current: false,
 			Icon: () => {
-				return <MdAccountBox className="w-8 h-8"></MdAccountBox>
+				return <AiOutlineUser className="w-8 h-8"></AiOutlineUser>
 			},
 		},
 	]
@@ -68,15 +75,15 @@ function NavbarMobile({}: Props) {
 			href: "/",
 			current: false,
 			Icon: () => {
-				return <MdHome className="w-8 h-8"></MdHome>
+				return <BiHomeAlt2 className="w-7 h-7"></BiHomeAlt2>
 			},
 		},
 		{
-			name: "Creators",
-			href: "/creators",
+			name: "Entdecken",
+			href: "/explore",
 			current: false,
 			Icon: () => {
-				return <ImWoman className="w-8 h-8"></ImWoman>
+				return <GoSearch className="w-7 h-7"></GoSearch>
 			},
 		},
 		{
@@ -90,11 +97,13 @@ function NavbarMobile({}: Props) {
 			},
 		},
 		{
-			name: "Auktionen",
-			href: "/auctions",
+			name: "Benachrichtigungen",
+			href: "/notifications",
 			current: false,
 			Icon: () => {
-				return <RiAuctionFill className="w-8 h-8"></RiAuctionFill>
+				return (
+					<MdOutlineNotifications className="w-8 h-8"></MdOutlineNotifications>
+				)
 			},
 		},
 		{
@@ -102,13 +111,13 @@ function NavbarMobile({}: Props) {
 			href: "/profile",
 			current: false,
 			Icon: () => {
-				return <MdAccountBox className="w-8 h-8"></MdAccountBox>
+				return <AiOutlineUser className="w-8 h-8"></AiOutlineUser>
 			},
 		},
 	]
 
 	return session && session.user.role === "CREATOR" ? (
-		<div className="w-full h-14 border-t-2 z-30 border-accent-base fixed sm:hidden flex flex-row justify-evenly items-center -bottom-0 bg-secondary-base text-primary-base">
+		<div className="w-full h-14 border-t z-30  fixed sm:hidden flex flex-row justify-evenly items-center -bottom-0 bg-primary-base text-secondary-base">
 			{navigationCrator.map((item, index) => (
 				<Link
 					onClick={() => {

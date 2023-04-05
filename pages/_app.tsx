@@ -11,6 +11,7 @@ import { Montserrat, Lato } from "next/font/google"
 import NavbarMobile from "@/components/NavbarMobile"
 import "react-toastify/dist/ReactToastify.css"
 import { ToastContainer } from "react-toastify"
+import "../styles/custom.css"
 
 const montserrat = Montserrat({ subsets: ["latin"] })
 const lato = Lato({ weight: "400", subsets: ["latin"] })

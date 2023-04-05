@@ -25,6 +25,7 @@ import {
 import TipModal from "@/components/TipModal"
 import { useRouter } from "next/router"
 import { toast } from "react-toastify"
+import { VscVerifiedFilled } from "react-icons/vsc"
 
 type Props = {
 	creator: any
@@ -99,8 +100,9 @@ function Creator(props: Props) {
 					/>
 				</div>
 				<div className="px-6 py-4">
-					<div className=" font-extrabold text-2xl mb-2 first-letter:uppercase">
-						{creator.nickName}
+					<div className="text-secondary-base gap-2 text-2xl font-bold items-center flex flex-row">
+						{creator.realName}, {creator.age}
+						<VscVerifiedFilled className="text-2xl shrink-0 text-blue-500"></VscVerifiedFilled>
 					</div>
 				</div>
 				<div className=" p-4 flex flex-row">
@@ -125,6 +127,7 @@ function Creator(props: Props) {
 						{creator.instagram ? (
 							<Link
 								href={creator.instagram}
+								rel="noreferrer"
 								target="_blank"
 								className=" text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
 								<TbBrandInstagram className=" text-purple-500 h-8 w-8 inline-block mr-1" />
@@ -133,6 +136,7 @@ function Creator(props: Props) {
 						{creator.tiktok ? (
 							<Link
 								href={creator.tiktok}
+								rel="noreferrer"
 								target="_blank"
 								className=" text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
 								<TbBrandYoutube className=" text-red-600 h-8 w-8 inline-block mr-1" />
@@ -140,16 +144,41 @@ function Creator(props: Props) {
 						) : null}
 						{creator.fourBased ? (
 							<Link
+								rel="noreferrer"
 								href={creator.fourBased}
 								target="_blank"
 								className=" text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-								<TbNumber4 className=" text-orange-600 font-bold h-8 w-8 inline-block mr-1" />
+								<Image
+									alt="4Based"
+									src={"/media/images/4Based_Transparent.png"}
+									width={35}
+									height={35}
+								/>
 							</Link>
 						) : null}
 						{creator.twitter ? (
 							<Link
 								href={creator.twitter}
 								target="_blank"
+								rel="noreferrer"
+								className="bg-accent-base text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
+								<TbBrandTwitch className=" text-purple-600 h-8 w-8 inline-block mr-1" />
+							</Link>
+						) : null}
+						{creator.twitch ? (
+							<Link
+								href={creator.twitch}
+								target="_blank"
+								rel="noreferrer"
+								className="bg-accent-base text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
+								<TbBrandTwitch className=" text-purple-600 h-8 w-8 inline-block mr-1" />
+							</Link>
+						) : null}
+						{creator.onlyfans ? (
+							<Link
+								href={creator.onlyfans}
+								target="_blank"
+								rel="noreferrer"
 								className="bg-accent-base text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
 								<TbBrandTwitch className=" text-purple-600 h-8 w-8 inline-block mr-1" />
 							</Link>

@@ -3,9 +3,11 @@ import { useUserContext } from "@/context"
 import { SkeletonCard } from "@/components/cards/skeletons/CreatorSkeleton"
 import CreatorCard from "@/components/cards/CreatorCard"
 
-type Props = {}
+type Props = {
+	search: string
+}
 
-function Creators({}: Props) {
+function Creators({ search }: Props) {
 	const {
 		creators,
 		setCreators,
@@ -62,19 +64,35 @@ function Creators({}: Props) {
 		}
 	}, [])
 	return (
-		<div className="min-h-screen md:pt-20 flex flex-col items-center pt-2 bg-primary-base ">
-			<h3 className="font-bold text-3xl py-4">Creators:</h3>
-			<div className="flex md:flex-col flex-wrap w-full gap-4 h-full pb-20">
+		<div className="min-h-screen md:pt-20 flex flex-col items-center  bg-primary-base ">
+			<div className="flex md:flex-col justify-center flex-wrap w-full gap-1 h-full pb-20">
 				{creatorsStatus === "loading" &&
 					[1, 2, 3, 4].map((i) => <SkeletonCard key={i} />)}
 				{creatorsStatus === "loaded" &&
-					creators.map((creator, index) => (
-						<CreatorCard
-							status={creatorsStatus}
-							key={index}
-							creator={creator}
-						/>
-					))}
+					creators
+						.filter((creator, index) => {
+							if (search === "") {
+								return creator
+							}
+							if (
+								creator.nickName.toLowerCase().includes(search.toLowerCase())
+							) {
+								return creator
+							}
+							if (
+								creator.realName.toLowerCase().includes(search.toLowerCase())
+							) {
+								return creator
+							}
+							return
+						})
+						.map((creator, index) => (
+							<CreatorCard
+								status={creatorsStatus}
+								key={index}
+								creator={creator}
+							/>
+						))}
 			</div>
 		</div>
 	)

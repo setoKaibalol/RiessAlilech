@@ -1,0 +1,24 @@
+/* custom.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes fly {
+	0% {
+		transform: translateY(100%) scale(0.5);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(-100%) scale(1);
+		opacity: 1;
+	}
+}
+
+.animate-fly {
+	animation-name: fly;
+	animation-iteration-count: infinite;
+}
+
+.gradient-bg {
+	@apply bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500;
+}

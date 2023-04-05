@@ -17,7 +17,7 @@ const Countdown = ({ startTime, durationInHours }) => {
 		const timeLeft = endTime - now
 
 		if (timeLeft < 0) {
-			return <span className="text-red-500">ZUENDE</span>
+			return <span className="text-red-500">ABGELAUFEN</span>
 		}
 
 		const hours = Math.floor(timeLeft / (60 * 60 * 1000))

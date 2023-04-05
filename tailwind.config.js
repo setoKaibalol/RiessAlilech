@@ -44,6 +44,7 @@ module.exports = {
 				"scroll-icon-fade-in": "scroll-icon-fade-in 0.2s ease-in-out forwards",
 				"scroll-icon-fade-out":
 					"scroll-icon-fade-out 0.2s ease-in-out forwards",
+				fly: "fly 5s ease-in-out infinite",
 			},
 			keyframes: {
 				"fade-in": {
@@ -78,6 +79,10 @@ module.exports = {
 					"0%": { opacity: 100 },
 					"50%": { opacity: 50 },
 					"100%": { opacity: 0 },
+				},
+				fly: {
+					"0%": { transform: "translateY(100%) scale(0.5)", opacity: "0" },
+					"100%": { transform: "translateY(-100%) scale(1)", opacity: "1" },
 				},
 			},
 			spacing: {
