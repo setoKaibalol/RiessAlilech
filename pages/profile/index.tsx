@@ -9,8 +9,15 @@ type Props = {}
 
 function Profile({}: Props) {
 	const { data: session, status } = useSession()
-	const { userCreatorData, setUserCreatorData } = useUserContext()
-	const [editingUserId, setEditingUserId] = useState<number | null>(null)
+	const {
+		userCreatorData,
+		setUserCreatorData,
+		refreshUserAuctions,
+		setRefreshUserAuctions,
+		refreshCreators,
+		setRefreshCreators,
+	} = useUserContext()
+
 	const [realName, setRealName] = useState(userCreatorData.realName)
 	const [nickname, setNickname] = useState(userCreatorData.nickName)
 	const [description, setDescription] = useState(userCreatorData.description)
@@ -124,6 +131,8 @@ function Profile({}: Props) {
 			})
 			.then((data) => {
 				setUserDataStatus("loaded")
+				setRefreshCreators(true)
+				setRefreshUserAuctions(true)
 				setRefreshData(true)
 			})
 			.catch((error) => {

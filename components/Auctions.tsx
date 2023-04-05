@@ -20,7 +20,7 @@ function Auctions({ search }: Props) {
 	} = useUserContext()
 
 	useEffect(() => {
-		if (refreshUserAuctions && (!userAuctions || userAuctions.length === 0)) {
+		if (refreshUserAuctions) {
 			fetch("/api/user/auction/get", {
 				method: "POST",
 				headers: {

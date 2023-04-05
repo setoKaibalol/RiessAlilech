@@ -234,8 +234,8 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 
-								<div className="md:w-1/2 px-4 border-x border-t">
-									<div className="relative h-64 rounded-t-md">
+								<div className="md:w-1/2 pt-2 px-2 rounded-t-md border-x border-t border-accent-base">
+									<div className="relative  h-64 rounded-t-md">
 										<Image
 											unoptimized
 											src={auction.item.image}
@@ -251,7 +251,7 @@ function AuctionCard({ auction, status }: Props) {
 
 							<Link
 								href={`/creator/${auction.Creator.id}`}
-								className="flex items-center flex-col md:hidden shadow-mb max-h-20 md:max-w-xs shadow-secondary-base/30 border-b border-x p-1 rounded-b-md justify-evenly text-xl ">
+								className="flex items-center flex-col md:hidden shadow-mb max-h-20 md:max-w-xs shadow-secondary-base/30 border-b border-accent-base border-x p-1 rounded-b-md justify-evenly text-xl ">
 								<div className="flex flex-row justify-start p-2  gap-10 items-center w-full">
 									<div className="w-16 h-full">
 										<div className="relative w-16 h-16">

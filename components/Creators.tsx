@@ -18,7 +18,7 @@ function Creators({ search }: Props) {
 	} = useUserContext()
 
 	useEffect(() => {
-		if (refreshCreators && (!creators || creators.length === 0)) {
+		if (refreshCreators) {
 			setCreatorsStatus("loading")
 
 			fetch("/api/user/creators/get", {
