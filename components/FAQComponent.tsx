@@ -23,12 +23,12 @@ export default function FAQ({ items }: Props) {
 	}
 
 	return (
-		<div className="p-4 flex flex-col gap-2">
+		<div className="p-2 flex flex-col gap-2">
 			{items.map((item, index) => {
 				return (
 					<div key={index}>
 						<div
-							className={`cursor-pointer bg-white p-2 py-4 rounded-md flex text-center hover:bg-gray-100 relative z-10 justify-between px-10 duration-200 items-center ${
+							className={`cursor-pointer bg-white p-2 py-4 rounded-md flex text-center hover:bg-gray-100 relative z-10 justify-between px-5 duration-200 items-center ${
 								activeIndex === -1
 									? prevIndex < index && " animate-move-down"
 									: "" + (activeIndex === index && " rounded-b-none")

@@ -37,6 +37,7 @@ function Creator(props: Props) {
 	const { data: session, status } = useSession()
 	const [tipModalOpen, setTipModalOpen] = React.useState(false)
 	const [amount, setAmount] = useState(0)
+	const [message, setMessage] = useState("")
 
 	useEffect(() => {
 		if (
@@ -105,20 +106,27 @@ function Creator(props: Props) {
 						<VscVerifiedFilled className="text-2xl shrink-0 text-blue-500"></VscVerifiedFilled>
 					</div>
 				</div>
-				<div className=" p-4 flex flex-row">
-					<button
-						disabled={!amount}
-						onClick={() => setTipModalOpen(!tipModalOpen)}
-						className="bg-accent-base disabled:bg-gray-500 gap-x-2 flex flex-row z-20 text-2xl text-primary-base font-bold py-2 px-4 rounded-l-full duration-200">
-						<BiDonateHeart className="h-8 w-8 inline-block" />
-						Tip
-					</button>
-					<input
-						type={"number"}
-						placeholder="€"
-						className="w-20 bg-accent-base placeholder:text-primary-base text-2xl text-primary-base py-2 px-4 rounded-r-full duration-200"
-						value={amount}
-						onChange={(e) => setAmount(parseInt(e.target.value))}></input>
+				<div className="flex flex-col p-4 w-72">
+					<div className="flex w-full flex-row">
+						<button
+							disabled={!amount}
+							onClick={() => setTipModalOpen(!tipModalOpen)}
+							className="bg-accent-base disabled:bg-gray-500 gap-x-2 flex flex-row z-20 text-2xl text-primary-base font-bold py-2 px-4 w-1/2 rounded-tl-3xl duration-200">
+							<BiDonateHeart className="h-8 w-8 inline-block" />
+							Tip
+						</button>
+						<input
+							type={"number"}
+							placeholder="€"
+							className="w-1/2 bg-accent-base placeholder:text-primary-base text-2xl text-primary-base py-2 px-4 rounded-tr-3xl duration-200"
+							value={amount}
+							onChange={(e) => setAmount(parseInt(e.target.value))}></input>
+					</div>
+					<textarea
+						value={message}
+						placeholder="Nachricht"
+						onChange={(e) => setMessage(e.target.value)}
+						className="p-2 h-20 rounded-b-xl bg-primary-base border shadow-lg"></textarea>
 				</div>
 			</div>
 			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg bg-primary-base ">

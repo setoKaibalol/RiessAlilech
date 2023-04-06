@@ -19,18 +19,17 @@ function Navbar({}: Props) {
 	const [current, setCurrent] = useState(3)
 
 	const navigation = [
-		{ name: "Creators", href: "/creators", current: current === 0 },
-		{ name: "Auktionen", href: "/auctions", current: current === 1 },
-		{ name: "Hilfe", href: "/hilfe", current: current === 2 },
-	]
-
-	const navigationLeft = [
-		{ name: "Creators", href: "/creators", current: current === 0 },
-		{ name: "Auctions", href: "/auctions", current: current === 1 },
-	]
-
-	const navigationRight = [
-		{ name: "Hilfe", href: "/hilfe", current: current === 2 },
+		{
+			name: "Creators",
+			href: "/creators?category=creators",
+			current: current === 0,
+		},
+		{
+			name: "Auctions",
+			href: "/auctions?category=auctions",
+			current: current === 1,
+		},
+		{ name: "FAQ", href: "/FAQ", current: current === 2 },
 	]
 
 	const NavbarRef = useRef(null)

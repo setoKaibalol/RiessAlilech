@@ -40,6 +40,7 @@ function Profile({}: Props) {
 	const [saveUserStatus, setSaveUserStatus] = useState("loaded")
 	const [userDataStatus, setUserDataStatus] = useState("loading")
 	const [refreshData, setRefreshData] = useState(false)
+	const [imageStatus, setImageStatus] = useState("loaded")
 
 	useEffect(() => {
 		if (session && session.user.role === "CREATOR") {
@@ -116,8 +117,7 @@ function Profile({}: Props) {
 	const handleImageSubmit = async (file: any) => {
 		const formData = new FormData()
 		formData.append("file", file)
-
-		setUserDataStatus("loading")
+		setImageStatus("loading")
 		fetch("/api/creator/uploadImage", {
 			method: "POST",
 			body: formData,
@@ -130,7 +130,7 @@ function Profile({}: Props) {
 				}
 			})
 			.then((data) => {
-				setUserDataStatus("loaded")
+				setImageStatus("loaded")
 				setRefreshCreators(true)
 				setRefreshUserAuctions(true)
 				setRefreshData(true)
@@ -196,7 +196,9 @@ function Profile({}: Props) {
 					onSubmit={handleSubmit}
 					className="flex flex-col h-auto pb-20 px-4 gap-2 justify-start pt-10 items-center bg-primary-base text-secondary-base font-primary min-h-screen">
 					<div className="h-[30%] w-screen flex flex-col justify-start items-center">
-						{profilePicture && userDataStatus === "loaded" ? (
+						{profilePicture &&
+						userDataStatus === "loaded" &&
+						imageStatus === "loaded" ? (
 							<>
 								<label
 									htmlFor="profilePictureFileInput"
