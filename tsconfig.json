@@ -26,7 +26,13 @@
 		"types/**/*.ts",
 		"**/*.ts",
 		"**/*.tsx",
-		"pages/api/creator/createItem.js"
-, "pages/api/creator/uploadImage.js", "pages/api/creator/uploadImage.js", "pages/api/creator/uploadImage.js", "pages/api/creator/uploadImage.js"	],
+		"pages/api/creator/createItem.js",
+		"pages/api/creator/uploadImage.js",
+		"pages/api/creator/uploadImage.js",
+		"pages/api/creator/uploadImage.js",
+		"pages/api/creator/uploadImage.js",
+		"Middleware.js",
+		"components/TipModal.js"
+	],
 	"exclude": ["node_modules"]
 }

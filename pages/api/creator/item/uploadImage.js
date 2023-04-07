@@ -13,12 +13,6 @@ const Multer = multer({
 	},
 })
 
-/* const deleteFile = (filePath) => {
-	fs.unlink(filePath, () => {
-		console.log("file deleted")
-	})
-}
- */
 const authenticateGoogle = () => {
 	const auth = new google.auth.GoogleAuth({
 		credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS),
