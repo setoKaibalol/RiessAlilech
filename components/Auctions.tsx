@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useUserContext } from "@/context"
 import { useSession } from "next-auth/react"
 import AuctionCard from "@/components/cards/AuctionCard"
-import { SkeletonCard } from "@/components/cards/ItemCardSkeleton"
+import { SkeletonCard } from "./cards/skeletons/AuctionSkeleton"
 
 type Props = {
 	search: string

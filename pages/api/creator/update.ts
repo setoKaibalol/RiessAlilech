@@ -6,7 +6,7 @@ import { authOptions } from "../auth/[...nextauth]"
 
 type Handler = (
 	req: NextApiRequest & {
-		session: Session // Define the type of the session object
+		session: Session
 	},
 	res: NextApiResponse
 ) => void | Promise<void>
@@ -40,6 +40,8 @@ const handler: Handler = async (req, res) => {
 				twitch,
 				tiktok,
 				fourBased,
+				website,
+				onlyFans,
 			} = req.body
 
 			const creator = await prisma.creator
@@ -59,6 +61,9 @@ const handler: Handler = async (req, res) => {
 						twitter,
 						tiktok,
 						fourBased,
+						onlyfans: onlyFans,
+						twitch,
+						website,
 					},
 				})
 				.catch((err) => {

@@ -67,7 +67,7 @@ function Creators({ search }: Props) {
 		<div className="min-h-screen md:pt-20 flex flex-col items-center  bg-primary-base ">
 			<div className="flex md:flex-col justify-center flex-wrap w-full gap-1 h-full pb-20">
 				{creatorsStatus === "loading" &&
-					[1, 2, 3, 4].map((i) => <SkeletonCard key={i} />)}
+					[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => <SkeletonCard key={i} />)}
 				{creatorsStatus === "loaded" &&
 					creators
 						.filter((creator, index) => {

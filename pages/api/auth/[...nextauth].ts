@@ -1,22 +1,20 @@
 import NextAuth, { Session, User } from "next-auth"
 import Auth0Provider from "next-auth/providers/auth0"
 import EmailProvider from "next-auth/providers/email"
+import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "@/prisma/PrismaClient"
 
 export const authOptions = {
 	adapter: PrismaAdapter(prisma),
 	providers: [
-		Auth0Provider({
-			clientId: process.env.AUTH0_ID,
-			clientSecret: process.env.AUTH0_SECRET,
-			issuer: process.env.AUTH0_DOMAIN,
-			// @ts-ignore
-			domain: process.env.AUTH0_DOMAIN,
-		}),
 		EmailProvider({
 			server: process.env.EMAIL_SERVER,
 			from: process.env.EMAIL_FROM,
+		}),
+		GoogleProvider({
+			clientId: process.env.GOOGLE_ID,
+			clientSecret: process.env.GOOGLE_SECRET,
 		}),
 	],
 	secret: process.env.SECRET,

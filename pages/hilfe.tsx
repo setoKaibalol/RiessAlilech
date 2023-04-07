@@ -5,18 +5,38 @@ type Props = {}
 
 function Hilfe({}: Props) {
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-primary-base to-accent-base flex flex-col justify-center bg-primary pt-20">
-			<div className="h-80 w-full">
+		<div className="min-h-screen bg-gradient-center from-primary-base via-accent-base to-accent-base ">
+			<div className="h-screen w-full flex flex-col justify-start pt-20">
 				<FAQ
 					items={[
-						{ question: "do birds fly?", answer: "no, brids swim" },
 						{
-							question: "do chickens lay eggs?",
-							answer: "yes chickens lay eggs",
+							question: "Was ist TipForYou?",
+							answer:
+								"TipForYou ist eine Platform die es Creatorn ermöglicht Tips zu erhalten und Auctions zu erstellen.",
 						},
 						{
-							question: "do crocodiles eat a vegetarian diet?",
-							answer: "yes crocodiles only eat plants",
+							question: "Was ist ein Creator?",
+							answer:
+								"Ein Creator ist eine Person die digitalen Content erstellt.",
+						},
+						{
+							question: "Was ist eine Auction?",
+							answer:
+								"In einer Auction kann ein Creator einen Gegenstand versteigern. Der Höchstbietende erhält den Gegenstand.",
+						},
+						{
+							question: "Wie kann ich ein Creator werden?",
+							answer:
+								"Um bei TipForYou ein Creator zu werden musst du ein Kontentersteller sein mit einer bestimmten Reichweite. Bewerbungen an y.alilech@tipforyou.de.",
+						},
+						{
+							question: "Sind die Pakete diskret verpackt?",
+							answer:
+								"Ja, Die Pakete werden in einem neutralen Karton geliefert, der keine Hinweise auf den Inhalt enthält.",
+						},
+						{
+							question: "Ich brauche Hilfe!",
+							answer: "Kontaktiere uns per email unter y.alilech@tipforyou.de.",
 						},
 					]}></FAQ>
 			</div>

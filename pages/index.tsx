@@ -23,7 +23,7 @@ export default function Home() {
 				<AnimatedBackground></AnimatedBackground>
 				<div className="h-auto w-full flex flex-col justify-start items-center gap-10 ">
 					<div className="flex flex-col max-w-sm items-center h-64 sm:pt-20 pt-14">
-						<h2 className="font-primary p-5 text-secondary-base text-2xl font-bold">
+						<h2 className="p-5 text-secondary-base text-2xl font-bold">
 							TipForYou
 						</h2>
 						<h1 className="text-4xl font-bold text-center">

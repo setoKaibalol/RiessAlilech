@@ -35,9 +35,9 @@ function Profile({}: Props) {
 	const [tiktok, setTiktok] = useState(userCreatorData.tiktok)
 	const [fourBased, setFourBased] = useState(userCreatorData.fourBased)
 	const [website, setWebsite] = useState(userCreatorData.website)
+	const [onlyFans, setOnlyFans] = useState(userCreatorData.onlyfans)
 	const [email, setEmail] = useState(userCreatorData.email)
 	const [role, setRole] = useState<"USER" | "CREATOR">("CREATOR")
-	const [saveUserStatus, setSaveUserStatus] = useState("loaded")
 	const [userDataStatus, setUserDataStatus] = useState("loading")
 	const [refreshData, setRefreshData] = useState(false)
 	const [imageStatus, setImageStatus] = useState("loaded")
@@ -108,6 +108,7 @@ function Profile({}: Props) {
 					setTiktok(data.Creator[0].tiktok)
 					setFourBased(data.Creator[0].fourBased)
 					setWebsite(data.Creator[0].website)
+					setOnlyFans(data.Creator[0].onlyfans)
 					setUserDataStatus("loaded")
 					setRefreshData(false)
 				})
@@ -144,7 +145,7 @@ function Profile({}: Props) {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		console.log(userCreatorData)
-		setSaveUserStatus("loading")
+		setUserDataStatus("loading")
 		fetch("/api/creator/update", {
 			method: "POST",
 			headers: {
@@ -165,11 +166,13 @@ function Profile({}: Props) {
 				twitch,
 				tiktok,
 				fourBased,
+				website,
+				onlyFans,
 			}),
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				setSaveUserStatus("loaded")
+				setUserDataStatus("loaded")
 			})
 	}
 
@@ -311,11 +314,26 @@ function Profile({}: Props) {
 							</div>
 						) : (
 							<div className="gap-8 bg-secondary-base/10 p-2 rounded-md">
-								<p className="font-extralight">Herkunft:</p>
+								<p className="font-extralight">Abstammung:</p>
 								<input
 									type={"text"}
 									value={origin}
 									onChange={(e) => setOrigin(e.target.value)}
+									className="bg-transparent w-full text-accent-base font-bold"></input>
+							</div>
+						)}
+						{userDataStatus === "loading" ? (
+							<div className="animate-pulse gap-4 bg-gray-300 w-full h-10 rounded-md items-center p-2">
+								<span className="bg-gray-400 rounded-md h-5 w-28 animate-pulse"></span>
+								<span className="bg-gray-400 rounded-md h-7 w-60 animate-pulse"></span>
+							</div>
+						) : (
+							<div className="gap-8 bg-secondary-base/10 p-2 rounded-md">
+								<p className="font-extralight">Land:</p>
+								<input
+									type={"text"}
+									value={country}
+									onChange={(e) => setCountry(e.target.value)}
 									className="bg-transparent w-full text-accent-base font-bold"></input>
 							</div>
 						)}
@@ -394,6 +412,21 @@ function Profile({}: Props) {
 									className="bg-transparent w-full text-accent-base font-bold"></input>
 							</div>
 						)}
+						{userDataStatus === "loading" ? (
+							<div className="animate-pulse gap-4 bg-gray-300 w-full h-10 rounded-md items-center p-2">
+								<span className="bg-gray-400 rounded-md h-5 w-28 animate-pulse"></span>
+								<span className="bg-gray-400 rounded-md h-7 w-60 animate-pulse"></span>
+							</div>
+						) : (
+							<div className="gap-4 bg-secondary-base/10 p-2 rounded-md">
+								<p className="font-extralight">onlyFans:</p>{" "}
+								<input
+									type={"text"}
+									value={onlyFans}
+									onChange={(e) => setOnlyFans(e.target.value)}
+									className="bg-transparent w-full text-accent-base font-bold"></input>
+							</div>
+						)}
 					</div>
 					<button
 						type="submit"
@@ -404,12 +437,14 @@ function Profile({}: Props) {
 			) : (
 				<div className="flex flex-col justify-start pt-20 items-center bg-primary-base text-secondary-base font-primary h-screen">
 					<div className="h-1/4 w-screen flex flex-col justify-center items-center">
-						{session.user.image ? (
+						{!session.user.image ? (
 							<div className="relative w-48 h-48 shrink-0">
 								<Image
 									unoptimized
 									alt="profile picture"
-									src={session.user.image}
+									src={
+										"https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+									}
 									className="border-2 "
 									sizes="100%"
 									style={{
@@ -424,9 +459,7 @@ function Profile({}: Props) {
 								<Image
 									unoptimized
 									alt="profile picture"
-									src={
-										"https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
-									}
+									src={session.user.image}
 									className="border-2 "
 									sizes="100%"
 									style={{

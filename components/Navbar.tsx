@@ -21,23 +21,30 @@ function Navbar({}: Props) {
 	const navigation = [
 		{
 			name: "Creators",
-			href: "/creators?category=creators",
+			href: "/explore?category=creators",
 			current: current === 0,
 		},
 		{
 			name: "Auctions",
-			href: "/auctions?category=auctions",
+			href: "/explore?category=auctions",
 			current: current === 1,
 		},
 		{ name: "FAQ", href: "/FAQ", current: current === 2 },
 	]
 
-	const NavbarRef = useRef(null)
 	const MobileMenuButton = useRef(null)
 
 	const mobileMenuNavigation = [
-		{ name: "Creators", href: "/creators", current: current === 0 },
-		{ name: "Auktionen", href: "/auctions", current: current === 1 },
+		{
+			name: "Creators",
+			href: "/explore?category=creators",
+			current: current === 0,
+		},
+		{
+			name: "Auktionen",
+			href: "/explore?category=auctions",
+			current: current === 1,
+		},
 		{ name: "Hilfe", href: "/hilfe", current: current === 2 },
 	]
 
@@ -122,41 +129,50 @@ function Navbar({}: Props) {
 				</Link>
 
 				<button
-					className="z-40 relative0"
+					className="z-40 relative"
 					ref={MobileMenuButton}
 					onClick={(e) => {
 						handleMobileMenu(e)
 					}}>
 					<HiOutlineMenuAlt3
 						className={`h-10 w-10 z-20  ${
-							showMobileMenu ? " text-primary-base" : " text-secondary-base"
+							showMobileMenu ? " text-secondary-base" : " text-secondary-base"
 						}`}></HiOutlineMenuAlt3>
 				</button>
 				{showMobileMenu && (
-					<div className="z-20 w-[60%] h-screen pb-14 flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
-						<div className="flex flex-col gap-14 p-4 text-primary-base w-full h-full">
-							<div className="flex flex-col ">
-								{mobileMenuNavigation.map((item, index) => (
-									<Link
-										onClick={() => setShowMobileMenu(false)}
-										className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
-										key={index}
-										href={`${item.href}`}>
-										{item.name}
-									</Link>
-								))}
-								<AuthComponent></AuthComponent>
-							</div>
+					<div className="fixed inset-0 w-full h-full">
+						<div className="z-20 w-[60%] h-screen pb-14 flex flex-col border-l bg-primary-base absolute right-0 top-0">
+							<div className="flex flex-col gap-14 p-4 font-medium text-secondary-base w-full h-full">
+								<div className="flex flex-col ">
+									{mobileMenuNavigation.map((item, index) => (
+										<Link
+											onClick={() => setShowMobileMenu(false)}
+											className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
+											key={index}
+											href={`${item.href}`}>
+											{item.name}
+										</Link>
+									))}
+								</div>
 
-							<div className=" flex flex-col h-full justify-end gap-4">
-								{status === "authenticated" && (
-									<button
-										onClick={() => signOut()}
-										className="bg-primary-base w-full  text-secondary-base font-bold py-2 px-4 rounded">
-										Abmelden
-									</button>
-								)}
+								<div className=" flex flex-col h-full justify-end gap-4">
+									{status === "authenticated" && (
+										<>
+											<AuthComponent></AuthComponent>
+											<button
+												onClick={() => signOut()}
+												className="bg-secondary-base w-full text-primary-base font-bold py-2 px-4 rounded">
+												Abmelden
+											</button>
+										</>
+									)}
+								</div>
 							</div>
+						</div>
+						<div
+							onClick={() => setShowMobileMenu(false)}
+							className="z-10 fixed inset-0">
+							{" "}
 						</div>
 					</div>
 				)}
@@ -212,36 +228,43 @@ function Navbar({}: Props) {
 					}}>
 					<HiOutlineMenuAlt3
 						className={`h-10 w-10 z-20  ${
-							showMobileMenu ? " text-primary-base" : " text-secondary-base"
+							showMobileMenu ? " text-secondary-base" : " text-secondary-base"
 						}`}></HiOutlineMenuAlt3>
 				</button>
 				{showMobileMenu && (
-					<div className="z-20 w-[60%] h-screen pb-14 flex flex-col border-l-2 border-accent-base bg-secondary-base absolute right-0 top-0">
-						<div className="flex flex-col justify-between gap-14 p-4 text-primary-base w-full h-full">
-							<div className="flex flex-col">
-								{mobileMenuNavigation.map((item, index) => (
-									<Link
-										onClick={() => setShowMobileMenu(false)}
-										className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
-										key={index}
-										href={`${item.href}`}>
-										{item.name}
-									</Link>
-								))}
-								<div className="flex justify-center">
-									<AuthComponent></AuthComponent>
+					<div className="fixed inset-0 w-full h-full">
+						<div className="z-20 w-[60%] h-screen pb-14 flex flex-col border-l bg-primary-base absolute right-0 top-0">
+							<div className="flex flex-col gap-14 p-4 font-medium text-secondary-base w-full h-full">
+								<div className="flex flex-col ">
+									{mobileMenuNavigation.map((item, index) => (
+										<Link
+											onClick={() => setShowMobileMenu(false)}
+											className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
+											key={index}
+											href={`${item.href}`}>
+											{item.name}
+										</Link>
+									))}
+								</div>
+
+								<div className=" flex flex-col h-full justify-end gap-4">
+									{status === "authenticated" && (
+										<>
+											<AuthComponent></AuthComponent>
+											<button
+												onClick={() => signOut()}
+												className="bg-secondary-base w-full text-primary-base font-bold py-2 px-4 rounded">
+												Abmelden
+											</button>
+										</>
+									)}
 								</div>
 							</div>
-
-							<div className=" flex flex-col gap-4">
-								{status === "authenticated" && (
-									<button
-										onClick={() => signOut()}
-										className="bg-primary-base w-full  text-secondary-base font-bold py-2 px-4 rounded">
-										Abmelden
-									</button>
-								)}
-							</div>
+						</div>
+						<div
+							onClick={() => setShowMobileMenu(false)}
+							className="z-10 fixed inset-0">
+							{" "}
 						</div>
 					</div>
 				)}
