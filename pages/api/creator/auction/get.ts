@@ -32,6 +32,7 @@ const handler: Handler = async (req, res) => {
 						item: true,
 						bids: true,
 						Creator: true,
+						trostpreis: true,
 					},
 				})
 				res.status(200).send(auctions)

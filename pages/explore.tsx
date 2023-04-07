@@ -67,7 +67,7 @@ function Explore({}: Props) {
 					</button>
 				</div>
 			</div>
-			<div className="pt-36">
+			<div className="pt-[120px]">
 				{chosenCat === 1 && <Auctions search={search}></Auctions>}
 				{chosenCat === 2 && <Creators search={search}></Creators>}
 			</div>

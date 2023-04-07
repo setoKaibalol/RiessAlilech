@@ -17,7 +17,7 @@ const Countdown = ({ startTime, durationInHours }) => {
 		const timeLeft = endTime - now
 
 		if (timeLeft < 0) {
-			return <span className="text-red-500">ABGELAUFEN</span>
+			return <div className="text-red-500 py-5">ABGELAUFEN</div>
 		}
 
 		const hours = Math.floor(timeLeft / (60 * 60 * 1000))
@@ -25,13 +25,16 @@ const Countdown = ({ startTime, durationInHours }) => {
 		const seconds = Math.floor((timeLeft % (60 * 1000)) / 1000)
 
 		return (
-			<span>
-				<span className="text-accent-base">
-					{hours.toString().padStart(2, "0")}
-				</span>
-				:{minutes.toString().padStart(2, "0")}:
-				{seconds.toString().padStart(2, "0")}
-			</span>
+			<div className="flex flex-col w-full justify-center items-center">
+				<div>
+					<span className="text-accent-base">
+						{hours.toString().padStart(2, "0")}
+					</span>
+					:{minutes.toString().padStart(2, "0")}:
+					{seconds.toString().padStart(2, "0")}
+				</div>
+				<p className="text-3xl px-2 font-medium"> Stunden</p>
+			</div>
 		)
 	}
 

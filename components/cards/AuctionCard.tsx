@@ -93,7 +93,6 @@ function AuctionCard({ auction, status }: Props) {
 		const total = bids.reduce((a, b) => a + b.amount, 0)
 		return total
 	}
-
 	switch (router.pathname) {
 		case "/dashboard":
 			switch (status) {
@@ -234,8 +233,8 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 
-								<div className="md:w-1/2 pt-2 px-2 rounded-t-md border-x border-t border-accent-base">
-									<div className="relative  h-64 rounded-t-md">
+								<div className="pt-2 px-2 rounded-t-md border-x border-t border-secondary-base">
+									<div className="relative h-52 rounded-t-md">
 										<Image
 											unoptimized
 											src={auction.item.image}
@@ -247,11 +246,30 @@ function AuctionCard({ auction, status }: Props) {
 										/>
 									</div>
 								</div>
+								<div className="flex items-center flex-col max-h-20 border-secondary-base border-x p-1 justify-evenly text-xl ">
+									<div className="flex flex-row justify-start p-2 gap-10 items-center w-full">
+										<div className="w-16 h-full">
+											<div className="relative w-16 h-16">
+												<Image
+													unoptimized
+													src={auction.trostpreis.image}
+													fill
+													sizes="100%"
+													className="rounded-full border border-secondary-base"
+													alt={auction.Creator.nickName}></Image>
+											</div>
+										</div>
+										<div className="text-secondary-base flex flex-col text-lg font-medium">
+											<p className="text-gray-500 font-medium">Trostpreis:</p>
+											<p className="text-xl"> {auction.trostpreis.name}</p>
+										</div>
+									</div>
+								</div>
 							</Link>
 
 							<Link
 								href={`/creator/${auction.Creator.id}`}
-								className="flex items-center flex-col md:hidden shadow-mb max-h-20 md:max-w-xs shadow-secondary-base/30 border-b border-accent-base border-x p-1 rounded-b-md justify-evenly text-xl ">
+								className="flex items-center flex-col shadow-mb border max-h-20 shadow-secondary-base/30 border-b border-secondary-base border-x p-1 rounded-b-md justify-evenly text-xl ">
 								<div className="flex flex-row justify-start p-2  gap-10 items-center w-full">
 									<div className="w-16 h-full">
 										<div className="relative w-16 h-16">
@@ -260,14 +278,15 @@ function AuctionCard({ auction, status }: Props) {
 												src={auction.Creator.profilePicture}
 												fill
 												sizes="100%"
-												className="rounded-full border border-secondary-base"
+												className="rounded-full"
 												alt={auction.Creator.nickName}></Image>
 										</div>
 									</div>
 
-									<span className="text-secondary-base text-2xl font-medium">
-										{auction.Creator.nickName}
-									</span>
+									<div className="text-secondary-base flex flex-col text-lg font-medium">
+										<p className="text-gray-500 font-medium">Creator:</p>
+										<p className="text-xl"> {auction.Creator.nickName}</p>
+									</div>
 								</div>
 							</Link>
 
@@ -323,9 +342,8 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 							</div>
-							<div className="flex flex-row justify-center gap-4 items-center min-h-[100px] w-[280px]">
-								<div className="flex h-full justify-center items-center">
-									<BiTimeFive className=" text-secondary-base mr-2 text-3xl" />
+							<div className="flex flex-row w-full justify-center gap-4 items-center min-h-[100px]">
+								<div className="flex h-full border-2 rounded-md w-full justify-center items-center bg-secondary-base/40">
 									<Countdown
 										startTime={new Date(auction.createdAt).getTime()}
 										durationInHours={auction.durationHours}></Countdown>
