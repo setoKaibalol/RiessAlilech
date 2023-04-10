@@ -63,11 +63,14 @@ function Creator(props: Props) {
 			router.query.redirect_status === "error" &&
 			router.query.payment_intent
 		) {
-			toast("Leider ging da etwas schief 😥", {
-				hideProgressBar: true,
-				autoClose: 2000,
-				type: "success",
-			})
+			toast(
+				"Leider ging da etwas schief 😥 Kontaktiere uns unter y.alilech@tipforyou.de für Support!",
+				{
+					hideProgressBar: false,
+					autoClose: 20000,
+					type: "error",
+				}
+			)
 		}
 	}, [])
 
@@ -109,7 +112,7 @@ function Creator(props: Props) {
 						<VscVerifiedFilled className="text-2xl shrink-0 text-blue-500"></VscVerifiedFilled>
 					</div>
 				</div>
-				<div className="flex flex-col p-4 w-72">
+				<div className="flex flex-col p-4 max-w-sm w-full">
 					<div className="flex w-full flex-row">
 						<button
 							disabled={!amount}

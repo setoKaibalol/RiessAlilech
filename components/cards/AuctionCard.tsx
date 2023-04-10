@@ -210,7 +210,7 @@ function AuctionCard({ auction, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="p-4 w-full max-h-[700px] bg-primary-base border rounded-lg shadow-md max-w-md">
+						<div className="p-4 w-full max-h-[700px] bg-primary-base border flex flex-col gap-2 rounded-lg shadow-md max-w-md">
 							<Link
 								href={`/auction/${auction.id}`}
 								className="w-full flex flex-col group">
@@ -246,7 +246,7 @@ function AuctionCard({ auction, status }: Props) {
 										/>
 									</div>
 								</div>
-								<div className="flex items-center flex-col max-h-20 border-secondary-base border-x p-1 justify-evenly text-xl ">
+								<div className="flex items-center flex-col max-h-20 border-secondary-base border-x border-b rounded-b-md p-1 justify-evenly text-xl ">
 									<div className="flex flex-row justify-start p-2 gap-10 items-center w-full">
 										<div className="w-16 h-full">
 											<div className="relative w-16 h-16">
@@ -256,7 +256,7 @@ function AuctionCard({ auction, status }: Props) {
 													fill
 													sizes="100%"
 													className="rounded-full border border-secondary-base"
-													alt={auction.Creator.nickName}></Image>
+													alt={auction.trostpreis.name}></Image>
 											</div>
 										</div>
 										<div className="text-secondary-base flex flex-col text-lg font-medium">
@@ -269,7 +269,7 @@ function AuctionCard({ auction, status }: Props) {
 
 							<Link
 								href={`/creator/${auction.Creator.id}`}
-								className="flex items-center flex-col shadow-mb border max-h-20 shadow-secondary-base/30 border-b border-secondary-base border-x p-1 rounded-b-md justify-evenly text-xl ">
+								className="flex items-center flex-col shadow-mb border max-h-20 shadow-secondary-base/30 border-b border-secondary-base border-x p-1 rounded-md justify-evenly text-xl ">
 								<div className="flex flex-row justify-start p-2  gap-10 items-center w-full">
 									<div className="w-16 h-full">
 										<div className="relative w-16 h-16">
@@ -342,8 +342,8 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 							</div>
-							<div className="flex flex-row w-full justify-center gap-4 items-center min-h-[100px]">
-								<div className="flex h-full rounded-md w-full justify-center items-center bg-secondary-base/10">
+							<div className="flex flex-row w-full justify-center gap-4 items-center h-20">
+								<div className="flex h-full rounded-md w-full">
 									<Countdown
 										startTime={new Date(auction.createdAt).getTime()}
 										durationInHours={auction.durationHours}></Countdown>

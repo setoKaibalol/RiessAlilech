@@ -60,7 +60,7 @@ function Auctions({ search }: Props) {
 
 	return (
 		<div className="min-h-screen pt-3 md:pt-20 flex flex-col items-center bg-primary-base">
-			<div className="flex flex-wrap px-3 md:flex-col w-full justify-center gap-4 h-full pb-20">
+			<div className="flex flex-wrap px-3 gap-10 md:flex-col w-full justify-center h-full pb-20">
 				{userAuctionsStatus === "loading" &&
 					[1, 2, 3, 4].map((i) => <SkeletonCard key={i} />)}
 				{userAuctionsStatus === "loaded" &&

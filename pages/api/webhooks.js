@@ -55,6 +55,23 @@ const handler = async (req, res) => {
 								name: metadata.senderName,
 							},
 						})
+
+						const notification = await prisma.notification.create({
+							data: {
+								user: {
+									connect: {
+										id: metadata.senderId,
+									},
+								},
+								linkAuction: {
+									connect: {
+										id: metadata.auctionId,
+									},
+								},
+								type: "bid",
+								message: `Dein Gebot von ${bid.amount}€ wurde erfolgreich abgegeben.`,
+							},
+						})
 					} else if (
 						!metadata.senderId &&
 						metadata.senderEmail &&
@@ -105,6 +122,25 @@ const handler = async (req, res) => {
 								},
 								email: metadata.senderEmail,
 							},
+							include: {
+								creator: true,
+							},
+						})
+						const notification = await prisma.notification.create({
+							data: {
+								user: {
+									connect: {
+										id: metadata.senderId,
+									},
+								},
+								linkCreator: {
+									connect: {
+										id: metadata.for,
+									},
+								},
+								type: "tip",
+								message: `${tip.creator.nickName} hat deinen ${tip.amount} € Tip erhalten.`,
+							},
 						})
 					}
 					if (!metadata.senderId && metadata.senderEmail) {
@@ -122,21 +158,7 @@ const handler = async (req, res) => {
 					}
 				}
 
-				// Then define and call a method to handle the successful payment intent.
-				// handlePaymentIntentSucceeded(paymentIntent);
 				break
-			case "payment_intent.created":
-				console.log("payment_intent.created", event.data.object)
-				const paymentIntent_created = event.data.object
-				// Then define and call a method to handle the successful payment intent.
-				// handlePaymentIntentSucceeded(paymentIntent);
-				break
-			case "payment_method.attached":
-				const paymentMethod = event.data.object
-				// Then define and call a method to handle the successful attachment of a PaymentMethod.
-				// handlePaymentMethodAttached(paymentMethod);
-				break
-			// ... handle other event types
 			default:
 				console.log(`Unhandled event type ${event.type}`)
 		}

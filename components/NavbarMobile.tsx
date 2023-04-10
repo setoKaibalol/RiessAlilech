@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { MdAccountBox, MdHome, MdOutlineExplore } from "react-icons/md"
 import { GiLovers } from "react-icons/gi"
 import { BiDonateHeart } from "react-icons/bi"
@@ -19,8 +19,30 @@ type Props = {}
 
 function NavbarMobile({}: Props) {
 	const { data: session, status } = useSession()
-	const { active, setActive, showMobileMenu, setShowMobileMenu } =
-		useUserContext()
+	const {
+		active,
+		setActive,
+		showMobileMenu,
+		setShowMobileMenu,
+		notifications,
+		setNotifications,
+	} = useUserContext()
+
+	useEffect(() => {
+		if (notifications.length === 0) {
+			fetch("/api/user/notifications/get", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({}),
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					setNotifications(data)
+				})
+		}
+	}, [])
 
 	const navigation = [
 		{
@@ -55,7 +77,12 @@ function NavbarMobile({}: Props) {
 			current: false,
 			Icon: () => {
 				return (
-					<MdOutlineNotifications className="w-8 h-8"></MdOutlineNotifications>
+					<>
+						{notifications.length > 0 && (
+							<div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-accent-base"></div>
+						)}
+						<MdOutlineNotifications className="w-8 h-8"></MdOutlineNotifications>
+					</>
 				)
 			},
 		},
@@ -102,7 +129,28 @@ function NavbarMobile({}: Props) {
 			current: false,
 			Icon: () => {
 				return (
-					<MdOutlineNotifications className="w-8 h-8"></MdOutlineNotifications>
+					<div className="relative">
+						{notifications.filter((notification) => {
+							if (notification.read === false) {
+								return notification
+							}
+
+							return false
+						}).length > 0 && (
+							<div className="absolute -top-1 text-primary-base text-sm font-bold flex justify-center items-center -right-1 w-5 h-5 rounded-full bg-accent-base">
+								{
+									notifications.filter((notification) => {
+										if (notification.read === false) {
+											return notification
+										}
+
+										return false
+									}).length
+								}
+							</div>
+						)}
+						<MdOutlineNotifications className="w-8 h-8"></MdOutlineNotifications>
+					</div>
 				)
 			},
 		},
