@@ -71,6 +71,13 @@ function Creator(props: Props) {
 		}
 	}, [])
 
+	const origin =
+		typeof window !== "undefined" && window.location.origin
+			? window.location.origin
+			: ""
+
+	console.log(origin)
+
 	return creator ? (
 		<div className="pt-20 flex flex-col pb-20 items-center gap-2 bg-primary-base">
 			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg bg-primary-base">

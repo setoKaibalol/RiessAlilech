@@ -52,6 +52,11 @@ function Auction(props: Props) {
 	const hasEnded = moment(now).isAfter(endsAt)
 	const [isLive, setIsLive] = useState(!hasEnded)
 
+	const origin =
+		typeof window !== "undefined" && window.location.origin
+			? window.location.origin
+			: ""
+
 	useEffect(() => {
 		if (hasEnded && auction.live) {
 			endAuction({ auction })
@@ -145,9 +150,7 @@ function Auction(props: Props) {
 					}}
 					type="auction"
 					receiver={auction}
-					return_url={
-						process.env.NEXT_PUBLIC_WEBSITE_URL + "/auction/" + auction.id
-					}
+					return_url={origin + "/auction/" + auction.id}
 					amount={amount}
 					sender={{
 						email: senderEmail,

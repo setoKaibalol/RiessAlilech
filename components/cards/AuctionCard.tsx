@@ -343,7 +343,7 @@ function AuctionCard({ auction, status }: Props) {
 								</div>
 							</div>
 							<div className="flex flex-row w-full justify-center gap-4 items-center min-h-[100px]">
-								<div className="flex h-full  rounded-md w-full justify-center items-center bg-secondary-base/10">
+								<div className="flex h-full rounded-md w-full justify-center items-center bg-secondary-base/10">
 									<Countdown
 										startTime={new Date(auction.createdAt).getTime()}
 										durationInHours={auction.durationHours}></Countdown>
