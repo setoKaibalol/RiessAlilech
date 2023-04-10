@@ -435,41 +435,24 @@ function Profile({}: Props) {
 					</button>
 				</form>
 			) : (
-				<div className="flex flex-col justify-start pt-20 items-center bg-primary-base text-secondary-base font-primary h-screen">
+				<div className="flex flex-col gap-4 justify-start pt-20 items-center bg-primary-base text-secondary-base font-primary h-screen">
 					<div className="h-1/4 w-screen flex flex-col justify-center items-center">
-						{!session.user.image ? (
-							<div className="relative w-48 h-48 shrink-0">
-								<Image
-									unoptimized
-									alt="profile picture"
-									src={
-										"https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
-									}
-									className="border-2 "
-									sizes="100%"
-									style={{
-										objectFit: "contain",
-										objectPosition: "center",
-										borderRadius: "100%",
-									}}
-									fill></Image>
-							</div>
-						) : (
-							<div className="relative w-48 h-48 shrink-0">
-								<Image
-									unoptimized
-									alt="profile picture"
-									src={session.user.image}
-									className="border-2 "
-									sizes="100%"
-									style={{
-										objectFit: "contain",
-										objectPosition: "center",
-										borderRadius: "100%",
-									}}
-									fill></Image>
-							</div>
-						)}
+						<div className="relative w-48 h-48 shrink-0">
+							<Image
+								unoptimized
+								alt="profile picture"
+								src={
+									"https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+								}
+								className="border-2 "
+								sizes="100%"
+								style={{
+									objectFit: "contain",
+									objectPosition: "center",
+									borderRadius: "100%",
+								}}
+								fill></Image>
+						</div>
 					</div>
 					<div className="flex flex-row w-auto justify-center items-center gap-4 mb-4 bg-secondary-base/10 p-2 rounded-md">
 						<p className=" font-medium">Account typ: </p>

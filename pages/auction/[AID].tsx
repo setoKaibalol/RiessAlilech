@@ -258,11 +258,11 @@ function Auction(props: Props) {
 						</div>
 					</div>
 				</div>
-				<div className="h-auto text-secondary-base p-1 md:w-2/3 w-full rounded-md bg-primary-base shadow-xl border-secondary-base border shadow-secondary-base/50">
+				<div className="h-auto text-secondary-base md:w-2/3 w-full rounded-md bg-primary-base shadow-xl border-secondary-base border shadow-secondary-base/50">
 					<div>
-						<div className="bg-white rounded-lg shadow-lg overflow-hidden">
+						<div className="bg-white rounded-xl shadow-lg overflow-hidden">
 							<div className="flex flex-col md:flex-row md:p-2 md:items-center">
-								<div className="md:w-1/2 px-4 border-x border-t">
+								<div className="md:w-1/2 p-2 border-x border-t">
 									<div className="relative h-64 rounded-t-md">
 										<Image
 											unoptimized
@@ -270,11 +270,31 @@ function Auction(props: Props) {
 											alt="Auction Item"
 											fill
 											sizes="100%"
-											className=""
+											className="rounded-xl"
 											style={{ objectFit: "cover" }}
 										/>
 									</div>
 								</div>
+								<div className="flex items-center flex-col max-h-20 p-1 justify-evenly text-xl ">
+									<div className="flex flex-row justify-start p-2 gap-10 items-center w-full">
+										<div className="w-16 h-full">
+											<div className="relative w-16 h-16">
+												<Image
+													unoptimized
+													src={auction.trostpreis.image}
+													fill
+													sizes="100%"
+													className="rounded-full border border-secondary-base"
+													alt={auction.Creator.nickName}></Image>
+											</div>
+										</div>
+										<div className="text-secondary-base flex flex-col text-lg font-medium">
+											<p className="text-gray-500 font-medium">Trostpreis:</p>
+											<p className="text-xl"> {auction.trostpreis.name}</p>
+										</div>
+									</div>
+								</div>
+
 								<Link
 									href={`/creator/${auction.Creator.id}`}
 									className="flex items-center flex-col md:hidden shadow-mb max-h-20 md:max-w-xs shadow-secondary-base/30 border-b border-x p-1 rounded-b-md border-secondary-base/20 justify-evenly text-xl ">
@@ -291,9 +311,10 @@ function Auction(props: Props) {
 											</div>
 										</div>
 
-										<span className="text-secondary-base text-2xl font-medium">
-											{auction.Creator.nickName}
-										</span>
+										<div className="text-secondary-base flex flex-col text-lg font-medium">
+											<p className="text-gray-500 font-medium">Creator:</p>
+											<p className="text-xl"> {auction.Creator.nickName}</p>
+										</div>
 									</div>
 								</Link>
 
@@ -414,6 +435,7 @@ export async function getServerSideProps(context: { params: any }) {
 			Creator: true,
 			item: true,
 			bids: true,
+			trostpreis: true,
 		},
 	})
 

@@ -5,6 +5,7 @@ const nextConfig = {
 		domains: [
 			"lh3.googleusercontent.com",
 			"static.vecteezy.com",
+			"lh3.googleusercontent",
 			"via.placeholder.com",
 			"upload.wikimedia.org",
 			"pbs.twimg.com",

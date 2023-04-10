@@ -95,7 +95,7 @@ export const AuthComponent = () => {
 				<Image
 					alt="image"
 					className="rounded-full border"
-					src={session?.user?.image!}
+					src={session.user.image}
 					height={40}
 					width={40}></Image>
 			</div>

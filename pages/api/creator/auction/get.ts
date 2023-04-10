@@ -34,6 +34,9 @@ const handler: Handler = async (req, res) => {
 						Creator: true,
 						trostpreis: true,
 					},
+					orderBy: {
+						createdAt: "desc",
+					},
 				})
 				res.status(200).send(auctions)
 			}

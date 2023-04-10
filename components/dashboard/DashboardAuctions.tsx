@@ -3,7 +3,7 @@ import CreateAuctionComponent from "./CreateAuctionComponent"
 import AuctionCard from "../cards/AuctionCard"
 import { useSession } from "next-auth/react"
 import { useUserContext } from "@/context"
-import { SkeletonCard } from "../cards/ItemCardSkeleton"
+import { SkeletonCard } from "../cards/skeletons/AuctionSkeleton"
 
 type Props = {}
 
