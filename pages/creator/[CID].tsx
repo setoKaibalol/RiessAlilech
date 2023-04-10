@@ -76,8 +76,6 @@ function Creator(props: Props) {
 			? window.location.origin
 			: ""
 
-	console.log(origin)
-
 	return creator ? (
 		<div className="pt-20 flex flex-col pb-20 items-center gap-2 bg-primary-base">
 			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg bg-primary-base">
@@ -89,9 +87,7 @@ function Creator(props: Props) {
 							? { email: "undefined", name: "Anonymous" }
 							: session.user
 					}
-					return_url={
-						process.env.NEXT_PUBLIC_WEBSITE_URL + "/creator/" + creator.id
-					}
+					return_url={origin + "/creator/" + creator.id}
 					type="creator"
 					onClose={() => setTipModalOpen(false)}
 					receiver={creator}></TipModal>
