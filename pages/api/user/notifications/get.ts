@@ -22,6 +22,9 @@ const handler: Handler = async (req, res) => {
 
 			const notifications = await prisma.notification
 				.findMany({
+					where: {
+						userId: session.user.id,
+					},
 					include: {
 						user: true,
 						linkAuction: true,
