@@ -430,7 +430,7 @@ function Profile({}: Props) {
 					</div>
 					<button
 						type="submit"
-						className="bg-accent-base fixed z-20 bottom-16 p-2 text-primary-base font-primary w-80  px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary-base">
+						className="bg-accent-base fixed z-10 bottom-16 p-2 text-primary-base font-primary w-80  px-3 uppercase font-medium rounded-lg duration-200 hover:bg-secondary-base">
 						speichern
 					</button>
 				</form>

@@ -84,194 +84,201 @@ function Navbar({}: Props) {
 	}, [router.pathname])
 
 	return router.pathname === "/" ? (
-		<div className="h-20 w-full bg-transparent z-30 fixed flex flex-row">
-			<div
-				id="navbar-ref"
-				className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
-				<Link
-					onClick={() => {
-						setShowMobileMenu(false)
-					}}
-					href={"/"}
-					className="flex flex-row justify-center items-center">
-					<Image
-						alt="logo"
-						height={80}
-						width={240}
-						src={"/media/logo/logo_text_nobg.png"}></Image>
-				</Link>
-				<div className="flex-row gap-2 hidden md:flex text-secondary-base font-primary font-medium">
-					{navigation.map((item, index) => (
-						<Link
-							onClick={() => setShowMobileMenu(false)}
-							className="p-2 rounded-md hover:bg-secondary-base/20 text-2xl"
-							key={index}
-							href={`${item.href}`}>
-							{item.name}
-						</Link>
-					))}
+		<>
+			<div className="h-20 w-full bg-transparent z-30 fixed flex flex-row">
+				<div
+					id="navbar-ref"
+					className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
+					<Link
+						onClick={() => {
+							setShowMobileMenu(false)
+						}}
+						href={"/"}
+						className="flex flex-row justify-center items-center">
+						<Image
+							alt="logo"
+							height={80}
+							width={240}
+							src={"/media/logo/logo_text_nobg.png"}></Image>
+					</Link>
+					<div className="flex-row gap-2 hidden md:flex text-secondary-base font-primary font-medium">
+						{navigation.map((item, index) => (
+							<Link
+								onClick={() => setShowMobileMenu(false)}
+								className="p-2 rounded-md hover:bg-secondary-base/20 text-2xl"
+								key={index}
+								href={`${item.href}`}>
+								{item.name}
+							</Link>
+						))}
+					</div>
+					<AuthComponent />
 				</div>
-				<AuthComponent />
+				<div
+					id="navbar-ref-mobile"
+					className="fixed flex sm:hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
+					<Link
+						onClick={() => {
+							setShowMobileMenu(false)
+						}}
+						href={"/"}
+						className="flex flex-row justify-center items-center">
+						<Image
+							alt="logo"
+							height={60}
+							width={60}
+							src={"/media/logo/t4u_logo.png"}></Image>
+					</Link>
+
+					<button
+						className="z-40 relative"
+						ref={MobileMenuButton}
+						onClick={(e) => {
+							handleMobileMenu(e)
+						}}>
+						<HiOutlineMenuAlt3
+							className={`h-10 w-10 z-20  ${
+								showMobileMenu ? " text-secondary-base" : " text-secondary-base"
+							}`}></HiOutlineMenuAlt3>
+					</button>
+				</div>
 			</div>
-			<div
-				id="navbar-ref-mobile"
-				className="fixed flex sm:hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
-				<Link
-					onClick={() => {
-						setShowMobileMenu(false)
-					}}
-					href={"/"}
-					className="flex flex-row justify-center items-center">
-					<Image
-						alt="logo"
-						height={60}
-						width={60}
-						src={"/media/logo/t4u_logo.png"}></Image>
-				</Link>
+			{showMobileMenu && (
+				<div className="fixed inset-0 w-full z-20 full-height">
+					<div className="z-20 w-[60%] full-height pb-14 flex flex-col border-l bg-primary-base absolute right-0 top-0">
+						<div className="flex flex-col gap-14 p-4 font-medium text-secondary-base w-full h-full">
+							<div className="flex flex-col ">
+								{mobileMenuNavigation.map((item, index) => (
+									<Link
+										onClick={() => setShowMobileMenu(false)}
+										className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
+										key={index}
+										href={`${item.href}`}>
+										{item.name}
+									</Link>
+								))}
+							</div>
 
-				<button
-					className="z-40 relative"
-					ref={MobileMenuButton}
-					onClick={(e) => {
-						handleMobileMenu(e)
-					}}>
-					<HiOutlineMenuAlt3
-						className={`h-10 w-10 z-20  ${
-							showMobileMenu ? " text-secondary-base" : " text-secondary-base"
-						}`}></HiOutlineMenuAlt3>
-				</button>
-				{showMobileMenu && (
-					<div className="fixed inset-0 w-full h-full">
-						<div className="z-20 w-[60%] h-screen pb-14 flex flex-col border-l bg-primary-base absolute right-0 top-0">
-							<div className="flex flex-col gap-14 p-4 font-medium text-secondary-base w-full h-full">
-								<div className="flex flex-col ">
-									{mobileMenuNavigation.map((item, index) => (
-										<Link
-											onClick={() => setShowMobileMenu(false)}
-											className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
-											key={index}
-											href={`${item.href}`}>
-											{item.name}
-										</Link>
-									))}
-								</div>
-
-								<div className=" flex flex-col h-full justify-end gap-4">
-									{status === "authenticated" && (
-										<>
-											<AuthComponent></AuthComponent>
-											<button
-												onClick={() => signOut()}
-												className="bg-secondary-base w-full text-primary-base font-bold py-2 px-4 rounded">
-												Abmelden
-											</button>
-										</>
-									)}
-								</div>
+							<div className=" flex flex-col h-full justify-end gap-4">
+								{status === "authenticated" && (
+									<>
+										<CreditBalance></CreditBalance>
+										<AuthComponent></AuthComponent>
+										<button
+											onClick={() => signOut()}
+											className="bg-secondary-base w-full text-primary-base font-bold py-2 px-4 rounded">
+											Abmelden
+										</button>
+									</>
+								)}
 							</div>
 						</div>
-						<div
-							onClick={() => setShowMobileMenu(false)}
-							className="z-10 fixed inset-0">
-							{" "}
-						</div>
 					</div>
-				)}
-			</div>
-		</div>
+					<div
+						onClick={() => setShowMobileMenu(false)}
+						className="z-10 fixed inset-0">
+						{" "}
+					</div>
+				</div>
+			)}
+		</>
 	) : router.pathname != "/dashboard" &&
 	  router.pathname != "/explore" &&
 	  !router.pathname.includes("admin") ? (
-		<div className="h-20 w-full bg-transparent z-30 fixed flex flex-row">
-			<div
-				id="navbar-ref"
-				className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
-				<Link href={"/"} className="flex flex-row justify-center items-center">
-					<Image
-						alt="logo"
-						height={80}
-						width={240}
-						src={"/media/logo/logo_text_nobg.png"}></Image>
-				</Link>
-				<div className="flex-row gap-2 hidden md:flex text-secondary-base font-primary font-medium">
-					{navigation.map((item, index) => (
-						<Link
-							className="p-2 rounded-md hover:bg-secondary-base/20 text-2xl"
-							key={index}
-							href={`${item.href}`}>
-							{item.name}
-						</Link>
-					))}
+		<>
+			<div className="h-20 w-full bg-transparent z-30 fixed flex flex-row">
+				<div
+					id="navbar-ref"
+					className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
+					<Link
+						href={"/"}
+						className="flex flex-row justify-center items-center">
+						<Image
+							alt="logo"
+							height={80}
+							width={240}
+							src={"/media/logo/logo_text_nobg.png"}></Image>
+					</Link>
+					<div className="flex-row gap-2 hidden md:flex text-secondary-base font-primary font-medium">
+						{navigation.map((item, index) => (
+							<Link
+								className="p-2 rounded-md hover:bg-secondary-base/20 text-2xl"
+								key={index}
+								href={`${item.href}`}>
+								{item.name}
+							</Link>
+						))}
+					</div>
+					<AuthComponent />
 				</div>
-				<AuthComponent />
+				<div
+					id="navbar-ref-mobile"
+					className="fixed flex sm:hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
+					<Link
+						onClick={() => {
+							setShowMobileMenu(false)
+						}}
+						href={"/"}
+						className="flex flex-row justify-center items-center">
+						<Image
+							alt="logo"
+							height={60}
+							width={60}
+							src={"/media/logo/t4u_logo.png"}></Image>
+					</Link>
+
+					<button
+						className="z-40"
+						ref={MobileMenuButton}
+						onClick={(e) => {
+							handleMobileMenu(e)
+						}}>
+						<HiOutlineMenuAlt3
+							className={`h-10 w-10 z-20  ${
+								showMobileMenu ? " text-secondary-base" : " text-secondary-base"
+							}`}></HiOutlineMenuAlt3>
+					</button>
+				</div>
 			</div>
-			<div
-				id="navbar-ref-mobile"
-				className="fixed flex sm:hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
-				<Link
-					onClick={() => {
-						setShowMobileMenu(false)
-					}}
-					href={"/"}
-					className="flex flex-row justify-center items-center">
-					<Image
-						alt="logo"
-						height={60}
-						width={60}
-						src={"/media/logo/t4u_logo.png"}></Image>
-				</Link>
+			{showMobileMenu && (
+				<div className="fixed z-20 inset-0 w-full h-full">
+					<div className="z-20 w-[60%] h-screen pb-14 flex flex-col border-l bg-primary-base absolute right-0 top-0">
+						<div className="flex flex-col gap-14 p-4 font-medium text-secondary-base w-full h-full">
+							<div className="flex flex-col ">
+								{mobileMenuNavigation.map((item, index) => (
+									<Link
+										onClick={() => setShowMobileMenu(false)}
+										className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
+										key={index}
+										href={`${item.href}`}>
+										{item.name}
+									</Link>
+								))}
+							</div>
 
-				<button
-					className="z-40"
-					ref={MobileMenuButton}
-					onClick={(e) => {
-						handleMobileMenu(e)
-					}}>
-					<HiOutlineMenuAlt3
-						className={`h-10 w-10 z-20  ${
-							showMobileMenu ? " text-secondary-base" : " text-secondary-base"
-						}`}></HiOutlineMenuAlt3>
-				</button>
-				{showMobileMenu && (
-					<div className="fixed inset-0 w-full h-full">
-						<div className="z-20 w-[60%] h-screen pb-14 flex flex-col border-l bg-primary-base absolute right-0 top-0">
-							<div className="flex flex-col gap-14 p-4 font-medium text-secondary-base w-full h-full">
-								<div className="flex flex-col ">
-									{mobileMenuNavigation.map((item, index) => (
-										<Link
-											onClick={() => setShowMobileMenu(false)}
-											className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
-											key={index}
-											href={`${item.href}`}>
-											{item.name}
-										</Link>
-									))}
-								</div>
-
-								<div className=" flex flex-col h-full justify-end gap-4">
-									{status === "authenticated" && (
-										<>
-											<CreditBalance></CreditBalance>
-											<AuthComponent></AuthComponent>
-											<button
-												onClick={() => signOut()}
-												className="bg-secondary-base w-full text-primary-base font-bold py-2 px-4 rounded">
-												Abmelden
-											</button>
-										</>
-									)}
-								</div>
+							<div className=" flex flex-col h-full justify-end gap-4">
+								{status === "authenticated" && (
+									<>
+										<CreditBalance></CreditBalance>
+										<AuthComponent></AuthComponent>
+										<button
+											onClick={() => signOut()}
+											className="bg-secondary-base w-full text-primary-base font-bold py-2 px-4 rounded">
+											Abmelden
+										</button>
+									</>
+								)}
 							</div>
 						</div>
-						<div
-							onClick={() => setShowMobileMenu(false)}
-							className="z-10 fixed inset-0">
-							{" "}
-						</div>
 					</div>
-				)}
-			</div>
-		</div>
+					<div
+						onClick={() => setShowMobileMenu(false)}
+						className="z-10 fixed inset-0">
+						{" "}
+					</div>
+				</div>
+			)}
+		</>
 	) : (
 		<div></div>
 	)
