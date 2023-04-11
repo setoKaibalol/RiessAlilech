@@ -13,6 +13,7 @@ type TipModalProps = {
 	sender: any
 	return_url: string
 	type: string
+	creditPayments: boolean
 }
 
 if (!process.env.NEXT_PUBLIC_STRIPE_PKEY_TEST) {
@@ -29,6 +30,7 @@ const TipModal = ({
 	sender,
 	return_url,
 	type,
+	creditPayments,
 }: TipModalProps) => {
 	const [clientSecret, setClientSecret] = React.useState("")
 
@@ -83,7 +85,6 @@ const TipModal = ({
 							<div className="flex justify-between px-4 py-3 bg-gray-200 rounded-t-lg">
 								<h3 className="text-lg font-semibold">
 									{type === "creator" && `Tip ${receiver.nickName}`}
-
 									{type === "auction" && "Bid"}
 									{type === "credits" && "Buy credits"}
 								</h3>

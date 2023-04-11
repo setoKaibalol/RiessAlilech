@@ -59,6 +59,7 @@ const CreditsPage = () => {
 							receiver={session.user.id}
 							return_url={process.env.NEXT_PUBLIC_WEBSITE_URL + "/credits"}
 							amount={amount}
+							creditPayments={false}
 							sender={{
 								email: session?.user.email,
 								name: session?.user.name,

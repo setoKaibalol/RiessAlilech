@@ -90,6 +90,7 @@ function Creator(props: Props) {
 							? { email: "undefined", name: "Anonymous" }
 							: session.user
 					}
+					creditPayments={true}
 					return_url={origin + "/creator/" + creator.id}
 					type="creator"
 					onClose={() => setTipModalOpen(false)}
