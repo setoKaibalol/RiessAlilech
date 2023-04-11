@@ -157,6 +157,46 @@ const handler = async (req, res) => {
 						})
 					}
 				}
+				if (metadata.type === "credits") {
+					const user = prisma.user
+						.update({
+							where: {
+								id: metadata.receiverId,
+							},
+							data: {
+								credits: {
+									increment: (paymentIntent.amount * 10) / 100,
+								},
+							},
+						})
+						.then((user) => {
+							console.log("success", user)
+							req.io.emit("updateCredits", {
+								userId: user.id,
+								credits: user.credits,
+							})
+						})
+
+						.catch((err) => console.log(err))
+
+					const notification = await prisma.notification
+						.create({
+							data: {
+								user: {
+									connect: {
+										id: metadata.receiverId,
+									},
+								},
+								type: "credits",
+								message: `Du hast ${
+									paymentIntent.amount / 100
+								}€ eingezahlt und ${
+									(paymentIntent.amount * 10) / 100
+								} TipTokens erhalten.`,
+							},
+						})
+						.catch((err) => console.log(err))
+				}
 
 				break
 			default:

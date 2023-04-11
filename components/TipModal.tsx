@@ -61,6 +61,17 @@ const TipModal = ({
 				.then((res) => res.json())
 				.then((data) => setClientSecret(data.clientSecret))
 		}
+		if (isOpen && type === "credits") {
+			fetch("/api/user/credits/create-payment-intent", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					creditsAmount: amount,
+				}),
+			})
+				.then((res) => res.json())
+				.then((data) => setClientSecret(data.clientSecret))
+		}
 	}, [isOpen])
 
 	return (
@@ -70,9 +81,12 @@ const TipModal = ({
 					<div className="relative z-40 shadow-lg shadow-black/50 w-full max-w-md mx-auto my-6">
 						<div className="bg-white rounded-lg shadow-lg">
 							<div className="flex justify-between px-4 py-3 bg-gray-200 rounded-t-lg">
-								<h3 className="text-lg font-semibold">{`${
-									type === "creator" ? "Tip" : "Bid"
-								}${type === "creator" ? receiver.nickName : ""}`}</h3>
+								<h3 className="text-lg font-semibold">
+									{type === "creator" && `Tip ${receiver.nickName}`}
+
+									{type === "auction" && "Bid"}
+									{type === "credits" && "Buy credits"}
+								</h3>
 								<button onClick={onClose} className="focus:outline-none">
 									<BiX className="h-6 w-6 text-gray-600 hover:text-gray-800" />
 								</button>

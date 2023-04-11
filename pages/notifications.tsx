@@ -76,12 +76,12 @@ const NotificationPage = () => {
 						<link rel="icon" href="/favicon.ico" />
 					</Head>
 
-					<main className="">
-						<div className="max-w-md mx-auto p-2">
+					<main className="h-screen max-h-screen">
+						<div className="max-w-md mx-auto max-h-screen p-2">
 							<div className="w-full flex justify-center py-5">
 								<h1 className="text-2xl font-bold">Notifications</h1>
 							</div>
-							<div className="space-y-4">
+							<div className="overflow-y-scroll h-[700px] gap-4 flex flex-col">
 								{notifications &&
 									notifications.length > 0 &&
 									notifications.map((notification) => (
@@ -104,7 +104,9 @@ const NotificationPage = () => {
 											} rounded-lg`}>
 											<div className="flex items-center justify-between">
 												<h2 className="text-base font-bold first-letter:uppercase text-accent-base">
-													{notification.type} erhalten
+													{notification.type === "credits" && "TipTokens"}
+													{notification.type === "bid" && "Gebot"}
+													{notification.type === "tip" && "Tip"}
 												</h2>
 												<div
 													className={`text-xs font-medium ${

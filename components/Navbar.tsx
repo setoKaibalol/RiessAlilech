@@ -7,6 +7,7 @@ import { useUserContext } from "./../context"
 import { ClipLoader } from "react-spinners"
 import { AuthComponent } from "./AuthComponent"
 import { HiOutlineMenuAlt3 } from "react-icons/hi"
+import CreditBalance from "./CreditBalance"
 
 type Props = {}
 
@@ -250,6 +251,7 @@ function Navbar({}: Props) {
 								<div className=" flex flex-col h-full justify-end gap-4">
 									{status === "authenticated" && (
 										<>
+											<CreditBalance></CreditBalance>
 											<AuthComponent></AuthComponent>
 											<button
 												onClick={() => signOut()}

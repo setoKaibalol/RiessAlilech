@@ -30,6 +30,9 @@ const handler: Handler = async (req, res) => {
 						linkAuction: true,
 						linkCreator: true,
 					},
+					orderBy: {
+						createdAt: "desc",
+					},
 				})
 				.catch((err) => {
 					console.error(err)

@@ -29,19 +29,17 @@ function NavbarMobile({}: Props) {
 	} = useUserContext()
 
 	useEffect(() => {
-		if (notifications.length === 0) {
-			fetch("/api/user/notifications/get", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({}),
+		fetch("/api/user/notifications/get", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({}),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				setNotifications(data)
 			})
-				.then((res) => res.json())
-				.then((data) => {
-					setNotifications(data)
-				})
-		}
 	}, [])
 
 	const navigation = [

@@ -23,6 +23,7 @@ export const authOptions = {
 			if (session.user && user) {
 				session.user.id = user.id
 				session.user.role = user.role
+				session.user.credits = user.credits
 			}
 			return Promise.resolve(session)
 		},

@@ -14,6 +14,7 @@ declare module "next-auth" {
 			id: string | null | undefined
 			email: string | null | undefined
 			name: string | null | undefined
+			credits: number | null | undefined
 		}
 	}
 	interface User {
@@ -22,5 +23,6 @@ declare module "next-auth" {
 		image: string | null | undefined
 		email: string | null | undefined
 		name: string | null | undefined
+		credits: number | null | undefined
 	}
 }

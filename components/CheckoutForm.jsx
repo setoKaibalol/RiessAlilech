@@ -79,7 +79,6 @@ export default function CheckoutForm({ receiver, return_url, type }) {
 
 		setIsLoading(false)
 	}
-
 	return (
 		<form
 			className="flex flex-col gap-4 font-primary"
@@ -99,11 +98,15 @@ export default function CheckoutForm({ receiver, return_url, type }) {
 				id="submit">
 				<span id="button-text">
 					{isLoading ? (
-						<ClipLoader className="w-6 h-6"></ClipLoader>
-					) : type === "creator-tip" ? (
+						<ClipLoader size={30}></ClipLoader>
+					) : type === "creator" ? (
 						`TIP ${receiver.nickName}`
-					) : (
+					) : type === "auction" ? (
 						`Bieten`
+					) : type === "credits" ? (
+						`Kaufen`
+					) : (
+						"Kaufen"
 					)}
 				</span>
 			</button>
