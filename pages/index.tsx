@@ -24,7 +24,7 @@ export default function Home() {
 				<AnimatedBackground></AnimatedBackground>
 				<div className=" w-full flex flex-col justify-start items-center gap-10 ">
 					<div className="flex flex-col max-w-sm items-center h-44 sm:pt-20 pt-8">
-						<h2 className="p-5 text-secondary-base text-2xl font-bold">
+						<h2 className="p-3 text-secondary-base text-2xl font-bold">
 							TipForYou
 						</h2>
 						<h1 className="text-4xl font-bold text-center">
@@ -34,7 +34,7 @@ export default function Home() {
 					</div>
 				</div>
 				<div className="flex flex-col lg:flex-row ">
-					<div className="w-full h-64 flex lg:justify-center lg:w-1/2 justify-start p-5 py-20">
+					<div className="w-full h-56 flex lg:justify-center lg:w-1/2 justify-start p-5 py-20">
 						<WriteTextComponent></WriteTextComponent>
 					</div>
 					<div className="flex flex-col gap-4 lg:w-1/2 justify-center items-center px-6">
