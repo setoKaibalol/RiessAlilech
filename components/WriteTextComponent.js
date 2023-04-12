@@ -14,7 +14,7 @@ function WriteTextComponent() {
 				<Typewriter
 					options={{
 						strings: [
-							"eine große Auswahl an bezauberndem Kontent.",
+							"eine große Auswahl an bezauberndem Content.",
 							"liebevoll getragene Unterwäsche.",
 							"unterschiedliche getragene Kleidungsstücke.",
 						],
