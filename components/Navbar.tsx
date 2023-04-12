@@ -159,7 +159,7 @@ function Navbar({}: Props) {
 								))}
 							</div>
 
-							<div className=" flex flex-col h-full justify-end gap-4">
+							<div className=" flex flex-col h-full gap-4">
 								{status === "authenticated" && (
 									<>
 										<CreditBalance></CreditBalance>
@@ -256,7 +256,7 @@ function Navbar({}: Props) {
 								))}
 							</div>
 
-							<div className=" flex flex-col h-full justify-end gap-4">
+							<div className=" flex flex-col h-full gap-4">
 								{status === "authenticated" && (
 									<>
 										<CreditBalance></CreditBalance>
