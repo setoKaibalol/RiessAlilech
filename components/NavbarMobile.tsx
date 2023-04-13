@@ -76,9 +76,6 @@ function NavbarMobile({}: Props) {
 			Icon: () => {
 				return (
 					<>
-						{notifications.length > 0 && (
-							<div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-accent-base"></div>
-						)}
 						<MdOutlineNotifications className="w-8 h-8"></MdOutlineNotifications>
 					</>
 				)

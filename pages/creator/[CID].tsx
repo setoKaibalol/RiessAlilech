@@ -125,7 +125,7 @@ function Creator(props: Props) {
 						<input
 							type={"number"}
 							placeholder="€"
-							className="w-1/2 bg-accent-base placeholder:text-primary-base text-2xl text-primary-base py-2 px-4 rounded-tr-3xl duration-200"
+							className="w-1/2 bg-accent-base rounded-l-none placeholder:text-primary-base text-2xl text-primary-base py-2 px-4 rounded-tr-3xl duration-200"
 							value={amount}
 							onChange={(e) => setAmount(parseInt(e.target.value))}></input>
 					</div>
