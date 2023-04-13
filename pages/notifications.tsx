@@ -27,28 +27,30 @@ const NotificationPage = () => {
 			})
 	}, [])
 
-	const markAsRead = (notification: any) => {
-		if (notification.read) return
-
-		setNotifications(
-			notifications.map((notification) => {
-				if (notification.id === notification.id) {
-					return { ...notification, read: true }
-				}
-				return notification
-			})
-		)
-
+	useEffect(() => {
 		fetch("/api/user/notifications/read", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ notification }),
+			body: JSON.stringify({}),
 		})
 			.then((res) => res.json())
-			.then((data) => {})
-	}
+			.then((data) => {
+				setNotifications(
+					notifications.map((notification) => ({
+						...notification,
+						read: true,
+					}))
+				)
+				console.log(
+					notifications.map((notification) => ({
+						...notification,
+						read: true,
+					}))
+				)
+			})
+	}, [])
 
 	switch (status) {
 		case "loading":
@@ -94,16 +96,19 @@ const NotificationPage = () => {
 													: "/explore"
 											}
 											key={notification.id}
-											onClick={() => {
-												markAsRead(notification)
-											}}
 											className={`flex flex-col bg-white p-4 border gap-2 ${
 												notification.read
 													? "border-gray-300"
 													: "border-accent-base"
 											} rounded-lg`}>
 											<div className="flex items-center justify-between">
-												<h2 className="text-base font-bold first-letter:uppercase text-accent-base">
+												<h2
+													className={`text-base font-bold first-letter:uppercase 												${
+														notification.read
+															? "text-secondary-base"
+															: "text-accent-base"
+													}
+`}>
 													{notification.type === "credits" && "TipTokens"}
 													{notification.type === "bid" && "Gebot"}
 													{notification.type === "tip" && "Tip"}

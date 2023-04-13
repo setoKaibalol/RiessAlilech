@@ -23,9 +23,9 @@ const handler: Handler = async (req, res) => {
 			const { notification } = req.body
 
 			const notificationRead = await prisma.notification
-				.update({
+				.updateMany({
 					where: {
-						id: notification.id,
+						userId: session.user.id,
 					},
 					data: {
 						read: true,
