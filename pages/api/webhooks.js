@@ -72,7 +72,9 @@ const handler = async (req, res) => {
 									},
 								},
 								type: "bid",
-								message: `You have successfully placed a bid of $${bid.amount} on ${bid.auction.title}`,
+								message: `You have successfully placed a bid of €${
+									paymentIntent.amount / 100
+								}`,
 							},
 						})
 					} else if (
@@ -147,7 +149,9 @@ const handler = async (req, res) => {
 									},
 								},
 								type: "tip",
-								message: `You have successfully tipped €${tip.amount}`,
+								message: `You have successfully tipped €${
+									paymentIntent.amount / 100
+								}`,
 							},
 						})
 					}
