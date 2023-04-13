@@ -47,6 +47,7 @@ function Creator(props: Props) {
 			toast("Vielen Dank für deinen Tip 😘", {
 				hideProgressBar: true,
 				autoClose: 3000,
+				className: " font-primary",
 				style: {
 					background: "#FAF9F5",
 					border: "20px",

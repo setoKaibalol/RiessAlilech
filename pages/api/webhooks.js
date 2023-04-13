@@ -72,7 +72,6 @@ const handler = async (req, res) => {
 									},
 								},
 								type: "bid",
-								message: `Dein Gebot von ${bid.amount}€ wurde erfolgreich abgegeben.`,
 							},
 						})
 					} else if (
@@ -131,9 +130,7 @@ const handler = async (req, res) => {
 									creator: true,
 								},
 							})
-							.then((tip) => {
-								console.log(tip)
-							})
+							.then((tip) => {})
 							.catch((err) => console.log(err))
 
 						const notification = await prisma.notification.create({
@@ -149,11 +146,10 @@ const handler = async (req, res) => {
 									},
 								},
 								type: "tip",
-								message: `${tip.creator.nickName} hat deinen ${tip.amount} € Tip erhalten.`,
 							},
 						})
 					}
-					if (!metadata.senderId && metadata.senderEmail) {
+					if (!metadata.senderId) {
 						const tip = await prisma.tip.create({
 							data: {
 								amount: paymentIntent.amount / 100,
@@ -200,8 +196,6 @@ const handler = async (req, res) => {
 								},
 								type: "credits",
 								message: `Du hast ${
-									paymentIntent.amount / 100
-								}€ eingezahlt und ${
 									(paymentIntent.amount * 10) / 100
 								} TipTokens erhalten.`,
 							},
