@@ -37,18 +37,14 @@ const NotificationPage = () => {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				setNotifications(
-					notifications.map((notification) => ({
-						...notification,
-						read: true,
-					}))
-				)
-				console.log(
-					notifications.map((notification) => ({
-						...notification,
-						read: true,
-					}))
-				)
+				if (notifications.length > 0) {
+					setNotifications(
+						notifications.map((notification) => ({
+							...notification,
+							read: true,
+						}))
+					)
+				}
 			})
 	}, [])
 

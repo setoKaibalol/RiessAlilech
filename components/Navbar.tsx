@@ -85,7 +85,7 @@ function Navbar({}: Props) {
 
 	return router.pathname === "/" ? (
 		<>
-			<div className="h-20 w-full bg-transparent z-30 fixed flex flex-row">
+			<div className="h-20 w-full bg-transparent z-30 sm:fixed absolute flex flex-row">
 				<div
 					id="navbar-ref"
 					className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
@@ -116,7 +116,7 @@ function Navbar({}: Props) {
 				</div>
 				<div
 					id="navbar-ref-mobile"
-					className="fixed flex sm:hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
+					className="absolute top-0 flex sm:hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
 					<Link
 						onClick={() => {
 							setShowMobileMenu(false)
@@ -184,7 +184,7 @@ function Navbar({}: Props) {
 	  router.pathname != "/explore" &&
 	  !router.pathname.includes("admin") ? (
 		<>
-			<div className="h-20 w-full bg-transparent z-30 fixed flex flex-row">
+			<div className="h-20 w-full bg-transparent z-30 sm:fixed absolute flex flex-row">
 				<div
 					id="navbar-ref"
 					className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
@@ -209,9 +209,10 @@ function Navbar({}: Props) {
 					</div>
 					<AuthComponent />
 				</div>
+
 				<div
 					id="navbar-ref-mobile"
-					className="fixed flex sm:hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
+					className="flex sm:hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
 					<Link
 						onClick={() => {
 							setShowMobileMenu(false)
@@ -224,7 +225,6 @@ function Navbar({}: Props) {
 							width={60}
 							src={"/media/logo/t4u_logo.png"}></Image>
 					</Link>
-
 					<button
 						className="z-40"
 						ref={MobileMenuButton}
