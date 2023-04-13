@@ -10,8 +10,7 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const { tip, creator, sender } = req.body
-	console.log(sender, creator, tip)
+	const { tip, creator, sender, message } = req.body
 	const paymentIntent = await stripe.paymentIntents.create({
 		amount: calculateOrderAmount(tip),
 		currency: "eur",
@@ -21,6 +20,7 @@ export default async function handler(
 		metadata: {
 			type: "creator-tip",
 			for: creator.id,
+			message: message,
 			senderEmail: sender?.email,
 			senderName: sender?.name,
 			senderId: sender?.id,

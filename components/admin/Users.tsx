@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { ClipLoader } from "react-spinners"
+import Link from "next/link"
 
 interface User {
 	id: number
 	name: string
 	email: string
 	role: "USER" | "CREATOR"
-	creator: []
+	Creator: any
 }
 
 interface UsersLayoutProps {
@@ -21,7 +22,7 @@ const UsersLayout: React.FC<UsersLayoutProps> = ({ users, props }) => {
 	const [role, setRole] = useState<"USER" | "CREATOR">("USER")
 	const [saveUserStatus, setSaveUserStatus] = useState("loaded")
 	const { setRefreshAdminUsers, setAdminUsersStatus } = props
-
+	console.log(users)
 	const startEditingUser = (userId: number) => {
 		const user = users.find((u) => u.id === userId)
 		if (user) {
@@ -48,7 +49,7 @@ const UsersLayout: React.FC<UsersLayoutProps> = ({ users, props }) => {
 			if (
 				role === "CREATOR" &&
 				user &&
-				(!user.creator || user.creator.length === 0)
+				(!user.Creator || user.Creator.length === 0)
 			) {
 				console.log("creator1, true")
 				const res = await fetch(`/api/admin/users/creators/add`, {
@@ -140,38 +141,71 @@ const UsersLayout: React.FC<UsersLayoutProps> = ({ users, props }) => {
 						</tr>
 					</thead>
 					<tbody className="bg-white divide-y divide-gray-200">
-						{users.map((user) => (
-							<tr key={user.id}>
-								<td className="px-6 py-4 w-32 inline-block text-sm font-medium text-gray-900">
-									<span className="font-semibold truncate block">
-										{user.id}
-									</span>
-								</td>
-								{user?.name && (
-									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-										{user.name}
+						{users.map((user) =>
+							user.role === "CREATOR" ? (
+								<tr key={user.id}>
+									<td className="px-6 py-4 w-32 inline-block text-sm font-medium text-gray-900">
+										<Link
+											href={`/admin/creators/${user.Creator[0].id}`}
+											className="flex flex-row">
+											<span className="font-semibold truncate block">
+												{user.id}
+											</span>
+										</Link>
 									</td>
-								)}
-								<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-									{user.email}
-								</td>
-								<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-									{user.role}
-								</td>
-								<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-									<button
-										onClick={() => startEditingUser(user.id)}
-										className="text-indigo-600 hover:text-indigo-900">
-										Edit
-									</button>
-								</td>
-								<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-									<button className="text-red-600 hover:text-red-900">
-										Delete
-									</button>
-								</td>
-							</tr>
-						))}
+									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+										{user.name && user.name}
+									</td>
+									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+										{user.email}
+									</td>
+									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+										{user.role}
+									</td>
+									<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+										<button
+											onClick={() => startEditingUser(user.id)}
+											className="text-indigo-600 hover:text-indigo-900">
+											Edit
+										</button>
+									</td>
+									<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+										<button className="text-red-600 hover:text-red-900">
+											Delete
+										</button>
+									</td>
+								</tr>
+							) : (
+								<tr key={user.id}>
+									<td className="px-6 py-4 w-32 inline-block text-sm font-medium text-gray-900">
+										<span className="font-semibold truncate block">
+											{user.id}
+										</span>
+									</td>
+									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+										{user.name && user.name}
+									</td>
+									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+										{user.email}
+									</td>
+									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+										{user.role}
+									</td>
+									<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+										<button
+											onClick={() => startEditingUser(user.id)}
+											className="text-indigo-600 hover:text-indigo-900">
+											Edit
+										</button>
+									</td>
+									<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+										<button className="text-red-600 hover:text-red-900">
+											Delete
+										</button>
+									</td>
+								</tr>
+							)
+						)}
 					</tbody>
 				</table>
 				{editingUserId && (

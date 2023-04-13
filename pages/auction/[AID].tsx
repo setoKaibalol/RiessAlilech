@@ -149,6 +149,7 @@ function Auction(props: Props) {
 						setOpenPaymentModal(false)
 					}}
 					type="auction"
+					message=""
 					receiver={auction}
 					return_url={origin + "/auction/" + auction.id}
 					amount={amount}

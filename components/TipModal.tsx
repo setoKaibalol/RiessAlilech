@@ -14,6 +14,7 @@ type TipModalProps = {
 	return_url: string
 	type: string
 	creditPayments: boolean
+	message: string
 }
 
 if (!process.env.NEXT_PUBLIC_STRIPE_PKEY_TEST) {
@@ -31,6 +32,7 @@ const TipModal = ({
 	return_url,
 	type,
 	creditPayments,
+	message,
 }: TipModalProps) => {
 	const [clientSecret, setClientSecret] = React.useState("")
 
@@ -44,6 +46,7 @@ const TipModal = ({
 					tip: { amount: amount, currency: "eur" },
 					creator: receiver,
 					sender,
+					message: message,
 				}),
 			})
 				.then((res) => res.json())

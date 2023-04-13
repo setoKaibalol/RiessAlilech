@@ -85,6 +85,7 @@ function Creator(props: Props) {
 				<TipModal
 					isOpen={tipModalOpen}
 					amount={amount}
+					message={message}
 					sender={
 						!session?.user
 							? { email: "undefined", name: "Anonymous" }

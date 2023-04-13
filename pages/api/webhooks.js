@@ -110,25 +110,32 @@ const handler = async (req, res) => {
 				}
 				if (metadata.type === "creator-tip") {
 					if (metadata.senderId) {
-						const tip = await prisma.tip.create({
-							data: {
-								amount: paymentIntent.amount / 100,
-								creator: {
-									connect: {
-										id: metadata.for,
+						const tip = await prisma.tip
+							.create({
+								data: {
+									amount: paymentIntent.amount / 100,
+									creator: {
+										connect: {
+											id: metadata.for,
+										},
 									},
-								},
-								tipper: {
-									connect: {
-										id: metadata.senderId,
+									tipper: {
+										connect: {
+											id: metadata.senderId,
+										},
 									},
+									email: metadata.senderEmail,
+									message: metadata.message,
 								},
-								email: metadata.senderEmail,
-							},
-							include: {
-								creator: true,
-							},
-						})
+								include: {
+									creator: true,
+								},
+							})
+							.then((tip) => {
+								console.log(tip)
+							})
+							.catch((err) => console.log(err))
+
 						const notification = await prisma.notification.create({
 							data: {
 								user: {
@@ -155,6 +162,7 @@ const handler = async (req, res) => {
 										id: metadata.for,
 									},
 								},
+								message: metadata.message,
 								email: metadata.senderEmail,
 							},
 						})
