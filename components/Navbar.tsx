@@ -160,16 +160,14 @@ function Navbar({}: Props) {
 							</div>
 
 							<div className=" flex flex-col h-full gap-4">
+								{status === "authenticated" && <CreditBalance></CreditBalance>}
+								<AuthComponent></AuthComponent>
 								{status === "authenticated" && (
-									<>
-										<CreditBalance></CreditBalance>
-										<AuthComponent></AuthComponent>
-										<button
-											onClick={() => signOut()}
-											className="bg-secondary-base w-full text-primary-base font-bold py-2 px-4 rounded">
-											Abmelden
-										</button>
-									</>
+									<button
+										onClick={() => signOut()}
+										className="bg-secondary-base w-full text-primary-base font-bold py-2 px-4 rounded">
+										Abmelden
+									</button>
 								)}
 							</div>
 						</div>
@@ -257,16 +255,14 @@ function Navbar({}: Props) {
 							</div>
 
 							<div className=" flex flex-col h-full gap-4">
+								{status === "authenticated" && <CreditBalance />}
+								<AuthComponent />
 								{status === "authenticated" && (
-									<>
-										<CreditBalance></CreditBalance>
-										<AuthComponent></AuthComponent>
-										<button
-											onClick={() => signOut()}
-											className="bg-secondary-base w-full text-primary-base font-bold py-2 px-4 rounded">
-											Abmelden
-										</button>
-									</>
+									<button
+										onClick={() => signOut()}
+										className="bg-secondary-base w-full text-primary-base font-bold py-2 px-4 rounded">
+										Abmelden
+									</button>
 								)}
 							</div>
 						</div>
