@@ -49,13 +49,8 @@ function Creator(props: Props) {
 				autoClose: 3000,
 				className: " font-primary",
 				style: {
-					background: "#FAF9F5",
-					border: "20px",
-					height: "80px",
-					fontFamily: "Montserrat",
-					fontWeight: "bold",
 					fontSize: "1.3rem",
-					borderColor: "#414042",
+					fontWeight: "bold",
 				},
 				type: "success",
 			})
