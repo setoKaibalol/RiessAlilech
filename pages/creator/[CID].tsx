@@ -255,9 +255,6 @@ export async function getServerSideProps(context: { params: any }) {
 			tipsReceived: true,
 		},
 	})
-
-	console.log(creator)
-
 	return {
 		props: {
 			creator: JSON.parse(JSON.stringify(creator)),
