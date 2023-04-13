@@ -4,7 +4,10 @@ import Stripe from "stripe"
 import { prisma } from "../../prisma/PrismaClient"
 
 const stripe = require("stripe")(process.env.STRIPE_SKEY_TEST)
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
+const webhookSecret =
+	process.env.NODE_ENV === "production"
+		? process.env.STRIPE_WEBHOOK_SECRET_PRODUCTION
+		: process.env.STRIPE_WEBHOOK_SECRET
 
 export const config = {
 	api: {
@@ -202,7 +205,6 @@ const handler = async (req, res) => {
 			default:
 				console.log(`Unhandled event type ${event.type}`)
 		}
-
 		res.json({ received: true })
 	} else {
 		res.setHeader("Allow", "POST")
