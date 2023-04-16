@@ -7,7 +7,10 @@ import { authOptions } from "../../auth/[...nextauth]"
 const stripe = require("stripe")(process.env.STRIPE_SKEY_TEST)
 
 const calculateOrderAmount = (creditsAmount: any) => {
-	return (creditsAmount / 10) * 100
+	const discount = (creditsAmount / 10) * 100 * 0.2
+	const credits = (creditsAmount / 10) * 100
+	const total = credits - discount
+	return total
 }
 
 export default async function handler(

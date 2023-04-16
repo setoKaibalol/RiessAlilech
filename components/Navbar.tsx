@@ -37,7 +37,7 @@ function Navbar({}: Props) {
 
 	const mobileMenuNavigation = [
 		{
-			name: "Creators",
+			name: "Creator",
 			href: "/explore?category=creators",
 			current: current === 0,
 		},
@@ -47,6 +47,7 @@ function Navbar({}: Props) {
 			current: current === 1,
 		},
 		{ name: "Hilfe", href: "/hilfe", current: current === 2 },
+		{ name: "TipTokens kaufen", href: "/credits", current: current === 3 },
 	]
 
 	useEffect(() => {

@@ -111,7 +111,7 @@ function Creator(props: Props) {
 				<button
 					onClick={() => handleDownload()}
 					className="text-2xl border-2 rounded-lg p-2 bg-gray-200 border-secondary-base w-full font-bold">
-					Download Excel Table
+					Download CSV
 				</button>
 			</div>
 		</div>

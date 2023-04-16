@@ -69,11 +69,19 @@ function Auctions({ search }: Props) {
 							if (search === "") {
 								return auction
 							}
+
 							if (auction.title.toLowerCase().includes(search.toLowerCase())) {
 								return auction
 							}
 							if (
 								auction.item.name.toLowerCase().includes(search.toLowerCase())
+							) {
+								return auction
+							}
+							if (
+								auction.trostpreis.name
+									.toLowerCase()
+									.includes(search.toLowerCase())
 							) {
 								return auction
 							}

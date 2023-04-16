@@ -87,7 +87,10 @@ const CreditsPage = () => {
 												}`}
 												onClick={() => handleOptionSelect(100)}>
 												<span>100 TipTokens</span>
-												<span>€10.00</span>
+												<div className="flex flex-col justify-center items-end">
+													<span className=" line-through">€10.00</span>
+													<span className="">€8.00</span>
+												</div>
 											</div>
 											<div
 												className={`flex items-center justify-between duration-200 p-2 rounded-lg ${
@@ -97,7 +100,10 @@ const CreditsPage = () => {
 												}`}
 												onClick={() => handleOptionSelect(500)}>
 												<span>500 TipTokens</span>
-												<span>€50.00</span>
+												<div className="flex flex-col justify-center items-end">
+													<span className=" line-through">€50.00</span>
+													<span className="">€40.00</span>
+												</div>
 											</div>
 											<div
 												className={`flex items-center justify-between duration-200 p-2 rounded-lg ${
@@ -107,7 +113,10 @@ const CreditsPage = () => {
 												}`}
 												onClick={() => handleOptionSelect(1000)}>
 												<span>1000 TipTokens</span>
-												<span>€100.00</span>
+												<div className="flex flex-col justify-center items-end">
+													<span className=" line-through">€100.00</span>
+													<span className="">€80.00</span>
+												</div>
 											</div>
 										</div>
 									</div>
