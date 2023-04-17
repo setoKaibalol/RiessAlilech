@@ -77,6 +77,11 @@ function Creator(props: Props) {
 							<th
 								scope="col"
 								className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								amount
+							</th>
+							<th
+								scope="col"
+								className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 								CreatedAt
 							</th>
 							<th
@@ -94,6 +99,9 @@ function Creator(props: Props) {
 										<span className="font-semibold truncate block">
 											{tip.id}
 										</span>
+									</td>
+									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+										{tip.amount} €
 									</td>
 									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
 										{moment(tip.createdAt).format("DD.MM.YYYY")}

@@ -52,6 +52,7 @@ model User {
   Bid             Bid[]
   Tip             Tip[]
   Notification    Notification[]
+  Bookmarks       Auction[]
 }
 
 model Notification {
@@ -123,6 +124,7 @@ model Auction {
   itemId          String?        @default("item deleted")
   bids            Bid[]
   Notification    Notification[]
+  userBookmark    User[]
 
   @@index([creatorId], map: "Auction_creatorId_fkey")
   @@index([itemId], map: "Auction_itemId_fkey")

@@ -1,8 +1,10 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useUserContext } from "@/context"
 import { useSession } from "next-auth/react"
 import AuctionCard from "@/components/cards/AuctionCard"
 import { SkeletonCard } from "./cards/skeletons/AuctionSkeleton"
+import moment from "moment"
+moment.locale("de")
 
 type Props = {
 	search: string
@@ -10,6 +12,7 @@ type Props = {
 
 function Auctions({ search }: Props) {
 	const { data: session, status } = useSession()
+	const [auctionFilter, setAuctionFilter] = useState("alle")
 	const {
 		userAuctions,
 		setUserAuctions,
@@ -60,7 +63,16 @@ function Auctions({ search }: Props) {
 
 	return (
 		<div className="min-h-screen pt-3 md:pt-20 flex flex-col items-center bg-primary-base">
-			<div className="flex flex-wrap px-3 gap-10 md:flex-col w-full justify-center h-full pb-20">
+			<div className="w-full flex flex-row justify-start p-2 h-20 ">
+				<button
+					onClick={() => setAuctionFilter("alle")}
+					className={`p-1 text-lg rounded-full px-4 h-max  ${
+						auctionFilter === "alle" ? "bg-accent-base" : "bg-gray-200"
+					}`}>
+					Alle
+				</button>
+			</div>
+			<div className="flex flex-wrap gap-8 md:flex-col w-full justify-center h-full pb-20">
 				{userAuctionsStatus === "loading" &&
 					[1, 2, 3, 4].map((i) => <SkeletonCard key={i} />)}
 				{userAuctionsStatus === "loaded" &&

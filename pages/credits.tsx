@@ -15,6 +15,11 @@ const CreditsPage = () => {
 	const [amount, setAmount] = useState(0)
 	const [selectedOption, setSelectedOption] = useState<number | null>(null)
 
+	const origin =
+		typeof window !== "undefined" && window.location.origin
+			? window.location.origin
+			: ""
+
 	const handleOptionSelect = (option: number) => {
 		console.log(option)
 		setSelectedOption(option)
@@ -57,7 +62,7 @@ const CreditsPage = () => {
 							}}
 							type="credits"
 							receiver={session.user.id}
-							return_url={process.env.NEXT_PUBLIC_WEBSITE_URL + "/credits"}
+							return_url={origin + "/credits"}
 							amount={amount}
 							creditPayments={false}
 							message=""
