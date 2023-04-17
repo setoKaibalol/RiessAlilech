@@ -355,7 +355,11 @@ function AuctionCard({ auction, status }: Props) {
 										<div className="w-full flex flex-row gap-2 justify-between">
 											<div className="flex flex-row items-center gap-2">
 												<BiMoney className="text-accent-base text-2xl"></BiMoney>
-												<p>Aktuelles Höchstgebot:</p>
+												{auction.live ? (
+													<p>Aktuelles Höchstgebot:</p>
+												) : (
+													<p>Höchstgebot</p>
+												)}
 											</div>
 											<div>
 												<span className="text-accent-base font-medium">
