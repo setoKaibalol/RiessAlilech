@@ -72,7 +72,7 @@ function Auctions({ search }: Props) {
 					Alle
 				</button>
 			</div>
-			<div className="flex flex-wrap gap-8 md:flex-col w-full justify-center h-full pb-20">
+			<div className="flex flex-wrap gap-10 md:flex-col w-full justify-center h-full pb-20">
 				{userAuctionsStatus === "loading" &&
 					[1, 2, 3, 4].map((i) => <SkeletonCard key={i} />)}
 				{userAuctionsStatus === "loaded" &&

@@ -354,7 +354,7 @@ function AuctionCard({ auction, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="w-full h-auto text-secondary-base font-primary bg-primary-base flex flex-col max-w-md">
+						<div className="w-full h-auto border-t-2 pt-4 text-secondary-base font-primary bg-primary-base flex flex-col max-w-md">
 							<div className="w-full px-4 h-auto flex flex-row items-start justify-between">
 								<div className="flex flex-row justify-start items-center gap-4">
 									<Link href={`/creator/${auction.Creator.id}`} className="">
@@ -478,7 +478,7 @@ function AuctionCard({ auction, status }: Props) {
 											</div>
 										</div>
 									</div>
-									<div className="border-b-2 py-4 h-16 p-2 flex flex-row justify-between">
+									<div className="py-4 h-16 p-2 flex flex-row justify-between">
 										<div className="h-full w-20 flex gap-4 flex-row justify-center items-center">
 											{session && session.user ? (
 												<button
