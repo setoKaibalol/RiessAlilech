@@ -25,9 +25,9 @@ function Hilfe({}: Props) {
 								"In einer Auction kann ein Creator einen Gegenstand versteigern. Der Höchstbietende erhält den Gegenstand.",
 						},
 						{
-							question: "Wie kann ich ein Creator werden?",
+							question: "Kann ich ein Creator werden?",
 							answer:
-								"Um bei TipForYou ein Creator zu werden musst du ein Kontentersteller sein mit einer bestimmten Reichweite. Bewerbungen an y.alilech@tipforyou.de.",
+								"Schicke gerne deine Bewerbung mit deinem Namen, Alter, Erfahrungen und deinen Socials an y.alilech@tipforyou.de.",
 						},
 						{
 							question: "Sind die Pakete diskret verpackt?",
@@ -36,7 +36,8 @@ function Hilfe({}: Props) {
 						},
 						{
 							question: "Ich brauche Hilfe!",
-							answer: "Kontaktiere uns per email unter y.alilech@tipforyou.de.",
+							answer:
+								"Für Unterstützung Kontaktiere uns per email unter y.alilech@tipforyou.de.",
 						},
 					]}></FAQ>
 			</div>

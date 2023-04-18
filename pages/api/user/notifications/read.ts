@@ -20,9 +20,7 @@ const handler: Handler = async (req, res) => {
 				return
 			}
 
-			const { notification } = req.body
-
-			const notificationRead = await prisma.notification
+			const notifications = await prisma.notification
 				.updateMany({
 					where: {
 						userId: session.user.id,
@@ -37,7 +35,7 @@ const handler: Handler = async (req, res) => {
 					return
 				})
 
-			res.status(200).send(notificationRead)
+			res.status(200).send(notifications)
 			return
 		} else {
 			res.status(405).json({ message: "Method not allowed" })

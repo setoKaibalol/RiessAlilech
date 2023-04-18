@@ -79,7 +79,7 @@ const CreditsPage = () => {
 								<>
 									<CreditBalance></CreditBalance>
 
-									<div className="bg-white p-4 flex flex-col justify-between h-full rounded-lg mb-4">
+									<div className="bg-white p-4 flex flex-col rounded-lg mb-4">
 										<h2 className="text-lg font-medium mb-2 hidden">
 											TipToken Optionen:
 										</h2>

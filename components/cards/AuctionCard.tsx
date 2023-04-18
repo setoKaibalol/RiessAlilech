@@ -420,6 +420,8 @@ function AuctionCard({ auction, status }: Props) {
 										alt="item image"
 										fill
 										sizes="100%"
+										placeholder="blur"
+										blurDataURL="https://www.pngmart.com/files/16/Blur-PNG-Picture.png"
 										className="rounded-t-sm"
 										style={{ objectFit: "cover" }}
 										unoptimized></Image>
@@ -428,6 +430,8 @@ function AuctionCard({ auction, status }: Props) {
 											src={auction.trostpreis.image}
 											alt="trostpreis image"
 											fill
+											placeholder="blur"
+											blurDataURL="https://www.pngmart.com/files/16/Blur-PNG-Picture.png"
 											unoptimized
 											sizes="100%"></Image>
 									</div>

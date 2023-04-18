@@ -100,35 +100,37 @@ const TipModal = ({
 									<BiX className="h-6 w-6 text-gray-600 hover:text-gray-800" />
 								</button>
 							</div>
-							<div className="flex flex-row justify-between">
-								<button
-									onClick={() => {
-										setPaymentType("stripe")
-									}}
-									className={`flex w-1/2 p-4 justify-center rounded-sm items-center ${
-										paymentType === "stripe" && "bg-accent-base"
-									}`}>
-									<MdEuroSymbol className="w-7 h-7 text-secondary-base"></MdEuroSymbol>
-								</button>
-								<button
-									onClick={() => {
-										setPaymentType("credits")
-									}}
-									className={`flex w-1/2 p-4 justify-center rounded-sm items-center ${
-										paymentType === "credits" && "bg-accent-base"
-									}`}>
-									<svg
-										className="w-8 h-8 text-secondary-base"
-										viewBox="0 0 24 24"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg">
-										<path
-											d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM11 7H13V10.55L16 14H14L12 11.31L10 14H8L11 10.55V7Z"
-											fill="currentColor"
-										/>
-									</svg>
-								</button>
-							</div>
+							{type === "creator" || type === "auction" ? (
+								<div className="flex flex-row justify-between">
+									<button
+										onClick={() => {
+											setPaymentType("stripe")
+										}}
+										className={`flex w-1/2 p-4 justify-center rounded-sm items-center ${
+											paymentType === "stripe" && "bg-accent-base"
+										}`}>
+										<MdEuroSymbol className="w-7 h-7 text-secondary-base"></MdEuroSymbol>
+									</button>
+									<button
+										onClick={() => {
+											setPaymentType("credits")
+										}}
+										className={`flex w-1/2 p-4 justify-center rounded-sm items-center ${
+											paymentType === "credits" && "bg-accent-base"
+										}`}>
+										<svg
+											className="w-8 h-8 text-secondary-base"
+											viewBox="0 0 24 24"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM11 7H13V10.55L16 14H14L12 11.31L10 14H8L11 10.55V7Z"
+												fill="currentColor"
+											/>
+										</svg>
+									</button>
+								</div>
+							) : null}
 							{paymentType === "stripe" && (
 								<div className="px-4 py-3">
 									{clientSecret ? (
