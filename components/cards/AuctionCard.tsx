@@ -15,7 +15,12 @@ import { endAuction } from "@/helpers/endAuction"
 import { AiOutlineClockCircle, AiOutlinePlayCircle } from "react-icons/ai"
 import { RiAuctionLine } from "react-icons/ri"
 import { VscVerifiedFilled } from "react-icons/vsc"
-import { BsBookmark, BsBookmarkCheckFill, BsHeart } from "react-icons/bs"
+import {
+	BsBookmark,
+	BsBookmarkCheckFill,
+	BsHeart,
+	BsHeartFill,
+} from "react-icons/bs"
 moment.locale("de")
 
 type Props = {
@@ -27,7 +32,10 @@ function AuctionCard({ auction, status }: Props) {
 	const { data: session } = useSession()
 	const [copySuccess, setCopySuccess] = React.useState("")
 	const [isBookmarked, setIsBookmarked] = useState(false)
-	const [bookmarkLoading, setBookmarkLoading] = useState(false)
+	const [bookmarkLoading, setBookmarkLoading] = useState(true)
+	const [isLiked, setIsLiked] = useState(false)
+	const [likeLoading, setLikeLoading] = useState(true)
+
 	const router = useRouter()
 	const {
 		creatorAuctionsStatus,
@@ -50,6 +58,10 @@ function AuctionCard({ auction, status }: Props) {
 		setCreatorsStatus,
 		refreshCreators,
 		setRefreshCreators,
+		bookmarks,
+		setBookmarks,
+		auctionLikes,
+		setAuctionLikes,
 	} = useUserContext()
 
 	const websiteLink = process.env.NEXT_PUBLIC_WEBSITE_URL
@@ -69,10 +81,104 @@ function AuctionCard({ auction, status }: Props) {
 		}
 	}, [])
 
+	useEffect(() => {
+		if (session) {
+			fetch(`/api/user/auction/bookmarks/get`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					const array = data.auctionBookmarks
+					if (array.length === 0) {
+						setBookmarkLoading(false)
+						return
+					}
+					for (let index = 0; index < array.length; index++) {
+						const element = array[index]
+						if (element.id === auction.id) {
+							setIsBookmarked(true)
+						}
+					}
+
+					setBookmarks(data.Bookmarks)
+					setBookmarkLoading(false)
+				})
+		}
+	}, [session])
+
+	useEffect(() => {
+		if (session) {
+			fetch(`/api/user/auction/likes/get`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					const array = data.auctionLikes
+					console.log(array)
+					if (array.length === 0) {
+						setLikeLoading(false)
+						return
+					}
+					for (let index = 0; index < array.length; index++) {
+						const element = array[index]
+						console.log(element)
+						if (element.id === auction.id) {
+							setIsLiked(true)
+						}
+					}
+
+					setAuctionLikes(data.Bookmarks)
+					setLikeLoading(false)
+				})
+		}
+	}, [session])
+
+	const handleLike = () => {
+		setLikeLoading(true)
+		if (session) {
+			if (isLiked) {
+				setIsLiked(false)
+				fetch("/api/user/auction/likes/remove", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ auctionId: auction.id }),
+				})
+					.then((res) => res.json())
+					.then((data) => {
+						setLikeLoading(false)
+						setRefreshUserAuctions(true)
+					})
+			} else {
+				console.log("hi")
+				setIsLiked(true)
+				fetch("/api/user/auction/likes/add", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ auctionId: auction.id }),
+				})
+					.then((res) => res.json())
+					.then((data) => {
+						setLikeLoading(false)
+						setRefreshUserAuctions(true)
+					})
+			}
+		}
+	}
+
 	const handleBookmark = () => {
 		setBookmarkLoading(true)
 		if (isBookmarked) {
-			fetch("/api/user/bookmark/remove", {
+			fetch("/api/user/auction/bookmarks/remove", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -85,8 +191,7 @@ function AuctionCard({ auction, status }: Props) {
 					setBookmarkLoading(false)
 				})
 		} else {
-			console.log("hi")
-			fetch("/api/user/bookmark/add", {
+			fetch("/api/user/auction/bookmarks/add", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -249,13 +354,15 @@ function AuctionCard({ auction, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<div className="w-full h-auto text-secondary-base font-primary bg-primary-base flex flex-col gap-2 max-w-md">
-							<div className="w-full p-2 h-auto flex flex-row items-start justify-between">
+						<div className="w-full h-auto text-secondary-base font-primary bg-primary-base flex flex-col max-w-md">
+							<div className="w-full px-4 h-auto flex flex-row items-start justify-between">
 								<div className="flex flex-row justify-start items-center gap-4">
 									<Link href={`/creator/${auction.Creator.id}`} className="">
 										<div className="relative w-14 h-14">
 											<Image
 												src={auction.Creator.profilePicture}
+												placeholder="blur"
+												blurDataURL="https://www.pngmart.com/files/16/Blur-PNG-Picture.png"
 												alt="profile picture"
 												fill
 												className="rounded-full"
@@ -281,6 +388,30 @@ function AuctionCard({ auction, status }: Props) {
 								</div>
 							</div>
 							<div className="h-auto w-full flex flex-col rounded-sm">
+								<div className="pt-6 p-2 px-4 flex flex-wrap items-center gap-2 justify-start">
+									<Link href={`/auction/${auction.id}`} className="">
+										<h1 className="text-xl font-bold">{auction.title}</h1>
+									</Link>
+									<div className="flex flex-row gap-1 justify-center items-center px-2  border-secondary-base/70 border-2 rounded-xl ">
+										<h2 className="h-full text-secondary-base">
+											{auction.live} live
+										</h2>
+										{isLive ? (
+											<div className="relative h-4 w-4">
+												<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
+												<p className="w-4 h-4 bg-green-500 rounded-full"></p>
+											</div>
+										) : (
+											<div className="relative h-4 w-4">
+												<p className="w-4 h-4 bg-red-500 rounded-full"></p>
+											</div>
+										)}
+									</div>
+								</div>
+
+								<div className="p-2 px-4">
+									<p>{auction.description}</p>
+								</div>
 								<Link
 									href={`/auction/${auction.id}`}
 									className="w-full h-64 relative">
@@ -301,32 +432,9 @@ function AuctionCard({ auction, status }: Props) {
 											sizes="100%"></Image>
 									</div>
 								</Link>
-								<div className="">
-									<div className="pt-6 p-2 flex flex-row justify-between">
-										<Link href={`/auction/${auction.id}`}>
-											<h1 className="text-xl font-bold">{auction.title}</h1>
-										</Link>
-										<div className="flex flex-row gap-1 justify-center items-center px-2 p-1 bg-secondary-base border-primary-base border-2 rounded-xl ">
-											<h2 className="h-full text-primary-base">
-												{auction.live} live
-											</h2>
-											{isLive ? (
-												<div className="relative h-4 w-4">
-													<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
-													<p className="w-4 h-4 bg-green-500 rounded-full"></p>
-												</div>
-											) : (
-												<div className="relative h-4 w-4">
-													<p className="w-4 h-4 bg-red-500 rounded-full"></p>
-												</div>
-											)}
-										</div>
-									</div>
 
-									<div className="p-2 pb-6 px-3">
-										<p>{auction.description}</p>
-									</div>
-									<div className=" bg-[url('https://as1.ftcdn.net/v2/jpg/02/76/29/70/1000_F_276297089_WyP8nNMqA3ymVk5PnKPPZ3qvTsje6DPT.jpg')] bg-cover bg-center mx-2 rounded-lg text-primary-base font-medium text-base">
+								<div className="w-full px-4 pt-4">
+									<div className=" bg-secondary-base bg-cover bg-center m-1 rounded-lg text-primary-base font-medium text-base">
 										<div className="backdrop-blur-sm p-2 rounded-lg flex flex-col items-center">
 											<div className="w-full flex flex-row justify-between">
 												<div className="flex flex-row items-center gap-2">
@@ -334,10 +442,12 @@ function AuctionCard({ auction, status }: Props) {
 
 													<p>Dauer:</p>
 												</div>
-												<div>
+												<div className="">
 													<Countdown
 														startTime={new Date(auction.createdAt).getTime()}
-														durationInHours={auction.durationHours}></Countdown>
+														durationInHours={
+															auction.durationHours
+														}></Countdown>{" "}
 												</div>
 											</div>
 											<div className="w-full flex flex-row justify-between">
@@ -368,12 +478,35 @@ function AuctionCard({ auction, status }: Props) {
 											</div>
 										</div>
 									</div>
-									<div className="border-b-2 py-4 p-2 flex flex-row justify-between">
+									<div className="border-b-2 py-4 h-16 p-2 flex flex-row justify-between">
 										<div className="h-full w-20 flex gap-4 flex-row justify-center items-center">
-											<BsHeart className="text-xl"></BsHeart>
-											<p>{auction.likes}likes</p>
+											{session && session.user ? (
+												<button
+													disabled={likeLoading}
+													onClick={() => {
+														handleLike()
+													}}>
+													{isLiked ? (
+														<BsHeartFill className="text-red-500 text-2xl shrink-0"></BsHeartFill>
+													) : (
+														<BsHeart className="text-2xl shrink-0"></BsHeart>
+													)}
+												</button>
+											) : (
+												<button onClick={() => signIn()}>
+													<BsHeart className="text-2xl shrink-0" />
+												</button>
+											)}
+
+											<p className="whitespace-nowrap">
+												{auction.userLike.length}{" "}
+												{auction.userLike.length > 1 ||
+												auction.userLike.length === 0
+													? "likes"
+													: "like"}
+											</p>
 										</div>
-										<div className="h-full flex justify-center text-gray-500 text-xl items-center">
+										<div className="h-full flex justify-center text-gray-500 text-2xl items-center">
 											{session && session.user ? (
 												<button
 													className="focus:outline-none duration-200"

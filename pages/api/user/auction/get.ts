@@ -17,6 +17,7 @@ const handler: Handler = async (req, res) => {
 						bids: true,
 						trostpreis: true,
 						userBookmark: true,
+						userLike: true,
 					},
 					orderBy: {
 						live: "desc",

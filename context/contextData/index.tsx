@@ -64,6 +64,10 @@ type GlobalStates = {
 	setShowMobileMenu: Dispatch<SetStateAction<boolean>>
 	notifications: any[]
 	setNotifications: Dispatch<SetStateAction<any>>
+	bookmarks: any[]
+	setBookmarks: Dispatch<SetStateAction<any>>
+	auctionLikes: any[]
+	setAuctionLikes: Dispatch<SetStateAction<any>>
 }
 
 export const Context = createContext<GlobalStates>({} as GlobalStates)
@@ -98,6 +102,8 @@ export const UserContext = ({ children }: { children: ReactNode }) => {
 	const [userCreatorData, setUserCreatorData] = useState({})
 	const [showMobileMenu, setShowMobileMenu] = useState(false)
 	const [notifications, setNotifications] = useState([])
+	const [bookmarks, setBookmarks] = useState([])
+	const [auctionLikes, setAuctionLikes] = useState([])
 
 	return (
 		<Context.Provider
@@ -158,6 +164,10 @@ export const UserContext = ({ children }: { children: ReactNode }) => {
 				setShowMobileMenu,
 				notifications,
 				setNotifications,
+				bookmarks,
+				setBookmarks,
+				auctionLikes,
+				setAuctionLikes,
 			}}>
 			{children}
 		</Context.Provider>

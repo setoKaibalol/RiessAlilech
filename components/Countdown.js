@@ -35,7 +35,7 @@ const Countdown = ({ startTime, durationInHours }) => {
 						{hours.toString().padStart(2, "0")}
 					</span>
 					:{minutes.toString().padStart(2, "0")}:
-					{seconds.toString().padStart(2, "0")}
+					{seconds.toString().padStart(2, "0")} h
 				</div>
 			</div>
 		)

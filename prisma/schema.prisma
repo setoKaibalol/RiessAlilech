@@ -37,22 +37,25 @@ model session {
 }
 
 model User {
-  id              String         @id @default(cuid())
-  name            String?
-  email           String?        @unique
-  emailVerified   DateTime?
-  image           String?        @db.Text
-  creatorVerified Boolean        @default(false)
-  description     String?        @db.Text
-  role            Role           @default(USER)
-  credits         Int            @default(0)
-  accounts        Account[]
-  Creator         Creator[]
-  sessions        session[]
-  Bid             Bid[]
-  Tip             Tip[]
-  Notification    Notification[]
-  Bookmarks       Auction[]
+  id               String         @id @default(cuid())
+  name             String?
+  email            String?        @unique
+  emailVerified    DateTime?
+  image            String?        @db.Text
+  creatorVerified  Boolean        @default(false)
+  description      String?        @db.Text
+  role             Role           @default(USER)
+  credits          Int            @default(0)
+  accounts         Account[]
+  Creator          Creator?
+  sessions         session[]
+  Bid              Bid[]
+  Tip              Tip[]
+  Notification     Notification[]
+  auctionBookmarks Auction[]      @relation("auctionBookmarks")
+  auctionLikes     Auction[]      @relation("auctionLikes")
+  createdAt        DateTime       @default(now())
+  lastSeen         DateTime       @default(now())
 }
 
 model Notification {
@@ -126,7 +129,8 @@ model Auction {
   itemId          String?        @default("item deleted")
   bids            Bid[]
   Notification    Notification[]
-  userBookmark    User[]
+  userBookmark    User[]         @relation("auctionBookmarks")
+  userLike        User[]         @relation("auctionLikes")
 
   @@index([creatorId], map: "Auction_creatorId_fkey")
   @@index([itemId], map: "Auction_itemId_fkey")

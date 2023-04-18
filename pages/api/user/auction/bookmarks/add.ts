@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import { getServerSession } from "next-auth/next"
 import { Session } from "next-auth"
 import { prisma } from "@/prisma/PrismaClient"
-import { authOptions } from "../../auth/[...nextauth]"
+import { authOptions } from "../../../auth/[...nextauth]"
 
 type Handler = (
 	req: NextApiRequest & {
@@ -20,13 +20,13 @@ const handler: Handler = async (req, res) => {
 				return
 			}
 
-			const notifications = await prisma.user
+			const user = await prisma.user
 				.update({
 					where: {
 						id: session.user.id,
 					},
 					data: {
-						Bookmarks: {
+						auctionBookmarks: {
 							connect: {
 								id: req.body.auctionId,
 							},
@@ -39,7 +39,7 @@ const handler: Handler = async (req, res) => {
 					return
 				})
 
-			res.status(200).send(notifications)
+			res.status(200).send(user)
 			return
 		} else {
 			res.status(405).json({ message: "Method not allowed" })
