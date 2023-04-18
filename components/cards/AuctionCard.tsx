@@ -304,7 +304,7 @@ function AuctionCard({ auction, status }: Props) {
 								<div className="">
 									<div className="pt-6 px-3 flex flex-row justify-between">
 										<Link href={`/auction/${auction.id}`}>
-											<h1 className="text-2xl font-bold">{auction.title}</h1>
+											<h1 className="text-xl font-bold">{auction.title}</h1>
 										</Link>
 										<div className="flex flex-row gap-1 justify-center items-center px-2 p-1 bg-secondary-base border-primary-base border-2 rounded-xl ">
 											<h2 className="h-full text-primary-base">
@@ -326,10 +326,10 @@ function AuctionCard({ auction, status }: Props) {
 									<div className="p-2 pb-6 px-3">
 										<p>{auction.description}</p>
 									</div>
-									<div className="flex border-y text-secondary-base pb-5 text-lg items-center p-2 px-3 gap-4 flex-col">
+									<div className="flex border-y text-secondary-base pb-5 text-base items-center p-2 px-3 gap-4 flex-col">
 										<div className="w-full flex flex-row gap-2 justify-between">
 											<div className="flex flex-row items-center gap-2">
-												<AiOutlineClockCircle className="text-accent-base text-2xl"></AiOutlineClockCircle>
+												<AiOutlineClockCircle className="text-accent-base text-xl"></AiOutlineClockCircle>
 
 												<p>Dauer:</p>
 											</div>
@@ -341,7 +341,7 @@ function AuctionCard({ auction, status }: Props) {
 										</div>
 										<div className="w-full flex flex-row gap-2 justify-between">
 											<div className="flex flex-row items-center gap-2">
-												<AiOutlinePlayCircle className="text-accent-base text-2xl"></AiOutlinePlayCircle>
+												<AiOutlinePlayCircle className="text-accent-base text-xl"></AiOutlinePlayCircle>
 
 												<p className="">Mindestgebot:</p>
 											</div>
@@ -354,7 +354,7 @@ function AuctionCard({ auction, status }: Props) {
 										</div>
 										<div className="w-full flex flex-row gap-2 justify-between">
 											<div className="flex flex-row items-center gap-2">
-												<BiMoney className="text-accent-base text-2xl"></BiMoney>
+												<BiMoney className="text-accent-base text-xl"></BiMoney>
 												{auction.live ? (
 													<p>Aktuelles Höchstgebot:</p>
 												) : (
@@ -371,7 +371,7 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 									<div className="border-b-2 h-20 flex flex-row justify-between">
 										<div className="h-full w-20"></div>
-										<div className="h-full w-20 flex justify-center text-gray-500 text-3xl items-center">
+										<div className="h-full w-20 flex justify-center text-gray-500 text-xl items-center">
 											{session && session.user ? (
 												<button
 													className="focus:outline-none duration-200"
