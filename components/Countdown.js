@@ -19,7 +19,7 @@ const Countdown = ({ startTime, durationInHours }) => {
 		if (timeLeft < 0) {
 			return (
 				<div className="text-red-500 w-full justify-center flex items-center">
-					ABGELAUFEN
+					-
 				</div>
 			)
 		}
@@ -31,7 +31,7 @@ const Countdown = ({ startTime, durationInHours }) => {
 		return (
 			<div className="flex flex-col w-full">
 				<div className="w-full flex justify-center">
-					<span className="text-accent-base">
+					<span className="text-primary-base">
 						{hours.toString().padStart(2, "0")}
 					</span>
 					:{minutes.toString().padStart(2, "0")}:
@@ -42,8 +42,8 @@ const Countdown = ({ startTime, durationInHours }) => {
 	}
 
 	return (
-		<div className="flex items-center w-full justify-center text-secondary-base font-primary">
-			<span className=" w-full font-medium">{remainingTime}</span>
+		<div className="flex items-center w-full justify-center text-primary-base font-primary">
+			<span className="w-full font-medium">{remainingTime}</span>
 		</div>
 	)
 }

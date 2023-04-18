@@ -118,6 +118,8 @@ model Auction {
   totalTips       Int            @default(0)
   Creator         Creator        @relation(fields: [creatorId], references: [id])
   creatorId       String
+  likes           Int            @default(0)
+  theme           String?        @default("default")
   trostpreis      Item?          @relation("trostpreisItem", fields: [trostpreisId], references: [id], onDelete: SetNull)
   trostpreisId    String?        @default("item deleted")
   item            Item?          @relation("mainItem", fields: [itemId], references: [id], onDelete: SetNull)

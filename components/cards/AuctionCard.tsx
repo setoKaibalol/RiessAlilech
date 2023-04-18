@@ -15,7 +15,7 @@ import { endAuction } from "@/helpers/endAuction"
 import { AiOutlineClockCircle, AiOutlinePlayCircle } from "react-icons/ai"
 import { RiAuctionLine } from "react-icons/ri"
 import { VscVerifiedFilled } from "react-icons/vsc"
-import { BsBookmark, BsBookmarkCheckFill } from "react-icons/bs"
+import { BsBookmark, BsBookmarkCheckFill, BsHeart } from "react-icons/bs"
 moment.locale("de")
 
 type Props = {
@@ -250,34 +250,34 @@ function AuctionCard({ auction, status }: Props) {
 				case "loaded":
 					return (
 						<div className="w-full h-auto text-secondary-base font-primary bg-primary-base flex flex-col gap-2 max-w-md">
-							<div className="w-full px-2 h-20 flex flex-row items-center justify-between">
-								<div className="flex flex-row gap-4 items-start justify-between w-full">
-									<div className="flex flex-row justify-center items-start gap-4">
-										<Link href={`/creator/${auction.Creator.id}`} className="">
-											<div className="relative w-14 h-14">
-												<Image
-													src={auction.Creator.profilePicture}
-													alt="profile picture"
-													fill
-													className="rounded-full"
-													unoptimized></Image>
-											</div>
+							<div className="w-full p-2 h-auto flex flex-row items-start justify-between">
+								<div className="flex flex-row justify-start items-center gap-4">
+									<Link href={`/creator/${auction.Creator.id}`} className="">
+										<div className="relative w-14 h-14">
+											<Image
+												src={auction.Creator.profilePicture}
+												alt="profile picture"
+												fill
+												className="rounded-full"
+												unoptimized></Image>
+										</div>
+									</Link>
+									<div className="flex flex-col gap-1">
+										<Link
+											href={`/creator/${auction.Creator.id}`}
+											className="flex flex-row justify-center items-center gap-1 h-5">
+											<h2 className="text-lg font-bold">
+												{auction.Creator.nickName}
+											</h2>
+											<VscVerifiedFilled className="text-blue-500 text-xl"></VscVerifiedFilled>
 										</Link>
-										<div className="flex flex-col h-10 gap-1">
-											<Link
-												href={`/creator/${auction.Creator.id}`}
-												className="flex flex-row justify-center items-center gap-1 h-5">
-												<h2 className="text-lg font-bold">
-													{auction.Creator.nickName}
-												</h2>
-												<VscVerifiedFilled className="text-blue-500 text-xl"></VscVerifiedFilled>
-											</Link>
-											<div>@{auction.Creator.nickName}</div>
+										<div className="text-gray-500">
+											@{auction.Creator.nickName}
 										</div>
 									</div>
-									<div className="h-full w-auto text-gray-500">
-										{moment(auction.createdAt).fromNow()}
-									</div>
+								</div>
+								<div className="w-auto text-gray-500">
+									{moment(auction.createdAt).fromNow()}
 								</div>
 							</div>
 							<div className="h-auto w-full flex flex-col rounded-sm">
@@ -302,7 +302,7 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</Link>
 								<div className="">
-									<div className="pt-6 px-3 flex flex-row justify-between">
+									<div className="pt-6 p-2 flex flex-row justify-between">
 										<Link href={`/auction/${auction.id}`}>
 											<h1 className="text-xl font-bold">{auction.title}</h1>
 										</Link>
@@ -326,52 +326,54 @@ function AuctionCard({ auction, status }: Props) {
 									<div className="p-2 pb-6 px-3">
 										<p>{auction.description}</p>
 									</div>
-									<div className="flex border-y text-secondary-base pb-5 text-base items-center p-2 px-3 gap-4 flex-col">
-										<div className="w-full flex flex-row gap-2 justify-between">
-											<div className="flex flex-row items-center gap-2">
-												<AiOutlineClockCircle className="text-accent-base text-xl"></AiOutlineClockCircle>
+									<div className=" bg-[url('https://as1.ftcdn.net/v2/jpg/02/76/29/70/1000_F_276297089_WyP8nNMqA3ymVk5PnKPPZ3qvTsje6DPT.jpg')] bg-cover bg-center mx-2 rounded-lg text-primary-base font-medium text-base">
+										<div className="backdrop-blur-sm p-2 rounded-lg flex flex-col items-center">
+											<div className="w-full flex flex-row justify-between">
+												<div className="flex flex-row items-center gap-2">
+													<AiOutlineClockCircle className="text-accent-base text-xl"></AiOutlineClockCircle>
 
-												<p>Dauer:</p>
+													<p>Dauer:</p>
+												</div>
+												<div>
+													<Countdown
+														startTime={new Date(auction.createdAt).getTime()}
+														durationInHours={auction.durationHours}></Countdown>
+												</div>
 											</div>
-											<div>
-												<Countdown
-													startTime={new Date(auction.createdAt).getTime()}
-													durationInHours={auction.durationHours}></Countdown>
-											</div>
-										</div>
-										<div className="w-full flex flex-row gap-2 justify-between">
-											<div className="flex flex-row items-center gap-2">
-												<AiOutlinePlayCircle className="text-accent-base text-xl"></AiOutlinePlayCircle>
+											<div className="w-full flex flex-row justify-between">
+												<div className="flex flex-row items-center gap-2">
+													<AiOutlinePlayCircle className="text-accent-base text-xl"></AiOutlinePlayCircle>
 
-												<p className="">Mindestgebot:</p>
+													<p className="">Mindestgebot:</p>
+												</div>
+												<div>
+													<span className="">{auction.minTip}</span> €
+												</div>
 											</div>
-											<div>
-												<span className="text-accent-base font-medium">
-													{auction.minTip}
-												</span>{" "}
-												€
-											</div>
-										</div>
-										<div className="w-full flex flex-row gap-2 justify-between">
-											<div className="flex flex-row items-center gap-2">
-												<BiMoney className="text-accent-base text-xl"></BiMoney>
-												{auction.live ? (
-													<p>Aktuelles Höchstgebot:</p>
-												) : (
-													<p>Höchstgebot</p>
-												)}
-											</div>
-											<div>
-												<span className="text-accent-base font-medium">
-													{findHighestBid(auction.bids)}
-												</span>{" "}
-												€
+											<div className="w-full flex flex-row gap-2 justify-between">
+												<div className="flex flex-row items-center gap-2">
+													<BiMoney className="text-accent-base text-xl"></BiMoney>
+													{auction.live ? (
+														<p>Aktuelles Höchstgebot:</p>
+													) : (
+														<p>Höchstgebot</p>
+													)}
+												</div>
+												<div>
+													<span className="">
+														{findHighestBid(auction.bids)}
+													</span>{" "}
+													€
+												</div>
 											</div>
 										</div>
 									</div>
-									<div className="border-b-2 h-20 flex flex-row justify-between">
-										<div className="h-full w-20"></div>
-										<div className="h-full w-20 flex justify-center text-gray-500 text-xl items-center">
+									<div className="border-b-2 py-4 p-2 flex flex-row justify-between">
+										<div className="h-full w-20 flex gap-4 flex-row justify-center items-center">
+											<BsHeart className="text-xl"></BsHeart>
+											<p>{auction.likes}likes</p>
+										</div>
+										<div className="h-full flex justify-center text-gray-500 text-xl items-center">
 											{session && session.user ? (
 												<button
 													className="focus:outline-none duration-200"
@@ -380,7 +382,7 @@ function AuctionCard({ auction, status }: Props) {
 														handleBookmark()
 													}}>
 													{bookmarkLoading ? (
-														<ClipLoader size={30}></ClipLoader>
+														<ClipLoader size={20}></ClipLoader>
 													) : isBookmarked ? (
 														<BsBookmarkCheckFill className="text-accent-base" />
 													) : (
