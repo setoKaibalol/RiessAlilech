@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: false,
+	productionBrowserSourceMaps: true,
 	images: {
 		domains: [
 			"lh3.googleusercontent.com",
