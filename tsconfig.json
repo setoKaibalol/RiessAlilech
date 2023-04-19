@@ -32,7 +32,8 @@
 		"pages/api/creator/uploadImage.js",
 		"pages/api/creator/uploadImage.js",
 		"Middleware.js",
-		"components/TipModal.js"
+		"components/TipModal.js",
+		"pages/500.js"
 	],
 	"exclude": ["node_modules"]
 }
