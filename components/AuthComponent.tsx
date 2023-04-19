@@ -22,6 +22,7 @@ export const AuthComponent = () => {
 		if (
 			session &&
 			session.user.role === "CREATOR" &&
+			userCreatorData &&
 			Object.keys(userCreatorData).length === 0
 		) {
 			fetch("/api/creator/get", {
