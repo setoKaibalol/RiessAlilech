@@ -76,7 +76,7 @@ function Creator(props: Props) {
 			: ""
 
 	return creator ? (
-		<div className="pt-20 flex flex-col pb-20 items-center gap-2 bg-primary-base">
+		<div className="pt-20 flex flex-col pb-20 items-center gap-4 bg-primary-base">
 			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg bg-primary-base">
 				<TipModal
 					isOpen={tipModalOpen}
@@ -104,10 +104,47 @@ function Creator(props: Props) {
 						alt="Creator"
 					/>
 				</div>
-				<div className="px-6 py-4">
-					<div className="text-secondary-base gap-2 text-2xl font-bold items-center flex flex-row">
+				<div className="flex flex-col items-center px-6 py-4">
+					<div className="text-secondary-base gap-2 text-2xl font-bold items-center flex flex-row mb-2">
 						{creator.realName}, {creator.age}
-						<VscVerifiedFilled className="text-2xl shrink-0 text-blue-500"></VscVerifiedFilled>
+						<VscVerifiedFilled className="text-2xl shrink-0 text-blue-500 ml-2"></VscVerifiedFilled>
+					</div>
+					<div className="flex flex-row space-x-4">
+						{creator.instagram ? (
+							<Link href={creator.instagram} rel="noreferrer" target="_blank">
+								<TbBrandInstagram className=" text-purple-500 h-8 w-8" />
+							</Link>
+						) : null}
+						{creator.tiktok ? (
+							<Link href={creator.tiktok} rel="noreferrer" target="_blank">
+								<TbBrandTiktok className=" text-black h-8 w-8" />
+							</Link>
+						) : null}
+						{creator.fourBased ? (
+							<Link rel="noreferrer" href={creator.fourBased} target="_blank">
+								<Image
+									alt="4Based"
+									src={"/media/images/4Based_Transparent.png"}
+									width={35}
+									height={35}
+								/>
+							</Link>
+						) : null}
+						{creator.twitter ? (
+							<Link href={creator.twitter} target="_blank" rel="noreferrer">
+								<TbBrandTwitter className=" text-blue-400 h-8 w-8" />
+							</Link>
+						) : null}
+						{creator.twitch ? (
+							<Link href={creator.twitch} target="_blank" rel="noreferrer">
+								<TbBrandTwitch className=" text-purple-600 h-8 w-8" />
+							</Link>
+						) : null}
+						{creator.onlyfans ? (
+							<Link href={creator.onlyfans} target="_blank" rel="noreferrer">
+								<TbBrandOnlyfans className=" text-red-500 h-8 w-8" />
+							</Link>
+						) : null}
 					</div>
 				</div>
 				<div className="flex flex-col p-4 max-w-sm w-full">
@@ -133,72 +170,7 @@ function Creator(props: Props) {
 						className="p-2 h-20 rounded-b-xl bg-primary-base border shadow-lg"></textarea>
 				</div>
 			</div>
-			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg bg-primary-base ">
-				<div className="px-6 py-4">
-					<div className="flex flex-row">
-						{creator.instagram ? (
-							<Link
-								href={creator.instagram}
-								rel="noreferrer"
-								target="_blank"
-								className=" text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-								<TbBrandInstagram className=" text-purple-500 h-8 w-8 inline-block mr-1" />
-							</Link>
-						) : null}
-						{creator.tiktok ? (
-							<Link
-								href={creator.tiktok}
-								rel="noreferrer"
-								target="_blank"
-								className=" text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-								<TbBrandYoutube className=" text-red-600 h-8 w-8 inline-block mr-1" />
-							</Link>
-						) : null}
-						{creator.fourBased ? (
-							<Link
-								rel="noreferrer"
-								href={creator.fourBased}
-								target="_blank"
-								className=" text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-								<Image
-									alt="4Based"
-									src={"/media/images/4Based_Transparent.png"}
-									width={35}
-									height={35}
-								/>
-							</Link>
-						) : null}
-						{creator.twitter ? (
-							<Link
-								href={creator.twitter}
-								target="_blank"
-								rel="noreferrer"
-								className="bg-accent-base text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-								<TbBrandTwitch className=" text-purple-600 h-8 w-8 inline-block mr-1" />
-							</Link>
-						) : null}
-						{creator.twitch ? (
-							<Link
-								href={creator.twitch}
-								target="_blank"
-								rel="noreferrer"
-								className="bg-accent-base text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-								<TbBrandTwitch className=" text-purple-600 h-8 w-8 inline-block mr-1" />
-							</Link>
-						) : null}
-						{creator.onlyfans ? (
-							<Link
-								href={creator.onlyfans}
-								target="_blank"
-								rel="noreferrer"
-								className="bg-accent-base text-2xl text-primary-base font-bold py-2 px-4 rounded-full mr-2 mb-2 transition-all duration-200 ease-in-out transform hover:scale-105">
-								<TbBrandTwitch className=" text-purple-600 h-8 w-8 inline-block mr-1" />
-							</Link>
-						) : null}
-					</div>
-				</div>
-			</div>
-			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg bg-white my-2">
+			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg bg-primary-base my-3">
 				{creator.realName && (
 					<div className="flex flex-row px-6 py-4 items-center gap-3 text-xl font-medium">
 						<BsPersonHeart className="h-8 w-8" />
@@ -225,7 +197,7 @@ function Creator(props: Props) {
 				)}
 			</div>
 
-			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg my-3 bg-white">
+			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg my-3 bg-primary-base">
 				{creator.description && (
 					<div className="flex flex-col px-6 py-4">
 						<h2 className="font-bold text-xl">Über Mich:</h2>
@@ -233,7 +205,6 @@ function Creator(props: Props) {
 					</div>
 				)}
 			</div>
-			<div className="max-w-sm w-full font-primary rounded overflow-hidden shadow-lg my-3 bg-white"></div>
 		</div>
 	) : (
 		<div className="pt-20 min-h-screen bg-primary flex text-center w-full h-full justify-center items-center text-5xl">

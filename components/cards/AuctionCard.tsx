@@ -438,50 +438,6 @@ function AuctionCard({ auction, status }: Props) {
 								</Link>
 
 								<div className="w-full px-4 pt-4">
-									<div className=" bg-secondary-base bg-cover bg-center m-1 rounded-lg text-primary-base font-medium text-base">
-										<div className="backdrop-blur-sm p-2 rounded-lg flex flex-col items-center">
-											<div className="w-full flex flex-row justify-between">
-												<div className="flex flex-row items-center gap-2">
-													<AiOutlineClockCircle className="text-accent-base text-xl"></AiOutlineClockCircle>
-
-													<p>Dauer:</p>
-												</div>
-												<div className="">
-													<Countdown
-														startTime={new Date(auction.createdAt).getTime()}
-														durationInHours={
-															auction.durationHours
-														}></Countdown>{" "}
-												</div>
-											</div>
-											<div className="w-full flex flex-row justify-between">
-												<div className="flex flex-row items-center gap-2">
-													<AiOutlinePlayCircle className="text-accent-base text-xl"></AiOutlinePlayCircle>
-
-													<p className="">Mindestgebot:</p>
-												</div>
-												<div>
-													<span className="">{auction.minTip}</span> €
-												</div>
-											</div>
-											<div className="w-full flex flex-row gap-2 justify-between">
-												<div className="flex flex-row items-center gap-2">
-													<BiMoney className="text-accent-base text-xl"></BiMoney>
-													{auction.live ? (
-														<p>Aktuelles Höchstgebot:</p>
-													) : (
-														<p>Höchstgebot</p>
-													)}
-												</div>
-												<div>
-													<span className="">
-														{findHighestBid(auction.bids)}
-													</span>{" "}
-													€
-												</div>
-											</div>
-										</div>
-									</div>
 									<div className="py-4 h-16 p-2 flex flex-row justify-between">
 										<div className="h-full w-20 flex gap-4 flex-row justify-center items-center">
 											{session && session.user ? (

@@ -46,7 +46,7 @@ export default function Home() {
 						<Link
 							className="w-full p-2 bg-primary-base rounded-md text-2xl font-medium text-secondary-base flex justify-center"
 							href={"/explore?category=creators"}>
-							Creators
+							Creator
 						</Link>
 						<Link
 							className="w-full p-2 justify-center flex flex-row items-center bg-primary-base rounded-md text-2xl font-medium text-secondary-base "
