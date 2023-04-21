@@ -178,7 +178,7 @@ const handler = async (req, res) => {
 							},
 							data: {
 								credits: {
-									increment: (paymentIntent.amount * 10) / 100,
+									increment: metadata.creditsAmount,
 								},
 							},
 						})

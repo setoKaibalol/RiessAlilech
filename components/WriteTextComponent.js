@@ -8,15 +8,15 @@ new Typewriter("#typewriter", {
 
 function WriteTextComponent() {
 	return (
-		<div className="w-80 text-secondary-base text-2xl font-bold">
+		<div className="w-80 text-secondary-base text-xl font-bold">
 			<div className="">
 				<p className="text-primary-base font-medium">Hier findest du </p>{" "}
 				<Typewriter
 					options={{
 						strings: [
 							"eine große Auswahl an bezauberndem Content.",
-							"liebevoll getragene Unterwäsche.",
-							"unterschiedliche getragene Kleidungsstücke.",
+							"persönliche Gegenstände von deinem Lieblingscreator.",
+							"eine Möglichkeit in die Welt deiner Lieblingscreator einzutauchen.",
 						],
 						cursor: "|",
 						autoStart: true,
