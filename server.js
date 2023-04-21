@@ -20,7 +20,7 @@ app.prepare().then(() => {
 	const PORT = process.env.PORT || 3000
 
 	const ioServer = io(server)
-	const redisUrl = `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
+	const redisUrl = process.env.REDIS_URL
 
 	const pubClient = createClient(redisUrl)
 	const subClient = createClient(redisUrl)
@@ -56,5 +56,6 @@ app.prepare().then(() => {
 	server.listen(PORT, (err) => {
 		if (err) throw err
 		console.log(`> Ready on http://localhost:${PORT}`)
+		console.log(process.env.REDIS_URL)
 	})
 })
