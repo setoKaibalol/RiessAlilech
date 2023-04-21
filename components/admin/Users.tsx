@@ -46,12 +46,7 @@ const UsersLayout: React.FC<UsersLayoutProps> = ({ users, props }) => {
 			const user = users.find((u) => u.id === editingUserId)
 			setSaveUserStatus("loading")
 			setAdminUsersStatus("loading")
-			if (
-				role === "CREATOR" &&
-				user &&
-				(!user.Creator || user.Creator.length === 0)
-			) {
-				console.log("creator1, true")
+			if (role === "CREATOR" && user && !user.Creator) {
 				const res = await fetch(`/api/admin/users/creators/add`, {
 					method: "POST",
 					headers: {
@@ -61,7 +56,6 @@ const UsersLayout: React.FC<UsersLayoutProps> = ({ users, props }) => {
 					body: JSON.stringify({ user }),
 				})
 					.then((res) => {
-						console.log(res)
 						if (res.ok) {
 							stopEditingUser()
 							setSaveUserStatus("loaded")
@@ -146,7 +140,7 @@ const UsersLayout: React.FC<UsersLayoutProps> = ({ users, props }) => {
 								<tr key={user.id}>
 									<td className="px-6 py-4 w-32 inline-block text-sm font-medium text-gray-900">
 										<Link
-											href={`/admin/creators/${user.Creator[0].id}`}
+											href={`/admin/creators/${user.Creator.id}`}
 											className="flex flex-row">
 											<span className="font-semibold truncate block">
 												{user.id}

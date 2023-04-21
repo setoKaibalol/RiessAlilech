@@ -63,7 +63,7 @@ function Creator(props: Props) {
 	return creator ? (
 		<div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 pb-20">
 			<div className="flex justify-between mb-4 px-6">
-				<h1 className="text-2xl font-bold">Tips</h1>
+				<h1 className="text-2xl font-bold">erhaltene Tips</h1>
 			</div>
 			<div className="bg-white overflow-x-scroll shadow-xl sm:rounded-lg">
 				<table className="min-w-full divide-y divide-gray-200">

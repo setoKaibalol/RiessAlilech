@@ -78,11 +78,11 @@ model Notification {
 }
 
 model Creator {
-  id             String         @id @default(cuid())
-  nickName       String?        @default("anon")
+  id             String    @id @default(cuid())
+  nickName       String?   @default("anon")
   realName       String?
-  description    String?        @db.Text
-  profilePicture String?        @default("https://static.vecteezy.com/system/resources/previews/002/596/484/non_2x/default-avatar-photo-placeholder-profile-image-female-vector.jpg")
+  description    String?   @db.Text
+  profilePicture String?   @default("https://static.vecteezy.com/system/resources/previews/002/596/484/non_2x/default-avatar-photo-placeholder-profile-image-female-vector.jpg")
   country        String?
   origin         String?
   age            Int?
@@ -95,14 +95,15 @@ model Creator {
   website        String?
   onlyfans       String?
   twitch         String?
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
-  userId         String         @unique
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
   Item           Item[]
   Auction        Auction[]
-  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tipsReceived   Tip[]
-  Notification   Notification[]
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String    @unique
+
+  tipsReceived Tip[]
+  Notification Notification[]
 
   @@index([userId], map: "Creator_creatorId_fkey")
 }
