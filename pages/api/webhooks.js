@@ -178,7 +178,7 @@ const handler = async (req, res) => {
 							},
 							data: {
 								credits: {
-									increment: metadata.creditsAmount,
+									increment: parseInt(metadata.creditsAmount),
 								},
 							},
 						})
@@ -189,7 +189,6 @@ const handler = async (req, res) => {
 								credits: user.credits,
 							})
 						})
-
 						.catch((err) => console.log(err))
 
 					const notification = await prisma.notification
@@ -201,9 +200,7 @@ const handler = async (req, res) => {
 									},
 								},
 								type: "credits",
-								message: `Du hast ${
-									(paymentIntent.amount * 10) / 100
-								} TipTokens erhalten.`,
+								message: `Du hast ${metadata.creditsAmount} TipTokens erhalten.`,
 							},
 						})
 						.catch((err) => console.log(err))

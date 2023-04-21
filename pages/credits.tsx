@@ -21,7 +21,6 @@ const CreditsPage = () => {
 			: ""
 
 	const handleOptionSelect = (option: number) => {
-		console.log(option)
 		setSelectedOption(option)
 		setAmount(option)
 	}
