@@ -38,6 +38,15 @@ function NavbarMobile({}: Props) {
 		})
 			.then((res) => res.json())
 			.then((data) => {
+				let newData =
+					data.filter((notification: any) => {
+						if (notification.read === false) {
+							return notification
+						}
+
+						return
+					}).length > 0
+				console.log(newData)
 				setNotifications(data)
 			})
 	}, [])
@@ -75,9 +84,29 @@ function NavbarMobile({}: Props) {
 			current: false,
 			Icon: () => {
 				return (
-					<>
+					<div className="relative">
+						{notifications.filter((notification) => {
+							if (notification.read === false) {
+								return notification
+							}
+							return
+						}).length > 0 && (
+							<>
+								<div className="absolute -top-1 text-primary-base text-sm font-bold flex justify-center items-center -right-1 w-5 h-5 rounded-full bg-accent-base">
+									{
+										notifications.filter((notification) => {
+											if (notification.read === false) {
+												return notification
+											}
+
+											return
+										}).length
+									}
+								</div>
+							</>
+						)}
 						<MdOutlineNotifications className="w-8 h-8"></MdOutlineNotifications>
-					</>
+					</div>
 				)
 			},
 		},
@@ -129,20 +158,21 @@ function NavbarMobile({}: Props) {
 							if (notification.read === false) {
 								return notification
 							}
-
-							return false
+							return
 						}).length > 0 && (
-							<div className="absolute -top-1 text-primary-base text-sm font-bold flex justify-center items-center -right-1 w-5 h-5 rounded-full bg-accent-base">
-								{
-									notifications.filter((notification) => {
-										if (notification.read === false) {
-											return notification
-										}
+							<>
+								<div className="absolute -top-1 text-primary-base text-sm font-bold flex justify-center items-center -right-1 w-5 h-5 rounded-full bg-accent-base">
+									{
+										notifications.filter((notification) => {
+											if (notification.read === false) {
+												return notification
+											}
 
-										return false
-									}).length
-								}
-							</div>
+											return
+										}).length
+									}
+								</div>
+							</>
 						)}
 						<MdOutlineNotifications className="w-8 h-8"></MdOutlineNotifications>
 					</div>

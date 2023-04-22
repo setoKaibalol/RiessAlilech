@@ -41,7 +41,7 @@ const TipModal = ({
 	const [clientSecret, setClientSecret] = React.useState("")
 	const [paymentType, setPaymentType] = useState("stripe")
 	const { data: session, status } = useSession()
-
+	console.log(receiver)
 	React.useEffect(() => {
 		// Create PaymentIntent as soon as the page loads
 		if (isOpen && type === "creator") {
@@ -107,7 +107,7 @@ const TipModal = ({
 										onClick={() => {
 											setPaymentType("stripe")
 										}}
-										className={`flex w-1/2 p-4 justify-center rounded-sm items-center ${
+										className={`flex w-1/2 p-2 justify-center rounded-sm items-center ${
 											paymentType === "stripe" && "bg-accent-base"
 										}`}>
 										<MdEuroSymbol className="w-7 h-7 text-secondary-base"></MdEuroSymbol>
@@ -116,7 +116,7 @@ const TipModal = ({
 										onClick={() => {
 											setPaymentType("credits")
 										}}
-										className={`flex w-1/2 p-4 justify-center rounded-sm items-center ${
+										className={`flex w-1/2 p-2 justify-center rounded-sm items-center ${
 											paymentType === "credits" && "bg-accent-base"
 										}`}>
 										<svg
@@ -155,7 +155,9 @@ const TipModal = ({
 							)}
 							{paymentType === "credits" && (
 								<CreditPaymentElement
+									message={message}
 									type={type}
+									receiver={receiver}
 									amount={amount}></CreditPaymentElement>
 							)}
 						</div>
