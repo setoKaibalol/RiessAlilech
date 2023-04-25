@@ -36,7 +36,7 @@ function Creator(props: Props) {
 	const { creator } = props
 	const { data: session, status } = useSession()
 	const [tipModalOpen, setTipModalOpen] = React.useState(false)
-	const [amount, setAmount] = useState(0)
+	const [amount, setAmount] = useState<any>()
 	const [message, setMessage] = useState("")
 
 	useEffect(() => {
@@ -150,7 +150,7 @@ function Creator(props: Props) {
 				<div className="flex flex-col p-4 max-w-sm w-full">
 					<div className="flex w-full flex-row">
 						<button
-							disabled={!amount}
+							disabled={!amount || amount <= 0}
 							onClick={() => setTipModalOpen(!tipModalOpen)}
 							className="bg-accent-base disabled:bg-gray-500 gap-x-2 flex flex-row z-10 text-2xl text-primary-base font-bold py-2 px-4 w-1/2 rounded-tl-3xl duration-200">
 							<BiDonateHeart className="h-8 w-8 inline-block" />
@@ -159,6 +159,7 @@ function Creator(props: Props) {
 						<input
 							type={"number"}
 							placeholder="€"
+							min={0}
 							className="w-1/2 bg-accent-base rounded-l-none placeholder:text-primary-base text-2xl text-primary-base py-2 px-4 rounded-tr-3xl duration-200"
 							value={amount}
 							onChange={(e) => setAmount(parseInt(e.target.value))}></input>

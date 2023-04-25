@@ -148,10 +148,24 @@ const UsersLayout: React.FC<UsersLayoutProps> = ({ users, props }) => {
 										</Link>
 									</td>
 									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-										{user.name && user.name}
+										<Link
+											href={`/admin/creators/${user.Creator.id}`}
+											className="flex flex-row">
+											<span className="font-semibold truncate block">
+												{user.name
+													? user.name
+													: user.Creator.nickName && user.Creator.nickName}{" "}
+											</span>
+										</Link>
 									</td>
 									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-										{user.email}
+										<Link
+											href={`/admin/creators/${user.Creator.id}`}
+											className="flex flex-row">
+											<span className="font-semibold truncate block">
+												{user.email}
+											</span>
+										</Link>
 									</td>
 									<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
 										{user.role}

@@ -55,7 +55,7 @@ function Creator(props: Props) {
 		})
 
 		element.href = URL.createObjectURL(file)
-		element.download = `${creator.name} - Tips.csv`
+		element.download = `${creator.nickName} - Tips.csv`
 		document.body.appendChild(element) // Required for this to work in FireFox
 		element.click()
 	}

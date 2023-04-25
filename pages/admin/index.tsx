@@ -124,20 +124,6 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({}) => {
 								</Link>
 							</div>
 						</div>
-						<div className="flex items-center">
-							<div className="ml-4 flex items-center md:ml-6">
-								<Link
-									className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-									href="/admin/users">
-									Users
-								</Link>
-								<Link
-									className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-									href="/admin/auctions">
-									Auctions
-								</Link>
-							</div>
-						</div>
 					</div>
 				</div>
 			</nav>

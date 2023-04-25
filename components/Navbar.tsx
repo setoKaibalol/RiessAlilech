@@ -241,7 +241,7 @@ function Navbar({}: Props) {
 			</div>
 			{showMobileMenu && (
 				<div className="fixed z-20 inset-0 w-full h-full">
-					<div className="z-20 w-[60%] h-screen pb-14 flex flex-col border-l bg-primary-base absolute right-0 top-0">
+					<div className="z-20 w-[60%] h-screen pt-10 pb-14 flex flex-col border-l bg-primary-base absolute right-0 top-0">
 						<div className="flex flex-col gap-14 p-4 font-medium text-secondary-base w-full h-full">
 							<div className="flex flex-col ">
 								{mobileMenuNavigation.map((item, index) => (

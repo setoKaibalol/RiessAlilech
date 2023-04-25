@@ -75,133 +75,31 @@ function CreatorCard({ creator, status }: Props) {
 					return <p>error</p>
 				case "loaded":
 					return (
-						<>
-							<Link
-								href={`/creator/${creator.id}`}
-								className=" p-2 flex flex-col justify-center items-center font-primary hover:shadow-md w-[46%] h-auto bg-primary-base hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 max-w-sm hover:translate">
-								{creator.profilePicture && (
-									<div className="w-full relative h-36">
-										<Image
-											unoptimized
-											src={creator.profilePicture}
-											alt="Creator Avatar"
-											fill
-											style={{ objectFit: "cover", objectPosition: "center" }}
-											sizes="100%"
-											className=" rounded-t-md border-x border-t"
-										/>
-									</div>
-								)}
-								<div className="bg-primary-base w-full rounded-b-md border-b-2 border-x-2">
-									<div className="py-2 px-3">
-										<div className="text-secondary-base gap-2 text-lg font-bold items-center flex flex-row">
-											{creator.realName}, {creator.age}
-											<VscVerifiedFilled className="text-lg shrink-0 text-blue-500"></VscVerifiedFilled>
-										</div>
+						<Link
+							href={`/creator/${creator.id}`}
+							className="md:p-0 font-primary mb-4 max-h-48 h-44 hover:shadow-md md:w-40 w-[46%] hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 max-w-sm hover:translate">
+							{creator.profilePicture && (
+								<div className="w-full relative h-36">
+									<Image
+										unoptimized
+										src={creator.profilePicture}
+										alt="Creator Avatar"
+										fill
+										style={{ objectFit: "cover", objectPosition: "center" }}
+										sizes="100%"
+										className=" rounded-t-md border-x border-t"
+									/>
+								</div>
+							)}
+							<div className="bg-primary-base w-full rounded-b-md border-b-2 border-x-2">
+								<div className="py-2 px-3">
+									<div className="text-secondary-base gap-2 text-lg font-bold items-center flex flex-row">
+										{creator.realName}, {creator.age}
+										<VscVerifiedFilled className="text-lg shrink-0 text-blue-500"></VscVerifiedFilled>
 									</div>
 								</div>
-							</Link>
-							<Link
-								href={`/creator/${creator.id}`}
-								className=" p-2 flex flex-col justify-center items-center font-primary hover:shadow-md w-[46%] h-auto bg-primary-base hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 max-w-sm hover:translate">
-								{creator.profilePicture && (
-									<div className="w-full relative h-36">
-										<Image
-											unoptimized
-											src={creator.profilePicture}
-											alt="Creator Avatar"
-											fill
-											style={{ objectFit: "cover", objectPosition: "center" }}
-											sizes="100%"
-											className=" rounded-t-md border-x border-t"
-										/>
-									</div>
-								)}
-								<div className="bg-primary-base w-full rounded-b-md border-b-2 border-x-2">
-									<div className="py-2 px-3">
-										<div className="text-secondary-base gap-2 text-lg font-bold items-center flex flex-row">
-											{creator.realName}, {creator.age}
-											<VscVerifiedFilled className="text-lg shrink-0 text-blue-500"></VscVerifiedFilled>
-										</div>
-									</div>
-								</div>
-							</Link>
-							<Link
-								href={`/creator/${creator.id}`}
-								className=" p-2 flex flex-col justify-center items-center font-primary hover:shadow-md w-[46%] h-auto bg-primary-base hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 max-w-sm hover:translate">
-								{creator.profilePicture && (
-									<div className="w-full relative h-36">
-										<Image
-											unoptimized
-											src={creator.profilePicture}
-											alt="Creator Avatar"
-											fill
-											style={{ objectFit: "cover", objectPosition: "center" }}
-											sizes="100%"
-											className=" rounded-t-md border-x border-t"
-										/>
-									</div>
-								)}
-								<div className="bg-primary-base w-full rounded-b-md border-b-2 border-x-2">
-									<div className="py-2 px-3">
-										<div className="text-secondary-base gap-2 text-lg font-bold items-center flex flex-row">
-											{creator.realName}, {creator.age}
-											<VscVerifiedFilled className="text-lg shrink-0 text-blue-500"></VscVerifiedFilled>
-										</div>
-									</div>
-								</div>
-							</Link>
-							<Link
-								href={`/creator/${creator.id}`}
-								className=" p-2 flex flex-col justify-center items-center font-primary hover:shadow-md w-[46%] h-auto bg-primary-base hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 max-w-sm hover:translate">
-								{creator.profilePicture && (
-									<div className="w-full relative h-36">
-										<Image
-											unoptimized
-											src={creator.profilePicture}
-											alt="Creator Avatar"
-											fill
-											style={{ objectFit: "cover", objectPosition: "center" }}
-											sizes="100%"
-											className=" rounded-t-md border-x border-t"
-										/>
-									</div>
-								)}
-								<div className="bg-primary-base w-full rounded-b-md border-b-2 border-x-2">
-									<div className="py-2 px-3">
-										<div className="text-secondary-base gap-2 text-lg font-bold items-center flex flex-row">
-											{creator.realName}, {creator.age}
-											<VscVerifiedFilled className="text-lg shrink-0 text-blue-500"></VscVerifiedFilled>
-										</div>
-									</div>
-								</div>
-							</Link>
-							<Link
-								href={`/creator/${creator.id}`}
-								className=" p-2 flex flex-col justify-center items-center font-primary hover:shadow-md w-[46%] h-auto bg-primary-base hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 max-w-sm hover:translate">
-								{creator.profilePicture && (
-									<div className="w-full relative h-36">
-										<Image
-											unoptimized
-											src={creator.profilePicture}
-											alt="Creator Avatar"
-											fill
-											style={{ objectFit: "cover", objectPosition: "center" }}
-											sizes="100%"
-											className=" rounded-t-md border-x border-t"
-										/>
-									</div>
-								)}
-								<div className="bg-primary-base w-full rounded-b-md border-b-2 border-x-2">
-									<div className="py-2 px-3">
-										<div className="text-secondary-base gap-2 text-lg font-bold items-center flex flex-row">
-											{creator.realName}, {creator.age}
-											<VscVerifiedFilled className="text-lg shrink-0 text-blue-500"></VscVerifiedFilled>
-										</div>
-									</div>
-								</div>
-							</Link>
-						</>
+							</div>
+						</Link>
 					)
 				default:
 					return <SkeletonCard />

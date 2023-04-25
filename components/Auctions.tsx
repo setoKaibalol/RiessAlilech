@@ -62,64 +62,68 @@ function Auctions({ search }: Props) {
 	}, [])
 
 	return (
-		<div className="min-h-screen pt-3 md:pt-20 flex flex-col items-center bg-primary-base">
-			<div className="w-full flex flex-row justify-start p-2 h-20 ">
-				<button
-					onClick={() => setAuctionFilter("alle")}
-					className={`p-1 text-lg rounded-full px-4 h-max  ${
-						auctionFilter === "alle" ? "bg-accent-base" : "bg-gray-200"
-					}`}>
-					Alle
-				</button>
-			</div>
-			<div className="flex flex-wrap gap-10 md:flex-col w-full justify-center h-full pb-20">
-				{userAuctionsStatus === "loading" &&
-					[1, 2, 3, 4].map((i) => <SkeletonCard key={i} />)}
-				{userAuctionsStatus === "loaded" &&
-					userAuctions
-						.filter((auction, index) => {
-							if (search === "") {
-								return auction
-							}
+		<div className="min-h-screen flex flex-col bg-accent-base/20 items-center">
+			<div className="min-h-screen md:px-5 pt-3 border-x-2 w-fit flex flex-col items-center bg-primary-base">
+				<div className="w-full flex flex-row justify-start p-2 h-20 ">
+					<button
+						onClick={() => setAuctionFilter("alle")}
+						className={`p-1 text-lg rounded-full px-4 h-max  ${
+							auctionFilter === "alle" ? "bg-accent-base" : "bg-gray-200"
+						}`}>
+						Alle
+					</button>
+				</div>
+				<div className="flex flex-wrap gap-10 md:flex-col w-full justify-center h-full pb-20">
+					{userAuctionsStatus === "loading" &&
+						[1, 2, 3, 4].map((i) => <SkeletonCard key={i} />)}
+					{userAuctionsStatus === "loaded" &&
+						userAuctions
+							.filter((auction, index) => {
+								if (search === "") {
+									return auction
+								}
 
-							if (auction.title.toLowerCase().includes(search.toLowerCase())) {
-								return auction
-							}
-							if (
-								auction.item.name.toLowerCase().includes(search.toLowerCase())
-							) {
-								return auction
-							}
-							if (
-								auction.trostpreis.name
-									.toLowerCase()
-									.includes(search.toLowerCase())
-							) {
-								return auction
-							}
-							if (
-								auction.Creator.nickName
-									.toLowerCase()
-									.includes(search.toLowerCase())
-							) {
-								return auction
-							}
-							if (
-								auction.Creator.realName
-									.toLowerCase()
-									.includes(search.toLowerCase())
-							) {
-								return auction
-							}
-							return
-						})
-						.map((auction, index) => (
-							<AuctionCard
-								status={userAuctionsStatus}
-								key={index}
-								auction={auction}
-							/>
-						))}
+								if (
+									auction.title.toLowerCase().includes(search.toLowerCase())
+								) {
+									return auction
+								}
+								if (
+									auction.item.name.toLowerCase().includes(search.toLowerCase())
+								) {
+									return auction
+								}
+								if (
+									auction.trostpreis.name
+										.toLowerCase()
+										.includes(search.toLowerCase())
+								) {
+									return auction
+								}
+								if (
+									auction.Creator.nickName
+										.toLowerCase()
+										.includes(search.toLowerCase())
+								) {
+									return auction
+								}
+								if (
+									auction.Creator.realName
+										.toLowerCase()
+										.includes(search.toLowerCase())
+								) {
+									return auction
+								}
+								return
+							})
+							.map((auction, index) => (
+								<AuctionCard
+									status={userAuctionsStatus}
+									key={index}
+									auction={auction}
+								/>
+							))}
+				</div>
 			</div>
 		</div>
 	)
