@@ -16,13 +16,12 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<main className="full-height overflow-hidden font-primary relative">
+			<main className="full-height flex flex-col items-center w-full overflow-hidden font-primary relative">
 				{/* <div className="pt-40">
 					<Chat></Chat>
-				</div>
- */}{" "}
+				</div> */}
 				<AnimatedBackground></AnimatedBackground>
-				<div className=" w-full flex flex-col justify-start items-center gap-10 ">
+				<div className="md:h-96 w-full flex flex-col justify-start items-center gap-10 ">
 					<div className="flex flex-col max-w-sm items-center h-44 sm:pt-20 pt-8">
 						<h2 className="p-3 text-secondary-base text-2xl font-bold">
 							TipForYou
@@ -33,11 +32,11 @@ export default function Home() {
 						</h1>
 					</div>
 				</div>
-				<div className="flex flex-col lg:flex-row ">
+				<div className="flex flex-col w-full items-center">
 					<div className="w-full h-56 flex lg:justify-center lg:w-1/2 justify-start p-5 py-20">
 						<WriteTextComponent></WriteTextComponent>
 					</div>
-					<div className="flex flex-col gap-4 lg:w-1/2 justify-center items-center px-6">
+					<div className="flex w-full flex-col gap-4 lg:w-1/2 justify-center items-center px-6">
 						<Link
 							className="w-full p-2 bg-primary-base rounded-md text-2xl font-medium text-secondary-base flex justify-center"
 							href={"/explore?category=auctions"}>
