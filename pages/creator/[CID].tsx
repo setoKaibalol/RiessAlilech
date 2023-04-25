@@ -152,7 +152,7 @@ function Creator(props: Props) {
 						<button
 							disabled={!amount || amount <= 0}
 							onClick={() => setTipModalOpen(!tipModalOpen)}
-							className="bg-accent-base disabled:bg-gray-500 gap-x-2 flex flex-row z-10 text-2xl text-primary-base font-bold py-2 px-4 w-1/2 rounded-tl-3xl duration-200">
+							className="bg-green-500 disabled:bg-gray-500 gap-x-2 flex flex-row z-10 text-2xl text-primary-base font-bold py-2 px-4 w-1/2 rounded-tl-3xl duration-200">
 							<BiDonateHeart className="h-8 w-8 inline-block" />
 							Tip
 						</button>
