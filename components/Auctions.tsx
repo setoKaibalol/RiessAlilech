@@ -61,7 +61,7 @@ function Auctions({ search }: Props) {
 		}
 	}, [])
 
-	return (
+	return userAuctions.length > 0 ? (
 		<div className="min-h-screen flex flex-col bg-accent-base/20 items-center">
 			<div className="min-h-screen md:px-5 pt-3 border-x-2 w-fit flex flex-col items-center bg-primary-base">
 				<div className="w-full flex flex-row justify-start p-2 h-20 ">
@@ -125,6 +125,13 @@ function Auctions({ search }: Props) {
 							))}
 				</div>
 			</div>
+		</div>
+	) : (
+		<div className="min-h-screen flex flex-col w-full p-14 pt-20 items-center text-xl">
+			<p>
+				Hier werden in Zukunft Auktionen deiner Lieblingscreator stattfinden
+			</p>
+			<p>👀</p>
 		</div>
 	)
 }
