@@ -65,37 +65,8 @@ function Creators({ search }: Props) {
 	}, [])
 	return (
 		<div className="min-h-screen bg-accent-base/20 md:pt-0 flex flex-col items-center">
-			<div className="flex flex-col h-full min-h-screen bg-primary-base">
-				<div className="gap-2 md:justify-start justify-center items-start max-w-xl md:px-5 pt-3 md:border-x-2 md:w-fit w-full flex flex-wrap">
-					{creatorsStatus === "loading" &&
-						[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-							<SkeletonCard key={i} />
-						))}
-					{creatorsStatus === "loaded" &&
-						creators
-							.filter((creator, index) => {
-								if (search === "") {
-									return creator
-								}
-								if (
-									creator.nickName.toLowerCase().includes(search.toLowerCase())
-								) {
-									return creator
-								}
-								if (
-									creator.realName.toLowerCase().includes(search.toLowerCase())
-								) {
-									return creator
-								}
-								return
-							})
-							.map((creator, index) => (
-								<CreatorCard
-									status={creatorsStatus}
-									key={index}
-									creator={creator}
-								/>
-							))}
+			<div className="flex flex-col h-full w-full md:w-auto min-h-screen bg-primary-base">
+				<div className="gap-2 md:justify-start justify-center items-start md:max-w-xl md:px-5 pt-3 md:border-x-2 md:w-fit w-full flex flex-wrap">
 					{creatorsStatus === "loading" &&
 						[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
 							<SkeletonCard key={i} />

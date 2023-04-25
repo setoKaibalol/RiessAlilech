@@ -1,6 +1,22 @@
 import { NextApiRequest, NextApiResponse } from "next"
 
-const stripe = require("stripe")(process.env.STRIPE_SKEY_TEST)
+if (!process.env.STRIPE_SKEY_TEST || !process.env.STRIPE_SKEY_LIVE) {
+	throw new Error("Missing STRIPE_SKEY env variable")
+}
+
+if (
+	process.env.NEXT_PUBLIC_STRIPE_MODE !== "live" &&
+	process.env.NEXT_PUBLIC_STRIPE_MODE !== "test"
+) {
+	throw new Error("NEXT_PUBLIC_STRIPE_MODE must be either 'live' or 'test'")
+}
+
+const StripeSkey: string =
+	process.env.NEXT_PUBLIC_STRIPE_MODE === "live"
+		? process.env.STRIPE_SKEY_LIVE
+		: process.env.STRIPE_SKEY_TEST
+
+const stripe = require("stripe")(StripeSkey)
 
 const calculateOrderAmount = (tip: any) => {
 	return tip.amount * 100

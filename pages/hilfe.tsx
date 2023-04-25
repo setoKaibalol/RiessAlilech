@@ -37,7 +37,7 @@ function Hilfe({}: Props) {
 						{
 							question: "Ich brauche Hilfe!",
 							answer:
-								"Für Unterstützung Kontaktiere uns per email unter y.alilech@tipforyou.de.",
+								"Falls du Unterstüzung brauchst kannst du uns per email unter y.alilech@tipforyou.de kontaktieren.",
 						},
 					]}></FAQ>
 			</div>

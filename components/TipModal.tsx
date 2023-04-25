@@ -21,11 +21,26 @@ type TipModalProps = {
 	message: string
 }
 
-if (!process.env.NEXT_PUBLIC_STRIPE_PKEY_TEST) {
+if (
+	!process.env.NEXT_PUBLIC_STRIPE_PKEY_TEST ||
+	!process.env.NEXT_PUBLIC_STRIPE_PKEY_LIVE
+) {
 	throw new Error("Missing STRIPE_PKEY_TEST env variable")
 }
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PKEY_TEST)
+if (
+	process.env.NEXT_PUBLIC_STRIPE_MODE !== "live" &&
+	process.env.NEXT_PUBLIC_STRIPE_MODE !== "test"
+) {
+	throw new Error("NEXT_PUBLIC_STRIPE_MODE must be either 'live' or 'test'")
+}
+
+const StripePkey: string =
+	process.env.NEXT_PUBLIC_STRIPE_MODE === "live"
+		? process.env.NEXT_PUBLIC_STRIPE_PKEY_LIVE
+		: process.env.NEXT_PUBLIC_STRIPE_PKEY_TEST
+
+const stripePromise = loadStripe(StripePkey)
 
 const TipModal = ({
 	isOpen,
@@ -41,7 +56,7 @@ const TipModal = ({
 	const [clientSecret, setClientSecret] = React.useState("")
 	const [paymentType, setPaymentType] = useState("stripe")
 	const { data: session, status } = useSession()
-	console.log(receiver)
+
 	React.useEffect(() => {
 		// Create PaymentIntent as soon as the page loads
 		if (isOpen && type === "creator") {

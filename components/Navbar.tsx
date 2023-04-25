@@ -30,7 +30,7 @@ function Navbar({}: Props) {
 			href: "/explore?category=auctions",
 			current: current === 1,
 		},
-		{ name: "FAQ", href: "/FAQ", current: current === 2 },
+		{ name: "FAQ", href: "/hilfe", current: current === 2 },
 	]
 
 	const MobileMenuButton = useRef(null)
