@@ -186,7 +186,7 @@ function Navbar({}: Props) {
 							</Link>{" "}
 							•{" "}
 							<Link className="px-2" href={"/AGB"} target="_blank">
-								AGB's
+								AGB&apos;s
 							</Link>{" "}
 							•{" "}
 							<Link className="px-2" href={"/usc-2257"} target="_blank">
