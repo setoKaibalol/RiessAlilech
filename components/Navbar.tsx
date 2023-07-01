@@ -296,10 +296,34 @@ function Navbar({}: Props) {
 								)}
 							</div>
 						</div>
-						<div className="p-4">
-							<Link href={"/usc-2257"} target="_blank">
+						<div className="p-4 text-center">
+							<Link className="px-2" href={"/impressum"} target="_blank">
+								Impressum
+							</Link>{" "}
+							•{" "}
+							<Link className="px-2" href={"/hilfe"} target="_blank">
+								FAQ
+							</Link>{" "}
+							•{" "}
+							<Link className="px-2" href={"/privacy-policy"} target="_blank">
+								Datenschutz
+							</Link>{" "}
+							•{" "}
+							<Link className="px-2" href={"/AGB"} target="_blank">
+								AGB&apos;s
+							</Link>{" "}
+							•{" "}
+							<Link className="px-2" href={"/usc-2257"} target="_blank">
 								18 U.S.C. 2257 Record-Keeping Requirements Compliance Statement
-							</Link>
+							</Link>{" "}
+							•{" "}
+							<a className="px-2" href={"https://epoch.com"} target="_blank">
+								Billing Support
+							</a>{" "}
+							•{" "}
+							<Link className="px-2" href="/kontakt" target="_blank">
+								Kontakt
+							</Link>{" "}
 						</div>
 					</div>
 					<div
