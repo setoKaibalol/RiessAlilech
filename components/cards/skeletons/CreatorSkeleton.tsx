@@ -1,6 +1,6 @@
 export const SkeletonCard = () => {
 	return (
-		<div className=" flex flex-col justify-center items-center font-primary w-[46%] h-auto bg-primary-base rounded-lg shadow-black/40 max-w-sm">
+		<div className="flex flex-col justify-center items-center font-primary w-[46%] h-auto bg-primary-base rounded-lg shadow-black/40 max-w-sm">
 			<div className="w-full relative h-36">
 				<div className="bg-gray-300 w-full h-full rounded-t-md"></div>
 			</div>

@@ -30,11 +30,6 @@ function Hilfe({}: Props) {
 								"Schicke gerne deine Bewerbung mit deinem Namen, Alter, Erfahrungen und deinen Socials an y.alilech@tipforyou.de.",
 						},
 						{
-							question: "Sind die Pakete diskret verpackt?",
-							answer:
-								"Ja, Die Pakete werden in einem neutralen Karton geliefert, der keine Hinweise auf den Inhalt enthält.",
-						},
-						{
 							question: "Ich brauche Hilfe!",
 							answer:
 								"Falls du Unterstüzung brauchst kannst du uns per email unter y.alilech@tipforyou.de kontaktieren.",

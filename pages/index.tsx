@@ -16,7 +16,7 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<main className="full-height flex flex-col items-center w-full overflow-hidden font-primary relative">
+			<main className="full-height sm:h-auto flex flex-col items-center w-full overflow-hidden font-primary relative">
 				{/* <div className="pt-40">
 					<Chat></Chat>
 				</div> */}
@@ -32,7 +32,7 @@ export default function Home() {
 						</h1>
 					</div>
 				</div>
-				<div className="flex flex-col w-full items-center">
+				<div className="flex flex-col w-full items-center sm:pb-8">
 					<div className="w-full h-56 flex lg:justify-center lg:w-1/2 justify-start p-5 py-20">
 						<WriteTextComponent></WriteTextComponent>
 					</div>

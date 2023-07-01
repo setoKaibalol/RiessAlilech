@@ -77,10 +77,10 @@ export const AuthComponent = () => {
 		session.user.role === "CREATOR"
 	) {
 		return (
-			<div className="w-full flex flex-row gap-2 font-primary text-primary-base">
+			<div className="flex flex-row gap-2 font-primary text-primary-base">
 				<Link
 					href={"/dashboard"}
-					className="flex flex-row w-full h-16 font-medium gap-1 p-2 px-2 text-xl justify-center uppercase  items-center rounded-lg duration-200 bg-accent-base hover:bg-accent-base">
+					className="flex flex-row sm:w-auto w-full p-2 font-medium gap-1 px-2 text-lg justify-center uppercase  items-center rounded-lg duration-200 bg-accent-base hover:bg-accent-base">
 					<h2>DASHBOARD</h2>
 					<AiFillTool className="w-8 h-8"></AiFillTool>
 				</Link>

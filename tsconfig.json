@@ -33,7 +33,8 @@
 		"pages/api/creator/uploadImage.js",
 		"Middleware.js",
 		"components/TipModal.js",
-		"pages/500.js"
+		"pages/500.js",
+		"components/PayPalButton.js"
 	],
 	"exclude": ["node_modules"]
 }

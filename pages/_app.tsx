@@ -12,6 +12,18 @@ import NavbarMobile from "@/components/NavbarMobile"
 import "react-toastify/dist/ReactToastify.css"
 import { ToastContainer } from "react-toastify"
 import ErrotBoundary from "@/components/error/ErrorBoundary"
+import { PayPalScriptProvider } from "@paypal/react-paypal-js"
+
+const mode = process.env.NEXT_PUBLIC_PAYPAL_MODE
+
+const paypalOptions = {
+	"client-id":
+		mode === "live"
+			? process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID_LIVE
+			: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID_TEST,
+	components: "buttons",
+	currency: "EUR",
+}
 
 const montserrat = Montserrat({ subsets: ["latin"] })
 const lato = Lato({ weight: "400", subsets: ["latin"] })
@@ -46,16 +58,18 @@ export default function App({
 			</style>
 
 			<ErrotBoundary>
-				<UserContext>
-					<SessionProvider session={session}>
-						<NextNProgress color="#e39a9c" />
-						<ToastContainer />
-						<Navbar />
-						<Component {...pageProps} />
-						<Footer />
-						<NavbarMobile />
-					</SessionProvider>
-				</UserContext>
+				<PayPalScriptProvider options={paypalOptions}>
+					<UserContext>
+						<SessionProvider session={session}>
+							<NextNProgress color="#e39a9c" />
+							<ToastContainer />
+							<Navbar />
+							<Component {...pageProps} />
+							<Footer />
+							<NavbarMobile />
+						</SessionProvider>
+					</UserContext>
+				</PayPalScriptProvider>
 			</ErrotBoundary>
 		</div>
 	)

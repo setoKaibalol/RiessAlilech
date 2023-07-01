@@ -40,10 +40,7 @@ function Creator(props: Props) {
 	const [message, setMessage] = useState("")
 
 	useEffect(() => {
-		if (
-			router.query.redirect_status === "succeeded" &&
-			router.query.payment_intent
-		) {
+		if (router.query.redirect_status === "succeeded") {
 			toast("Vielen Dank für deinen Tip 😘", {
 				hideProgressBar: true,
 				autoClose: 3000,
@@ -55,12 +52,9 @@ function Creator(props: Props) {
 				type: "success",
 			})
 		}
-		if (
-			router.query.redirect_status === "error" &&
-			router.query.payment_intent
-		) {
+		if (router.query.redirect_status === "error") {
 			toast(
-				"Leider ging da etwas schief 😥 Kontaktiere uns unter y.alilech@tipforyou.de für Support!",
+				"Leider ging da etwas schief 😥 Für Hilfe wende dich an y.alilech@tipforyou.de",
 				{
 					hideProgressBar: false,
 					autoClose: 20000,

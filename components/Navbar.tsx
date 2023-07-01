@@ -89,7 +89,7 @@ function Navbar({}: Props) {
 			<div className="h-20 w-full bg-transparent z-30 sm:fixed absolute flex flex-row">
 				<div
 					id="navbar-ref"
-					className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
+					className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base  bg-transparent flex-row items-center">
 					<Link
 						onClick={() => {
 							setShowMobileMenu(false)
@@ -99,8 +99,8 @@ function Navbar({}: Props) {
 						<Image
 							alt="logo"
 							height={80}
-							width={240}
-							src={"/media/logo/logo_text_nobg.png"}></Image>
+							width={80}
+							src={"/media/logo/t4u_logo.png"}></Image>
 					</Link>
 					<div className="flex-row gap-2 hidden md:flex text-secondary-base font-primary font-medium">
 						{navigation.map((item, index) => (
@@ -147,7 +147,7 @@ function Navbar({}: Props) {
 			{showMobileMenu && (
 				<div className="fixed inset-0 w-full z-20 full-height">
 					<div className="z-20 w-[60%] full-height pt-10 flex flex-col border-l bg-primary-base absolute right-0 top-0">
-						<div className="flex flex-col gap-14 p-4 font-medium text-secondary-base w-full h-full">
+						<div className="flex flex-col gap-14 max-h-[70%] p-4 font-medium text-secondary-base w-full h-full">
 							<div className="flex flex-col">
 								{mobileMenuNavigation.map((item, index) => (
 									<Link
@@ -171,6 +171,35 @@ function Navbar({}: Props) {
 									</button>
 								)}
 							</div>
+						</div>
+						<div className="p-4 text-center">
+							<Link className="px-2" href={"/impressum"} target="_blank">
+								Impressum
+							</Link>{" "}
+							•{" "}
+							<Link className="px-2" href={"/hilfe"} target="_blank">
+								FAQ
+							</Link>{" "}
+							•{" "}
+							<Link className="px-2" href={"/privacy-policy"} target="_blank">
+								Datenschutz
+							</Link>{" "}
+							•{" "}
+							<Link className="px-2" href={"/AGB"} target="_blank">
+								AGB's
+							</Link>{" "}
+							•{" "}
+							<Link className="px-2" href={"/usc-2257"} target="_blank">
+								18 U.S.C. 2257 Record-Keeping Requirements Compliance Statement
+							</Link>{" "}
+							•{" "}
+							<a className="px-2" href={"https://epoch.com"} target="_blank">
+								Billing Support
+							</a>{" "}
+							•{" "}
+							<Link className="px-2" href="/kontakt" target="_blank">
+								Kontakt
+							</Link>{" "}
 						</div>
 					</div>
 					<div
@@ -266,6 +295,11 @@ function Navbar({}: Props) {
 									</button>
 								)}
 							</div>
+						</div>
+						<div className="p-4">
+							<Link href={"/usc-2257"} target="_blank">
+								18 U.S.C. 2257 Record-Keeping Requirements Compliance Statement
+							</Link>
 						</div>
 					</div>
 					<div

@@ -11,7 +11,24 @@ function Footer({}: Props) {
 		{ name: "Home", href: "/" },
 		{ name: "Creators", href: "/explore?category=creators" },
 		{ name: "Auktionen", href: "/explore?category=auctions" },
-		{ name: "Hilfe", href: "/hilfe" },
+		{ name: "TipTokens kaufen", href: "/credits" },
+	]
+
+	const FooterNav2 = [
+		{ name: "Impressum", href: "/impressum" },
+		{ name: "Datenschutz", href: "/privacy-policy" },
+		{ name: "AGB", href: "/agb" },
+		{ name: "Kontakt", href: "/kontakt" },
+	]
+
+	const FooterNav3 = [
+		{ name: "Über uns", href: "/ueber-uns" },
+		{ name: "FAQ", href: "/hilfe" },
+		{
+			name: "Compliance Statement",
+			href: "/usc-2257",
+		},
+		{ name: "TipToken", href: "/tip-token" },
 	]
 
 	return router.pathname != "/dashboard" ? (
@@ -30,37 +47,37 @@ function Footer({}: Props) {
 					</div>
 				</div>
 				<div className="flex flex-row items-center justify-center w-[68%] h-full">
-					<div className="w-1/3 z-20 relative flex flex-col gap-y-1">
+					<div className="w-1/5 z-20 relative flex flex-col gap-y-1">
 						{FooterNav1.map((item, index) => (
 							<Link
-								className="p-2 w-max hover:bg-secondary-base/10 rounded-lg duration-200"
+								className="p-2 w-max text-xs hover:bg-secondary-base/10 rounded-lg duration-200"
 								href={item.href}
 								key={index}>
 								{item.name}
 							</Link>
 						))}
 					</div>
-					{/* 					<div className="w-1/3 z-20 relative flex flex-col gap-y-1">
-						{FooterNav1.map((item, index) => (
+
+					<div className="w-1/5 z-20 relative flex flex-col gap-y-1">
+						{FooterNav2.map((item, index) => (
 							<Link
-								className="p-2 w-max hover:bg-secondary-base/10 rounded-lg duration-200"
+								className="p-2 w-max text-xs hover:bg-secondary-base/10 rounded-lg duration-200"
 								href={item.href}
 								key={index}>
 								{item.name}
 							</Link>
 						))}
 					</div>
-					<div className="w-1/3 z-20 relative flex flex-col gap-y-1">
-						{FooterNav1.map((item, index) => (
+					<div className="w-1/5 z-20 relative flex flex-col gap-y-1">
+						{FooterNav3.map((item, index) => (
 							<Link
-								className="p-2 w-max hover:bg-secondary-base/10 rounded-lg duration-200"
+								className="p-2 w-max text-xs hover:bg-secondary-base/10 rounded-lg duration-200"
 								href={item.href}
 								key={index}>
 								{item.name}
 							</Link>
 						))}
 					</div>
- */}{" "}
 				</div>
 			</div>
 			<div className="absolute z-10 hidden md:flex w-[800px] top-4 translate-x-[50%] h-[800px] border border-secondary-base rounded-full right-0 bg-accent-base/80 justify-center items-center">

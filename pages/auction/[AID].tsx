@@ -154,7 +154,7 @@ function Auction(props: Props) {
 					return_url={origin + "/auction/" + auction.id}
 					amount={amount}
 					creditPayments={true}
-					sender={{
+					sender={{ 
 						email: senderEmail,
 						name: senderName,
 						id: session?.user.id,

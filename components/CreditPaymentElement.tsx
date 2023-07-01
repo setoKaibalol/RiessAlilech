@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import CreditBalance from "./CreditBalance"
 import { useSession } from "next-auth/react"
 import { ClipLoader } from "react-spinners"
+import { signIn } from "next-auth/react"
 
 type Props = {
 	amount: number
@@ -43,7 +44,7 @@ function CreditPaymentElement({ amount, type, receiver, message }: Props) {
 			})
 	}
 
-	return (
+	return session ? (
 		<div className="px-4 flex flex-col py-3">
 			<div className="h-20">
 				<CreditBalance></CreditBalance>
@@ -72,6 +73,14 @@ function CreditPaymentElement({ amount, type, receiver, message }: Props) {
 				</span>
 			</button>
 			<p className="p-2 flex justify-center">{statusMessage}</p>
+		</div>
+	) : (
+		<div className="flex justify-center items-center h-60 text-black">
+			<button
+				className="border-2 p-3 px-5 rounded-md bg-accent-base hover:bg-secondary-base text-primary-base border-secondary-base "
+				onClick={() => signIn()}>
+				Anmelden
+			</button>
 		</div>
 	)
 }

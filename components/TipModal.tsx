@@ -103,7 +103,7 @@ const TipModal = ({
 	return (
 		<>
 			{isOpen && (
-				<div className="fixed inset-0 z-30 pb-20 flex px-6 items-end justify-center backdrop-blur-sm duration-200 overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
+				<div className="fixed inset-0 z-30 pb-16 md:pb-0 flex px-6 items-end justify-center backdrop-blur-sm duration-200 overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
 					<div className="relative z-40 shadow-lg shadow-black/50 w-full max-w-md mx-auto my-6">
 						<div className="bg-white rounded-lg shadow-lg">
 							<div className="flex justify-between px-4 py-3 bg-gray-200 rounded-t-lg">
@@ -156,8 +156,11 @@ const TipModal = ({
 											}}
 											stripe={stripePromise}>
 											<CheckoutForm
+												tipMessage={message}
+												amount={amount}
 												type={type}
 												receiver={receiver}
+												sender={sender}
 												return_url={return_url}
 											/>
 										</Elements>

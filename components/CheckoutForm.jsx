@@ -7,8 +7,16 @@ import {
 } from "@stripe/react-stripe-js"
 import { ClipLoader } from "react-spinners"
 import { useRouter } from "next/router"
+import ButtonWrapper from "./PayPalButton"
 
-export default function CheckoutForm({ receiver, return_url, type }) {
+export default function CheckoutForm({
+	tipMessage,
+	amount,
+	receiver,
+	return_url,
+	type,
+	sender,
+}) {
 	const router = useRouter()
 	const stripe = useStripe()
 	const elements = useElements()
@@ -27,6 +35,7 @@ export default function CheckoutForm({ receiver, return_url, type }) {
 		)
 
 		if (!clientSecret) {
+			console.log("No client secret found")
 			return
 		}
 
@@ -112,6 +121,18 @@ export default function CheckoutForm({ receiver, return_url, type }) {
 			</button>
 			{/* Show any error or success messages */}
 			{message && <div id="payment-message">{message}</div>}
+			<div className="w-full justify-center flex">
+				--------------------- OR ---------------------
+			</div>
+			<div>
+				<ButtonWrapper
+					receiver={receiver}
+					amount={amount}
+					sender={sender}
+					tipMessage={tipMessage}
+					currency={"EUR"}
+					showSpinner={true}></ButtonWrapper>
+			</div>
 		</form>
 	)
 }
