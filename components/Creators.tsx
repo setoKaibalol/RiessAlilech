@@ -53,6 +53,7 @@ function Creators({ search }: Props) {
 			})
 				.then((res) => res.json())
 				.then((data) => {
+					console.log(data)
 					setCreators(data)
 					setCreatorsStatus("loaded")
 					setRefreshCreators(false)
@@ -74,6 +75,9 @@ function Creators({ search }: Props) {
 					{creatorsStatus === "loaded" &&
 						creators
 							.filter((creator, index) => {
+								if (creator.deleted === true) {
+									return
+								}
 								if (search === "") {
 									return creator
 								}

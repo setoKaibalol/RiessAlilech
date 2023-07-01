@@ -212,9 +212,10 @@ export default Creator
 
 export async function getServerSideProps(context: { params: any }) {
 	const { params } = context
-	const creator = await prisma.creator.findUnique({
+	const creator = await prisma.creator.findFirst({
 		where: {
 			id: params.CID,
+			deleted: false,
 		},
 		include: {
 			Auction: true,

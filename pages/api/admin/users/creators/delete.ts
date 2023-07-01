@@ -19,9 +19,13 @@ const handler: Handler = async (req, res) => {
 	try {
 		if (req.method === "POST") {
 			const creator = await prisma.creator
-				.delete({
+				.update({
 					where: {
 						userId: user.id,
+					},
+					data: {
+						deleted: true,
+						deletedAt: new Date(),
 					},
 				})
 				.catch((err) => {
