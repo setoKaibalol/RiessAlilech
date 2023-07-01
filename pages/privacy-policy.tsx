@@ -4,7 +4,7 @@ type Props = {}
 
 function Datenschutzerklärung({}: Props) {
 	return (
-		<div className="break-words pt-20 sm:px-20 px-6 gap-4 flex flex-col pb-10">
+		<div className="break-words pt-20 sm:px-20 px-6 gap-4 flex flex-col pb-20">
 			<h1 className="text-xl font-bold">Datenschutz&shy;erkl&auml;rung</h1>
 			<h2 className="text-lg font-bold pt-10">
 				1. Datenschutz auf einen Blick

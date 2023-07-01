@@ -242,7 +242,7 @@ function Navbar({}: Props) {
 
 				<div
 					id="navbar-ref-mobile"
-					className="flex sm:hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
+					className="flex sm:hidden border-b-2 fixed border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
 					<Link
 						onClick={() => {
 							setShowMobileMenu(false)
