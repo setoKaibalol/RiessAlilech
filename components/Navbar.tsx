@@ -106,7 +106,7 @@ function Navbar({}: Props) {
 						{navigation.map((item, index) => (
 							<Link
 								onClick={() => setShowMobileMenu(false)}
-								className="p-2 rounded-md hover:bg-secondary-base/20 text-2xl"
+								className="p-2 rounded-md hover:bg-secondary-base/20 text-lg duration-200"
 								key={index}
 								href={`${item.href}`}>
 								{item.name}
@@ -138,7 +138,7 @@ function Navbar({}: Props) {
 							handleMobileMenu(e)
 						}}>
 						<HiOutlineMenuAlt3
-							className={`h-10 w-10 z-20  ${
+							className={`h-10 w-10 z-20 ${
 								showMobileMenu ? " text-secondary-base" : " text-secondary-base"
 							}`}></HiOutlineMenuAlt3>
 					</button>
@@ -230,7 +230,7 @@ function Navbar({}: Props) {
 					<div className="flex-row gap-2 hidden md:flex text-secondary-base font-primary font-medium">
 						{navigation.map((item, index) => (
 							<Link
-								className="p-2 rounded-md hover:bg-secondary-base/20 text-2xl"
+								className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
 								key={index}
 								href={`${item.href}`}>
 								{item.name}

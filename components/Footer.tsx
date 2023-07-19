@@ -25,10 +25,9 @@ function Footer({}: Props) {
 		{ name: "Über uns", href: "/ueber-uns" },
 		{ name: "FAQ", href: "/hilfe" },
 		{
-			name: "Compliance Statement",
+			name: "18 U.S.C. 2257 Record-Keeping Requirements Compliance Statement",
 			href: "/usc-2257",
 		},
-		{ name: "TipToken", href: "/tip-token" },
 	]
 
 	return router.pathname != "/dashboard" ? (
@@ -71,7 +70,7 @@ function Footer({}: Props) {
 					<div className="w-1/5 z-20 relative flex flex-col gap-y-1">
 						{FooterNav3.map((item, index) => (
 							<Link
-								className="p-2 w-max text-xs hover:bg-secondary-base/10 rounded-lg duration-200"
+								className="p-2 whitespace-pre-wrap max-w-[200px] w-max text-xs hover:bg-secondary-base/10 rounded-lg duration-200"
 								href={item.href}
 								key={index}>
 								{item.name}

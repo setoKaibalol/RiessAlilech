@@ -34,7 +34,9 @@ function Explore({}: Props) {
 						onClick={() => {
 							router.back()
 						}}
-						className={"text-5xl"}></FiChevronLeft>
+						className={
+							"text-5xl cursor-pointer hover:bg-gray-200 duration-200 rounded-full"
+						}></FiChevronLeft>
 					<BiSearch className="text-2xl absolute left-16 z-40 text-gray-400"></BiSearch>
 
 					<input
@@ -50,7 +52,7 @@ function Explore({}: Props) {
 						onClick={() => {
 							setChosenCat(1)
 						}}
-						className={`flex flex-row justify-center duration-200 w-1/2 p-2 border-b-2 ${
+						className={`flex  hover:bg-gray-100 flex-row justify-center duration-200 w-1/2 p-2 border-b-2 ${
 							chosenCat === 1 && "border-black"
 						}`}>
 						<h2 className="text-3xl"></h2>
@@ -60,7 +62,7 @@ function Explore({}: Props) {
 						onClick={() => {
 							setChosenCat(2)
 						}}
-						className={`flex flex-row w-1/2 justify-center duration-200 p-2 border-b-2 ${
+						className={`flex hover:bg-gray-100 flex-row w-1/2 justify-center duration-200 p-2 border-b-2 ${
 							chosenCat === 2 && "border-black"
 						}`}>
 						<BsPeople className="text-4xl"></BsPeople>

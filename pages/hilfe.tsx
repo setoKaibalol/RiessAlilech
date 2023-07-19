@@ -12,7 +12,7 @@ function Hilfe({}: Props) {
 						{
 							question: "Was ist TipForYou?",
 							answer:
-								"TipForYou ist eine Platform die es Creatorn ermöglicht Tips zu erhalten und Auctions zu erstellen.",
+								"TipForYou ist eine Platform die es Creatorn ermöglicht Tips zu erhalten und Auctions zu erstellen. In unserer About Sektion kannst du mehr über uns erfahren.",
 						},
 						{
 							question: "Was ist ein Creator?",
@@ -32,7 +32,12 @@ function Hilfe({}: Props) {
 						{
 							question: "Ich brauche Hilfe!",
 							answer:
-								"Falls du Unterstüzung brauchst kannst du uns per email unter y.alilech@tipforyou.de kontaktieren.",
+								"Falls du Unterstüzung brauchst kannst du uns per email unter support@tipforyou.de kontaktieren.",
+						},
+						{
+							question: "Ich benötige Billing Support!",
+							answer:
+								"Falls du Billing Support benötigst schreibe bitte eine E-Mail an billing@epoch.com",
 						},
 					]}></FAQ>
 			</div>
