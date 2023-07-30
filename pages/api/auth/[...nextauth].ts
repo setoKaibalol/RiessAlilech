@@ -25,7 +25,7 @@ export const authOptions: AuthOptions = {
 					return null
 				}
 				const user = await fetch(
-					`http://localhost:3000/api/user/checkCredentials`,
+					`${process.env.NEXTAUTH_URL}/api/user/checkCredentials`,
 					{
 						method: "POST",
 						headers: {
