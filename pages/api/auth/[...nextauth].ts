@@ -72,8 +72,11 @@ export const authOptions: AuthOptions = {
 			if (!session || !session.user) {
 				return Promise.resolve(session)
 			}
+			//@ts-ignore
 			session.user.id = token.id
+			//@ts-ignore
 			session.user.role = token.role
+			//@ts-ignore
 			session.user.credits = token.credits
 			return Promise.resolve(session)
 		},
