@@ -17,6 +17,16 @@ declare module "next-auth" {
 			credits: number | null | undefined
 		}
 	}
+
+	interface JWT {
+		role: string | null | undefined
+		id: string | null | undefined
+		image: string | null | undefined
+		email: string | null | undefined
+		name: string | null | undefined
+		credits: number | null | undefined
+	}
+
 	interface User {
 		role: string | null | undefined
 		id: string | null | undefined

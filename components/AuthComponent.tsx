@@ -60,7 +60,7 @@ export const AuthComponent = () => {
 		}
 	}, [session, refreshData])
 
-	if (session && session.user.role === "ADMIN") {
+	if (session && session?.user?.role === "ADMIN") {
 		return (
 			<div className=" flex flex-row gap-2 font-primary text-secondary-base">
 				<Link

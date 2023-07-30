@@ -40,6 +40,7 @@ model User {
   id               String         @id @default(cuid())
   name             String?
   email            String?        @unique
+  password         String?
   emailVerified    DateTime?
   image            String?        @db.Text
   creatorVerified  Boolean        @default(false)
@@ -86,11 +87,22 @@ model Creator {
   realName       String?
   description    String?        @db.Text
   profilePicture String?        @default("https://static.vecteezy.com/system/resources/previews/002/596/484/non_2x/default-avatar-photo-placeholder-profile-image-female-vector.jpg")
-  country        String?
-  origin         String?
-  age            Int?
-  heightCm       Int?
+  image1         String?
+  image2         String?
+  image3         String?
+  image4         String?
+  image5         String?
+  image6         String?
+  image7         String?
+  image8         String?
+  image9         String?
+  image10        String?
   instagram      String?
+  origin         String?
+  country        String?
+  heightCm       Int?
+  age            Int?
+  telegram       String?
   facebook       String?
   twitter        String?
   tiktok         String?

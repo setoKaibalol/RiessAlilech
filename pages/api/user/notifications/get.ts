@@ -16,7 +16,7 @@ const handler: Handler = async (req, res) => {
 		const session = await getServerSession(req, res, authOptions)
 		if (req.method === "POST") {
 			if (!session || !session.user.id) {
-				res.status(401).json({ message: "Not authenticated" })
+				res.status(401).json({ error: "Not authenticated" })
 				return
 			}
 
@@ -43,7 +43,7 @@ const handler: Handler = async (req, res) => {
 			res.status(200).send(notifications)
 			return
 		} else {
-			res.status(405).json({ message: "Method not allowed" })
+			res.status(405).json({ error: "Method not allowed" })
 			return
 		}
 	} catch (error) {

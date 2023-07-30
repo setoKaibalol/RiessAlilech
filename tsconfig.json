@@ -20,6 +20,7 @@
 	},
 	"include": [
 		"next-env.d.ts",
+		"next-auth.d.ts",
 		"**/*.ts",
 		"**/*.tsx",
 		"pages/_app.js",
@@ -34,7 +35,8 @@
 		"Middleware.js",
 		"components/TipModal.js",
 		"pages/500.js",
-		"components/PayPalButton.js"
+		"components/PayPalButton.js",
+		"pages/api/auth/[...nextauth].js"
 	],
 	"exclude": ["node_modules"]
 }

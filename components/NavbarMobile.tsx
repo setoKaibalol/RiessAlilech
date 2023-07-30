@@ -30,6 +30,7 @@ function NavbarMobile({}: Props) {
 
 	useEffect(() => {
 		if (session) {
+			console.log(session)
 			fetch("/api/user/notifications/get", {
 				method: "POST",
 				headers: {
@@ -39,6 +40,11 @@ function NavbarMobile({}: Props) {
 			})
 				.then((res) => res.json())
 				.then((data) => {
+					if (data.error) {
+						console.log(data.error)
+						return
+					}
+
 					let newData =
 						data.filter((notification: any) => {
 							if (notification.read === false) {
