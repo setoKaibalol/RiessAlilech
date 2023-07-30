@@ -111,11 +111,11 @@ export default function SignIn({}) {
 									</button>
 									<p className="text-sm font-light text-gray-400">
 										Du hast noch keinen Account?{" "}
-										<a
+										<Link
 											href="/auth/signup"
 											className="font-medium text-white hover:underline">
 											Sign up here
-										</a>
+										</Link>
 									</p>
 								</div>
 

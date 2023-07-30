@@ -154,11 +154,11 @@ function Signup(props: Props) {
 								</button>
 								<p className="text-sm font-light text-gray-400">
 									Already have an account?{" "}
-									<a
+									<Link
 										href="/auth/signin"
 										className="font-medium text-white hover:underline">
 										Login here
-									</a>
+									</Link>
 								</p>
 							</form>
 						</div>
