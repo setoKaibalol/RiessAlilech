@@ -185,7 +185,7 @@ function Navbar({}: Props) {
 								Datenschutz
 							</Link>{" "}
 							•{" "}
-							<Link className="px-2" href={"/AGB"} target="_blank">
+							<Link className="px-2" href={"/agb"} target="_blank">
 								AGB&apos;s
 							</Link>{" "}
 							•{" "}
@@ -309,7 +309,7 @@ function Navbar({}: Props) {
 								Datenschutz
 							</Link>{" "}
 							•{" "}
-							<Link className="px-2" href={"/AGB"} target="_blank">
+							<Link className="px-2" href={"/agb"} target="_blank">
 								AGB&apos;s
 							</Link>{" "}
 							•{" "}
