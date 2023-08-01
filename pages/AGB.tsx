@@ -34,13 +34,14 @@ function AGB({}: Props) {
 							wenn wir dem ausdrücklich zugestimmt haben.
 							<br />
 							<br />
-							<p>
-								Bitte lesen Sie diese Bedingungen aufmerksam, bevor Sie eine
-								Bestellung an uns aufgeben. Durch Aufgabe einer Bestellung an
-								uns erklären Sie sich mit der Anwendung dieser
-								Verkaufsbedingungen auf Ihre Bestellung einverstanden.
-							</p>
 						</p>
+						<p>
+							Bitte lesen Sie diese Bedingungen aufmerksam, bevor Sie eine
+							Bestellung an uns aufgeben. Durch Aufgabe einer Bestellung an uns
+							erklären Sie sich mit der Anwendung dieser Verkaufsbedingungen auf
+							Ihre Bestellung einverstanden.
+						</p>
+
 						<p>
 							<strong>2. Vertragspartner, Vertragsschluss</strong>
 						</p>
