@@ -2,7 +2,7 @@ import React from "react"
 
 type Props = {}
 
-function AGB({}: Props) {
+function Agb({}: Props) {
 	return (
 		<div className="break-words pt-20 sm:px-20 gap-4 flex flex-col pb-20">
 			<div className="w-full py-10 flex justify-center break-words">
@@ -314,4 +314,4 @@ function AGB({}: Props) {
 	)
 }
 
-export default AGB
+export default Agb
