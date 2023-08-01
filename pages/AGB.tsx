@@ -8,7 +8,7 @@ function Agb({}: Props) {
 			<div className="w-full py-10 flex justify-center break-words">
 				<div className="w-full px-4 py-4 flex flex-col gap-y-2">
 					<div className="flex flex-col gap-y-4">
-						<h3 className="font-bold">Allgemeine Geschäftsbedingungen</h3>
+						<h3 className="font-bold lol">Allgemeine Geschäftsbedingungen</h3>
 						<p>
 							<strong>1. Geltungsbereich</strong>
 						</p>
