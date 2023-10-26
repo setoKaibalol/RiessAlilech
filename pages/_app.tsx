@@ -11,8 +11,9 @@ import { Montserrat, Lato } from "next/font/google"
 import NavbarMobile from "@/components/NavbarMobile"
 import "react-toastify/dist/ReactToastify.css"
 import { ToastContainer } from "react-toastify"
-import ErrotBoundary from "@/components/error/ErrorBoundary"
+import ErrorBoundary from "@/components/error/ErrorBoundary"
 import { PayPalScriptProvider } from "@paypal/react-paypal-js"
+import EightheenPlusPanel from "@/components/18PlusPanel"
 
 const mode = process.env.NEXT_PUBLIC_PAYPAL_MODE
 
@@ -57,10 +58,11 @@ export default function App({
 				`}
 			</style>
 
-			<ErrotBoundary>
+			<ErrorBoundary>
 				<PayPalScriptProvider options={paypalOptions}>
 					<UserContext>
 						<SessionProvider session={session}>
+							<EightheenPlusPanel />
 							<NextNProgress color="#e39a9c" />
 							<ToastContainer />
 							<Navbar />
@@ -70,7 +72,7 @@ export default function App({
 						</SessionProvider>
 					</UserContext>
 				</PayPalScriptProvider>
-			</ErrotBoundary>
+			</ErrorBoundary>
 		</div>
 	)
 }
