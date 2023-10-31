@@ -4,6 +4,7 @@ import { ClipLoader } from "react-spinners"
 import Image from "next/image"
 import { useUserContext } from "@/context"
 import { AiFillCamera, AiOutlineCamera } from "react-icons/ai"
+import { AuthComponent } from "@/components/AuthComponent"
 
 type Props = {}
 
@@ -184,11 +185,7 @@ function Profile({}: Props) {
 		case "unauthenticated":
 			return (
 				<div className="flex justify-center items-center h-screen text-black">
-					<button
-						className="border-2 p-3 rounded-md bg-accent-base hover:bg-secondary-base text-primary-base border-secondary-base "
-						onClick={() => signIn()}>
-						Anmelden
-					</button>
+					<AuthComponent />
 				</div>
 			)
 		case "authenticated":

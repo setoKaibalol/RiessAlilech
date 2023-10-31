@@ -146,7 +146,7 @@ function Navbar({}: Props) {
 			</div>
 			{showMobileMenu && (
 				<div className="fixed inset-0 w-full z-20 full-height">
-					<div className="z-20 w-[60%] full-height pt-10 flex flex-col border-l bg-primary-base absolute right-0 top-0">
+					<div className="z-20 w-[60%] full-height pt-10 flex flex-col border-l bg-primary-base animate-in slide-in-from-right-96 absolute right-0 top-0">
 						<div className="flex flex-col gap-14 max-h-[70%] p-4 font-medium text-secondary-base w-full h-full">
 							<div className="flex flex-col">
 								{mobileMenuNavigation.map((item, index) => (
@@ -162,7 +162,7 @@ function Navbar({}: Props) {
 
 							<div className=" flex flex-col h-full gap-4">
 								{status === "authenticated" && <CreditBalance></CreditBalance>}
-								<AuthComponent></AuthComponent>
+								<AuthComponent />
 								{status === "authenticated" && (
 									<button
 										onClick={() => signOut()}
@@ -189,11 +189,7 @@ function Navbar({}: Props) {
 								AGB&apos;s
 							</Link>{" "}
 							•{" "}
-							<Link className="px-2" href={"/usc-2257"} target="_blank">
-								18 U.S.C. 2257 Record-Keeping Requirements Compliance Statement
-							</Link>{" "}
-							•{" "}
-							<a className="px-2" href={"https://epoch.com"} target="_blank">
+							<a className="px-2" href={"/"} target="_blank">
 								Billing Support
 							</a>{" "}
 							•{" "}
@@ -204,9 +200,7 @@ function Navbar({}: Props) {
 					</div>
 					<div
 						onClick={() => setShowMobileMenu(false)}
-						className="z-10 fixed inset-0">
-						{" "}
-					</div>
+						className="z-10 fixed inset-0"></div>
 				</div>
 			)}
 		</>
@@ -270,7 +264,7 @@ function Navbar({}: Props) {
 			</div>
 			{showMobileMenu && (
 				<div className="fixed z-20 inset-0 w-full h-full">
-					<div className="z-20 w-[60%] h-screen pt-10 pb-14 flex flex-col border-l bg-primary-base absolute right-0 top-0">
+					<div className="z-20 w-[60%] h-screen pt-10 pb-14 flex flex-col border-l animate-in slide-in-from-right-96 bg-primary-base absolute right-0 top-0">
 						<div className="flex flex-col gap-14 p-4 font-medium text-secondary-base w-full h-full">
 							<div className="flex flex-col ">
 								{mobileMenuNavigation.map((item, index) => (
@@ -313,11 +307,7 @@ function Navbar({}: Props) {
 								AGB&apos;s
 							</Link>{" "}
 							•{" "}
-							<Link className="px-2" href={"/usc-2257"} target="_blank">
-								18 U.S.C. 2257 Record-Keeping Requirements Compliance Statement
-							</Link>{" "}
-							•{" "}
-							<a className="px-2" href={"https://epoch.com"} target="_blank">
+							<a className="px-2" href={"/"} target="_blank">
 								Billing Support
 							</a>{" "}
 							•{" "}

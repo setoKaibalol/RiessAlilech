@@ -8,8 +8,7 @@ import { ClipLoader } from "react-spinners"
 import { AiFillTool } from "react-icons/ai"
 
 export const AuthComponent = () => {
-	const { active, setActive, userCreatorData, setUserCreatorData } =
-		useUserContext()
+	const { userCreatorData, setUserCreatorData } = useUserContext()
 	const router = useRouter()
 	const { data: session, status } = useSession()
 

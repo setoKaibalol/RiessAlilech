@@ -32,7 +32,6 @@
 		"moment": "^2.29.4",
 		"multer": "^1.4.5-lts.1",
 		"next": "^13.2.4",
-		"next-auth": "^4.22.3",
 		"next-connect": "^0.13.0",
 		"nextjs-progressbar": "^0.0.16",
 		"nodemailer": "^6.9.1",
@@ -49,6 +48,7 @@
 		"socket.io": "^4.6.1",
 		"socket.io-client": "^4.6.1",
 		"socket.io-redis": "^6.1.1",
+		"sonner": "^1.0.3",
 		"stripe": "^11.17.0",
 		"typescript": "4.9.5",
 		"typewriter-effect": "^2.19.0",
@@ -64,6 +64,7 @@
 		"postcss": "^8.4.21",
 		"postcss-100vh-fix": "^1.0.2",
 		"prisma": "^4.11.0",
-		"tailwindcss": "^3.2.7"
+		"tailwindcss": "^3.2.7",
+		"tailwindcss-animate": "^1.0.7"
 	}
 }

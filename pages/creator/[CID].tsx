@@ -24,7 +24,7 @@ import {
 } from "react-icons/tb"
 import TipModal from "@/components/TipModal"
 import { useRouter } from "next/router"
-import { toast } from "react-toastify"
+import { toast } from "sonner"
 import { VscVerifiedFilled } from "react-icons/vsc"
 
 type Props = {
@@ -41,25 +41,11 @@ function Creator(props: Props) {
 
 	useEffect(() => {
 		if (router.query.redirect_status === "succeeded") {
-			toast("Vielen Dank für deinen Tip 😘", {
-				hideProgressBar: true,
-				autoClose: 3000,
-				className: " font-primary",
-				style: {
-					fontSize: "1.3rem",
-					fontWeight: "bold",
-				},
-				type: "success",
-			})
+			toast.success("Vielen Dank für deinen Tip 😘")
 		}
 		if (router.query.redirect_status === "error") {
-			toast(
-				"Leider ging da etwas schief 😥 Für Hilfe wende dich an y.alilech@tipforyou.de",
-				{
-					hideProgressBar: false,
-					autoClose: 20000,
-					type: "error",
-				}
+			toast.error(
+				"Leider ging da etwas schief 😥 Für Hilfe wende dich an y.alilech@tipforyou.de"
 			)
 		}
 	}, [])

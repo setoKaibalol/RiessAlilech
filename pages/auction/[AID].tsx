@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react"
 import moment from "moment"
 import { loadStripe } from "@stripe/stripe-js"
 import { useRouter } from "next/router"
-import { toast } from "react-toastify"
+import { toast } from "sonner"
 import { BiDonateHeart } from "react-icons/bi"
 import { StripeElementsOptions } from "@stripe/stripe-js"
 import TipModal from "@/components/TipModal"
@@ -85,30 +85,13 @@ function Auction(props: Props) {
 			router.query.redirect_status === "succeeded" &&
 			router.query.payment_intent
 		) {
-			toast("Viel Glück 🥰", {
-				hideProgressBar: true,
-				autoClose: 3000,
-				style: {
-					background: "#FAF9F5",
-					border: "20px",
-					height: "80px",
-					fontFamily: "Montserrat",
-					fontWeight: "bold",
-					fontSize: "1.3rem",
-					borderColor: "#414042",
-				},
-				type: "success",
-			})
+			toast.success("Viel Glück 🥰")
 		}
 		if (
 			router.query.redirect_status === "error" &&
 			router.query.payment_intent
 		) {
-			toast("Leider ging da etwas schief 😥", {
-				hideProgressBar: true,
-				autoClose: 2000,
-				type: "success",
-			})
+			toast.error("Leider ging da etwas schief")
 		}
 	}, [])
 
@@ -154,7 +137,7 @@ function Auction(props: Props) {
 					return_url={origin + "/auction/" + auction.id}
 					amount={amount}
 					creditPayments={true}
-					sender={{ 
+					sender={{
 						email: senderEmail,
 						name: senderName,
 						id: session?.user.id,

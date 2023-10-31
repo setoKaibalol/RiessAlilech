@@ -1,21 +1,14 @@
-import type {
-	GetServerSidePropsContext,
-	InferGetServerSidePropsType,
-} from "next"
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "../api/auth/[...nextauth]"
-import { getProviders, signIn } from "next-auth/react"
+import { signIn } from "next-auth/react"
 import Link from "next/link"
-import React, { useState, useEffect } from "react"
-import { toast } from "react-toastify"
+import React, { useEffect } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
+import { toast } from "sonner"
 
 export default function SignIn({}) {
 	const { data: session, status, update } = useSession()
 
 	const router = useRouter()
-	const currentPath = router.asPath
 
 	useEffect(() => {
 		if (session) {
@@ -26,37 +19,44 @@ export default function SignIn({}) {
 
 	const handleSubmit = async (e: any) => {
 		e.preventDefault()
-
 		let email = e.target.email.value
 		let password = e.target.password.value
 
-		console.log(email, password)
-
-		if (!email || !password) {
-			alert("Bitte alle Felder ausfüllen")
+		if (!email) {
+			toast.warning("Email fehlt")
 			return
 		}
 
-		const result = await signIn("credentials", {
+		if (!password) {
+			toast.warning("Passwort fehlt")
+			return
+		}
+
+		const response = await signIn("credentials", {
 			email,
 			password,
 			redirect: false,
-			callbackUrl: "/",
-		}).then((res) => {
-			console.log(res)
-			if (!res) {
-				alert("Fehler beim Anmelden")
-				return
-			}
-			if (res.error) {
-				console.log(res)
-				alert(res.error)
-				return
-			} else {
-				toast.success("Erfolgreich angemeldet")
-				return
-			}
 		})
+			.then((res) => {
+				console.log("response: ", res)
+				if (res?.error) {
+					if (res.status === 401) {
+						toast.error("falsche Email oder Passwort")
+						return
+					}
+					return
+				}
+
+				if (res?.status === 200) {
+					toast.success("Erfolgreich angemeldet")
+					router.push("/")
+				}
+			})
+			.catch((err) => {
+				toast.error("Fehler beim Anmelden")
+			})
+
+		console.log(response)
 	}
 
 	if (session) {
@@ -128,7 +128,22 @@ export default function SignIn({}) {
 									<div className="max-w-md">
 										<button
 											onClick={() => {
-												signIn("google")
+												signIn("google").then((res) => {
+													console.log(res)
+													if (!res) {
+														alert("Fehler beim Anmelden")
+														return
+													}
+													if (res.error) {
+														console.log(res)
+														alert(res.error)
+														return
+													} else {
+														alert("Erfolgreich angemeldet")
+														toast.success("Erfolgreich angemeldet")
+														return
+													}
+												})
 											}}
 											type="button"
 											className="text-white w-full  bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between dark:focus:ring-[#4285F4]/55 mr-2 mb-2">

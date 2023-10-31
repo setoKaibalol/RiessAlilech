@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { prisma } from "@/prisma/PrismaClient"
 import { validatePW } from "@/lib/hash/unhashPW"
+import { toast } from "sonner"
 
 type Handler = (
 	req: NextApiRequest,
@@ -8,21 +9,29 @@ type Handler = (
 ) => void | Promise<void>
 
 const handler: Handler = async (req, res) => {
-	console.log(req.body)
-	const user = await prisma.user.findUnique({
-		where: { email: req.body.email },
-		select: {
-			id: true,
-			name: true,
-			email: true,
-			image: true,
-			password: true,
-		},
-	})
+	const user = await prisma.user
+		.findUniqueOrThrow({
+			where: { email: req.body.email },
+			select: {
+				id: true,
+				name: true,
+				email: true,
+				image: true,
+				password: true,
+			},
+		})
+		.catch((e) => {
+			res.status(400).json({ error: "no user with this email found" })
+			return
+		})
 
-	if (!user || !user.password) {
-		res.status(400).json({ error: "Invalid credentials" })
-		console.log(user)
+	if (!user) {
+		res.status(400).json({ error: "no user with this email found" })
+		return
+	}
+
+	if (!user.password) {
+		res.status(400).json({ error: "not a credentials user" })
 		return
 	}
 

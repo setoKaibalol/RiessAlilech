@@ -1,7 +1,7 @@
 import "@/styles/globals.css"
 import "@/styles/countdown.css"
 import Navbar from "@/components/Navbar"
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { SessionProvider } from "next-auth/react"
 import Footer from "@/components/Footer"
 import { UserContext } from "./../context"
@@ -9,8 +9,7 @@ import NextNProgress from "nextjs-progressbar"
 import type { AppProps } from "next/app"
 import { Montserrat, Lato } from "next/font/google"
 import NavbarMobile from "@/components/NavbarMobile"
-import "react-toastify/dist/ReactToastify.css"
-import { ToastContainer } from "react-toastify"
+import { Toaster } from "sonner"
 import ErrorBoundary from "@/components/error/ErrorBoundary"
 import { PayPalScriptProvider } from "@paypal/react-paypal-js"
 import EightheenPlusPanel from "@/components/18PlusPanel"
@@ -64,7 +63,7 @@ export default function App({
 						<SessionProvider session={session}>
 							<EightheenPlusPanel />
 							<NextNProgress color="#e39a9c" />
-							<ToastContainer />
+							<Toaster position="top-right" richColors />
 							<Navbar />
 							<Component {...pageProps} />
 							<Footer />

@@ -1,11 +1,9 @@
 import NextAuth, { AuthOptions, Session, User } from "next-auth"
-import Auth0Provider from "next-auth/providers/auth0"
-import EmailProvider from "next-auth/providers/email"
 import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "@/prisma/PrismaClient"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { JWT } from "next-auth/jwt"
+import { toast } from "sonner"
 
 export const authOptions: AuthOptions = {
 	adapter: PrismaAdapter(prisma),
@@ -24,6 +22,7 @@ export const authOptions: AuthOptions = {
 				if (!credentials?.email || !credentials?.password) {
 					return null
 				}
+
 				const user = await fetch(
 					`${process.env.NEXTAUTH_URL}/api/user/checkCredentials`,
 					{
@@ -39,13 +38,13 @@ export const authOptions: AuthOptions = {
 					}
 				)
 					.then((res) => res.json())
-					.then((data) => {
-						console.log("data:", data)
-						return data
+					.catch((err) => {
+						console.log("err:", err)
+						return null
 					})
 
 				if (user.error) {
-					return user.error
+					return null
 				}
 
 				if (!user) {
@@ -60,11 +59,9 @@ export const authOptions: AuthOptions = {
 			clientSecret: process.env.GOOGLE_SECRET,
 		}),
 	],
-	secret: process.env.SECRET,
+	secret: process.env.NEXTAUTH_SECRET,
 	callbacks: {
 		async session({ session, token, user }) {
-			console.log("session:", session)
-			console.log("token:", token)
 			if (!token) {
 				return Promise.resolve(session)
 			}
@@ -82,13 +79,17 @@ export const authOptions: AuthOptions = {
 		},
 
 		async jwt({ token, user, session, trigger }: any) {
+			if (!token || !token.email) {
+				return null
+			}
+
 			const pUser = await prisma.user.findUnique({
 				where: {
 					email: token.email,
 				},
 			})
+
 			if (!pUser) {
-				console.log("no user found")
 				return null
 			}
 
@@ -107,6 +108,10 @@ export const authOptions: AuthOptions = {
 				token.picture = pUser.image
 			}
 			return Promise.resolve(token)
+		},
+
+		async redirect({ url, baseUrl }) {
+			return Promise.resolve(baseUrl)
 		},
 	},
 

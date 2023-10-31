@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react"
 import { ClipLoader } from "react-spinners"
 import Link from "next/link"
 import { useUserContext } from "@/context"
+import { AuthComponent } from "@/components/AuthComponent"
 moment.locale("de")
 
 const NotificationPage = () => {
@@ -58,11 +59,7 @@ const NotificationPage = () => {
 		case "unauthenticated":
 			return (
 				<div className="flex justify-center items-center h-screen text-black">
-					<button
-						className="border-2 p-3 rounded-md bg-accent-base hover:bg-secondary-base text-primary-base border-secondary-base "
-						onClick={() => signIn()}>
-						Anmelden
-					</button>
+					<AuthComponent />
 				</div>
 			)
 		case "authenticated":

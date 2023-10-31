@@ -1,8 +1,5 @@
 import Head from "next/head"
-import Image from "next/image"
-import FAQ from "@/components/FAQComponent"
 import Link from "next/link"
-import Chat from "@/components/Chat"
 import AnimatedBackground from "@/components/AnimatedBackground"
 import WriteTextComponent from "@/components/WriteTextComponent"
 import { GiToken } from "react-icons/gi"
@@ -36,19 +33,19 @@ export default function Home() {
 					<div className="w-full h-56 flex lg:justify-center lg:w-1/2 justify-start p-5 py-20">
 						<WriteTextComponent></WriteTextComponent>
 					</div>
-					<div className="flex w-full flex-col gap-4 lg:w-1/2 justify-center items-center px-6">
+					<div className="flex w-full flex-col gap-5 lg:w-1/2 justify-center items-center px-6">
 						<Link
-							className="w-full p-2 bg-primary-base rounded-md text-2xl font-medium text-secondary-base flex justify-center"
+							className="w-full p-3 bg-primary-base rounded-md text-xl font-medium text-secondary-base flex justify-center"
 							href={"/explore?category=auctions"}>
-							Auctions
+							Top Auktionen
 						</Link>
 						<Link
-							className="w-full p-2 bg-primary-base rounded-md text-2xl font-medium text-secondary-base flex justify-center"
+							className="w-full p-3 bg-primary-base rounded-md text-xl font-medium text-secondary-base flex justify-center"
 							href={"/explore?category=creators"}>
-							Creator
+							Content Creators entdecken
 						</Link>
 						<Link
-							className="w-full p-2 justify-center flex flex-row items-center bg-primary-base rounded-md text-2xl font-medium text-secondary-base "
+							className="w-full p-3 justify-center flex flex-row items-center bg-primary-base rounded-md text-xl font-medium text-secondary-base "
 							href={"/credits"}>
 							<GiToken></GiToken>TipTokens
 						</Link>
