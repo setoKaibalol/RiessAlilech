@@ -23,12 +23,12 @@ export default function SignIn({}) {
 		let password = e.target.password.value
 
 		if (!email) {
-			toast.warning("Email fehlt")
+			toast.warning("Email fehlt", {})
 			return
 		}
 
 		if (!password) {
-			toast.warning("Passwort fehlt")
+			toast.warning("Passwort fehlt", {})
 			return
 		}
 
@@ -41,7 +41,7 @@ export default function SignIn({}) {
 				console.log("response: ", res)
 				if (res?.error) {
 					if (res.status === 401) {
-						toast.error("falsche Email oder Passwort")
+						toast.error("Email nicht gefunden oder Passwort falsch")
 						return
 					}
 					return
@@ -128,22 +128,7 @@ export default function SignIn({}) {
 									<div className="max-w-md">
 										<button
 											onClick={() => {
-												signIn("google").then((res) => {
-													console.log(res)
-													if (!res) {
-														alert("Fehler beim Anmelden")
-														return
-													}
-													if (res.error) {
-														console.log(res)
-														alert(res.error)
-														return
-													} else {
-														alert("Erfolgreich angemeldet")
-														toast.success("Erfolgreich angemeldet")
-														return
-													}
-												})
+												signIn("google").then((res) => {})
 											}}
 											type="button"
 											className="text-white w-full  bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between dark:focus:ring-[#4285F4]/55 mr-2 mb-2">

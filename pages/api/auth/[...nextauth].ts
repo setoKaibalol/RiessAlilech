@@ -3,7 +3,6 @@ import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "@/prisma/PrismaClient"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { toast } from "sonner"
 
 export const authOptions: AuthOptions = {
 	adapter: PrismaAdapter(prisma),
@@ -57,6 +56,8 @@ export const authOptions: AuthOptions = {
 		GoogleProvider({
 			clientId: process.env.GOOGLE_ID,
 			clientSecret: process.env.GOOGLE_SECRET,
+			// später prüfen ob das geht
+			allowDangerousEmailAccountLinking: true,
 		}),
 	],
 	secret: process.env.NEXTAUTH_SECRET,

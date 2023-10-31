@@ -63,7 +63,12 @@ export default function App({
 						<SessionProvider session={session}>
 							<EightheenPlusPanel />
 							<NextNProgress color="#e39a9c" />
-							<Toaster position="top-right" richColors />
+							<Toaster
+								closeButton
+								duration={2500}
+								position="top-center"
+								richColors
+							/>
 							<Navbar />
 							<Component {...pageProps} />
 							<Footer />
