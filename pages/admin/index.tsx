@@ -4,6 +4,8 @@ import UsersLayout from "@/components/admin/Users"
 import { useUserContext } from "@/context"
 import { useSession } from "next-auth/react"
 import AuctionsLayout from "@/components/admin/Auctions"
+import { FiChevronLeft } from "react-icons/fi"
+import router from "next/router"
 
 interface AdminLayoutProps {
 	children: ReactNode
@@ -118,7 +120,15 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({}) => {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex items-center justify-between h-16">
 						<div className="flex items-center">
-							<div className="flex-shrink-0">
+							<div className="flex-shrink-0 flex-row flex justify-center items-center gap-4">
+								<FiChevronLeft
+									onClick={() => {
+										router.back()
+									}}
+									className={
+										"text-5xl cursor-pointer text-primary-base duration-200 rounded-full"
+									}></FiChevronLeft>
+
 								<Link className="text-white font-bold text-xl" href="/admin">
 									Admin Dashboard
 								</Link>

@@ -24,7 +24,6 @@ import {
 } from "react-icons/tb"
 import TipModal from "@/components/TipModal"
 import { useRouter } from "next/router"
-import { toast } from "react-toastify"
 import { VscVerifiedFilled } from "react-icons/vsc"
 
 type Props = {

@@ -1,7 +1,7 @@
 import { redirect } from "next/dist/server/api-utils"
 import Link from "next/link"
-import React, { useState } from "react"
-import { toast } from "react-toastify"
+import React, { useEffect, useState } from "react"
+import { toast } from "sonner"
 import router from "next/router"
 import { prisma } from "@/prisma/PrismaClient"
 import { IoInformationCircle } from "react-icons/io5"
@@ -15,21 +15,27 @@ function Signup(props: Props) {
 	const [emailMessage, setEmailMessage] = useState("")
 	const [emailExists, setEmailExists] = useState(false)
 	const [passwordMessage, setPasswordMessage] = useState("")
+	const [disabled, setDisabled] = useState(false)
+	const [password, setPassword] = useState("")
+	const [confirmPassword, setConfirmPassword] = useState("")
+	const [loading, setLoading] = useState(true)
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
-
+		setLoading(true)
 		let email = e.target.email.value
 		let password = e.target.password.value
 		let confirmPassword = e.target["confirm-password"].value
 
 		if (password !== confirmPassword) {
-			alert("Passwörter stimmen nicht überein.")
+			toast.warning("Passwörter stimmen nicht überein.")
+			setLoading(false)
 			return
 		}
 
 		if (users.find((user: any) => user.email === email)) {
-			alert("Email bereits vergeben.")
+			toast.warning("Email bereits vergeben.")
+			setLoading(false)
 			return
 		}
 
@@ -44,13 +50,32 @@ function Signup(props: Props) {
 			.then((data) => {
 				console.log(data)
 				if (data.error) {
-					alert(data.error)
+					toast.error(data.error)
+					setLoading(false)
 				} else {
 					toast.success("Account erstellt")
+					setLoading(false)
 					router.push("/auth/signin")
 				}
 			})
 	}
+
+	useEffect(() => {
+		if (
+			password === confirmPassword ||
+			password === "" ||
+			confirmPassword === ""
+		) {
+			setPasswordMessage("")
+		}
+		if (
+			password !== confirmPassword &&
+			password !== "" &&
+			confirmPassword !== ""
+		) {
+			setPasswordMessage("Passwörter stimmen nicht überein.")
+		}
+	}, [password, confirmPassword])
 
 	return (
 		<div className="pt-20 lg:pt-40 max-h-screen overflow-hidden">
@@ -66,7 +91,7 @@ function Signup(props: Props) {
 									<label
 										htmlFor="email"
 										className="block mb-2 text-sm font-medium text-white">
-										Deine email
+										Deine E-Mail
 									</label>
 									<input
 										type="email"
@@ -107,6 +132,10 @@ function Signup(props: Props) {
 										type="password"
 										name="password"
 										id="password"
+										value={password}
+										onChange={(e) => {
+											setPassword(e.target.value)
+										}}
 										placeholder="••••••••"
 										className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
 									/>
@@ -121,10 +150,27 @@ function Signup(props: Props) {
 										type="password"
 										name="confirm-password"
 										id="confirm-password"
+										value={confirmPassword}
+										onChange={(e) => {
+											setConfirmPassword(e.target.value)
+										}}
 										placeholder="••••••••"
 										className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500"
 										required
 									/>
+								</div>
+
+								<div className="min-h-[50px]">
+									{passwordMessage && (
+										<div className="bg-gray-600 h-full gap-3 p-2 px-4 rounded-lg flex flex-row justify-start items-center text-center">
+											<IoInformationCircle
+												size={25}
+												color="white"></IoInformationCircle>
+											<p className="text-sm font-light text-gray-100">
+												{passwordMessage}
+											</p>
+										</div>
+									)}
 								</div>
 								<div className="flex items-start">
 									<div className="flex items-center h-5">
@@ -138,26 +184,27 @@ function Signup(props: Props) {
 									</div>
 									<div className="ml-3 text-sm">
 										<label htmlFor="terms" className="font-light text-gray-300">
-											I accept the{" "}
+											Ich akzeptiere die{" "}
 											<Link
 												className="font-medium text-white hover:underline"
 												href="/privacy-policy">
-												Terms and Conditions
+												Geschäftsbedingungen
 											</Link>
 										</label>
 									</div>
 								</div>
 								<button
 									type="submit"
-									className="w-full text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-accent-base">
-									Create an account
+									disabled={disabled}
+									className={`w-full text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-accent-base`}>
+									Account erstellen
 								</button>
 								<p className="text-sm font-light text-gray-400">
-									Already have an account?{" "}
+									Hast du schon einen Account?{" "}
 									<Link
 										href="/auth/signin"
 										className="font-medium text-white hover:underline">
-										Login here
+										Login hier
 									</Link>
 								</p>
 							</form>

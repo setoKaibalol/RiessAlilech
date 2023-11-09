@@ -7,8 +7,8 @@ import { ClipLoader } from "react-spinners"
 import { useRouter } from "next/router"
 import { signIn, useSession } from "next-auth/react"
 import ItemCard from "./ItemCard"
-import CreatorCard from "./CreatorCard"
-import moment, { duration } from "moment"
+import moment from "moment"
+import "moment/locale/de"
 import Countdown from "@/components/Countdown"
 import { BiMoney, BiTimeFive } from "react-icons/bi"
 import { endAuction } from "@/helpers/endAuction"
@@ -32,39 +32,22 @@ function AuctionCard({ auction, status }: Props) {
 	const { data: session } = useSession()
 	const [copySuccess, setCopySuccess] = React.useState("")
 	const [isBookmarked, setIsBookmarked] = useState(false)
-	const [bookmarkLoading, setBookmarkLoading] = useState(true)
+	const [likes, setLikes] = useState(auction.userLike.length)
 	const [isLiked, setIsLiked] = useState(false)
-	const [likeLoading, setLikeLoading] = useState(true)
+	const [isOptimistic, setIsOptimistic] = useState(false)
+	const [isBookmarkOptimistic, setIsBookmarkOptimistic] = useState(false)
 
 	const router = useRouter()
 	const {
-		creatorAuctionsStatus,
-		setCreatorAuctionsStatus,
-		refreshCreatorAuctions,
-		setRefreshCreatorAuctions,
-		userAuctions,
-		setUserAuctions,
-		userAuctionsStatus,
-		setUserAuctionsStatus,
-		refreshUserAuctions,
 		setRefreshUserAuctions,
-		userItems,
-		setUserItems,
 		userItemsStatus,
 		setUserItemsStatus,
-		refreshUserItems,
-		setRefreshUserItems,
-		creatorsStatus,
 		setCreatorsStatus,
-		refreshCreators,
-		setRefreshCreators,
 		bookmarks,
 		setBookmarks,
 		auctionLikes,
 		setAuctionLikes,
 	} = useUserContext()
-
-	const websiteLink = process.env.NEXT_PUBLIC_WEBSITE_URL
 
 	const endsAt = moment(auction.createdAt).add(auction.durationHours, "hours")
 	const now = moment()
@@ -92,10 +75,6 @@ function AuctionCard({ auction, status }: Props) {
 				.then((res) => res.json())
 				.then((data) => {
 					const array = data.auctionBookmarks
-					if (array.length === 0) {
-						setBookmarkLoading(false)
-						return
-					}
 					for (let index = 0; index < array.length; index++) {
 						const element = array[index]
 						if (element.id === auction.id) {
@@ -104,7 +83,6 @@ function AuctionCard({ auction, status }: Props) {
 					}
 
 					setBookmarks(data.Bookmarks)
-					setBookmarkLoading(false)
 				})
 		}
 	}, [session])
@@ -121,10 +99,6 @@ function AuctionCard({ auction, status }: Props) {
 				.then((data) => {
 					const array = data.auctionLikes
 					console.log(array)
-					if (array.length === 0) {
-						setLikeLoading(false)
-						return
-					}
 					for (let index = 0; index < array.length; index++) {
 						const element = array[index]
 						console.log(element)
@@ -132,15 +106,14 @@ function AuctionCard({ auction, status }: Props) {
 							setIsLiked(true)
 						}
 					}
-
-					setAuctionLikes(data.Bookmarks)
-					setLikeLoading(false)
 				})
 		}
 	}, [session])
 
 	const handleLike = () => {
-		setLikeLoading(true)
+		setIsOptimistic(true)
+		setLikes(isLiked ? likes - 1 : likes + 1)
+
 		if (session) {
 			if (isLiked) {
 				setIsLiked(false)
@@ -153,11 +126,13 @@ function AuctionCard({ auction, status }: Props) {
 				})
 					.then((res) => res.json())
 					.then((data) => {
-						setLikeLoading(false)
 						setRefreshUserAuctions(true)
+						setIsOptimistic(false)
+					})
+					.catch((err) => {
+						console.log(err)
 					})
 			} else {
-				console.log("hi")
 				setIsLiked(true)
 				fetch("/api/user/auction/likes/add", {
 					method: "POST",
@@ -168,41 +143,56 @@ function AuctionCard({ auction, status }: Props) {
 				})
 					.then((res) => res.json())
 					.then((data) => {
-						setLikeLoading(false)
 						setRefreshUserAuctions(true)
+						setIsOptimistic(false)
+					})
+					.catch((err) => {
+						console.log(err)
 					})
 			}
 		}
 	}
 
 	const handleBookmark = () => {
-		setBookmarkLoading(true)
+		setIsBookmarkOptimistic(true)
+		setIsBookmarked((prev) => !prev)
+
 		if (isBookmarked) {
-			fetch("/api/user/auction/bookmarks/remove", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ auctionId: auction.id }),
-			})
-				.then((res) => res.json())
-				.then((data) => {
-					setIsBookmarked(false)
-					setBookmarkLoading(false)
+			try {
+				fetch("/api/user/auction/bookmarks/remove", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ auctionId: auction.id }),
 				})
+					.then((res) => res.json())
+					.then((data) => {
+						setIsBookmarked(false)
+					})
+			} catch (err) {
+				console.log(err)
+			} finally {
+				setIsBookmarkOptimistic(false)
+			}
 		} else {
-			fetch("/api/user/auction/bookmarks/add", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ auctionId: auction.id }),
-			})
-				.then((res) => res.json())
-				.then((data) => {
-					setIsBookmarked(true)
-					setBookmarkLoading(false)
+			try {
+				fetch("/api/user/auction/bookmarks/add", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ auctionId: auction.id }),
 				})
+					.then((res) => res.json())
+					.then((data) => {
+						setIsBookmarked(true)
+					})
+			} catch (err) {
+				console.log(err)
+			} finally {
+				setIsBookmarkOptimistic(false)
+			}
 		}
 	}
 
@@ -384,7 +374,7 @@ function AuctionCard({ auction, status }: Props) {
 									</div>
 								</div>
 								<div className="w-auto text-gray-500">
-									{moment(auction.createdAt).fromNow()}
+									{moment(auction.createdAt).locale("de").fromNow()}
 								</div>
 							</div>
 							<div className="h-auto w-full flex flex-col rounded-sm">
@@ -392,18 +382,18 @@ function AuctionCard({ auction, status }: Props) {
 									<Link href={`/auction/${auction.id}`} className="">
 										<h1 className="text-xl font-bold">{auction.title}</h1>
 									</Link>
-									<div className="flex flex-row gap-1 justify-center items-center px-2  border-secondary-base/70 border-2 rounded-xl ">
+									<div className="flex flex-row gap-1 justify-center items-center px-2 border-secondary-base/30 border rounded-xl ">
 										<h2 className="h-full text-secondary-base">
 											{auction.live} live
 										</h2>
 										{isLive ? (
-											<div className="relative h-4 w-4">
-												<p className="w-4 h-4 absolute animate-ping bg-green-500 rounded-full"></p>
-												<p className="w-4 h-4 bg-green-500 rounded-full"></p>
+											<div className="relative h-3 w-3">
+												<p className="w-3 h-3 absolute animate-ping bg-green-500 rounded-full"></p>
+												<p className="w-3 h-3 bg-green-500 rounded-full"></p>
 											</div>
 										) : (
-											<div className="relative h-4 w-4">
-												<p className="w-4 h-4 bg-red-500 rounded-full"></p>
+											<div className="relative h-3 w-3">
+												<p className="w-3 h-3 bg-red-500 rounded-full"></p>
 											</div>
 										)}
 									</div>
@@ -442,7 +432,7 @@ function AuctionCard({ auction, status }: Props) {
 										<div className="h-full w-20 flex gap-4 flex-row justify-center items-center">
 											{session && session.user ? (
 												<button
-													disabled={likeLoading}
+													disabled={isOptimistic}
 													onClick={() => {
 														handleLike()
 													}}>
@@ -453,30 +443,28 @@ function AuctionCard({ auction, status }: Props) {
 													)}
 												</button>
 											) : (
-												<button onClick={() => signIn()}>
+												<button
+													onClick={() => {
+														signIn(undefined, {
+															callbackUrl: window.location.href,
+														})
+													}}>
 													<BsHeart className="text-2xl shrink-0" />
 												</button>
 											)}
 
 											<p className="whitespace-nowrap">
-												{auction.userLike.length}{" "}
-												{auction.userLike.length > 1 ||
-												auction.userLike.length === 0
-													? "likes"
-													: "like"}
+												{likes} {likes > 1 || likes === 0 ? "likes" : "like"}
 											</p>
 										</div>
 										<div className="h-full flex justify-center text-gray-500 text-2xl items-center">
 											{session && session.user ? (
 												<button
 													className="focus:outline-none duration-200"
-													disabled={bookmarkLoading}
 													onClick={() => {
 														handleBookmark()
 													}}>
-													{bookmarkLoading ? (
-														<ClipLoader size={20}></ClipLoader>
-													) : isBookmarked ? (
+													{isBookmarked ? (
 														<BsBookmarkCheckFill className="text-accent-base" />
 													) : (
 														<BsBookmark />

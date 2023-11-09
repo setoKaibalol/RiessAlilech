@@ -110,10 +110,6 @@ export const authOptions: AuthOptions = {
 			}
 			return Promise.resolve(token)
 		},
-
-		async redirect({ url, baseUrl }) {
-			return Promise.resolve(baseUrl)
-		},
 	},
 
 	pages: {

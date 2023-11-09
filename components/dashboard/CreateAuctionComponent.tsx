@@ -216,12 +216,12 @@ function CreateAuctionComponent({}: Props) {
 				<div className="max-w-sm text-center text-lg">
 					<p>
 						Um deine erste Auction zu erstellen, benötigst du erstmal ein Item
-						zum anbieten.
+						dass du versteigern möchtest.
 					</p>
 				</div>
 				<div>
 					<button
-						className="text-primary-500 text-2xl uppercase w-max p-2 bg-accent-base font-medium rounded-lg duration-200"
+						className="text-primary-500 text-lg uppercase w-max p-2 bg-accent-base font-medium rounded-lg duration-200"
 						onClick={() => setActive(2)}>
 						Erstelle dein erstes Item!
 					</button>

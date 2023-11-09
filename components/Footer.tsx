@@ -24,10 +24,6 @@ function Footer({}: Props) {
 	const FooterNav3 = [
 		{ name: "Über uns", href: "/ueber-uns" },
 		{ name: "FAQ", href: "/hilfe" },
-		{
-			name: "18 U.S.C. 2257 Record-Keeping Requirements Compliance Statement",
-			href: "/usc-2257",
-		},
 	]
 
 	return router.pathname != "/dashboard" ? (

@@ -26,8 +26,6 @@ function CreatorCard({ creator, status }: Props) {
 	} = useUserContext()
 	const [copySuccess, setCopySuccess] = React.useState("")
 
-	const websiteLink = process.env.NEXT_PUBLIC_WEBSITE_URL
-
 	const handleCopySuccess = (id: string) => {
 		setCopySuccess(id)
 		setTimeout(() => {

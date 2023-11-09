@@ -1,47 +1,55 @@
 import { signIn } from "next-auth/react"
 import Link from "next/link"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { toast } from "sonner"
+import { ClipLoader, SyncLoader } from "react-spinners"
 
 export default function SignIn({}) {
 	const { data: session, status, update } = useSession()
+	const [loading, setLoading] = useState(false)
 
 	const router = useRouter()
 
 	useEffect(() => {
-		if (session) {
-			// Redirect to the previous page or to the homepage if no previous page is specified
+		let callbackUrl = router.query.callbackUrl
+		if (session && callbackUrl) {
+			router.push(callbackUrl as string)
+		} else if (session) {
 			router.push("/")
+		} else {
+			return
 		}
 	}, [session, router])
 
 	const handleSubmit = async (e: any) => {
 		e.preventDefault()
+		setLoading(true)
 		let email = e.target.email.value
 		let password = e.target.password.value
 
 		if (!email) {
 			toast.warning("Email fehlt", {})
+			setLoading(false)
 			return
 		}
 
 		if (!password) {
 			toast.warning("Passwort fehlt", {})
+			setLoading(false)
 			return
 		}
 
 		const response = await signIn("credentials", {
 			email,
 			password,
-			redirect: false,
 		})
 			.then((res) => {
-				console.log("response: ", res)
 				if (res?.error) {
 					if (res.status === 401) {
 						toast.error("Email nicht gefunden oder Passwort falsch")
+						setLoading(false)
 						return
 					}
 					return
@@ -49,14 +57,12 @@ export default function SignIn({}) {
 
 				if (res?.status === 200) {
 					toast.success("Erfolgreich angemeldet")
-					router.push("/")
 				}
 			})
 			.catch((err) => {
 				toast.error("Fehler beim Anmelden")
+				setLoading(false)
 			})
-
-		console.log(response)
 	}
 
 	if (session) {
@@ -106,8 +112,14 @@ export default function SignIn({}) {
 								<div className="space-y-4 md:space-y-6">
 									<button
 										type="submit"
-										className="w-full text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-accent-base">
-										Anmelden
+										className={`w-full text-white min-h-[45px] duration-100 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ${
+											loading ? "bg-gray-500" : "bg-accent-base"
+										}`}>
+										{loading ? (
+											<ClipLoader color="#E0726C" size={21} />
+										) : (
+											<div>Anmelden</div>
+										)}
 									</button>
 									<p className="text-sm font-light text-gray-400">
 										Du hast noch keinen Account?{" "}

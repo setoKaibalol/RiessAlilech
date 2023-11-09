@@ -152,7 +152,7 @@ function DashboardItems({}: Props) {
 				)}
 			</section>
 			<section className="sm:w-1/2 h-full flex gap-1 flex-col w-full  p-2 sm:p-2">
-				<p className="py-2 text-xl font-medium">Item erstellen</p>
+				<p className="py-2 text-lg font-medium">Item erstellen</p>
 				<div className="w-full h-full flex justify-center p-2 font-primary">
 					<form
 						onSubmit={handleSubmit}
@@ -213,7 +213,7 @@ function DashboardItems({}: Props) {
 						<button
 							type="submit"
 							disabled={itemStatus === "loading"}
-							className="bg-accent-base text-3xl disabled:bg-gray-600 p-2 px-10 font-medium rounded-lg duration-200 hover:bg-accent-base">
+							className="bg-accent-base text-xl disabled:bg-gray-600 p-2 px-10 font-medium rounded-lg duration-200 hover:bg-accent-base">
 							{itemStatus === "loading" ? (
 								<ClipLoader></ClipLoader>
 							) : (

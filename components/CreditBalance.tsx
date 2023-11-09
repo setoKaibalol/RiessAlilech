@@ -1,14 +1,21 @@
 import React from "react"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
+import { useUserContext } from "./../context"
 
 type Props = {}
 
 function CreditBalance({}: Props) {
+	const { active, setActive, showMobileMenu, setShowMobileMenu } =
+		useUserContext()
+
 	const { data: session, status } = useSession()
 	return session ? (
 		<Link
 			href={"/credits"}
+			onClick={() => {
+				setShowMobileMenu(false)
+			}}
 			className="flex items-center justify-center bg-primary-base p-2 border border-accent-base rounded-lg shadow-md">
 			<div className="flex flex-row items-center">
 				<span className="text-accent-base text-lg font-bold mr-2">

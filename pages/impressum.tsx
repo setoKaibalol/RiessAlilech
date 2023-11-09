@@ -54,12 +54,13 @@ function Impressum({}: Props) {
 						Die Europ&auml;ische Kommission stellt eine Plattform zur
 						Online-Streitbeilegung (OS) bereit:{" "}
 						<a
+							className="text-blue-700 font-semibold"
 							href="https://ec.europa.eu/consumers/odr/"
 							target="_blank"
 							rel="noopener noreferrer">
 							https://ec.europa.eu/consumers/odr/
 						</a>
-						.<br /> Unsere E-Mail-Adresse finden Sie oben im Impressum.
+						<br /> Unsere E-Mail-Adresse finden Sie oben im Impressum.
 					</p>
 				</div>
 				<div>
