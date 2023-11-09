@@ -5,7 +5,7 @@ type Props = {}
 function Datenschutzerklärung({}: Props) {
 	return (
 		<div className="break-words pt-20 sm:px-20 px-6 gap-4 flex flex-col pb-20">
-			<h1>Datenschutzerkl&auml;rung</h1>
+			<h1 className="font-bold text-xl">Datenschutzerkl&auml;rung</h1>
 			<h2>1) Einleitung und Kontaktdaten des Verantwortlichen</h2>
 			<p>
 				<b>1.1</b>&nbsp;Wir freuen uns, dass Sie unsere Website besuchen und
@@ -894,7 +894,7 @@ function Datenschutzerklärung({}: Props) {
 				<br />
 				- giropay (Paydirekt GmbH, Stephanstr. 14-16, 60313 Frankfurt am Main
 				<br />
-				- bancontact (Bancontact Payconiq Company, Rue d'Arlon 82, 1040
+				- bancontact (Bancontact Payconiq Company, Rue d&apos;Arlon 82, 1040
 				Br&uuml;ssel, Belgien)
 				<br />
 				- blik (Polski Standard P&lstrok;atno&sacute;ci sp. z o.o., ul.
