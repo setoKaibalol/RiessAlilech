@@ -196,6 +196,7 @@ function Navbar({}: Props) {
 							<Link className="px-2" href="/kontakt" target="_blank">
 								Kontakt
 							</Link>{" "}
+							•{" "}
 							<Link
 								className="px-2"
 								href="/18USC-compliance-notice"
@@ -320,6 +321,7 @@ function Navbar({}: Props) {
 							<Link className="px-2" href="/kontakt" target="_blank">
 								Kontakt
 							</Link>{" "}
+							•{" "}
 							<Link
 								className="px-2"
 								href="/18USC-compliance-notice"
