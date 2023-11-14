@@ -196,6 +196,12 @@ function Navbar({}: Props) {
 							<Link className="px-2" href="/kontakt" target="_blank">
 								Kontakt
 							</Link>{" "}
+							<Link
+								className="px-2"
+								href="/18USC-compliance-notice"
+								target="_blank">
+								18 U.S.C. SECTION 2257 COMPLIANCE NOTICE
+							</Link>{" "}
 						</div>
 					</div>
 					<div
@@ -313,6 +319,12 @@ function Navbar({}: Props) {
 							•{" "}
 							<Link className="px-2" href="/kontakt" target="_blank">
 								Kontakt
+							</Link>{" "}
+							<Link
+								className="px-2"
+								href="/18USC-compliance-notice"
+								target="_blank">
+								18 U.S.C. SECTION 2257 COMPLIANCE NOTICE
 							</Link>{" "}
 						</div>
 					</div>
