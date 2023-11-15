@@ -1,6 +1,6 @@
 export const SkeletonCard = () => {
 	return (
-		<div className="w-full p-2 h-60 border bg-gray-300 rounded-sm animate-pulse">
+		<div className=" p-2 h-60 border bg-gray-300 rounded-sm animate-pulse">
 			<div className="flex flex-row h-full w-full justify-between">
 				<div className="relative h-full w-72">
 					<div className="h-full w-full bg-gray-400"></div>

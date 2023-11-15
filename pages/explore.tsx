@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react"
 import { BiSearch } from "react-icons/bi"
 import { BsBack } from "react-icons/bs"
 import { FiChevronLeft } from "react-icons/fi"
-import { useRouter } from "next/router"
+import { useSearchParams, useRouter, usePathname } from "next/navigation"
+import { useCallback } from "react"
 import { RiAuctionLine } from "react-icons/ri"
 import { MdOutlineFace3 } from "react-icons/md"
 import { BsPeople } from "react-icons/bs"
@@ -13,18 +14,41 @@ type Props = {}
 
 function Explore({}: Props) {
 	const router = useRouter()
-	const [chosenCat, setChosenCat] = useState(1)
+	const searchParams = useSearchParams()
+	const pathname = usePathname()
+	const [chosenCat, setChosenCat] = useState<String>()
 	const [search, setSearch] = useState("")
 
 	useEffect(() => {
-		if (router.query.category) {
-			if (router.query.category === "auctions") {
-				setChosenCat(1)
-			} else if (router.query.category === "creators") {
-				setChosenCat(2)
+		if (searchParams.has("category")) {
+			if (searchParams.get("category") === "auctions") {
+				setChosenCat("auctions")
+			} else if (searchParams.get("category") === "creators") {
+				setChosenCat("creators")
 			}
 		}
-	}, [router.query.search])
+	}, [searchParams])
+
+	useEffect(() => {
+		if (searchParams.has("search")) {
+			setSearch(searchParams.get("search") as string)
+		}
+		if (chosenCat) {
+			router.push(
+				pathname + "?" + createQueryString("category", chosenCat as string)
+			)
+		}
+	}, [chosenCat])
+
+	const createQueryString = useCallback(
+		(name: string, value: string) => {
+			const params = new URLSearchParams(searchParams)
+			params.set(name, value)
+
+			return params.toString()
+		},
+		[searchParams]
+	)
 
 	return (
 		<div className="gap-4 min-h-screen bg-primary-base flex flex-col">
@@ -35,43 +59,43 @@ function Explore({}: Props) {
 							router.back()
 						}}
 						className={
-							"text-5xl cursor-pointer hover:bg-gray-200 duration-200 rounded-full"
+							"text-4xl cursor-pointer hover:bg-gray-200 duration-200 rounded-full"
 						}></FiChevronLeft>
-					<BiSearch className="text-2xl absolute left-16 z-40 text-gray-400"></BiSearch>
+					<BiSearch className="text-2xl absolute left-[70px] z-40 text-gray-400"></BiSearch>
 
 					<input
 						value={search}
 						onChange={(e) => {
 							setSearch(e.target.value)
 						}}
-						className="relative focus:outline-2 focus:outline-accent-base bg-gray-200 pl-10 z-10 w-full p-2 text-xl rounded-xl border-secondary-base"></input>
+						className="relative focus:outline-2 border focus:outline-accent-base/30 bg-white pl-16 z-10 w-full p-2 text-xl rounded-xl border-secondary-base/40"></input>
 				</div>
 
 				<div className="flex flex-row">
 					<button
 						onClick={() => {
-							setChosenCat(1)
+							setChosenCat("auctions")
 						}}
 						className={`flex  hover:bg-gray-100 flex-row justify-center duration-200 w-1/2 p-2 border-b-2 ${
-							chosenCat === 1 && "border-black"
+							chosenCat === "auctions" && "border-black"
 						}`}>
 						<h2 className="text-3xl"></h2>
 						<RiAuctionLine className="text-4xl"></RiAuctionLine>
 					</button>
 					<button
 						onClick={() => {
-							setChosenCat(2)
+							setChosenCat("creators")
 						}}
 						className={`flex hover:bg-gray-100 flex-row w-1/2 justify-center duration-200 p-2 border-b-2 ${
-							chosenCat === 2 && "border-black"
+							chosenCat === "creators" && "border-black"
 						}`}>
 						<BsPeople className="text-4xl"></BsPeople>
 					</button>
 				</div>
 			</div>
 			<div className="pt-[120px]">
-				{chosenCat === 1 && <Auctions search={search}></Auctions>}
-				{chosenCat === 2 && <Creators search={search}></Creators>}
+				{chosenCat === "auctions" && <Auctions search={search}></Auctions>}
+				{chosenCat === "creators" && <Creators search={search}></Creators>}
 			</div>
 		</div>
 	)

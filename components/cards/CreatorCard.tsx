@@ -1,12 +1,9 @@
 import React from "react"
-import { useRouter } from "next/router"
+import { useRouter, usePathname } from "next/navigation"
 import { SkeletonCard } from "./skeletons/CreatorSkeleton"
-import { ClipLoader } from "react-spinners"
 import { useUserContext } from "@/context"
 import Link from "next/link"
 import Image from "next/image"
-import { MdDescription } from "react-icons/md"
-import { GrUserFemale } from "react-icons/gr"
 import { VscVerifiedFilled } from "react-icons/vsc"
 
 type Props = {
@@ -16,6 +13,7 @@ type Props = {
 
 function CreatorCard({ creator, status }: Props) {
 	const router = useRouter()
+	const pathname = usePathname()
 	const {
 		creators,
 		setCreators,
@@ -26,14 +24,7 @@ function CreatorCard({ creator, status }: Props) {
 	} = useUserContext()
 	const [copySuccess, setCopySuccess] = React.useState("")
 
-	const handleCopySuccess = (id: string) => {
-		setCopySuccess(id)
-		setTimeout(() => {
-			setCopySuccess("")
-		}, 2000)
-	}
-
-	switch (router.pathname) {
+	switch (pathname) {
 		case "/dashboard":
 			switch (status) {
 				case "loading":
@@ -75,7 +66,7 @@ function CreatorCard({ creator, status }: Props) {
 					return (
 						<Link
 							href={`/creator/${creator.id}`}
-							className="md:p-0 font-primary mb-4 max-h-48 h-44 hover:shadow-md md:w-40 w-[46%] hover:-translate-y-1 hover:shadow-black/40 duration-200 rounded-lg shadow-black/40 max-w-sm hover:translate">
+							className="md:p-0 font-primary h-48 rounded-b-md border-b border-x hover:shadow-md md:w-40 w-[46%] hover:-translate-y-0.5 hover:shadow-black/40 duration-200 rounded-lg max-w-sm">
 							{creator.profilePicture && (
 								<div className="w-full relative h-36">
 									<Image
@@ -89,7 +80,7 @@ function CreatorCard({ creator, status }: Props) {
 									/>
 								</div>
 							)}
-							<div className="bg-primary-base w-full rounded-b-md border-b-2 border-x-2">
+							<div className="bg-primary-base w-full ">
 								<div className="py-2 px-3">
 									<div className="text-secondary-base gap-2 text-lg font-bold items-center flex flex-row">
 										{creator.realName}, {creator.age}

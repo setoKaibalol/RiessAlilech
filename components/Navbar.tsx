@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react"
 import { signIn, signOut, useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/router"
+import { useRouter, usePathname } from "next/navigation"
 import { useUserContext } from "./../context"
 import { ClipLoader } from "react-spinners"
 import { AuthComponent } from "./AuthComponent"
@@ -15,6 +15,7 @@ function Navbar({}: Props) {
 	const { active, setActive, showMobileMenu, setShowMobileMenu } =
 		useUserContext()
 	const router = useRouter()
+	const pathname = usePathname()
 	const { data: session, status } = useSession()
 
 	const [current, setCurrent] = useState(3)
@@ -75,21 +76,21 @@ function Navbar({}: Props) {
 	}
 
 	useEffect(() => {
-		if (router.pathname === "/creators") {
+		if (pathname === "/creators") {
 			setCurrent(0)
-		} else if (router.pathname === "/auctions") {
+		} else if (pathname === "/auctions") {
 			setCurrent(1)
-		} else if (router.pathname === "/hilfe") {
+		} else if (pathname === "/hilfe") {
 			setCurrent(2)
 		}
-	}, [router.pathname])
+	}, [pathname])
 
-	return router.pathname === "/" ? (
+	return pathname === "/" ? (
 		<>
 			<div className="h-20 w-full bg-transparent z-30 sm:fixed absolute flex flex-row">
 				<div
 					id="navbar-ref"
-					className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base  bg-transparent flex-row items-center">
+					className="fixed duration-300 sm:flex hidden border-b border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base  bg-transparent flex-row items-center">
 					<Link
 						onClick={() => {
 							setShowMobileMenu(false)
@@ -106,7 +107,7 @@ function Navbar({}: Props) {
 						{navigation.map((item, index) => (
 							<Link
 								onClick={() => setShowMobileMenu(false)}
-								className="p-2 rounded-md hover:bg-secondary-base/20 text-lg duration-200"
+								className="p-2 rounded-md hover:bg-secondary-base/10 duration-100 text-lg"
 								key={index}
 								href={`${item.href}`}>
 								{item.name}
@@ -152,7 +153,7 @@ function Navbar({}: Props) {
 								{mobileMenuNavigation.map((item, index) => (
 									<Link
 										onClick={() => setShowMobileMenu(false)}
-										className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
+										className="p-2 rounded-md hover:bg-secondary-base/10 duration-100 text-lg"
 										key={index}
 										href={`${item.href}`}>
 										{item.name}
@@ -211,27 +212,27 @@ function Navbar({}: Props) {
 				</div>
 			)}
 		</>
-	) : router.pathname != "/dashboard" &&
-	  router.pathname != "/explore" &&
-	  !router.pathname.includes("admin") ? (
+	) : pathname != "/dashboard" &&
+	  pathname != "/explore" &&
+	  !pathname.includes("admin") ? (
 		<>
 			<div className="h-20 w-full bg-transparent z-30 sm:fixed absolute flex flex-row">
 				<div
 					id="navbar-ref"
-					className="fixed sm:flex hidden border-b-2 border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
+					className="fixed sm:flex duration-300 hidden border-b border-transparent w-full px-4 h-20 z-20 justify-between font-primary text-secondary-base bg-transparent flex-row items-center">
 					<Link
 						href={"/"}
 						className="flex flex-row justify-center items-center">
 						<Image
 							alt="logo"
 							height={80}
-							width={240}
-							src={"/media/logo/logo_text_nobg.png"}></Image>
+							width={80}
+							src={"/media/logo/t4u_logo.png"}></Image>
 					</Link>
 					<div className="flex-row gap-2 hidden md:flex text-secondary-base font-primary font-medium">
 						{navigation.map((item, index) => (
 							<Link
-								className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
+								className="p-2 rounded-md hover:bg-secondary-base/10 duration-100 text-lg"
 								key={index}
 								href={`${item.href}`}>
 								{item.name}
@@ -277,7 +278,7 @@ function Navbar({}: Props) {
 								{mobileMenuNavigation.map((item, index) => (
 									<Link
 										onClick={() => setShowMobileMenu(false)}
-										className="p-2 rounded-md hover:bg-secondary-base/20 text-lg"
+										className="p-2 rounded-md hover:bg-secondary-base/10 duration-100 text-lg"
 										key={index}
 										href={`${item.href}`}>
 										{item.name}

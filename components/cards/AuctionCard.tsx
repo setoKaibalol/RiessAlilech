@@ -3,8 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { SkeletonCard } from "./ItemCardSkeleton"
 import { useUserContext } from "@/context"
-import { ClipLoader } from "react-spinners"
-import { useRouter } from "next/router"
+import { useRouter, usePathname } from "next/navigation"
 import { signIn, useSession } from "next-auth/react"
 import ItemCard from "./ItemCard"
 import moment from "moment"
@@ -21,6 +20,7 @@ import {
 	BsHeart,
 	BsHeartFill,
 } from "react-icons/bs"
+import { IoFlag } from "react-icons/io5"
 moment.locale("de")
 
 type Props = {
@@ -38,6 +38,7 @@ function AuctionCard({ auction, status }: Props) {
 	const [isBookmarkOptimistic, setIsBookmarkOptimistic] = useState(false)
 
 	const router = useRouter()
+	const pathname = usePathname()
 	const {
 		setRefreshUserAuctions,
 		userItemsStatus,
@@ -75,7 +76,7 @@ function AuctionCard({ auction, status }: Props) {
 				.then((res) => res.json())
 				.then((data) => {
 					const array = data.auctionBookmarks
-					for (let index = 0; index < array.length; index++) {
+					for (let index = 0; index < array?.length; index++) {
 						const element = array[index]
 						if (element.id === auction.id) {
 							setIsBookmarked(true)
@@ -99,7 +100,7 @@ function AuctionCard({ auction, status }: Props) {
 				.then((data) => {
 					const array = data.auctionLikes
 					console.log(array)
-					for (let index = 0; index < array.length; index++) {
+					for (let index = 0; index < array?.length; index++) {
 						const element = array[index]
 						console.log(element)
 						if (element.id === auction.id) {
@@ -227,7 +228,7 @@ function AuctionCard({ auction, status }: Props) {
 		const total = bids.reduce((a, b) => a + b.amount, 0)
 		return total
 	}
-	switch (router.pathname) {
+	switch (pathname) {
 		case "/dashboard":
 			switch (status) {
 				case "loading":
@@ -457,7 +458,7 @@ function AuctionCard({ auction, status }: Props) {
 												{likes} {likes > 1 || likes === 0 ? "likes" : "like"}
 											</p>
 										</div>
-										<div className="h-full flex justify-center text-gray-500 text-2xl items-center">
+										<div className="h-full flex flex-row gap-5 justify-center text-gray-500 text-2xl items-center">
 											{session && session.user ? (
 												<button
 													className="focus:outline-none duration-200"
@@ -475,6 +476,9 @@ function AuctionCard({ auction, status }: Props) {
 													<BsBookmark />
 												</button>
 											)}
+											<Link href={"/kontakt/form?subject=report"}>
+												<IoFlag />
+											</Link>
 										</div>
 									</div>
 								</div>

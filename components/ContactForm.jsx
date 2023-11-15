@@ -1,7 +1,27 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { useSearchParams, useRouter } from "next/navigation"
 
 function ContactForm() {
 	const [submitted, setSubmitted] = useState(false)
+	const searchParams = useSearchParams()
+	const router = useRouter()
+
+	useEffect(() => {
+		if (searchParams.has("subject")) {
+			const subject = searchParams.get("subject")
+			if (subject === "report") {
+				document.getElementById("subject").value = "Meldung von Kontent"
+			} else if (subject === "question") {
+				document.getElementById("subject").value = "Frage"
+			} else if (subject === "complaint") {
+				document.getElementById("subject").value = "Beschwerde"
+			} else if (subject === "other") {
+				document.getElementById("subject").value = "Anderes"
+			} else {
+				document.getElementById("subject").value = "Frage"
+			}
+		}
+	}, [searchParams])
 
 	const handleSubmit = (e) => {
 		e.preventDefault()

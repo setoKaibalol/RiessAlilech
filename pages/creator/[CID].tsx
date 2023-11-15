@@ -23,9 +23,10 @@ import {
 	TbBrandTwitch,
 } from "react-icons/tb"
 import TipModal from "@/components/TipModal"
-import { useRouter } from "next/router"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 import { VscVerifiedFilled } from "react-icons/vsc"
+import { IoFlag } from "react-icons/io5"
 
 type Props = {
 	creator: any
@@ -33,6 +34,8 @@ type Props = {
 
 function Creator(props: Props) {
 	const router = useRouter()
+	const pathname = usePathname()
+	const searchParams = useSearchParams()
 	const { creator } = props
 	const { data: session, status } = useSession()
 	const [tipModalOpen, setTipModalOpen] = React.useState(false)
@@ -40,15 +43,18 @@ function Creator(props: Props) {
 	const [message, setMessage] = useState("")
 
 	useEffect(() => {
-		if (router.query.redirect_status === "succeeded") {
-			toast.success("Vielen Dank für deinen Tip 😘")
+		if (searchParams.has("redirect_status")) {
+			const redirectStatus = searchParams.get("redirect_status")
+			if (redirectStatus == "succeeded") {
+				toast.success("Vielen Dank für deinen Tip 😘")
+			}
+			if (redirectStatus == "error") {
+				toast.error(
+					"Leider ging da etwas schief 😥 Für Hilfe wende dich an y.alilech@tipforyou.de"
+				)
+			}
 		}
-		if (router.query.redirect_status === "error") {
-			toast.error(
-				"Leider ging da etwas schief 😥 Für Hilfe wende dich an y.alilech@tipforyou.de"
-			)
-		}
-	}, [])
+	}, [searchParams])
 
 	const origin =
 		typeof window !== "undefined" && window.location.origin
@@ -72,7 +78,7 @@ function Creator(props: Props) {
 					type="creator"
 					onClose={() => setTipModalOpen(false)}
 					receiver={creator}></TipModal>
-				<div className="relative w-full h-96">
+				<div className="relative w-full h-96 flex ">
 					<Image
 						unoptimized
 						placeholder="blur"
@@ -84,6 +90,14 @@ function Creator(props: Props) {
 						alt="Creator"
 					/>
 				</div>
+				<div className="absolute right-2 py-2">
+					<Link
+						className=" text-red-500 z-10 flex p-2 relative"
+						href={"/kontakt/form?subject=report"}>
+						<IoFlag className="text-red-500 h-7 w-7" />
+					</Link>
+				</div>
+
 				<div className="flex flex-col items-center px-6 py-4">
 					<div className="text-secondary-base gap-2 text-2xl font-bold items-center flex flex-row mb-2">
 						{creator.realName}, {creator.age}

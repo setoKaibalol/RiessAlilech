@@ -1,12 +1,13 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/router"
+import { useRouter, usePathname } from "next/navigation"
 
 type Props = {}
 
 function Footer({}: Props) {
 	const router = useRouter()
+	const pathname = usePathname()
 	const FooterNav1 = [
 		{ name: "Home", href: "/" },
 		{ name: "Creators", href: "/explore?category=creators" },
@@ -30,9 +31,9 @@ function Footer({}: Props) {
 		},
 	]
 
-	return router.pathname != "/dashboard" ? (
-		<div className="h-auto w-full font-primary hidden sm:flex relative overflow-hidden ">
-			<div className="w-full py-4 h-full flex md:flex-row flex-col items-center md:items-center md:justify-between bg-secondary border-t-secondary-base border-t-2">
+	return pathname != "/dashboard" ? (
+		<div className="bg-primary-base h-auto w-full font-primary hidden sm:flex relative overflow-hidden ">
+			<div className="w-full py-4 h-full flex md:flex-row flex-col items-center md:items-center md:justify-between bg-secondary border-t-secondary-base border-t">
 				<div className="flex md:flex-row items-center md:w-[30%] h-full">
 					<div className="w-1/3 h-full flex justify-center items-center">
 						<Image

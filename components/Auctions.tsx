@@ -67,8 +67,8 @@ function Auctions({ search }: Props) {
 		case "loaded":
 			return userAuctions.length > 0 ? (
 				<div className="min-h-screen flex flex-col bg-accent-base/20 items-center">
-					<div className="min-h-screen md:px-5 pt-3 border-x-2 w-fit flex flex-col items-center bg-primary-base">
-						<div className="w-full flex flex-row justify-start p-2 h-20 ">
+					<div className="min-h-screen w-full md:px-5 pt-3 border-x-2 flex flex-col items-center bg-primary-base">
+						<div className="flex flex-row justify-start p-2 h-20 ">
 							<button
 								onClick={() => setAuctionFilter("alle")}
 								className={`p-1 text-lg rounded-full px-4 h-max  ${
@@ -77,7 +77,7 @@ function Auctions({ search }: Props) {
 								Alle
 							</button>
 						</div>
-						<div className="flex flex-wrap gap-10 md:flex-col w-full justify-center h-full pb-20">
+						<div className="flex flex-wrap gap-10 md:flex-col justify-center h-full pb-20">
 							{userAuctionsStatus === "loaded" &&
 								userAuctions
 									.filter((auction, index) => {
@@ -140,10 +140,23 @@ function Auctions({ search }: Props) {
 			)
 		case "loading":
 			return (
-				<div>
-					{[...Array(3)].map((item, index) => (
-						<SkeletonCard key={index} />
-					))}
+				<div className="min-h-screen flex flex-col bg-accent-base/20 items-center">
+					<div className="min-h-screen w-full md:px-5 pt-3 border-x-2 flex flex-col items-center bg-primary-base">
+						<div className="flex flex-row justify-start p-2 h-20 ">
+							<button
+								onClick={() => setAuctionFilter("alle")}
+								className={`p-1 text-lg rounded-full px-4 h-max  ${
+									auctionFilter === "alle" ? "bg-accent-base" : "bg-gray-200"
+								}`}>
+								Alle
+							</button>
+						</div>
+						<div className="flex flex-wrap gap-10 md:flex-col justify-center h-full pb-20">
+							{[...Array(3)].map((item, index) => (
+								<SkeletonCard key={index} />
+							))}
+						</div>
+					</div>
 				</div>
 			)
 		default:

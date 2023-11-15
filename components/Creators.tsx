@@ -82,12 +82,16 @@ function Creators({ search }: Props) {
 									return creator
 								}
 								if (
-									creator.nickName.toLowerCase().includes(search.toLowerCase())
+									creator.nickName
+										?.toLowerCase()
+										.includes(search?.toLowerCase())
 								) {
 									return creator
 								}
 								if (
-									creator.realName.toLowerCase().includes(search.toLowerCase())
+									creator.realName
+										?.toLowerCase()
+										.includes(search?.toLowerCase())
 								) {
 									return creator
 								}

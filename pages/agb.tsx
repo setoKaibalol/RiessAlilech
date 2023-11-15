@@ -4,7 +4,7 @@ type Props = {}
 
 function Agb({}: Props) {
 	return (
-		<div className="flex flex-col pt-24 p-4 gap-4">
+		<div className="flex flex-col py-24 p-4 pl-8 gap-4">
 			<h1 className="text-xl font-bold text-center">
 				Allgemeine Gesch&auml;ftsbedingungen mit Kundeninformationen
 			</h1>
