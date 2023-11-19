@@ -10,7 +10,7 @@ function ContactForm() {
 		if (searchParams.has("subject")) {
 			const subject = searchParams.get("subject")
 			if (subject === "report") {
-				document.getElementById("subject").value = "Meldung von Kontent"
+				document.getElementById("subject").value = "Meldung von Content"
 			} else if (subject === "question") {
 				document.getElementById("subject").value = "Frage"
 			} else if (subject === "complaint") {
@@ -95,7 +95,7 @@ function ContactForm() {
 							required>
 							<option>Frage</option>
 							<option>Beschwerde</option>
-							<option>Meldung von Kontent</option>
+							<option>Meldung von Content</option>
 							<option>Anderes</option>
 						</select>
 					</div>
