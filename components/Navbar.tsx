@@ -148,7 +148,7 @@ function Navbar({}: Props) {
 			{showMobileMenu && (
 				<div className="fixed inset-0 w-full z-20 full-height">
 					<div className="z-20 w-[60%] full-height pt-10 flex flex-col border-l bg-primary-base animate-in slide-in-from-right-96 absolute right-0 top-0">
-						<div className="flex flex-col gap-14 max-h-[70%] p-4 font-medium text-secondary-base w-full h-full">
+						<div className="flex flex-col gap-14 max-h-[63%] p-4 font-medium text-secondary-base w-full h-full">
 							<div className="flex flex-col">
 								{mobileMenuNavigation.map((item, index) => (
 									<Link
@@ -203,6 +203,13 @@ function Navbar({}: Props) {
 								href="/18USC-compliance-notice"
 								target="_blank">
 								18 U.S.C. SECTION 2257 COMPLIANCE NOTICE
+							</Link>{" "}
+							•{" "}
+							<Link
+								className="px-2"
+								href="/notice-regarding-intellectual-property-infringement"
+								target="_blank">
+								notice regarding intellectual property infringement
 							</Link>{" "}
 						</div>
 					</div>

@@ -29,12 +29,16 @@ function Footer({}: Props) {
 			name: "18 U.S.C. SECTION 2257 COMPLIANCE NOTICE",
 			href: "/18USC-compliance-notice",
 		},
+		{
+			name: "Notice Regarding Intellectual Property Infringement",
+			href: "/notice-regarding-intellectual-property-infringement",
+		},
 	]
 
 	return pathname != "/dashboard" ? (
 		<div className="bg-primary-base h-auto w-full font-primary hidden sm:flex relative overflow-hidden ">
 			<div className="w-full py-4 h-full flex md:flex-row flex-col items-center md:items-center md:justify-between bg-secondary border-t-secondary-base border-t">
-				<div className="flex md:flex-row items-center md:w-[30%] h-full">
+				<div className="flex md:flex-row items-center md:w-[40%] h-full">
 					<div className="w-1/3 h-full flex justify-center items-center">
 						<Image
 							src="/media/logo/t4u_logo.png"
@@ -46,7 +50,7 @@ function Footer({}: Props) {
 						Tip on Desire. Connect with Passion.
 					</div>
 				</div>
-				<div className="flex flex-row items-center justify-center w-[68%] h-full">
+				<div className="flex flex-row items-center justify-center w-[60%] h-full">
 					<div className="w-1/5 z-20 relative flex flex-col gap-y-1">
 						{FooterNav1.map((item, index) => (
 							<Link
