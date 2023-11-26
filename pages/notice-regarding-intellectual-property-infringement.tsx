@@ -26,10 +26,10 @@ function NoticeRegardingINtellectualPropertyInfingement({}: Props) {
 				DMCA notice, we will act expeditiously to remove or disable access to
 				the allegedly infringing content. Please note that any misrepresentation
 				of material facts in a written infringement claim may result in
-				significant civil penalties. Das ist das "Add to the website the
+				significant civil penalties. Das ist das &quot;Add to the website the
 				statement concerning infringement of the intellectual property (such as
-				DMCA)" Nenn Statement of concerning infringement Nenn es einfach
-				"Statement of concerning infringement
+				DMCA)&quot; Nenn Statement of concerning infringement Nenn es einfach
+				&quot;Statement of concerning infringement
 			</div>
 		</div>
 	)
