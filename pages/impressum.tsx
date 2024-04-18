@@ -14,11 +14,11 @@ function Impressum({}: Props) {
 						<strong>Angaben gem&auml;&szlig; &sect; 5 TMG</strong>
 					</h2>
 					<p>
-						Rie&szlig; - Alilech GbR
+						Hidden Pleasures Agency Ltd.
 						<br />
-						Saseler Stra&szlig;e 163
+						Costa Karnavallou 7
 						<br />
-						22145 Hamburg
+						8250 Empa - Cyprus
 					</p>
 				</div>
 				<div>
@@ -33,17 +33,6 @@ function Impressum({}: Props) {
 						Telefon: +49 176 55556033
 						<br />
 						E-Mail: y.alilech@tipforyou.de
-					</p>
-				</div>
-				<div>
-					<h2>
-						<strong>Umsatzsteuer-ID</strong>
-					</h2>
-					<p>
-						Umsatzsteuer-Identifikationsnummer gem&auml;&szlig; &sect; 27 a
-						Umsatzsteuergesetz:
-						<br />
-						DE999999999
 					</p>
 				</div>
 				<div>
